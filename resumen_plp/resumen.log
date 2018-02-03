@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.2.2)  2 FEB 2018 21:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2018.2.2)  2 FEB 2018 21:19
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**TPEG.tex
-(./TPEG.tex
+**resumen.tex
+(./resumen.tex
 LaTeX2e <2016/02/01>
 Babel <3.9q> and hyphenation patterns for 6 language(s) loaded.
 (/usr/share/texlive/texmf-dist/tex/latex/base/article.cls
@@ -574,16 +574,16 @@ Package: ifplatform 2010/10/22 v0.4 Testing for the operating system
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/catchfile.sty
 Package: catchfile 2011/03/01 v1.6 Catch the contents of a file (HO)
 )
-runsystem(uname -s > "TPEG.w18")...executed.
+runsystem(uname -s > "resumen.w18")...executed.
 
- (./TPEG.w18)
-runsystem(rm -- "TPEG.w18")...executed.
+
+(./resumen.w18)
+runsystem(rm -- "resumen.w18")...executed.
 
 ) (/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count118
-)
-(/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
+) (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.sty
 (/usr/share/texlive/texmf-dist/tex/generic/xstring/xstring.tex
 \@xs@message=\write4
 \integerpart=\count119
@@ -624,10 +624,10 @@ LaTeX Info: Redefining \\ on input line 3056.
 \@float@every@listing=\toks26
 \c@listing=\count130
 )
-runsystem(mkdir -p "_minted-TPEG")...executed.
+runsystem(mkdir -p "_minted-resumen")...executed.
 
 
-(./_minted-TPEG/default.pygstyle)
+(./_minted-resumen/default.pygstyle)
 (/usr/share/texlive/texmf-dist/tex/latex/a4wide/a4wide.sty
 Package: a4wide 1994/08/30
 
@@ -651,15 +651,15 @@ Package: appendix 2009/09/02 v1.2b extra appendix facilities
 \f@ncyO@olf=\skip57
 \f@ncyO@orf=\skip58
 ))
-runsystem(which "pygmentize" && touch "TPEG.aex")...executed.
+runsystem(which "pygmentize" && touch "resumen.aex")...executed.
 
-runsystem(rm "TPEG.aex")...executed.
+runsystem(rm "resumen.aex")...executed.
 
- (./TPEG.aux
+ (./resumen.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
-\openout1 = `TPEG.aux'.
+\openout1 = `resumen.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
@@ -677,8 +677,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
 \AtBeginShipoutBox=\box35
 Package hyperref Info: Link coloring OFF on input line 21.
-
-(/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
+ (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
@@ -690,9 +689,9 @@ LaTeX Info: Redefining \ref on input line 21.
 LaTeX Info: Redefining \pageref on input line 21.
 LaTeX Info: Redefining \nameref on input line 21.
 
-(./TPEG.out) (./TPEG.out)
+(./resumen.out) (./resumen.out)
 \@outlinefile=\write6
-\openout6 = `TPEG.out'.
+\openout6 = `resumen.out'.
 
 LaTeX Info: Redefining \. on input line 21.
 LaTeX Info: Redefining \% on input line 21.
@@ -732,12 +731,12 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
-) (./_minted-TPEG/default-pyg-prefix.pygstyle) (./TPEG.toc
+) (./_minted-resumen/default-pyg-prefix.pygstyle) (./resumen.toc
 LaTeX Info: Redefining \. on input line 1.
 LaTeX Info: Redefining \% on input line 1.
 )
 \tf@toc=\write7
-\openout7 = `TPEG.toc'.
+\openout7 = `resumen.toc'.
 
  [1
 
@@ -753,205 +752,198 @@ l.81
 LaTeX Info: Redefining \. on input line 98.
 LaTeX Info: Redefining \% on input line 98.
  [2]
-\openout5 = `TPEG.pyg'.
+\openout5 = `resumen.pyg'.
 
 
-(./_minted-TPEG/5CA60006E9B4C1D2AD7007C66D15122A816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex
+(./_minted-resumen/5CA60006E9B4C1D2AD7007C66D15122A9DF00269F48A09B49C59296B4776
+49B6.pygtex
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 2.
 )
 LaTeX Info: Redefining \. on input line 146.
 LaTeX Info: Redefining \% on input line 146.
  [3]
-\openout3 = `TPEG.pyg'.
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/72C881FE912D8C12A4EB736AA1B835D3816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/72C881FE912D8C12A4EB736AA1B835D39DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/6C06D0700F4CC0B4C0E3D1C9EEEA8FB5816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
+(./_minted-resumen/6C06D0700F4CC0B4C0E3D1C9EEEA8FB59DF00269F48A09B49C59296B4776
+49B6.pygtex)
 LaTeX Info: Redefining \. on input line 194.
 LaTeX Info: Redefining \% on input line 194.
  [4]
 LaTeX Info: Redefining \. on input line 244.
 LaTeX Info: Redefining \% on input line 244.
  [5]
-\openout3 = `TPEG.pyg'.
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/EEFD518942A3C952359BD6B7150EAEEA816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/EEFD518942A3C952359BD6B7150EAEEA9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/FF01DACD731CE1EEC1DC32CF4938D98B816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/FF01DACD731CE1EEC1DC32CF4938D98B9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/9C8974591B84B6E0E46EF8FB405AE1AB816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
+(./_minted-resumen/9C8974591B84B6E0E46EF8FB405AE1AB9DF00269F48A09B49C59296B4776
+49B6.pygtex)
 LaTeX Info: Redefining \. on input line 296.
 LaTeX Info: Redefining \% on input line 296.
  [6]
-\openout3 = `TPEG.pyg'.
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/8F87ECD385A5E8F4696FD9DAB969C67B816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/8F87ECD385A5E8F4696FD9DAB969C67B9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/B62C87C314BD1236769A9FAFB4DB4E8F816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/B62C87C314BD1236769A9FAFB4DB4E8F9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/237594576E23A23EFCD4CEDCE97C67E8816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/237594576E23A23EFCD4CEDCE97C67E89DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/19CED143E0AE3EE898606C4892F521F3816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/19CED143E0AE3EE898606C4892F521F39DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/F20E2ED035F572D5AAAB77E0043B4B5C816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/F20E2ED035F572D5AAAB77E0043B4B5C9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/CC7A1FED6C2AF4550C6459F76882B544816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
+(./_minted-resumen/CC7A1FED6C2AF4550C6459F76882B5449DF00269F48A09B49C59296B4776
+49B6.pygtex)
 LaTeX Info: Redefining \. on input line 372.
 LaTeX Info: Redefining \% on input line 372.
  [7]
-\openout3 = `TPEG.pyg'.
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/7CB0C1769B1506CD54EE99A0DE94AD6A816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/7CB0C1769B1506CD54EE99A0DE94AD6A9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/A2FFF3D5215B80DCD9BD5184C1499820816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/A2FFF3D5215B80DCD9BD5184C14998209DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/E8290F44F68F6A20DF787946B2465D51816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/E8290F44F68F6A20DF787946B2465D519DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/385B93E70A9554E54BAB64DA43D7FA48816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/385B93E70A9554E54BAB64DA43D7FA489DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/AE80FD156A5EAC5A37558AFDD6D93ACB816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
+(./_minted-resumen/AE80FD156A5EAC5A37558AFDD6D93ACB9DF00269F48A09B49C59296B4776
+49B6.pygtex)
 LaTeX Info: Redefining \. on input line 447.
 LaTeX Info: Redefining \% on input line 447.
  [8]
-\openout3 = `TPEG.pyg'.
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/CDDC66F059186EEEF2078881E714243B816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
-
-runsystem(pygmentize -l haskell -f latex -P commandprefix=PYG -F tokenmerge -o 
-"_minted-TPEG/79A296FCC8A11D79A69B6E22E6A894ED816E3EEE2194414E91B9B4DA77D45ACB.
-pygtex" "TPEG.pyg" )...executed.
+(./_minted-resumen/CDDC66F059186EEEF2078881E714243B9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/79A296FCC8A11D79A69B6E22E6A894ED816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/79A296FCC8A11D79A69B6E22E6A894ED9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/89FA5D7BA892614BDB55ED95CDCC43DD816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
+(./_minted-resumen/89FA5D7BA892614BDB55ED95CDCC43DD9DF00269F48A09B49C59296B4776
+49B6.pygtex)
 LaTeX Info: Redefining \. on input line 509.
 LaTeX Info: Redefining \% on input line 509.
  [9]
-\openout3 = `TPEG.pyg'.
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/7E000B580A263450D16E1EACCB22AF95816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/7E000B580A263450D16E1EACCB22AF959DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/7B5C1BAB9BFA616A99354342B6DF6C28816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/7B5C1BAB9BFA616A99354342B6DF6C289DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/6D08C20AA3BED9C17AB0FD4944925515816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/6D08C20AA3BED9C17AB0FD49449255159DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/427BBC339C47868630DC8DCDE8DDFD3D816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/427BBC339C47868630DC8DCDE8DDFD3D9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/E085578C35B7ABFA450796520F7A67CC816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/E085578C35B7ABFA450796520F7A67CC9DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/D5B69BDCB1D8C7A74944D956B24C2AE8816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-\openout3 = `TPEG.pyg'.
+(./_minted-resumen/D5B69BDCB1D8C7A74944D956B24C2AE89DF00269F48A09B49C59296B4776
+49B6.pygtex)
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/7E53175B2F469C4611D9910F49064C1B816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
+(./_minted-resumen/7E53175B2F469C4611D9910F49064C1B9DF00269F48A09B49C59296B4776
+49B6.pygtex)
 LaTeX Info: Redefining \. on input line 590.
 LaTeX Info: Redefining \% on input line 590.
  [10]
-\openout3 = `TPEG.pyg'.
+\openout3 = `resumen.pyg'.
 
 
-(./_minted-TPEG/3785DB41922B36811572CF967B6E6160816E3EEE2194414E91B9B4DA77D45AC
-B.pygtex)
-runsystem(rm "_minted-TPEG/7252BCCD29354A1FED913F591AB1B100816E3EEE2194414E91B9
-B4DA77D45ACB.pygtex")...executed.
-
-runsystem(rm "TPEG.pyg")...executed.
+(./_minted-resumen/3785DB41922B36811572CF967B6E61609DF00269F48A09B49C59296B4776
+49B6.pygtex)
+runsystem(rm "resumen.pyg")...executed.
 
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 611.
 LaTeX Info: Redefining \. on input line 611.
 LaTeX Info: Redefining \% on input line 611.
  [11]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 611.
- (./TPEG.aux
+ (./resumen.aux
 LaTeX Info: Redefining \. on input line 23.
 LaTeX Info: Redefining \% on input line 23.
 )
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 611.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 611.
-Package rerunfilecheck Info: File `TPEG.out' has not changed.
+Package rerunfilecheck Info: File `resumen.out' has not changed.
 (rerunfilecheck)             Checksum: 10D953D6FABD4B7CEDEAB2C009B8314B;2338.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 611.
  ) 
 Here is how much of TeX's memory you used:
- 9842 strings out of 494891
- 155148 string characters out of 6179040
- 286252 words of memory out of 5000000
+ 9841 strings out of 494891
+ 155318 string characters out of 6179040
+ 286306 words of memory out of 5000000
  12829 multiletter control sequences out of 15000+600000
  10172 words of font info for 38 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
- 33i,13n,43p,974b,593s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 33i,13n,43p,977b,593s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/share/tex
@@ -966,7 +958,7 @@ r9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 ></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on TPEG.pdf (12 pages, 212229 bytes).
+Output written on resumen.pdf (12 pages, 212229 bytes).
 PDF statistics:
  352 PDF objects out of 1000 (max. 8388607)
  319 compressed objects within 4 object streams
