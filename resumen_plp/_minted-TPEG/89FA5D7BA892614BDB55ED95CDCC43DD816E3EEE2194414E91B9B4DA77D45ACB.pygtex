@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{l+m+mi}{1}               \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Int          Enteros}
+\PYG{l+s+sc}{\PYGZsq{}a\PYGZsq{}}             \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Char         Carácteres}
+\PYG{l+m+mf}{1.2}             \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Float        Números de punto flotante}
+\PYG{k+kt}{True}            \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Bool         Booleanos}
+\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}         \PYG{c+c1}{\PYGZhy{}\PYGZhy{} [Int]        Listas}
+\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{k+kt}{True}\PYG{p}{)}       \PYG{c+c1}{\PYGZhy{}\PYGZhy{} (Int, Bool)  Tuplas, pares}
+\PYG{n+nf}{length}          \PYG{c+c1}{\PYGZhy{}\PYGZhy{} [a] \PYGZhy{}\PYGZgt{} Int   Funciones}
+\PYG{n+nf}{length} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{2}\PYG{p}{,}\PYG{l+m+mi}{3}\PYG{p}{]}  \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Int          Expresiones}
+\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{x}         \PYG{c+c1}{\PYGZhy{}\PYGZhy{} a \PYGZhy{}\PYGZgt{} a       Funciones anónimas}
+\end{Verbatim}

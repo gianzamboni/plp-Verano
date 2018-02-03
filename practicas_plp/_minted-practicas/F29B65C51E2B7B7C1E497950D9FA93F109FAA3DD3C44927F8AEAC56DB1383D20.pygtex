@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{inverso} \PYG{o+ow}{::} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Maybe} \PYG{k+kt}{Float}
+\PYG{n+nf}{inverso} \PYG{l+m+mi}{0} \PYG{o+ow}{=} \PYG{k+kt}{Nothing}
+\PYG{n+nf}{inverso} \PYG{n}{x} \PYG{o+ow}{=} \PYG{k+kt}{Just} \PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{x}\PYG{p}{)}
+
+\PYG{n+nf}{aEntero} \PYG{o+ow}{::} \PYG{k+kt}{Either} \PYG{k+kt}{Int} \PYG{k+kt}{Bool} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int}
+\PYG{n+nf}{aEntero} \PYG{p}{(}\PYG{k+kt}{Left} \PYG{n}{x}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{x}
+\PYG{n+nf}{aEntero} \PYG{p}{(}\PYG{k+kt}{Right} \PYG{n}{x}\PYG{p}{)} \PYG{o}{|} \PYG{n}{x} \PYG{o}{==} \PYG{k+kt}{True} \PYG{o+ow}{=} \PYG{l+m+mi}{1}
+                  \PYG{o}{|} \PYG{n}{otherwise} \PYG{o+ow}{=} \PYG{l+m+mi}{0}
+\end{Verbatim}

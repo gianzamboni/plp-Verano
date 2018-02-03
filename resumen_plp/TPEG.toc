@@ -1,0 +1,83 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{1}{section.1}
+\contentsline {paragraph}{Paradigma}{1}{section*.2}
+\contentsline {paragraph}{Lenguaje de programaci\IeC {\'o}n}{1}{section*.3}
+\contentsline {paragraph}{Paradigma de lenguaje de programaci\IeC {\'o}n}{1}{section*.4}
+\contentsline {subsection}{\numberline {1.1}Aspectos del lenguaje}{1}{subsection.1.1}
+\contentsline {paragraph}{Sintaxis}{1}{section*.5}
+\contentsline {subsubsection}{\numberline {1.1.1}Sem\IeC {\'a}ntica}{1}{subsubsection.1.1.1}
+\contentsline {paragraph}{Sem\IeC {\'a}ntica operacional}{1}{section*.6}
+\contentsline {paragraph}{Sem\IeC {\'a}ntica axiom\IeC {\'a}tica}{1}{section*.7}
+\contentsline {paragraph}{Sem\IeC {\'a}ntica denotacional}{1}{section*.8}
+\contentsline {paragraph}{Sistema de tipo}{1}{section*.9}
+\contentsline {subsection}{\numberline {1.2}Paradigmas}{1}{subsection.1.2}
+\contentsline {subsubsection}{\numberline {1.2.1}Paradigma Imperativo}{1}{subsubsection.1.2.1}
+\contentsline {paragraph}{Estado global}{1}{section*.10}
+\contentsline {paragraph}{Asignaci\IeC {\'o}n}{1}{section*.11}
+\contentsline {paragraph}{Control de flujo}{2}{section*.12}
+\contentsline {subsubsection}{\numberline {1.2.2}Paradigma Funcional}{2}{subsubsection.1.2.2}
+\contentsline {subsubsection}{\numberline {1.2.3}Paradigma L\IeC {\'o}gico}{2}{subsubsection.1.2.3}
+\contentsline {subsubsection}{\numberline {1.2.4}Paradigma Orientado a Objetos}{2}{subsubsection.1.2.4}
+\contentsline {section}{\numberline {2}Paradigma Funcional}{3}{section.2}
+\contentsline {paragraph}{Valor}{3}{section*.13}
+\contentsline {paragraph}{Expresi\IeC {\'o}n}{3}{section*.14}
+\contentsline {paragraph}{Transparencia referencial}{3}{section*.15}
+\contentsline {subsection}{\numberline {2.1}Tipos}{3}{subsection.2.1}
+\contentsline {subsubsection}{\numberline {2.1.1}Notaci\IeC {\'o}n}{3}{subsubsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.2}Propiedades deseables de un lenguaje funcional}{3}{subsubsection.2.1.2}
+\contentsline {paragraph}{Inferencia de tipos}{3}{section*.16}
+\contentsline {paragraph}{Chequeo de tipos}{3}{section*.17}
+\contentsline {subsection}{\numberline {2.2}Tipo Funci\IeC {\'o}n}{4}{subsection.2.2}
+\contentsline {paragraph}{Funciones}{4}{section*.18}
+\contentsline {paragraph}{Funciones de alto orden}{4}{section*.19}
+\contentsline {paragraph}{Lenguaje Funcional Puro}{4}{section*.20}
+\contentsline {paragraph}{Polimorfismo param\IeC {\'e}trico}{4}{section*.21}
+\contentsline {subsubsection}{\numberline {2.2.1}Evaluaci\IeC {\'o}n}{4}{subsubsection.2.2.1}
+\contentsline {paragraph}{Evaluaci\IeC {\'o}n Estricta}{4}{section*.22}
+\contentsline {paragraph}{Evaluaci\IeC {\'o}n no Estricta}{4}{section*.23}
+\contentsline {paragraph}{Currificaci\IeC {\'o}n}{4}{section*.24}
+\contentsline {paragraph}{Evaluaci\IeC {\'o}n parcial}{4}{section*.25}
+\contentsline {subsection}{\numberline {2.3}Inducci\IeC {\'o}n/Recursion}{5}{subsection.2.3}
+\contentsline {paragraph}{Principio de extensionalidad:}{5}{section*.26}
+\contentsline {subsubsection}{\numberline {2.3.1}Inducci\IeC {\'o}n estructural}{5}{subsubsection.2.3.1}
+\contentsline {subsubsection}{\numberline {2.3.2}Funciones recursivas}{5}{subsubsection.2.3.2}
+\contentsline {subsubsection}{\numberline {2.3.3}Principio de inducci\IeC {\'o}n}{5}{subsubsection.2.3.3}
+\contentsline {subsection}{\numberline {2.4}Parametrizaci\IeC {\'o}n}{5}{subsection.2.4}
+\contentsline {paragraph}{Esquema de funciones}{5}{section*.27}
+\contentsline {subsection}{\numberline {2.5}Tipos algebraicos}{5}{subsection.2.5}
+\contentsline {subsubsection}{\numberline {2.5.1}Definici\IeC {\'o}n de tipos}{5}{subsubsection.2.5.1}
+\contentsline {subsubsection}{\numberline {2.5.2}Tipos algebraicos en Haskell}{6}{subsubsection.2.5.2}
+\contentsline {subsubsection}{\numberline {2.5.3}Pattern Matching}{6}{subsubsection.2.5.3}
+\contentsline {subsubsection}{\numberline {2.5.4}Tipos especiales}{6}{subsubsection.2.5.4}
+\contentsline {paragraph}{Tupla}{6}{section*.28}
+\contentsline {paragraph}{Maybe}{6}{section*.29}
+\contentsline {paragraph}{Either}{6}{section*.30}
+\contentsline {subsubsection}{\numberline {2.5.5}Expresividad}{6}{subsubsection.2.5.5}
+\contentsline {subsubsection}{\numberline {2.5.6}Clases de tipos algebraicos}{7}{subsubsection.2.5.6}
+\contentsline {paragraph}{Enumerativos}{7}{section*.31}
+\contentsline {paragraph}{Productos}{7}{section*.32}
+\contentsline {paragraph}{Sumas}{7}{section*.33}
+\contentsline {paragraph}{Recursivos}{7}{section*.34}
+\contentsline {subsection}{\numberline {2.6}Tipos algebraicos recursivos}{7}{subsection.2.6}
+\contentsline {paragraph}{Enteros}{7}{section*.35}
+\contentsline {paragraph}{Listas}{7}{section*.36}
+\contentsline {paragraph}{\IeC {\'A}rboles}{7}{section*.37}
+\contentsline {subsection}{\numberline {2.7}Esquemas de recursi\IeC {\'o}n}{7}{subsection.2.7}
+\contentsline {paragraph}{Map}{7}{section*.38}
+\contentsline {paragraph}{Filter}{8}{section*.39}
+\contentsline {paragraph}{Fold}{8}{section*.40}
+\contentsline {paragraph}{Recursi\IeC {\'o}n primitiva}{8}{section*.41}
+\contentsline {paragraph}{Divide \& Conquer}{9}{section*.42}
+\contentsline {paragraph}{Otros esquemas de recursi\IeC {\'o}n}{9}{section*.43}
+\contentsline {subsubsection}{\numberline {2.7.1}La funci\IeC {\'o}n fold y como definirla}{9}{subsubsection.2.7.1}
+\contentsline {section}{\numberline {A}Programaci\IeC {\'o}n funcional en Haskell}{10}{appendix.Alph1}
+\contentsline {paragraph}{Tipos elementales}{10}{section*.44}
+\contentsline {paragraph}{Guardas}{10}{section*.45}
+\contentsline {paragraph}{Patter Matching}{10}{section*.46}
+\contentsline {paragraph}{Polimorfismo par\IeC {\'a}metrico}{10}{section*.47}
+\contentsline {paragraph}{Clases de tipo}{10}{section*.48}
+\contentsline {paragraph}{Definici\IeC {\'o}n de listas}{10}{section*.49}
+\contentsline {paragraph}{Funciones de alto orden}{10}{section*.50}
+\contentsline {subsection}{\numberline {A.1}Otros tipos \IeC {\'u}tiles}{11}{subsection.Alph1.1}
+\contentsline {paragraph}{Formula}{11}{section*.51}
+\contentsline {paragraph}{Rosetree}{11}{section*.52}

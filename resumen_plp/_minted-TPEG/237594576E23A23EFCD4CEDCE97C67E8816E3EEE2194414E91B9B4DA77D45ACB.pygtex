@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data} \PYG{k+kt}{Arbol} \PYG{n}{a} \PYG{o+ow}{=} \PYG{k+kt}{Hoja} \PYG{n}{a} \PYG{o}{|} \PYG{k+kt}{Nodo} \PYG{n}{a} \PYG{p}{(}\PYG{k+kt}{Arbol} \PYG{n}{a}\PYG{p}{)} \PYG{p}{(}\PYG{k+kt}{Arbol} \PYG{n}{a}\PYG{p}{)}
+\end{Verbatim}

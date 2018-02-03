@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{divideConquerListas} \PYG{o+ow}{::} \PYG{k+kt}{DivideConquer} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{n}{b}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Esto significa que DivideConquerLista es de tipo}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} ([a] \PYGZhy{}\PYGZgt{} Bool) \PYGZhy{}\PYGZgt{} ([a] \PYGZhy{}\PYGZgt{} b) \PYGZhy{}\PYGZgt{} ([a] \PYGZhy{}\PYGZgt{} [[a]]) \PYGZhy{}\PYGZgt{} ([b] \PYGZhy{}\PYGZgt{} b)}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} \PYGZhy{}\PYGZgt{} [a] \PYGZhy{}\PYGZgt{} b}
+
+\PYG{n+nf}{divideConquerListas} \PYG{n}{esTrivial} \PYG{n}{resolver} \PYG{n}{repartir} \PYG{n}{combinar} \PYG{n}{l} \PYG{o+ow}{=}
+	\PYG{k+kr}{if} \PYG{p}{(}\PYG{n}{esTrivial} \PYG{n}{l}\PYG{p}{)} \PYG{k+kr}{then} \PYG{n}{resolver} \PYG{n}{l}
+	\PYG{k+kr}{else} \PYG{n}{combinar} \PYG{p}{(}\PYG{n}{map} \PYG{n}{dc} \PYG{p}{(}\PYG{n}{repartir} \PYG{n}{l}\PYG{p}{))}
+\PYG{k+kr}{where} \PYG{n}{dc} \PYG{o+ow}{=} \PYG{n}{divideConquerListas} \PYG{n}{esTrivial} \PYG{n}{resolver} \PYG{n}{repartir} \PYG{n}{combinar}
+\end{Verbatim}
