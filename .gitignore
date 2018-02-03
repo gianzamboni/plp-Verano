@@ -1,0 +1,7 @@
+resumen_plp/_minted-resumen
+practicas_plp/_minted-practicas
+*.log
+*.aux
+*.out
+*.gz
+*.toc

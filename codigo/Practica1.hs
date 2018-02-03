@@ -1,3 +1,6 @@
+module Practica1 where
+
+import Practica0
 -- Ejercicio 1 --
 -- La función subtract ya esta definida en Prelude
 max2 :: Float -> Float -> Float
@@ -30,3 +33,11 @@ ejercicio2 = [ x | x <- [1..3], y <- [x..3], ( x + y ) `mod` 3 == 0 ]
 -- Ejercicio 3 --
 pitagoricas :: [(Integer, Integer, Integer)]
 pitagoricas =  [ (a, b, c) | c <- [1..], b <-[1..c], a <- [1..c], a^2 + b^2 == c^2]
+
+-- Ejercicio 4 --
+primerosPrimos :: Int -> [Int]
+primerosPrimos n = take n [ x | x <- [2..], esPrimo x ]
+
+-- Ejercicio 5 --
+partir :: [ a ] -> [ ( [ a ], [ a ] ) ]
+partir l = [ ( take i l, drop i l ) | i <- [ 0.. ( length l ) ] ]

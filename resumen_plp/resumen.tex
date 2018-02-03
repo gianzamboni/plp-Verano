@@ -241,7 +241,7 @@ Hay dos formas de definir un tipo de dato:
 \subsubsection{Tipos algebraicos en Haskell}
 Los definimos mediante \textbf{constantes} llamadas \textit{constructores} cuyos nombres comienzan con mayúscula. Los constructores no tienen asociada una regla de reducción y pueden tener argumentos.
 
-Para implementarlos en Haskell, usamos la clausula \texttt{data} que introduce un nuevo tipo algebraico, los nombres su constructores y sus argumentos.
+Para implementarlos en Haskell, usamos la clausula \texttt{data} que introduce un nuevo tipo algebraico, los nombres de su constructores y sus argumentos.
 
 \textbf{Ejemplos:}
 \begin{centrado}
@@ -443,7 +443,8 @@ insert x = recr [x] (\y ys zs -> if x<y then (x:y:ys) else (y:zs))
 En el segundo caso, insert es una función que agrega el elemento \texttt{x} a una lista \texttt{xs} que se le pase como parámetro.
 
 \paragraph{Divide \& Conquer}
-La clásica técnica algorítmica recursiva definida de manera funcional; En este caso, DivideConquer es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un elemento de tipo \texttt{b}:
+La técnica de Divide \& Conquer consiste en dividir un problema en problemas más fáciles de resolver y luego, combinando los resultados parciales, lograr
+obtener un resultado general. En este caso, DivideConquer es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un elemento de tipo \texttt{b}:
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
 type DivideConquer a b  = (a -> Bool) -> (a -> b) -> (a -> [a]) -> 

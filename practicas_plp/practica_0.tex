@@ -43,7 +43,7 @@ elem :: (Eq a, Foldable t) => a -> t a -> Bool
 \subsection{Ejercicio 2}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
-valorAbsoluto :: Float -> Float
+valorAbsoluto :: Float -> Float	-- La función abs de Prelude ya hace esto
 valorAbsoluto x | x < 0     = -x
                 | otherwise =  x
 
@@ -55,9 +55,14 @@ factorial 1 = 1
 factorial x = x * factorial (x-1)
 
 cantDivisoresPrimos :: Int -> Int
-cantDivisoresPrimos x = 
-    length (filter (\x -> length (divisores x) == 2) (divisores x))
-        where divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
+cantDivisoresPrimos x = length (filter esPrimo (divisores x))
+
+esPrimo :: Int -> Bool
+esPrimo x = length (divisores x) == 2
+
+divisores :: Int -> [Int]
+divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
+
 \end{minted}
 \end{centrado}
 
@@ -76,7 +81,7 @@ aEntero (Right x) | x == True = 1
 \end{centrado}
 
 \subsection{Ejercicio 4}
-\begin{centrado}
+\begin{centrado}\
 \begin{minted}[breaklines]{haskell}
 limpiar :: String -> String -> String
 limpiar xs ys = [ y | y <- ys, not(elem y xs) ]

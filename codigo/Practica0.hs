@@ -2,6 +2,14 @@ module Practica0 where
 
 import Data.List
 
+-- AUXILIARES --
+
+divisores :: Int -> [Int]
+divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
+
+esPrimo :: Int -> Bool
+esPrimo x = length (divisores x) == 2
+
 -- Ejercicio 2 --
 valorAbsoluto :: Float -> Float
 valorAbsoluto x | x < 0     = -x
@@ -15,8 +23,8 @@ factorial 1 = 1
 factorial x = x * factorial (x-1)
 
 cantDivisoresPrimos :: Int -> Int
-cantDivisoresPrimos x = length (filter (\x -> length (divisores x) == 2) (divisores x))
-    where divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
+cantDivisoresPrimos x = length (filter esPrimo (divisores x))
+   
 
 -- Ejercicio 3 --
 inverso :: Float -> Maybe Float

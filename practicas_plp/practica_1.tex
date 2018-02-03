@@ -2,7 +2,7 @@
 \subsection{Ejercicio 1}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
-max2 ::(Float, Float) -> Float
+max2 ::(Float, Float) -> Float	-- La función max de Prelude ya hace esto
 max2 (x, y) | x >= y = x        
             | otherwise = y
 
@@ -18,10 +18,10 @@ normaVectorial (x, y) = sqrt (x^2 + y^2)
 normaVectorial :: Float -> Float -> Float
 normaVectorial x y = sqrt (x^2 + y^2)
 
-subtract :: Float -> Float -> Float
+subtract :: Float -> Float -> Float  -- Ya esta definida en Prelude
 subtract = flip (-)
 
-predecesor :: Float -> Float
+predecesor :: Float -> Float  -- La función pred definida en Prelude ya hace esto
 predecesor = subtract 1
 
 evaluarEnCero :: (Float -> b) -> b
@@ -41,7 +41,8 @@ flipRaro = flip flip
 \subsection{Ejercicio 2}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
-[ x | x <- [1..3], y <- [x..3], ( x + y ) `mod` 3 == 0 ] = [ 1, 3 ]
+[ x | x <- [1..3], y <- [x..3], ( x + y ) `mod` 3 == 0 ] 
+  = [ 1, 3 ]
 \end{minted}
 \end{centrado}
 
@@ -49,9 +50,9 @@ flipRaro = flip flip
 \subsection{Ejercicio 3}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
-pitagóricas :: [(Integer, Integer, Integer)]
-pitagóricas = 
-    [(a, b, c) | a <- [1..], b <-[1..], c <- [1..], a^2 + b^2 == c^2]
+pitagoricas :: [(Integer, Integer, Integer)]
+pitagoricas =[(a, b, c) | a <- [1..], b <-[1..], c <- [1..], 
+               a^2 + b^2 == c^2]
 \end{minted}
 \end{centrado}
 
@@ -59,8 +60,31 @@ Esta definición agrega la tupla \texttt{(1,1,1)} a la lista y luego aumenta \te
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
 pitagoricas :: [(Integer, Integer, Integer)]
-pitagoricas = [ (a, b, c)
-            | c <- [1..], b <-[1..c], a <- [1..c], a^2 + b^2 == c^2]
+pitagoricas = [ (a, b, c) | c <- [1..], b <-[1..c], a <- [1..c],
+                 a^2 + b^2 == c^2]
 \end{minted}
 \end{centrado}
 En este caso, para cada número probamos todas las combinaciones de pares \texttt{(a,b)} tales que la suma de sus cuadrados podría llegar a dar \texttt{c}. Como \texttt{a} y \texttt{b} están acotados por \texttt{c}, ya que claramante $\texttt{c}^2 + \texttt{c}^2 > \texttt{c}^2$, la cantidad de pruebas de pares para cada número es finita ($2^c$ pares) y es posible pasar al siguiente número una vez realizados estos chequeos.
+
+
+\subsection{Ejercicio 4}
+\begin{centrado}
+\begin{minted}[breaklines]{haskell}
+primerosPrimos :: Int -> [Int]
+primerosPrimos n = take n [ x | x <- [2..], esPrimo x ]
+\end{minted}
+\end{centrado}
+
+Gracias a la evaluación \textit{lazy}, cuando se encuentran los primeros \texttt{n} primos la función deja de computar la lista de primos.
+
+\subsection{Ejercicio 5}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+partir :: [ a ] -> [ ( [ a ], [ a ] ) ]
+partir l = [ ( take i l, drop i l ) 
+                       | i <- [ 0.. ( length l ) ] ]
+	\end{minted}
+\end{centrado}
+
+
+
