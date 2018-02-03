@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{k+kt}{Eq} \PYG{n}{a}    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Tipos con comparación de igualdad}
-\PYG{k+kt}{Num} \PYG{n}{a}   \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Tipos que se comportan como los números}
-\PYG{k+kt}{Ord} \PYG{n}{a}   \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Tipos orden}
-\PYG{k+kt}{Show} \PYG{n}{a}  \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Tipos que pueden ser representados como strings}
-\end{Verbatim}

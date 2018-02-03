@@ -1,9 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Insert con pattern matching}
-\PYG{n+nf}{insert} \PYG{o+ow}{::} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]}
-\PYG{n+nf}{insert} \PYG{n}{x} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{p}{[}\PYG{n}{x}\PYG{p}{]}
-\PYG{n+nf}{insert} \PYG{n}{x} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{o+ow}{=} \PYG{k+kr}{if} \PYG{n}{x}\PYG{o}{\PYGZlt{}}\PYG{n}{y} \PYG{k+kr}{then} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{k+kr}{else} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{insert} \PYG{n}{x} \PYG{n}{ys}\PYG{p}{)}
-
-\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Insert con recursión primitiva}
-\PYG{n+nf}{insert} \PYG{n}{x} \PYG{o+ow}{=} \PYG{n}{recr} \PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{y} \PYG{n}{ys} \PYG{n}{zs} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kr}{if} \PYG{n}{x}\PYG{o}{\PYGZlt{}}\PYG{n}{y} \PYG{k+kr}{then} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{ys}\PYG{p}{)} \PYG{k+kr}{else} \PYG{p}{(}\PYG{n}{y}\PYG{k+kt}{:}\PYG{n}{zs}\PYG{p}{))}
-\end{Verbatim}
