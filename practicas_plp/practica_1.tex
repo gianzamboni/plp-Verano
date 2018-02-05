@@ -251,6 +251,16 @@ mejorSegun f xs =
 	\end{centrado}
 	
 \subsection{Ejercicio 15}
+	\begin{centrado}
+		\begin{minted}[breaklines,tabsize=2]{haskell}
+			sumaMat :: [[Int]] -> [[Int]] -> [[Int]]
+			sumaMat xss yss = map (\(xs,ys) -> mapDoble (+) xs ys) (armarPares xss yss)
+			
+			trasponer :: [[Int]] -> [[Int]]
+			trasponer xss = foldr1 (\xs rec -> mapDoble (:) xs rex) xss
+		\end{minted}
+	\end{centrado}
+
 \subsection{Ejercicio 16}
 \subsection{Ejercicio 17}
 \subsection{Ejercicio 18}
