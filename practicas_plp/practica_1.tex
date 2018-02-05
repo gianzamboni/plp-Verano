@@ -242,8 +242,8 @@ mejorSegun f xs =
 			armarPares :: [a] -> [b] -> [(a,b)]
 			armarPares xs ys = 
 				if ( (length xs) > (length ys) )
-				then (foldr (\x rec-> \ys -> (x,head ys):(rec (tail ys)) ) (\ys -> []) xs) ys
-				else (foldr (\y rec-> \xs -> (y,head xs):(rec (tail xs)) ) (\xs -> []) ys) xs
+				then ((foldr (\x rec-> \ys -> (x,head ys):(rec (tail ys)) ) (\ys -> []) xs) ys)
+				else ((foldr (\y rec-> \xs -> (y,head xs):(rec (tail xs)) ) (\xs -> []) ys) xs)
 			
 			mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
 			mapDoble f xs ys = mapPares f (armarPares xs ys)
