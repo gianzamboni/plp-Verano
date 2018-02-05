@@ -306,33 +306,42 @@ desdeHasta x z = genLista x (+1) (z-x)
 \end{centrado}
 
 \subsection{Ejercicio 14}
-	\begin{centrado}
-		\begin{minted}[breaklines,tabsize=2]{haskell}
-			mapPares :: (a -> b -> c) -> [(a,b)] -> [c]
-			mapPares f xs = map (\x -> (unCurry f) x ) xs
-			
-			armarPares :: [a] -> [b] -> [(a,b)]
-			armarPares xs ys = 
-				if ( (length xs) > (length ys) )
-				then ((foldr (\x rec-> \ys -> (x,head ys):(rec (tail ys)) ) (\ys -> []) xs) ys)
-				else ((foldr (\y rec-> \xs -> (y,head xs):(rec (tail xs)) ) (\xs -> []) ys) xs)
-			
-			mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
-			mapDoble f xs ys = mapPares f (armarPares xs ys)
-		\end{minted}
-	\end{centrado}
-	
-\subsection{Ejercicio 15}
-	\begin{centrado}
-		\begin{minted}[breaklines,tabsize=2]{haskell}
-			sumaMat :: [[Int]] -> [[Int]] -> [[Int]]
-			sumaMat xss yss = map (\(xs,ys) -> mapDoble (+) xs ys) (armarPares xss yss)
-			
-			trasponer :: [[Int]] -> [[Int]]
-			trasponer xss = foldr1 (\xs rec -> mapDoble (:) xs rex) xss
-		\end{minted}
-	\end{centrado}
+\begin{centrado}
+\begin{minted}[breaklines,tabsize=2]{haskell}
+mapPares :: (a -> b -> c) -> [(a,b)] -> [c]
+mapPares f = map (unCurry f) xs
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=2]{haskell}
+armarPares :: [a] -> [b] -> [(a,b)]
+armarPares xs ys = 
+	if ( (length xs) > (length ys) ) then 
+		((foldr (\x rec-> \ys -> (x,head ys):(rec (tail ys)) ) (\ys -> []) xs) ys)
+	else 
+		((foldr (\y rec-> \xs -> (y,head xs):(rec (tail xs)) ) (\xs -> []) ys) xs)
+	\end{minted}
+\end{centrado}
 
+\begin{centrado}
+\begin{minted}[tabsize=2, breaklines]
+mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
+mapDoble f xs ys = mapPares f (armarPares xs ys)
+\end{minted}
+\end{centrado}
+%
+%	
+%\subsection{Ejercicio 15}
+%	\begin{centrado}
+%		\begin{minted}[breaklines,tabsize=2]{haskell}
+%			sumaMat :: [[Int]] -> [[Int]] -> [[Int]]
+%			sumaMat xss yss = map (\(xs,ys) -> mapDoble (+) xs ys) (armarPares xss yss)
+%			
+%			trasponer :: [[Int]] -> [[Int]]
+%			trasponer xss = foldr1 (\xs rec -> mapDoble (:) xs rex) xss
+%		\end{minted}
+%	\end{centrado}
+%
 \subsection{Ejercicio 16}
 \subsection{Ejercicio 17}
 \subsection{Ejercicio 18}

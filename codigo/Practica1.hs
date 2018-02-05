@@ -254,6 +254,10 @@ recr f z (x:xs) = f x xs (recr f z xs)
 sacarUna :: Eq a => a -> [a] -> [a]
 sacarUna x = recr (\y ys rec -> if (x==y) then ys else y:rec) []
 
+
+
+
+
 -- Ejercicio 13 --
 genLista :: a -> (a -> a) -> Int -> [a]
 genLista x f 0 = [x]
@@ -262,7 +266,28 @@ genLista x f n = x:(genLista (f x) f (n-1))
 desdeHasta :: Int -> Int -> [Int]
 desdeHasta x z = genLista x (+1) (z-x)
 
+
+
+
+
+
 -- Ejercicio 14 --
+mapPares :: (a -> b -> c) -> [(a,b)] -> [c]
+mapPares f = map (uncurry f)
+
+--armarPares :: [a] -> [b] -> [(a,b)]
+--armarPares ys = foldr (\x rec -> foldr (\y _ -> (x,y):rec) []) (\l -> [])
+
+mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
+mapDoble f as bs  = mapPares f (zip as bs)
+
+
+
+
+
+-- Ejercicio 15 --
+sumaMat :: [[Int]] -> [[Int]] -> [[Int]]
+sumaMat = zipWith (id)--(\(fila1,fila2) -> (zipWith (\(x,y) -> x+y) fila1 fila2) )
 
 -- Ejercicio 16 --
 -- stop next
