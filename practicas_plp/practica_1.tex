@@ -230,3 +230,32 @@ mejorSegun f xs =
 	\end{minted}
 \end{centrado}
 
+\subsection{Ejercicio 11}
+\subsection{Ejercicio 12}
+\subsection{Ejercicio 13}
+\subsection{Ejercicio 14}
+	\begin{centrado}
+		\begin{minted}[breaklines,tabsize=2]{haskell}
+			mapPares :: (a -> b -> c) -> [(a,b)] -> [c]
+			mapPares f xs = map (\x -> (unCurry f) x ) xs
+			
+			armarPares :: [a] -> [b] -> [(a,b)]
+			armarPares xs ys = 
+				if ( (length xs) > (length ys) )
+				then (foldr (\x rec-> \ys -> (x,head ys):(rec (tail ys)) ) (\ys -> []) xs) ys
+				else (foldr (\y rec-> \xs -> (y,head xs):(rec (tail xs)) ) (\xs -> []) ys) xs
+			
+			mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
+			mapDoble f xs ys = mapPares f (armarPares xs ys)
+		\end{minted}
+	\end{centrado}
+	
+\subsection{Ejercicio 15}
+\subsection{Ejercicio 16}
+\subsection{Ejercicio 17}
+\subsection{Ejercicio 18}
+\subsection{Ejercicio 19}
+\subsection{Ejercicio 20}
+\subsection{Ejercicio 21}
+\subsection{Ejercicio 22}
+\subsection{Ejercicio 23}
