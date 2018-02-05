@@ -277,12 +277,12 @@ genLista x f n = x:(genLista (f x) f (n-1))
 
 -- Ejercicio 16 --
 -- stop next
--- generate :: ([a] -> Bool) -> ([a] -> a) -> [a]
--- generate stop next = generateFrom stop next []
+generate :: ([a] -> Bool) -> ([a] -> a) -> [a]
+generate stop next = generateFrom stop next []
 
--- generateFrom:: ([a] -> Bool) -> ([a] -> a) -> [a] -> [a]
--- generateFrom stop next xs | stop xs = init xs
---     | otherwise = (generateFrom stop next (xs ++ [next xs]))
+generateFrom:: ([a] -> Bool) -> ([a] -> a) -> [a] -> [a]
+generateFrom stop next xs | stop xs = init xs
+    | otherwise = (generateFrom stop next (xs ++ [next xs]))
 
 generateBase::([a] ->Bool) ->a ->(a ->a) ->[a]
 generateBase stop x next = generate stop (\xs -> if ((length xs) == 0) then x else (next (last xs)) ) 
