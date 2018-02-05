@@ -98,26 +98,26 @@ listasQueSuman n = [n]:( concat
 
 
 \textbf{A preguntar:}
-La función definiida usa recursión explicita. Podemos definir el esquema recursivo \texttt{indcucciónGlobal} y volver a definir listasQueSuman usando este esquema:
-
-\begin{centrado}
-\begin{minted}[breaklines,tabsize=2]{haskell}
-induccionGlobal:: (Int -> Int -> b -> b) -> 
-	(Int -> [b] -> b) -> b -> Int -> b
-induccionGlobal _ _ z 1 = z
-induccionGlobal g f z n = 
-	f n [ g n i ( induccionGlobal g f z i ) | i <- [ 1..(n-1) ] ]
-
-listasQueSumanIG :: Int -> [[Int]]
-listasQueSumanIG n = induccionGlobal
-(\i j -> map ((i-j):) )
-(\x xs -> [x]:(concat xs)) 
-[[1]] n
-\end{minted}	
-\end{centrado}
-
-El esquema \texttt{induccionGlobal} nos permite definir funciones recursivas en las que el resultado de la función depende de todos los casos anteriores, no solo del caso anterios.
-
+%La función definiida usa recursión explicita. Podemos definir el esquema recursivo \texttt{indcucciónGlobal} y volver a definir listasQueSuman usando este esquema:
+%
+%\begin{centrado}
+%\begin{minted}[breaklines,tabsize=2]{haskell}
+%induccionGlobal:: (Int -> Int -> b -> b) -> 
+%	(Int -> [b] -> b) -> b -> Int -> b
+%induccionGlobal _ _ z 1 = z
+%induccionGlobal g f z n = 
+%	f n [ g n i ( induccionGlobal g f z i ) | i <- [ 1..(n-1) ] ]
+%
+%listasQueSumanIG :: Int -> [[Int]]
+%listasQueSumanIG n = induccionGlobal
+%(\i j -> map ((i-j):) )
+%(\x xs -> [x]:(concat xs)) 
+%[[1]] n
+%\end{minted}	
+%\end{centrado}
+%
+%El esquema \texttt{induccionGlobal} nos permite definir funciones recursivas en las que el resultado de la función depende de todos los casos anteriores, no solo del caso anterios.
+%
 \subsection{Ejercicio 7}
 
 \begin{centrado}
@@ -143,9 +143,8 @@ uncurry1 f (a, b) = f a b
 	\end{minted}
 \end{centrado}
 
-\textbf{A preguntar:} No podemos definir una función \texttt{curryN} que tome una función con un número arbitrario de parametros, ya que la cantidad de parámetros de la función currificada depende de la cantidad de parámetros de la función original. Esto significa que \texttt{curryN} debería poder modificar la cantidad de parámetros que toma dependiendo de la función que se le pasa, lo que es imposible.
-
-Otra idea sería tratar de definirla de manera que dada una función vaya remplazando los parámetros de a poco generando, de esta forma, n funciones parciales. Pero esto es imposible ya que la función debe tener la tupla de parámetros completa para poder ser evaluada de cualquier manera.
+\textbf{A preguntar:} %No podemos definir una función \texttt{curryN} que tome una función con un número arbitrario de parametros, ya que la cantidad de parámetros de la función currificada depende de la cantidad de parámetros de la función original. Esto significa que \texttt{curryN} debería poder modificar la cantidad de parámetros que toma dependiendo de la función que se le pasa, lo que es imposible.
+%Otra idea sería tratar de definirla de manera que dada una función vaya remplazando los parámetros de a poco generando, de esta forma, n funciones parciales. Pero esto es imposible ya que la función debe tener la tupla de parámetros completa para poder ser evaluada de cualquier manera.
 
 \subsection{Ejercicio 9}
 \begin{centrado}
@@ -230,9 +229,82 @@ mejorSegun f xs =
 	\end{minted}
 \end{centrado}
 
+\begin{centrado}
+	\begin{minted}[tabsize=2,breaklines]{haskell}
+sumaAlt :: Num a => [a] -> a   -- Preguntar
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[tabsize=2,breaklines]{haskell}
+sumaAlt2 :: Num a => [a] -> a   -- Preguntar
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[tabsize=2,breaklines]{haskell}
+permutaciones :: [a] -> [[a]]
+permutaciones = foldr 
+	(\x rec-> concatMap (agregarEnTodasLasPosiciones x) rec) 
+	[[]] 
+	where agregarEnTodasLasPosiciones j js = 
+		[ (fst h)++[j]++(snd h)| h <- (partir js)]
+	\end{minted}
+\end{centrado}
+
 \subsection{Ejercicio 11}
+
+\begin{centrado}
+	\begin{minted}[tabsize=2,breaklines]{haskell}
+	partes :: [a] -> [[a]]
+	partes = foldr (\x res -> res ++ (map (x:) res)) [[]]
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[tabsize=2,breaklines]{haskell}
+	prefijos :: [a] -> [[a]]
+	prefijos xs = [take i xs | i <- [0..(length xs)]]
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[tabsize=2,breaklines]{haskell}
+	sublistas :: [a] -> [[a]]
+	sublistas xs = [[]] ++ [ take j (drop i xs)  
+		| i<-[0..(length xs)] , j<-[1..(length xs)-i]]
+	\end{minted}
+\end{centrado}
+
+
 \subsection{Ejercicio 12}
+\begin{centrado}
+	\begin{minted}[tabsize=2,breaklines]{haskell}
+sacarUna :: Eq a => a -> [a] -> [a]
+sacarUna x = recr (\y ys rec -> if (x==y) then ys else y:rec) []
+	\end{minted}
+\end{centrado}
+
+\mintinline{haskell}{recr}, nos permite escribir funciones recursivas cuyo paso recursivo no solo dependen del paso anterior, sino que tambien dependen de la cola de la lista. Mientras que \mintinline{haskell}{foldr} es el esquema recursivo de inducción estructural, es decir nos permite definir funciones que solo dependen del caso anterior.
+
+En cuanto a la función \mintinline{haskell}{listasQueSuman} del ejercicio 6, vemos que el valor de esta función depende de todos los casos anteriores, por lo que se hacen tantas llamadas recursivas como casos anteriores halla. Evidentemente, ni \mintinline{haskell}{fold} y ni \mintinline{haskell}{recr} nos dan un mecanismo para hacer esto.
+
 \subsection{Ejercicio 13}
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
+genLista :: a -> (a -> a) -> Int -> [a]
+genLista x f 0 = [x]
+genLista x f n = x:(genLista (f x) f (n-1))
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
+desdeHasta :: Int -> Int -> [Int]
+desdeHasta x z = genLista x (+1) (z-x)
+	\end{minted}
+\end{centrado}
+
 \subsection{Ejercicio 14}
 	\begin{centrado}
 		\begin{minted}[breaklines,tabsize=2]{haskell}

@@ -193,14 +193,14 @@ filterFold p = foldr (\x rec -> if (p x) then x:rec else rec) []
 
 -- II
 mejorSegun :: (a -> a -> Bool) -> [a] -> a
-mejorSegun f xs = foldr1 (\x rec -> if f x rec then x else rec) xs
+mejorSegun f = foldr1 (\x rec -> if f x rec then x else rec)
 
 -- --mejorSegun f [x] = x
 -- --mejorSegun f (x:xs) | f x (mejorSegun f xs) = x
 -- --                    | otherwise = mejorSegun f xs
 
 -- III
-sumaAlt :: Num a => [a] -> a
+sumaAlt :: Num a => [a] -> a   -- Preguntar
 sumaAlt xs = fst 
         (foldr (\x (rec,b) -> if b then (x + rec , False) else  (x - rec, True) ) 
         (0,signo) 
@@ -208,6 +208,7 @@ sumaAlt xs = fst
     where signo = not (((length xs) `mod` 2) == 0)
 -- -- si es par da false => [1,2,3,4] 0 (1+(2-(3+(4-0))))
 
+-- IV
 sumaAlt2 :: Num a => [a] -> a
 sumaAlt2 xs = fst 
         (foldr (\x (rec,b) -> if b then (x + rec , False) else (x - rec, True) ) 
@@ -215,16 +216,19 @@ sumaAlt2 xs = fst
         xs)
     where signo = (((length xs) `mod` 2) == 0)
 
-recTuplas :: (a -> (b,c) -> (b,c)) -> (b,c) -> [a] -> b
-recTuplas f t xs = fst( 
-        foldr (\x rect -> f x rect) 
-        t
-        xs)
+--recTuplas :: (a -> (b,c) -> (b,c)) -> (b,c) -> [a] -> b
+--recTuplas f t xs = fst( 
+--        foldr (\x rect -> f x rect) 
+--        t
+--        xs)
 
+-- V
 permutaciones :: [a] -> [[a]]
---     --                     a  [[a]]     para cada [a]  <- a              [[a]]  [a]
-permutaciones = foldr (\x rec-> concat (map (agregarEnTodasLasPosiciones x) rec) ) [[]] 
+permutaciones = foldr (\x rec-> concatMap (agregarEnTodasLasPosiciones x) rec) [[]] 
     where agregarEnTodasLasPosiciones j js = [ (fst h)++[j]++(snd h)| h <- (partir js)]
+
+
+
 
 
 -- Ejercicio 11 --
@@ -238,6 +242,10 @@ sublistas :: [a] -> [[a]]
 sublistas xs = [[]] ++ [ take j (drop i xs)  | i<-[0..(length xs)] , j<-[1..(length xs)-i]]
 --sublistas xs = [ drop i (take j xs)  | i<-[0..(length xs)] , j<-[i..(length xs)]]
 
+
+
+
+
 -- Ejercicio 12 --
 recr::(a->[a]->b->b)->b->[a]->b
 recr _ z [] = z
@@ -247,33 +255,14 @@ sacarUna :: Eq a => a -> [a] -> [a]
 sacarUna x = recr (\y ys rec -> if (x==y) then ys else y:rec) []
 
 -- Ejercicio 13 --
---foldl :: (b -> a -> b) -> b -> [a] -> b
---foldl f z [] = z
---foldl f z (x : xs) = foldl f (f z x) xs
-
---foldr :: (a -> b -> b) -> b -> [a] -> b
---foldr f z [] = z
---foldr f z (x:xs) = f x (foldr f z xs)
-
---foldNat :: (a -> a -> a) -> a -> a -> a
---foldNat f x 1 = x
---foldNat f x n = f x (foldNat f x (n-1))
-
---genLista :: a -> (a -> a) -> b -> [a]
---genLista x f n = foldNat (\x rec-> [x]++rec) [x] n 
-
 genLista :: a -> (a -> a) -> Int -> [a]
 genLista x f 0 = [x]
 genLista x f n = x:(genLista (f x) f (n-1))
 
+desdeHasta :: Int -> Int -> [Int]
+desdeHasta x z = genLista x (+1) (z-x)
 
-    --(foldr (\x rec-> \i -> if (i>1) then [x]: (rec (f x) ) else f x ) 
-    --(\i->[x]) ) 
-    --n 
---genLista x f n = foldr (\x rec-> (f head(rec)):rec ) [x] [1..n]
-
-     --(map (\i -> xs=xs!!i) [0..(n-1)]) [x]
-
+-- Ejercicio 14 --
 
 -- Ejercicio 16 --
 -- stop next
