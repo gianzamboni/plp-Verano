@@ -2,26 +2,27 @@
 \subsection{Ejercicio 1}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
-max2 ::(Float, Float) -> Float	-- La función max de Prelude ya hace esto
+-- La función max de Prelude ya hace esto
+max2 ::(Float, Float) -> Float
 max2 (x, y) | x >= y = x        
             | otherwise = y
 
--- max2 currificada --
-max2 :: Float -> Float -> Float
-max2 x y | x >= y = x
+max2Currificada :: Float -> Float -> Float
+max2Currificada x y | x >= y = x
          | otherwise = y
 
 normaVectorial :: (Float, Float) -> Float
 normaVectorial (x, y) = sqrt (x^2 + y^2)
 
--- normaVectorial currificada --
 normaVectorial :: Float -> Float -> Float
 normaVectorial x y = sqrt (x^2 + y^2)
 
-subtract :: Float -> Float -> Float  -- Ya esta definida en Prelude
-subtract = flip (-)
+-- subtract ys esta definida en Prelude
+subtract1 :: Float -> Float -> Float  
+subtract1 = flip (-)
 
-predecesor :: Float -> Float  -- La función pred definida en Prelude ya hace esto
+-- La función pred definida en Prelude ya hace esto
+predecesor :: Float -> Float  
 predecesor = subtract 1
 
 evaluarEnCero :: (Float -> b) -> b
@@ -56,7 +57,7 @@ pitagoricas =[(a, b, c) | a <- [1..], b <-[1..], c <- [1..],
 \end{minted}
 \end{centrado}
 
-Esta definición agrega la tupla \texttt{(1,1,1)} a la lista y luego aumenta \texttt{c} infinitamente, sin encontrar ningun nueva coincidencia. Si cambiamos el orden en el que se recorren las listas y agregando algunas cotas de la siguiente forma:
+Esta definición agrega la tupla \mintinline{haskell}{(1,1,1)} a la lista y luego aumenta \mintinline{haskell}{c} infinitamente, sin encontrar ningun nueva coincidencia. Si cambiamos el orden en el que se recorren las listas y agregando algunas cotas de la siguiente forma:
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
 pitagoricas :: [(Integer, Integer, Integer)]
@@ -64,7 +65,7 @@ pitagoricas = [ (a, b, c) | c <- [1..], b <-[1..c], a <- [1..c],
                  a^2 + b^2 == c^2]
 \end{minted}
 \end{centrado}
-En este caso, para cada número probamos todas las combinaciones de pares \texttt{(a,b)} tales que la suma de sus cuadrados podría llegar a dar \texttt{c}. Como \texttt{a} y \texttt{b} están acotados por \texttt{c}, ya que claramante $\texttt{c}^2 + \texttt{c}^2 > \texttt{c}^2$, la cantidad de pruebas de pares para cada número es finita ($2^c$ pares) y es posible pasar al siguiente número una vez realizados estos chequeos.
+En este caso, para cada número probamos todas las combinaciones de pares \mintinline{haskell}{(a,b)} tales que la suma de sus cuadrados podría llegar a dar \texttt{c}. Como \texttt{a} y \texttt{b} están acotados por \texttt{c}, ya que claramante \mintinline{haskell}{c^2 + c^2 > c^2}, la cantidad de pruebas de pares para cada número es finita ($2^c$ pares) y es posible pasar al siguiente número una vez realizados estos chequeos.
 
 
 \subsection{Ejercicio 4}
@@ -80,11 +81,152 @@ Gracias a la evaluación \textit{lazy}, cuando se encuentran los primeros \textt
 \subsection{Ejercicio 5}
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
-partir :: [ a ] -> [ ( [ a ], [ a ] ) ]
-partir l = [ ( take i l, drop i l ) 
-                       | i <- [ 0.. ( length l ) ] ]
+partir :: [a] -> [ ([a], [a]) ]
+partir xs = [ (take i xs, drop i xs) | i <- [0..(length xs)] ]
 	\end{minted}
 \end{centrado}
 
+\subsection{Ejercicio 6}
+\begin{centrado}
+\begin{minted}[breaklines,tabsize=2]{haskell}
+listasQueSuman :: Int -> [[Int]]
+listasQueSuman 1 = [[1]]
+listasQueSuman n = [n]:( concat 
+	[ map ( (n-i): ) ( listasQueSuman i ) | i <- [ 1..n-1 ] ] ) 
+\end{minted}
+\end{centrado}
 
+
+\textbf{A preguntar:}
+La función definiida usa recursión explicita. Podemos definir el esquema recursivo \texttt{indcucciónGlobal} y volver a definir listasQueSuman usando este esquema:
+
+\begin{centrado}
+\begin{minted}[breaklines,tabsize=2]{haskell}
+induccionGlobal:: (Int -> Int -> b -> b) -> 
+	(Int -> [b] -> b) -> b -> Int -> b
+induccionGlobal _ _ z 1 = z
+induccionGlobal g f z n = 
+	f n [ g n i ( induccionGlobal g f z i ) | i <- [ 1..(n-1) ] ]
+
+listasQueSumanIG :: Int -> [[Int]]
+listasQueSumanIG n = induccionGlobal
+(\i j -> map ((i-j):) )
+(\x xs -> [x]:(concat xs)) 
+[[1]] n
+\end{minted}	
+\end{centrado}
+
+El esquema \texttt{induccionGlobal} nos permite definir funciones recursivas en las que el resultado de la función depende de todos los casos anteriores, no solo del caso anterios.
+
+\subsection{Ejercicio 7}
+
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
+listasFinitas :: [[Int]]
+listasFinitas = concat [ listasQueSuman i | i <- [1..]]
+\end{minted}
+\end{centrado}	
+
+\subsection{Ejercicio 8}
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
+-- curry y uncurry ya están definidas en Prelude
+curry1 :: ((a,b) -> c) -> a -> b -> c
+curry1 f a b = f (a,b)
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{haskell}
+uncurry1 :: (a -> b -> c) -> (a, b) -> c
+uncurry1 f (a, b) = f a b
+	\end{minted}
+\end{centrado}
+
+\textbf{A preguntar:} No podemos definir una función \texttt{curryN} que tome una función con un número arbitrario de parametros, ya que la cantidad de parámetros de la función currificada depende de la cantidad de parámetros de la función original. Esto significa que \texttt{curryN} debería poder modificar la cantidad de parámetros que toma dependiendo de la función que se le pasa, lo que es imposible.
+
+Otra idea sería tratar de definirla de manera que dada una función vaya remplazando los parámetros de a poco generando, de esta forma, n funciones parciales. Pero esto es imposible ya que la función debe tener la tupla de parámetros completa para poder ser evaluada de cualquier manera.
+
+\subsection{Ejercicio 9}
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=2]{haskell}
+dc :: DivideConquer a b
+dc esTrivial resolver repartir combinar x = 
+	if esTrivial x then 
+		resolver x 
+	else combinar (map  dc1 (repartir x))
+	where dc1 = dc esTrivial resolver repartir combinar
+
+\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=2]{haskell}
+mergesort :: Ord a => [a] -> [a]
+mergesort = dc ((<=1).length)
+	id
+	partirALaMitad
+	(\[xs,ys] -> merge xs ys)	
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=2]{haskell}
+mapD :: (a -> b) -> [a] -> [b]
+mapDC f = dc ((<=1).length)
+	( \xs -> if (length xs) == 0 then [] else [ f (head xs) ] )
+	partirALaMitad
+	concat
+
+filterDC :: (a -> Bool) -> [a] -> [a]
+filterDC p = dc ((<=1).length)
+	(\xs -> if (length xs == 0) || (p (head xs)) then [] else xs )
+	partirALaMitad
+	concat
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=2]{haskell}
+-- Auxiliares
+
+partirALaMitad :: [a] -> [[a]]
+partirALaMitad xs = [ take i xs, drop i xs ] 
+	where i = (div (length xs) 2)
+
+merge :: Ord a => [a] -> [a] -> [a]
+merge = foldr 
+	(\y rec -> (filter (<= y) rec) ++ [y] ++ (filter (>y) rec))	 
+	\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 10}
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=2]{haskell}
+sumFold :: Num a => [a] -> a
+sumFold = foldr (+) 0
+
+elemFold :: Eq a => a -> [a] -> Bool
+elemFold x = foldr (\y rec -> (y==x) || rec) False
+
+masMasFold :: [a] -> [a] -> [a]
+masMasFold = flip (foldr (\x rec-> x:rec) )
+
+mapFold :: (a->b) -> [a] -> [b]
+mapFold f = foldr (\x rec-> (f x):rec) []
+
+filterFold :: (a->Bool) -> [a] -> [a]
+filterFold p = foldr (\x rec -> if (p x) then x:rec else rec) []
+	\end{minted}
+\end{centrado}
+
+La función \mintinline{haskell}{foldr1 :: Foldable t => (a -> a -> a) -> t a -> a} está definida en Prelude. Esta función es una variante de \mintinline{haskell}{foldr} en la que el caso base se da cuando la estructura contiene un único elemento y ese elemento es el resultado del caso base.
+
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
+mejorSegun :: (a -> a -> Bool) -> [a] -> a
+mejorSegun f xs = 
+	foldr1 (\x rec -> if f x rec then x else rec) xs
+	\end{minted}
+\end{centrado}
 

@@ -1,69 +1,79 @@
 \section{Práctica 0}
 
 \subsection{Ejercicio 1}
-\begin{centrado}
-\begin{minted}[breaklines]{haskell}
-null :: Foldable t => t a -> Bool 
--- Indica si una estructura está vacía. El tipo a debe ser de la clase Foldable, esto es, son tipos a los que se les puede aplicar la función foldr. La notación "t a" indica que es un tipo parámetrico, es decir, un tipo t que usa a otro tipo a, por ejemplo, si le pasamos a la función una lista de enteros, entonces a = Int y t = [Int]
+\mintinline{haskell}{null :: Foldable t => t a -> Bool} indica si una estructura está vacía. El tipo a debe ser de la clase Foldable, esto es, son tipos a los que se les puede aplicar la función foldr. La notación "t a" indica que es un tipo parámetrico, es decir, un tipo t que usa a otro tipo a, por ejemplo, si le pasamos a la función una lista de enteros, entonces a = Int y t = [Int]
 
-head :: [a] -> a
--- Devuelve el primer elemento de una lista.
+\vspace*{5mm}
+\mintinline{haskell}{head :: [a] -> a} devuelve el primer elemento de una lista.
 
-tail :: [a] -> [a]
--- Devuelve los últimos elementos de una lista (todos los elementos, salvo el primero).
+\vspace*{5mm}
+\mintinline{haskell}{tail :: [a] -> [a]} devuelve los últimos elementos de una lista (todos los elementos, salvo el primero).
 
-init :: [a] -> [a]
--- Devuelve los primeros elementos de una lista (todos los elementos salvo el último).
+\vspace*{5mm}
+\mintinline{haskell}{init :: [a] -> [a]} devuelve los primeros elementos de una lista (todos los elementos salvo el último).
 
-last :: [a] -> a
--- Devuelve el último elemento de una lista.
+\vspace*{5mm}
+\mintinline{haskell}{last :: [a] -> a} devuelve el último elemento de una lista.
 
-take :: Int -> [a] -> [a]
--- Devuelve los primeros n elementos de una lista
 
-drop :: Int -> [a] -> [a]
--- Devuelve los últimos n elementos de una lista
+\vspace*{5mm}
+\mintinline{haskell}{take :: Int -> [a] -> [a]} devuelve los primeros n elementos de una lista
 
-(++) :: [a] -> [a] -> [a]
--- Concatena dos listas
+\vspace*{5mm}
+\mintinline{haskell}{drop :: Int -> [a] -> [a]} devuelve los últimos n elementos de una lista
 
-concat :: Foldable t => t [a] -> [a]
--- Concatena todas las listas de un contenedor de listas que soporte la operación foldr.
+\vspace*{5mm}
+\mintinline{haskell}{(++) :: [a] -> [a] -> [a]} concatena dos listas
 
-(!!) :: [a] -> Int -> a
--- Dado una lista L y un entero N, devuelve el elemento de L que se encuentra en la N-ésima posición. La numeración comienza desde 0.
+\vspace*{5mm}
+\mintinline{haskell}{concat :: Foldable t => t [a] -> [a]} concatena todas las listas de un contenedor de listas que soporte la operación foldr.
 
-elem :: (Eq a, Foldable t) => a -> t a -> Bool
--- Dada una estructura T que soporta la operación foldr y que almacene elementos del tipo a que puedan ser comparados por medio de la igualdad y dado un elemento A de ese tipo, indica si A aparecen en T.
+\vspace*{5mm}
+\mintinline{haskell}{(!!) :: [a] -> Int -> a} devuelve el elemento de una lista 
+\mintinline{haskell}{l} que se encuentra en la \mintinline{haskell}{n}-ésima posición. La numeración comienza desde 0.
 
-\end{minted}
-\end{centrado}
+\vspace*{5mm}
+\mintinline{haskell}{elem :: (Eq a, Foldable t) => a -> t a -> Bool}: Dada una estructura T que soporta la operación foldr y que almacene elementos del tipo a que puedan ser comparados por medio de la igualdad y dado un elemento A de ese tipo, indica si A aparecen en T.
 
-\newpage
 \subsection{Ejercicio 2}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
-valorAbsoluto :: Float -> Float	-- La función abs de Prelude ya hace esto
+-- La función abs de Prelude ya hace esto
+valorAbsoluto :: Float -> Float
 valorAbsoluto x | x < 0     = -x
                 | otherwise =  x
-
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
 bisiesto :: Int -> Bool
 bisiesto x = (x `mod` 4) == 0
-
+	\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
 factorial :: Int -> Int
 factorial 1 = 1
 factorial x = x * factorial (x-1)
-
+	\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
 cantDivisoresPrimos :: Int -> Int
 cantDivisoresPrimos x = length (filter esPrimo (divisores x))
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+-- Auxiliares 
 
 esPrimo :: Int -> Bool
 esPrimo x = length (divisores x) == 2
 
 divisores :: Int -> [Int]
 divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
-
-\end{minted}
+	\end{minted}
 \end{centrado}
 
 \subsection{Ejercicio 3}
@@ -72,7 +82,11 @@ divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
 inverso :: Float -> Maybe Float
 inverso 0 = Nothing
 inverso x = Just (1/x)
+\end{minted}
+\end{centrado}
 
+\begin{centrado}
+\begin{minted}[breaklines]{haskell}
 aEntero :: Either Int Bool -> Int
 aEntero (Left x) = x
 aEntero (Right x) | x == True = 1
@@ -81,33 +95,51 @@ aEntero (Right x) | x == True = 1
 \end{centrado}
 
 \subsection{Ejercicio 4}
-\begin{centrado}\
+\begin{centrado}
 \begin{minted}[breaklines]{haskell}
 limpiar :: String -> String -> String
 limpiar xs ys = [ y | y <- ys, not(elem y xs) ]
-
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
 difPromedio :: [Float] -> [Float]
 difPromedio xs = map (\y -> y - promedio xs) xs 
     where promedio xs = (sum xs) / (genericLength xs)
-
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
 todosIguales :: [Int] -> Bool
-todosIguales xs = foldr (\y  rec -> ((length xs == 1) || (y == (head xs))) && rec) True xs
+todosIguales = 
+	foldr (\y  rec -> ((length xs == 1) || (y == (head xs))) 
+		&& rec) True
 \end{minted}
 \end{centrado}
 
 \subsection{Ejercicio 5}
 \begin{centrado}
-\begin{minted}[breaklines]{haskell}
+\begin{minted}[breaklines, tabsize=2]{haskell}
 data AB a = Nil | Bin (AB a) a (AB a)
-
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
 vacioAB:: AB a -> Bool
 vacioAB Nil = True
 vacioAB (Bin _ _ _) = False
-
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
 negacionAB :: AB Bool -> AB Bool
 negacionAB Nil = Nil
-negacionAB (Bin l x r) = Bin (negacionAB l) (not x) (negacionAB r)
-
+negacionAB (Bin l x r) = 
+	Bin (negacionAB l) (not x) (negacionAB r)
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines, tabsize=2]{haskell}
 productoAB :: AB Int -> Int
 productoAB Nil = 1
 productoAB (Bin l x r) = x * (productoAB l) * (productoAB r)
