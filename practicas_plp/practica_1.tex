@@ -344,41 +344,7 @@ mapDoble f xs ys = mapPares f (armarPares xs ys)
 %
 \subsection{Ejercicio 16}
 \subsection{Ejercicio 17}
-
-	\begin{centrado}
-		\begin{minted}[breaklines,tabsize=2]{haskell}
-			foldNat :: (a->a) -> a -> Integer -> a
-			foldNat f b 0 = b
-			foldNat f b n = f (foldNat f b (n-1))
-			
-			potencia :: Int -> Int -> Int
-			potencia n e = foldNat (\i rec-> rec*n) (n) (e-1)
-		\end{minted}
-	\end{centrado}
 \subsection{Ejercicio 18}
-	\begin{centrado}
-		\begin{minted}[breaklines,tabsize=2]{haskell}
-type Conj a = (a->Bool)
-
-vacio :: Conj a
-vacio a = (\x -> True)
-
-agregar :: Eq a => a -> Conj a -> Conj a
-agregar x a = (\y -> (a y) || (y==x))
-
-interseccion :: Conj a -> Conj a-> Conj a
-interseccion a b = (\x -> (a x) && (b x))
-
-union :: Conj a -> Conj a-> Conj a
-union a b = (\x -> (a x) || (b x))
-
-singleton :: Eq a => a -> Conj a
-singleton x = (\y -> y==x)
-
-map no se puede definir, porque no podemos hacer referencia a los elementos de la estructura si no los conocemos.
-		\end{minted}
-	\end{centrado}
-	
 \subsection{Ejercicio 19}
 \subsection{Ejercicio 20}
 \subsection{Ejercicio 21}
