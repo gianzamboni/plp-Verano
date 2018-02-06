@@ -1,0 +1,56 @@
+\subsection{Ejercicio 15}
+    sumaMat :: [[Int]] -> [[Int]] -> [[Int]]
+    sumaMat xss yss = map (\(xs,ys) -> mapDoble (+) xs ys) (armarPares xss yss)
+
+    trasponer :: [[Int]] -> [[Int]]
+    trasponer xss = foldr1 (\xs rec -> mapDoble (:) xs rex) xss
+\subsection{Ejercicio 17}
+    foldNat :: (a->a) -> a -> Integer -> a
+    foldNat f b 0 = b
+    foldNat f b n = f (foldNat f b (n-1))
+
+    potencia :: Int -> Int -> Int
+    potencia n e = foldNat (\i rec-> rec*n) (n) (e-1)
+\subsection{Ejercicio 18}
+    type Conj a = (a->Bool)
+
+    vacio :: Conj a
+    vacio a = (\x -> True)
+
+    agregar :: Eq a => a -> Conj a -> Conj a
+    agregar x a = (\y -> (a y) || (y==x))
+
+    interseccion :: Conj a -> Conj a-> Conj a
+    interseccion a b = (\x -> (a x) && (b x))
+
+    union :: Conj a -> Conj a-> Conj a
+    union a b = (\x -> (a x) || (b x))
+
+    singleton :: Eq a => a -> Conj a
+    singleton x = (\y -> y==x)
+
+    map no se puede definir, porque no podemos hacer referencia a los elementos de la estructura si no los conocemos.
+\subsection{Ejercicio 19}
+    fila::Int->MatrizInfinita a->[a]
+    fila i m = map (\j -> m i j) [1..]
+
+    columna::Int->MatrizInfinita a->[a]
+    columna j m = map (\i -> m i j) [1..]
+
+    trasponer::MatrizInfinita a->MatrizInfinita a
+    trasponer m = foldNat (\i rec -> mapDoble (:) (fila i) rec) (length [1..])
+
+    mapMatriz::(a->b)->MatrizInfinita a->MatrizInfinita b
+    mapMatriz f a = map (\i -> (map (\j -> f (a i j) ) [1..])) [1..]
+
+    filterMatriz::(a->Bool)->MatrizInfinita a->[a]
+    filterMatriz p a = map (\i -> (filter (\j -> p (a i j) ) [1..])) [1..]
+
+    zipWithMatriz::(a->b->c)->MatrizInfinita a->MatrizInfinita b->MatrizInfinita c
+    zipWithMatriz f a b = map (\i -> (map (\j -> f (a i j) (b i j) ) [1..])) [1..]
+
+    suma::Num a=>MatrizInfinita a->MatrizInfinita a->MatrizInfinita a
+    suma a b = zipWithMatriz (+) a b
+
+    zipMatriz::MatrizInfinita a->MatrizInfinita b->MatrizInfinita (a,b)
+    zipMatriz a b = zipWithMatriz (\x -> \y -> (x,y)) a b
