@@ -490,6 +490,18 @@ Todo tipo algebraico tiene asociado un patrón de inducción estructural. En par
 
 Al momento de definir \texttt{fold} ayuda mucho plantear el esquema de recursión del tipo.
 
+\section{Cálculo Lambda Tipado}
+
+El cálculo lambda es un modelo de computación turing completo basado en funciones introducido por Alonzo Church. Este modelo consiste en un conjunto de expresiones o terminos que representan abstracciones o aplicaciones de funciones y cuyos valores pueden ser determinados aplicando ciertas reglas sintacticas hasta obtener lo 	que se dice su forma normal (una expresión que, a falta de reglas) no puede ser reducida de ninguna manera. En nuestro caso, estamos estuciando cálculo lambda tipado, es decir que habrá expresiones que, a pesar de estar bien formadas, no tendrán sentido.
+
+\subsection{Expresiones de Tipos de \texorpdfstring{$\lambda^b$}{lambda b}}
+El lenguaje lambda que usamos en la materia tiene dos tipos $Bool$ y $\sigma\rightarrow\theta$ que representan son los tipos de los valores booelanos y las funciones que van de un tipo $\sigma$ a un tipo $\theta$, respectivamente. Y lo notamos:
+\begin*{align}
+	\sigma,\theta ::= Bool | \sigma\rightarrow\theta
+\end{align}
+
+Esta definición nos permite dar tipo a las expresiones y las definiciones y junto con el sistema de tipado acotan nuestro conjunto de expresiones validas.
+\subsection{}
 \appendix
 
 \section{Programación funcional en Haskell}
@@ -553,7 +565,11 @@ Show a  -- Tipos que pueden ser representados como strings
 
 -- Las listas pueden ser infinitas, solo hay que tener cuidado cuando las usamos. Ejemplo de lista infinita:
 	
+infinitosUnos :: [Int]
 infinitosUnos = 1 : infinitosUnos
+
+puntosDelCuadrante :: [(Int, Int)]
+puntosDelCuadrante = [ (x, s-x) | s <- [0..], x <-[0..s] ]
 	\end{minted}
 \end{centrado}
 
@@ -602,10 +618,7 @@ foldRose2 :: ( a -> c -> b) -> ( b -> c -> c ) -> c
 foldRose2 g f z (Rose x l) = 
           g x ( foldr f z ( map ( foldRose g f z ) l ) )
 		
-
-	\end{minted}
-	
-	
+\end{minted}
 \end{centrado}
 
 \end{document}

@@ -222,7 +222,7 @@ sacarUna x = recr (\y ys rec -> if (x==y) then ys else y:rec) []
 
 
 
--- Ejercicio 13 --    Preguntar: Definimos esta funcion de manera recursiva explicita
+-- Ejercicio 13 --
 genLista :: a -> (a -> a) -> Int -> [a]
 genLista x proximo n = foldr
     (\y rec ->  if null rec then
@@ -246,11 +246,18 @@ mapPares f = map (uncurry f)
 
 -- II
 armarPares :: [a] -> [b] -> [(a,b)]
-armarPares xs ys =
-    if (length xs) > (length ys) then 
-        foldr (\x rec-> \ys -> (x,head ys):(rec (tail ys)) ) (\ys -> []) xs ys
-    else 
-        foldr (\y rec-> \xs -> (head xs, y):(rec (tail xs)) ) (\xs -> []) ys xs
+armarPares =
+    foldr   (\x rec-> 
+                (\ys -> if null ys then [] 
+                        else (x,head ys):(rec (tail ys)))
+            ) 
+            (\ys -> []) 
+
+armarPares' :: [a] -> [b] -> [(a,b)]
+armarPares' =
+    foldr
+        (\x r h ->  if null h then [] else (x, head h) : (r (tail h)) )
+        (\_ -> [])
 
 -- III
 mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
@@ -297,7 +304,7 @@ factoriales n =
 iterateN :: Int -> (a -> a) -> a -> [a]
 iterateN n f x = generateBase ((>n).length) x f
 
--- IV -- Preguntar: Capaz hay otra forma de hacerla XD Esto funciona
+-- IV
 generateFrom1:: ([a] -> Bool) -> ([a] -> a) -> [a] -> [a]
 generateFrom1 stop next = last.(takeWhile (not.stop)).(iterate (\ys -> ys ++ [next ys]))
 
@@ -341,7 +348,7 @@ conjuntoInfinito = (\x -> True)
 singleton :: Eq a => a -> Conj a
 singleton x = (==x)
 
--- V  -- Preguntar
+-- V
 mapConjunto :: Eq b => [a] -> (a -> b) -> Conj a -> Conj b
 mapConjunto xs f c = (\x -> not (null (filter (\y -> (c y) && ((f y) == x)) xs)) )
 
@@ -379,12 +386,13 @@ trasponerInfinito m = (flip m)
 --trasponer::MatrizInfinita a->MatrizInfinita a
 --trasponer m = foldNat (\i rec -> mapDoble (:) (fila i) rec) (length [1..])
 
+
 -- III
 mapMatriz :: ( a -> b ) -> MatrizInfinita a -> MatrizInfinita b
 mapMatriz f m = (\x y -> f (m x y))
 
 filterMatriz :: ( a -> Bool ) -> MatrizInfinita a -> [a]
-filterMatriz p m = [ m i j | i <-[0..], j <-[0..i], p (m i j) ]
+filterMatriz p m = [ m j (i-j) | i <-[0..], j <-[0..i], p (m j (i-j)) ]
 
 zipWithMatriz :: (a->b->c) -> MatrizInfinita a -> MatrizInfinita b -> MatrizInfinita c
 zipWithMatriz f m1 m2 = (\i j -> f (m1 i j) (m2 i j))
@@ -433,13 +441,13 @@ mapAHD f g =
 -- Ejercicio 21 --
 -- data AB está definida en práctica 0
 
--- I  -- Preguntar, podemos agregar al fold un caso cuand Bin Nil _ Nil, asi se hace más facil definir las funciones recursivas que usan fold?
+-- I
 foldAB :: (a -> b -> b -> b) -> b -> AB a -> b
 foldAB _ z Nil = z
 foldAB f z (Bin ar1 e ar2) = f e (foldAB f z ar1) (foldAB f z ar2)
 
 
--- II  -- Preguntar: Estoy asumiendo que ramas da una lista de listas
+-- II 
 esNil :: AB a -> Bool
 esNil arbol = 
     case arbol of

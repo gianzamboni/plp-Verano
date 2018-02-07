@@ -514,7 +514,7 @@ mapMatriz :: ( a -> b ) -> MatrizInfinita a -> MatrizInfinita b
 mapMatriz f m = (\x y -> f (m x y))
 
 filterMatriz :: ( a -> Bool ) -> MatrizInfinita a -> [a]
-filterMatriz p m = [ m i j | i <-[0..], j <-[0..i], p (m i j) ]
+filterMatriz p m = [ m j (i-j) | i <-[0..], j <-[0..i], p (m j (i-j)) ]
 
 zipWithMatriz :: (a->b->c) -> MatrizInfinita a 
                  -> MatrizInfinita b -> MatrizInfinita c
@@ -610,6 +610,32 @@ espejo = foldAB (\x rec rec1 -> Bin rec1 x rec)
 \end{minted}
 \end{centrado}
 
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=2]{haskell}
+
+
+root :: AB a -> a
+root (Bin _ x _) = x
+
+izq :: AB a -> AB a
+izq (Bin i _ _) = i
+
+der :: AB a -> AB a
+der (Bin _ _ d) = d
+
+mismaEstructura :: Eq a => AB a -> AB a -> Bool
+mismaEstructura = 
+    foldAB  (\x rec rec1 ->
+        (\arbol ->
+           if esNil arbol then False
+           else (root arbol) == x && 
+                (rec (izq arbol)) && 
+                (rec1 (der arbol))
+        )
+        (\arbol -> esNil arbol)
+
+	\end{minted}
+\end{centrado}
 \subsection{Ejercicio 22}
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
