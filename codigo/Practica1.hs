@@ -79,16 +79,6 @@ listasQueSuman 1 = [[1]]
 listasQueSuman n = [n]: ( concat
     [ map ( (n-i): ) ( listasQueSuman i ) | i <- [ 1..n-1 ] ] ) 
 
-induccionGlobal:: (Int -> Int -> b -> b) -> (Int -> [b] -> b) -> b -> Int -> b
-induccionGlobal _ _ z 1 = z
-induccionGlobal g f z n = f n [ g n i ( induccionGlobal g f z i ) | i <- [ 1..(n-1) ] ]
-
-listasQueSumanIG :: Int -> [[Int]]
-listasQueSumanIG = induccionGlobal
-    (\i j -> map ((i-j):) )
-    (\x xs -> [x]:(concat xs)) 
-    [[1]]
-
 
 
 
@@ -137,13 +127,13 @@ mergesort = dc ((<=1).length)
 -- III
 mapDC :: (a -> b) -> [a] -> [b]
 mapDC f = dc ((<=1).length)
-    ( \xs -> if (length xs) == 0 then [] else [ f (head xs) ] )
+    ( \xs -> if null xs then [] else [ f (head xs) ] )
     partirALaMitad
     concat
 
 filterDC :: (a -> Bool) -> [a] -> [a]
 filterDC p = dc ((<=1).length)
-    (\xs -> if (length xs == 0) || (p (head xs)) then [] else xs )
+    (\xs -> if (null xs) || (p (head xs)) then [] else xs )
     partirALaMitad
     concat
 -- Auxiliares
@@ -154,20 +144,6 @@ partirALaMitad xs = [ take i xs, drop i xs ]
 
 merge :: Ord a => [a] -> [a] -> [a]
 merge = foldr (\y rec -> (filter (<= y) rec) ++ [y] ++ (filter (>y) rec))
-
--- mapper :: (a->b) -> [a] -> [b]
--- mapper f = divideCoquer 
---     ((<=1).length) 
---     (\xs -> if (length xs) == 0 then [] else [ f (head xs )] ) 
---     (\xs -> [take ((length xs)`div`2) xs, drop ((length xs)`div`2) xs]) 
---     (\[xs,ys] -> xs++ys) 
-
--- ffilter :: (a->Bool) -> [a] -> [a]
--- ffilter p = divideCoquer
---     ((<=1).length)
---     (\xs -> if (length xs) == 0 then [] else (if (p (head xs)) then xs else []) )
---     (\xs -> [take ((length xs)`div`2) xs, drop ((length xs)`div`2) xs]) 
---     (\[xs,ys] -> xs++ys) 
 
 
 
@@ -192,40 +168,28 @@ filterFold :: (a->Bool) -> [a] -> [a]
 filterFold p = foldr (\x rec -> if (p x) then x:rec else rec) []
 
 -- II
-mejorSegun :: (a -> a -> Bool) -> [a] -> a
-mejorSegun f = foldr1 (\x rec -> if f x rec then x else rec)
-
 -- --mejorSegun f [x] = x
 -- --mejorSegun f (x:xs) | f x (mejorSegun f xs) = x
 -- --                    | otherwise = mejorSegun f xs
 
+mejorSegun :: (a -> a -> Bool) -> [a] -> a
+mejorSegun f = foldr1 (\x rec -> if f x rec then x else rec)
+
+
+
 -- III
-sumaAlt :: Num a => [a] -> a   -- Preguntar
-sumaAlt xs = fst 
-        (foldr (\x (rec,b) -> if b then (x + rec , False) else  (x - rec, True) ) 
-        (0,signo) 
-        xs)
-    where signo = not (((length xs) `mod` 2) == 0)
--- -- si es par da false => [1,2,3,4] 0 (1+(2-(3+(4-0))))
+sumaAlt :: Num a => [a] -> a 
+sumaAlt =  foldr (-) 0
 
 -- IV
 sumaAlt2 :: Num a => [a] -> a
-sumaAlt2 xs = fst 
-        (foldr (\x (rec,b) -> if b then (x + rec , False) else (x - rec, True) ) 
-        (0,signo) 
-        xs)
-    where signo = (((length xs) `mod` 2) == 0)
+sumaAlt2 =  sumaAlt.reverse
 
---recTuplas :: (a -> (b,c) -> (b,c)) -> (b,c) -> [a] -> b
---recTuplas f t xs = fst( 
---        foldr (\x rect -> f x rect) 
---        t
---        xs)
 
 -- V
 permutaciones :: [a] -> [[a]]
-permutaciones = foldr (\x rec-> concatMap (agregarEnTodasLasPosiciones x) rec) [[]] 
-    where agregarEnTodasLasPosiciones j js = [ (fst h)++[j]++(snd h)| h <- (partir js)]
+permutaciones = foldr (\x -> concatMap (agregarEnTodasLasPosiciones x) ) [[]] 
+     where agregarEnTodasLasPosiciones j js = [ (fst h)++[j]++(snd h)| h <- (partir js)]
 
 
 
@@ -240,7 +204,7 @@ prefijos xs = [take i xs | i <- [0..(length xs)]]
 
 sublistas :: [a] -> [[a]]
 sublistas xs = [[]] ++ [ take j (drop i xs)  | i<-[0..(length xs)] , j<-[1..(length xs)-i]]
---sublistas xs = [ drop i (take j xs)  | i<-[0..(length xs)] , j<-[i..(length xs)]]
+-- --sublistas xs = [ drop i (take j xs)  | i<-[0..(length xs)] , j<-[i..(length xs)]]
 
 
 
@@ -258,68 +222,320 @@ sacarUna x = recr (\y ys rec -> if (x==y) then ys else y:rec) []
 
 
 
--- Ejercicio 13 --
+-- Ejercicio 13 --    Preguntar: Definimos esta funcion de manera recursiva explicita
 genLista :: a -> (a -> a) -> Int -> [a]
-genLista x f 0 = [x]
-genLista x f n = x:(genLista (f x) f (n-1))
+genLista x proximo n = foldr
+    (\y rec ->  if null rec then
+                    [x]
+                else 
+                    rec ++ [ proximo (last rec)])
+    []
+    [1.. n]
 
 desdeHasta :: Int -> Int -> [Int]
-desdeHasta x z = genLista x (+1) (z-x)
-
+desdeHasta x y = genLista x (+1) (y-x)
 
 
 
 
 
 -- Ejercicio 14 --
+-- I
 mapPares :: (a -> b -> c) -> [(a,b)] -> [c]
 mapPares f = map (uncurry f)
 
---armarPares :: [a] -> [b] -> [(a,b)]
---armarPares ys = foldr (\x rec -> foldr (\y _ -> (x,y):rec) []) (\l -> [])
+-- II
+armarPares :: [a] -> [b] -> [(a,b)]
+armarPares xs ys =
+    if (length xs) > (length ys) then 
+        foldr (\x rec-> \ys -> (x,head ys):(rec (tail ys)) ) (\ys -> []) xs ys
+    else 
+        foldr (\y rec-> \xs -> (head xs, y):(rec (tail xs)) ) (\xs -> []) ys xs
 
+-- III
 mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
-mapDoble f as bs  = mapPares f (zip as bs)
+mapDoble f as  = mapPares f.(zip as)
 
 
 
 
 
--- Ejercicio 15 --
+-- -- Ejercicio 15 --
+-- I
 sumaMat :: [[Int]] -> [[Int]] -> [[Int]]
-sumaMat = zipWith (id)--(\(fila1,fila2) -> (zipWith (\(x,y) -> x+y) fila1 fila2) )
+sumaMat = zipWith (zipWith (+))
+
+-- II
+trasponer :: [[Int]] -> [[Int]]
+trasponer [] = []
+trasponer xss = foldr (zipWith (:)) [ [] | i <- [1..length (head xss)]] xss
+
+
+
+
 
 -- Ejercicio 16 --
--- stop next
 generate :: ([a] -> Bool) -> ([a] -> a) -> [a]
 generate stop next = generateFrom stop next []
 
 generateFrom:: ([a] -> Bool) -> ([a] -> a) -> [a] -> [a]
 generateFrom stop next xs | stop xs = init xs
-    | otherwise = (generateFrom stop next (xs ++ [next xs]))
+                          | otherwise = (generateFrom stop next (xs ++ [next xs]))
 
+-- I
 generateBase::([a] ->Bool) ->a ->(a ->a) ->[a]
-generateBase stop x next = generate stop (\xs -> if ((length xs) == 0) then x else (next (last xs)) ) 
---    stop elem inicial next
+generateBase stop x next = generate stop (\xs -> if (null xs) then x else (next (last xs)) ) 
 
+-- II
 factoriales::Int ->[Int]
-factoriales n = generate 
-    (\xs -> (length xs) == n+1) 
-    (\xs -> if ((length xs) == 0) then 1 else (last xs)*(length xs))
+factoriales n = 
+    generate ((==n).length)
+             (\xs -> if null xs then 1
+                     else (last xs)*(length xs))
 
+-- III
 iterateN :: Int -> (a -> a) -> a -> [a]
-iterateN n f x = generate
-    (\xs -> (length xs) == n+1)
-    (\xs -> if ((length xs) == 0) then x else (f (last xs)) )
+iterateN n f x = generateBase ((>n).length) x f
+
+-- IV -- Preguntar: Capaz hay otra forma de hacerla XD Esto funciona
+generateFrom1:: ([a] -> Bool) -> ([a] -> a) -> [a] -> [a]
+generateFrom1 stop next = last.(takeWhile (not.stop)).(iterate (\ys -> ys ++ [next ys]))
 
 
--- -- --
---generateFromm:: ([a] -> Bool) -> ([a] -> a) -> [a] -> [a]
---generateFromm stop next xs = takeWhile (not stop) (concat (iterate (\ys -> [next ys]) xs ))
-                                                            
--- -- (\xs-> if (length xs)==0 then )
 
--- -- :t takeWhile
--- -- takeWhile :: (a -> Bool) -> [a] -> [a]
--- -- :t iterate
--- -- iterate :: (a -> a) -> a -> [a]
+
+
+-- Ejercicio 17 --
+-- I
+foldNat :: (Integer -> a -> a) -> a -> Integer -> a
+foldNat _ z 0 = z
+foldNat f z n = f n (foldNat f z (n-1))
+
+-- II
+potencia :: Integer -> Integer -> Integer
+potencia n m = foldNat (\x -> (n*)) n (m-1)
+
+
+-- Ejercicio 18 --
+type Conj a = (a->Bool)
+
+-- I
+vacio :: Conj a
+vacio x = False
+
+agregar :: Eq a => a -> Conj a -> Conj a
+agregar x c = (\y -> (y == x) || (c x))
+
+-- II
+interseccion :: Conj a -> Conj a -> Conj a
+interseccion c1 c2 = ( \x -> (c1 x) && (c2 x) )
+
+union :: Conj a -> Conj a -> Conj a
+union c1 c2 =( \x -> (c1 x) || (c2 x) )
+
+--III
+conjuntoInfinito :: Conj a
+conjuntoInfinito = (\x -> True)
+
+-- IV
+singleton :: Eq a => a -> Conj a
+singleton x = (==x)
+
+-- V  -- Preguntar
+mapConjunto :: Eq b => [a] -> (a -> b) -> Conj a -> Conj b
+mapConjunto xs f c = (\x -> not (null (filter (\y -> (c y) && ((f y) == x)) xs)) )
+
+
+-- Ejercicio 19 --
+type MatrizInfinita a = Int->Int->a
+
+identidad :: MatrizInfinita Int
+identidad = (\i j -> if i==j then 1 
+                     else 0)
+
+cantor :: MatrizInfinita Int
+cantor = (\x y -> (x + y) * (x + y + 1) `div` 2 + y )
+
+pares :: MatrizInfinita (Int, Int)
+pares = (\x y -> (x, y) )
+
+-- I
+fila :: Int -> MatrizInfinita a -> [a]
+fila x m = [ m x i | i <- [1..] ]
+
+fila1::Int->MatrizInfinita a->[a]
+fila1 i m = map (\j -> m i j) [1..]
+
+columna :: Int -> MatrizInfinita a -> [a]
+columna x m = [ m i x | i <- [1..] ]
+
+columna1::Int->MatrizInfinita a->[a]
+columna1 j m = map (\i -> m i j) [1..]
+
+-- II
+trasponerInfinito :: MatrizInfinita a -> MatrizInfinita a
+trasponerInfinito m = (flip m)
+
+--trasponer::MatrizInfinita a->MatrizInfinita a
+--trasponer m = foldNat (\i rec -> mapDoble (:) (fila i) rec) (length [1..])
+
+-- III
+mapMatriz :: ( a -> b ) -> MatrizInfinita a -> MatrizInfinita b
+mapMatriz f m = (\x y -> f (m x y))
+
+filterMatriz :: ( a -> Bool ) -> MatrizInfinita a -> [a]
+filterMatriz p m = [ m i j | i <-[0..], j <-[0..i], p (m i j) ]
+
+zipWithMatriz :: (a->b->c) -> MatrizInfinita a -> MatrizInfinita b -> MatrizInfinita c
+zipWithMatriz f m1 m2 = (\i j -> f (m1 i j) (m2 i j))
+
+-- IV
+sumaMatriz :: Num a => MatrizInfinita a -> MatrizInfinita a -> MatrizInfinita a
+sumaMatriz = zipWithMatriz (+)
+
+zipMatriz :: MatrizInfinita a -> MatrizInfinita b -> MatrizInfinita (a,b)
+zipMatriz = zipWithMatriz (\x y -> (x,y))
+
+
+
+
+
+-- Ejercicio 20 --
+data AHD a b = Hoja b 
+    | Rama a (AHD a b)
+    | BinAHD (AHD a b) a (AHD a b) deriving Show
+
+ahdEjemplo1 :: AHD Char String
+ahdEjemplo1 = BinAHD (Hoja "hola") 'b' (Rama 'c' (Hoja "chau"))
+
+ahdEjemplo2 :: AHD Integer Bool
+ahdEjemplo2 =  (BinAHD(Rama 1 (Hoja False)) 2 (BinAHD(Hoja False) 3 (Rama 5 (Hoja True))))
+
+-- I
+foldAHD :: (a -> c -> c -> c) -> (a -> c -> c) -> (b -> c) -> AHD a b -> c
+foldAHD _ _ z (Hoja e) = z e
+foldAHD f g z (Rama e ar) = g e (foldAHD f g z ar)
+foldAHD f g z (BinAHD ar1 e ar2) = f e (foldAHD f g z ar1) (foldAHD f g z ar2)
+
+
+-- II
+mapAHD :: (a -> b) -> (c -> d) -> AHD a c -> AHD b d
+mapAHD f g = 
+    foldAHD (\e rec1 rec2 -> BinAHD rec1 (f e) rec2)
+            (\e rec -> Rama (f e) rec)
+            (\e -> Hoja (g e))
+
+
+
+
+
+
+-- Ejercicio 21 --
+-- data AB está definida en práctica 0
+
+-- I  -- Preguntar, podemos agregar al fold un caso cuand Bin Nil _ Nil, asi se hace más facil definir las funciones recursivas que usan fold?
+foldAB :: (a -> b -> b -> b) -> b -> AB a -> b
+foldAB _ z Nil = z
+foldAB f z (Bin ar1 e ar2) = f e (foldAB f z ar1) (foldAB f z ar2)
+
+
+-- II  -- Preguntar: Estoy asumiendo que ramas da una lista de listas
+esNil :: AB a -> Bool
+esNil arbol = 
+    case arbol of
+        Nil -> True
+        Bin _ _ _ -> False
+
+altura :: AB a -> Integer
+altura = foldAB (\x rec rec1 -> 1 + rec + rec1) 0
+
+ramas :: AB a -> [[a]]
+ramas = foldAB 
+    (\e rec rec1 -> if (null rec) && (null rec1) then [[e]]
+                    else map (e:) (rec++rec1)
+    )
+    []
+
+nodos :: AB a -> Integer
+nodos = foldAB (\_ rec rec1 -> 1 + rec + rec1)
+               0
+
+hojas :: AB a -> Integer
+hojas = foldAB  (\_ rec rec1 -> if (rec == 0) && (rec1 == 0) then 1
+                               else rec + rec1
+                )
+                0
+
+espejo :: AB a -> AB a
+espejo = foldAB (\x rec rec1 -> Bin rec1 x rec)
+                Nil
+
+
+-- III Preguntar: Hay una forma de hacerlo u otra, cual quieren? La que hace medio trampa, como que noes recursion, solamente accedo a los elementos del constructor y en otras funciones (?)
+
+root :: AB a -> a
+root (Bin _ x _) = x
+
+izq :: AB a -> AB a
+izq (Bin i _ _) = i
+
+der :: AB a -> AB a
+der (Bin _ _ d) = d
+
+mismaEstructura :: Eq a => AB a -> AB a -> Bool
+mismaEstructura = 
+    foldAB  (\x rec rec1 ->
+                (\arbol ->
+                    if esNil arbol then False
+                    else (root arbol) == x && (rec (izq arbol)) && (rec1 (der arbol))
+                )
+            )
+            (\arbol -> esNil arbol)
+
+
+-- La puro fold
+
+root1 :: AB a -> a
+root1 = foldAB (\x _ _ -> x) undefined
+
+izq1 :: AB a -> AB a
+izq1 = foldAB (\_ rec _ -> rec) undefined
+
+der1 :: AB a -> AB a
+der1 = foldAB (\_ _ rec -> rec) undefined
+
+mismaEstructura1 :: Eq a => AB a -> AB a -> Bool
+mismaEstructura1 = 
+    foldAB  (\x rec rec1 ->
+                (\arbol ->
+                    if esNil arbol then False
+                    else (root arbol) == x && (rec (izq arbol)) && (rec1 (der arbol))
+                )
+            )
+            (\arbol -> esNil arbol)
+
+
+
+
+
+-- Ejercicio 22 --
+-- I
+data RoseTree a = Rose a [RoseTree a] deriving Show
+
+foldRose :: (a -> [b] -> b) -> RoseTree a -> b
+foldRose f (Rose x xs) = f x (map (foldRose f) xs)
+
+hojasRT :: RoseTree a -> [a]
+hojasRT = foldRose (\x recs -> if null recs then [x]
+                               else  x: (concat recs))
+
+distancias :: RoseTree a -> [(a, Integer)]
+distancias = foldRose (\x recs -> if null recs then [(x,0)]
+                                else map (\(t1,t2) -> (t1, t2 + 1)) (concat recs))
+
+alturaRT :: RoseTree a -> Integer
+alturaRT = foldRose (\x recs -> if null recs then 0
+                              else 1 + (max recs))
+    where max = mejorSegun (>)
+
+

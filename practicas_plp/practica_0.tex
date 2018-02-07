@@ -119,19 +119,19 @@ todosIguales =
 
 \subsection{Ejercicio 5}
 \begin{centrado}
-\begin{minted}[breaklines, tabsize=2]{haskell}
+\begin{minted}[breaklines, tabsize=4]{haskell}
 data AB a = Nil | Bin (AB a) a (AB a)
 \end{minted}
 \end{centrado}
 \begin{centrado}
-	\begin{minted}[breaklines, tabsize=2]{haskell}
+	\begin{minted}[breaklines, tabsize=4]{haskell}
 vacioAB:: AB a -> Bool
 vacioAB Nil = True
 vacioAB (Bin _ _ _) = False
 \end{minted}
 \end{centrado}
 \begin{centrado}
-	\begin{minted}[breaklines, tabsize=2]{haskell}
+	\begin{minted}[breaklines, tabsize=4]{haskell}
 negacionAB :: AB Bool -> AB Bool
 negacionAB Nil = Nil
 negacionAB (Bin l x r) = 
@@ -139,7 +139,7 @@ negacionAB (Bin l x r) =
 \end{minted}
 \end{centrado}
 \begin{centrado}
-	\begin{minted}[breaklines, tabsize=2]{haskell}
+	\begin{minted}[breaklines, tabsize=4]{haskell}
 productoAB :: AB Int -> Int
 productoAB Nil = 1
 productoAB (Bin l x r) = x * (productoAB l) * (productoAB r)
