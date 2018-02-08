@@ -1,0 +1,116 @@
+\section{Programación funcional en Haskell}
+\paragraph{Tipos elementales}
+\begin{centrado}
+	\begin{minted}{haskell}
+1               -- Int          Enteros
+'a'             -- Char         Carácteres
+1.2             -- Float        Números de punto flotante
+True            -- Bool         Booleanos
+[1,2,3]         -- [Int]        Listas
+(1, True)       -- (Int, Bool)  Tuplas, pares
+length          -- [a] -> Int   Funciones
+length [1,2,3]  -- Int          Expresiones
+\x -> x         -- a -> a       Funciones anónimas
+	\end{minted}
+\end{centrado}
+
+\paragraph{Guardas}
+\begin{centrado}
+	\begin{minted}{haskell}
+signo n | n >= 0    = True
+        | otherwise = False
+	\end{minted}
+\end{centrado}
+
+\paragraph{Patter Matching}
+\begin{centrado}
+	\begin{minted}{haskell}
+longitud [] = 0
+longitud (x:xs) = 1 + (longitud xs)
+	\end{minted}
+\end{centrado}
+
+\paragraph{Polimorfismo parámetrico}
+\begin{centrado}
+	\begin{minted}{haskell}
+todosIguales :: Eq a => [a] -> Bool
+todosIguales [] = True
+todosIguales [x] = True
+todosIguales (x:y:xs) = x == y && todosIguales(y:xs)
+	\end{minted}
+\end{centrado}
+
+\paragraph{Clases de tipo}
+\begin{centrado}
+	\begin{minted}{haskell}
+Eq a    -- Tipos con comparación de igualdad
+Num a   -- Tipos que se comportan como los números
+Ord a   -- Tipos orden
+Show a  -- Tipos que pueden ser representados como strings
+	\end{minted}
+\end{centrado}
+
+\paragraph{Definición de listas}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+[1,2,3,4,5]                 -- Por extensión
+[1 .. 4]                    -- Secuencias aritméticas
+[ x | x <- [1..], esPar x ] -- Por compresión
+
+-- Las listas pueden ser infinitas, solo hay que tener cuidado cuando las usamos. Ejemplo de lista infinita:
+	
+infinitosUnos :: [Int]
+infinitosUnos = 1 : infinitosUnos
+
+puntosDelCuadrante :: [(Int, Int)]
+puntosDelCuadrante = [ (x, s-x) | s <- [0..], x <-[0..s] ]
+	\end{minted}
+\end{centrado}
+
+\paragraph{Funciones de alto orden}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+mejorSegun :: (a -> a -> Bool) -> [a] -> a
+mejorSegun _ [x] = x
+mejorSegun f (x : xs) | f x (mejorSegun f xs) = x
+                      | otherwise = mejorSegun f xs
+\end{minted}
+\end{centrado}
+
+\subsection{Otros tipos útiles}
+\paragraph{Formula}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+data Formula = Proposicion String | No Formula 
+                                  | Y Formula Formula
+                                  | O Formula Formula
+                                  | Imp Formula Formula
+                                  
+foldFormula :: (String -> a) -> (Formula -> a) -> 
+               (Formula -> Formula -> a) -> (Formula -> Formula -> a) 
+               -> (Formula -> Formula -> a) -> Formula -> a
+foldFormula fp fn fy fo fImp form = case form of :
+		Proposicion s -> fp s
+		No sf -> fn (rec sf)
+		Y sf1 sf2 -> fy (rec sf1) (rec sf2)
+		O sf1 sf2 -> fo (rec sf1) (rec sf2)
+		Impl sf1 sf2 -> fImpl (rec sf1) (rec sf2)
+	where rec = foldForm fp fn fy fo fImp
+	\end{minted}
+	\end{centrado}
+
+\paragraph{Rosetree}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+data Rosetree = Rose a [Rosetree]
+-- Hay varias formas de definir el fold para esta estructura
+foldRose :: (a -> [b] -> b) -> Rosetree a -> b
+foldRose f ( Rose x l ) = f x ( map ( foldRose f ) l )
+	
+foldRose2 :: ( a -> c -> b) -> ( b -> c -> c ) -> c 
+            -> Rosetree a -> b
+foldRose2 g f z (Rose x l) = 
+          g x ( foldr f z ( map ( foldRose g f z ) l ) )
+		
+\end{minted}
+\end{centrado}
