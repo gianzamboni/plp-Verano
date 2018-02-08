@@ -118,7 +118,7 @@ Sea \mintinline{haskell}{S} un conjunto inductivo, y \mintinline{haskell}{T} uno
 Sea $S$ un conjunto inductivo, y sea $P$ una propiedad sobre los elementos de S. Si se cumple que:
 \begin{itemize}
 	\item para cada elemento $z\in S$ tal que $z$ cumple con una regla base, $P(z)$ es verdadero, y
-	\item para cada elemento $y\in S$ construído en una regla inductiva utilizando los elementos \\ $y_1, ..., y_n$, si $P(y_1 ), ..., P(y_n)$ son verdaderos entonces $P(y)$ lo es
+	\item para cada elemento $y\in S$ construido en una regla inductiva utilizando los elementos \\ $y_1, ..., y_n$, si $P(y_1 ), ..., P(y_n)$ son verdaderos entonces $P(y)$ lo es
 	
 \end{itemize}
 
@@ -127,7 +127,7 @@ entonces $P(x)$ se cumple para todos los $x\in S$.
 \subsection{Parametrización}
 Dado un conjunto de funciones que se comportan de la misma manera buscamos encontrar alguna forma de crear una función que las genere automáticamente. 
 
-\paragraph{Esquema de funciones} Dado un conjunto de funciones "parecidas", el esquema de estas funciones son los que no permiten parametrizar correctamente alguno de los parámetros.
+\paragraph{Esquema de funciones} Dado un conjunto de funciones ``parecidas'', el esquema de estas funciones son los que no permiten parametrizar correctamente alguno de los parámetros.
 
 La parametrización nos permitirá crear definiciones más concisas y modulares, reutilizar código y demostrar propiedades generales de manera más fácil.
 
@@ -174,7 +174,7 @@ Al principio de esta sección, dijimos que además de establecer la forma que ti
 
 
 \subsubsection{Pattern Matching}
-El pattern matching es la búsqueda de patrones especiales (en nuestro caso, los constructores de nuestro tipo) dentro de una expresion en el lado izquierdo de una ecuación que, si tiene éxito, nos permita inspeccionar el valor de la misma.
+El pattern matching es la búsqueda de patrones especiales (en nuestro caso, los constructores de nuestro tipo) dentro de una expresión en el lado izquierdo de una ecuación que, si tiene éxito, nos permita inspeccionar el valor de la misma.
 
 Si el pattern matching resulta exitoso, entonces ligas las variables del patrón.
 
@@ -183,7 +183,7 @@ Si el pattern matching resulta exitoso, entonces ligas las variables del patrón
 
 \paragraph{Maybe} El tipo \texttt{Maybe}, definido en el último ejemplo, nos permite expresar la posibilidad de que el resultado sea erróneo, sin necesidad de usar casos especiales. De esta forma, logramos evitar el uso de $\bot$ hasta que el programador lo decida, permitiendo controlar errores.
 
-\paragraph{Either} El tipo \mintinline{haskell}{Either} representa la union disjunta de dos conjuntos (los elementos de uno se identifican con \mintinline{haskell}{Left} y los del otro con \mintinline{haskell}{Right}. Sirve para mantener el tipado fuerte y poder devolver elementos de distintos tipos o para representar el origen de un valor.
+\paragraph{Either} El tipo \mintinline{haskell}{Either} representa la unión disjunta de dos conjuntos (los elementos de uno se identifican con \mintinline{haskell}{Left} y los del otro con \mintinline{haskell}{Right}. Sirve para mantener el tipado fuerte y poder devolver elementos de distintos tipos o para representar el origen de un valor.
 \begin{centrado}
 	\begin{minted}{haskell}
 data Either = Left a | Right b
@@ -193,7 +193,7 @@ data Either = Left a | Right b
 \subsubsection{Expresividad}
 Los tipos algebraicos no pueden representar cualquier cosa, por ejemplo, los números racionales son pares de enteros (numerador, denominador) cuya igualdad puede no depender de los valores con los que fueron construidos o incluso pueden llegar a no ser validos. Esto es así porque no todo par de enteros es un número racional, por ejemplo el (1,0). 
 
-Además recordemos que la igualdad de dos elementos de un tipo algebraico solo se da si estos fueron construidos exactamente de la misma forma. Si seguimos con el ejemplo de los racionales, sabemos que hay racionales iguales con distinto numerador y denominador como el (4,2) y el (2,1), sin embargo estos dos pares no podrian serr nunca iguales si fuesen tomados como un tipo algebraico.
+Además recordemos que la igualdad de dos elementos de un tipo algebraico solo se da si estos fueron construidos exactamente de la misma forma. Si seguimos con el ejemplo de los racionales, sabemos que hay racionales iguales con distinto numerador y denominador como el (4,2) y el (2,1), sin embargo estos dos pares no podrían ser nunca iguales si fuesen tomados como un tipo algebraico.
 
 \subsubsection{Clases de tipos algebraicos}
 
@@ -206,13 +206,13 @@ Además recordemos que la igualdad de dos elementos de un tipo algebraico solo s
 \paragraph{Recursivos} Utilizan el tipo definido como argumento.
 
 \subsection{Tipos algebraicos recursivos}
-Un tipo algebraico recursivo tiene al menos menos uno de los constructores con el tipo que se define como argumetno y es la concreción, en Haskell, de un conjunto definido inductivamente.
+Un tipo algebraico recursivo tiene al menos menos uno de los constructores con el tipo que se define como argumento y es la concreción, en Haskell, de un conjunto definido inductivamente.
 
-Cada constructor define un caso de una definición inductiva de un conjunto. Si tiene al tipo definiod como argumento, entonces es un caso inductivo, si no, es un caso base.
+Cada constructor define un caso de una definición inductiva de un conjunto. Si tiene al tipo definido como argumento, entonces es un caso inductivo, si no, es un caso base.
 
 En estos caso, el pattern matching nos da una forma de realizar analizar los casos y de acceder a los elementos inductivos que forman a un elemento dado. Por esta razón, se pueden definir funciones recursivas.
 
-A estos tipos, les damos un significado a través de funciones definidas recursivamente. Estas funciones manipulan simbolicamente al tipo. Sin embargo, estas manipulaciones, por si solas no tienen un significado, sino que el significado se lo dan las propiedades que dichas manipulaciones deben cumplir.
+A estos tipos, les damos un significado a través de funciones definidas recursivamente. Estas funciones manipulan simbólicamente al tipo. Sin embargo, estas manipulaciones, por si solas no tienen un significado, sino que el significado se lo dan las propiedades que dichas manipulaciones deben cumplir.
 
 \paragraph{Enteros} Notación unaria para expresar tipos enteros.
 \begin{centrado}
@@ -221,7 +221,7 @@ data N = Z | S N
 	\end{minted}
 \end{centrado}
 
-\paragraph{Listas} Definición equivalente a las listas de haskell
+\paragraph{Listas} Definición equivalente a las listas de Haskell
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
 data List a = Nil | Cons a (List a)
@@ -283,7 +283,7 @@ masQueCero = filter (>0)
 \mintinline{haskell}{masQueCero} se queda con todos los elementos mayores de una lista
 
 \paragraph{Fold}
-La función {fold} es la función que expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \mintinline{haskell}{l} y una función \mintinline{haskell}{f} que denota un valor que depende de todos los elementos de la lista \mintinline{haskell}{l} y un valor inicial \mintinline{haskell}{z}, aplica y combina las soluciones parciales obtenidas por \mintinline{haskell}{f} de manera "iterativa". 
+La función {fold} es la función que expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \mintinline{haskell}{l} y una función \mintinline{haskell}{f} que denota un valor que depende de todos los elementos de la lista \mintinline{haskell}{l} y un valor inicial \mintinline{haskell}{z}, aplica y combina las soluciones parciales obtenidas por \mintinline{haskell}{f} de manera  ``iterativa''. 
 Hay dos tipos de fold: \mintinline{haskell}{foldr} (acumula desde la derecha) y \mintinline{haskell}{foldl} (acumula desde la izquierda).
 
 \begin{centrado}
@@ -328,7 +328,7 @@ recr z f (x:xs) = f x xs (recr z f xs)
 	\end{minted}
 \end{centrado}
 
-En listas, este tipo de esquemas es dificil de ver. Como ejemplo, escibimos la función \mintinline{haskell}{insertar} de una lista con recursión primitiva:
+En listas, este tipo de esquemas es difícil de ver. Como ejemplo, escibimos la función \mintinline{haskell}{insertar} de una lista con recursión primitiva:
 \begin{centrado}
 	\begin{minted}{haskell}
 -- Insert con pattern matching
@@ -362,7 +362,7 @@ Las funciones que toma como parámetro son:
 
 \textbf{Ejemplo}
 
-Vamos a definir el Divde \& Conquer para listas:
+Vamos a definir el Divide \& Conquer para listas:
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
 divideConquerListas :: DivideConquer [a] b

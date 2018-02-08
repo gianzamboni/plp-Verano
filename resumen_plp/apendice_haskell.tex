@@ -3,7 +3,7 @@
 \begin{centrado}
 	\begin{minted}{haskell}
 1               -- Int          Enteros
-'a'             -- Char         Carácteres
+'a'             -- Char         Caracteres
 1.2             -- Float        Números de punto flotante
 True            -- Bool         Booleanos
 [1,2,3]         -- [Int]        Listas
@@ -22,7 +22,7 @@ signo n | n >= 0    = True
 	\end{minted}
 \end{centrado}
 
-\paragraph{Patter Matching}
+\paragraph{Pattern Matching}
 \begin{centrado}
 	\begin{minted}{haskell}
 longitud [] = 0
@@ -30,7 +30,7 @@ longitud (x:xs) = 1 + (longitud xs)
 	\end{minted}
 \end{centrado}
 
-\paragraph{Polimorfismo parámetrico}
+\paragraph{Polimorfismo paramétrico}
 \begin{centrado}
 	\begin{minted}{haskell}
 todosIguales :: Eq a => [a] -> Bool
