@@ -204,4 +204,35 @@ Lo primero a tener en cuenta, es que vamos a considerar a los términos de $\lam
 
 $$ V  ~::=~ true~|~false~|~\lambdaAbs{x}{\sigma}{M}$$
 
-Por lo que todo término bien tipado evalúa a alguno de estos términos. A las reglas y axiomas definidos para los tipos booleanos agregamos los siguientes:
+Por lo que todo término bien tipado y cerrado (sin variables libres) evalúa a alguna de estos términos. Si es de tipo $Bool$ evalúa a $true$ o $false$, si es de tipo $\sigma\to\tau$ evalúa a $\lambdaAbs{x}{\sigma{M}}$
+A las reglas y axiomas definidos para los tipos booleanos agregamos los siguientes:
+
+\begin{equation*}
+\frac{M_1\to M'_1}{\lambdaApp{M_1}{M_2} \to 
+\lambdaApp{M'_1}{M_2}}(\text{E-App1}~ /~ \mu)
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\lambdaApp{M_2}{M'_2}}{\lambdaApp{\lambdaAbs{x}{\sigma}{M}}{M_2} \to 
+	\lambdaApp{\lambdaAbs{x}{\sigma}{M}}{M'_2}}(\text{E-App2}~/~v)
+\end{equation*}	
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{\lambdaApp{\lambdaAbs{x}{\sigma}{M}}{V} \to 
+	\replaceBy{M}{x}{V}}(\text{E-App2}~/~\beta)
+\end{equation*}
+
+\paragraph{Estado de error} Es un estado que \textbf{no es} un valor pero en el que la computación está trabada. Representa el estado en el cual el sistema de runtime de una implementación real generaría una excepción.
+
+El sistema de tipado, nos garantiza que si un término cerrado está bien tipado entonces evalúa a un valor.
+
+
+ \paragraph{Corrección}
+La corrección de un término nos asegura dos cosas:	\textbf{Progreso} y \textbf{Preservación}.
+
+El \textbf{progreso} asegura que si $M$ es un término cerrado y bien tipado, entonces $M$ es un valor o existe $M'$ tal que $M\to M'$. En otras palabras, nos asegura que la evaluación no puede trabarse para términos cerrados y bien tipados que no son valores. Y si un programa termina, entonces nos devuelve un valor.
+
+La \textbf{preservación} asegura que la evaluación de un término $M$ preserva tipos. Es decir, no importa cuanta veces se reduzca $M$, el término resultante siempre es del tipo original.
+
+$$\text{Si } \judgeType{\Gamma}{M}{\sigma} \text{ y } M\to N \text{ entonces } \judgeType{\Gamma}{N}{\sigma}$$	
+

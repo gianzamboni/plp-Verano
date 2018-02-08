@@ -1,0 +1,57 @@
+\section{Extensiones del lenguaje \texorpdfstring{$\lambda^b$}{lambda b}}
+
+En las extensiones valen todas
+\subsection{Extensión Naturales (\texorpdfstring{$\lambda^{bn}$}{lambda bn})}
+
+\paragraph{Tipos}
+$$\sigma, \tau ~::=~ Bool~|Nat~|~\sigma\to\tau$$
+
+\paragraph{Términos}
+$$ M~::=~ \dots~|~0~|~succ(M)~|~pred(M)~|~isZero(M) $$
+
+Los términos significan:
+\begin{itemize}
+\item $succ(M)$: evaluar $M$ hasta arrojar un número e incrementarlo.
+\item $pred(M)$: evaluar $M$ hasta arrojar un número y decrementar.
+\item $iszero(M)$: evaluar $M$ hasta arrojar un número, luego retornar $true/false$ según sea cero o no.
+\end{itemize}
+
+\paragraph{Reglas de tipado}
+\begin{equation*}
+\frac{}{\judgeType{\Gamma}{0}{Nat}}(\text{T-Zero})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{M}{Nat}}
+{\judgeType{\Gamma}{succ(M)}{Nat}}(\text{T-Succ})\hspace*{1cm}
+\frac{\judgeType{\Gamma}{M}{Nat}}{\judgeType{\Gamma}{pred(M)}{Nat}}(\text{T-Pred})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{M}{Nat}}{\judgeType{\Gamma}{isZero(M)}{Bool}}(\text{T-IsZero})
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^n(0)$$
+
+\paragraph{Juicios de evaluación}
+
+\begin{equation*}
+\frac{M_1\to M_1'}{succ(M_1)\to succ(M'_1)}(\text{E-Succ})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{pred(0)\to 0}(\text{E-PredZero})\hspace*{1cm}\frac{}{pred(\underline{n+1})\to \underline{n}}(\text{E-PredSucc})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1\to M_1'}{pred(M_1)\to pred(M'_1)}(\text{E-Pred})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{isZero(0)\to true}(\text{E-IsZeroZero})\hspace*{1cm}\frac{}{isZero(\underline{n+1})\to false}(\text{E-isZeroSucc})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\hspace*{1cm}\frac{M_1\to M'_1}{isZero(M_1)\to isZero(M_1')}(\text{E-isZero})
+\end{equation*}
