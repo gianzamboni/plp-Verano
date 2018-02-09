@@ -81,6 +81,12 @@ Entonces, teniendo en cuenta lo mencionado, definimos el comportamiento de la op
 
 La condición $x\neq y,~y\notin~FV(N)$ está para que efectivamente no se produzca la situación mencionada en el parrafo anterior. Y \textbf{siempre} puede cumplirse, solo hay que renombrar las variables de manera apropiada.
 
+\subsubsection{Árbol sintáctico}
+Dada una expresión $M$, su árbol sintáctico es un árbol que tiene como raíz a $M$ y como hijos de la raíz a los árboles sintácticos de las expresiones que componen a $M$. Si $M$ no puede ser reducida, entonces, es el árbol trivial.
+
+\begin{center}
+	    \includegraphics[scale=0.5, keepaspectratio=true]{imagenes/sintax_tree_true.png}
+\end{center}
 \subsection{Sistema de tipado}
 El sistema de tipado es un sistema formal de deducción (o derivación) que utiliza axiomas y reglas de tipado para caracterizar un subconjunto de los términos. A estos términos los llamamos \textbf{términos tipados}.
 

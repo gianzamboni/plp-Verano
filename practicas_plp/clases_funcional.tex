@@ -1,0 +1,17 @@
+\section{Clases funcional}
+\paragraph{Listas infinitas}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+infinitosUno :: [Int]
+infinitosUno = 1:infinitosUno
+
+naturales :: [Int]
+naturales = [1..]
+		
+multiplosDe3 :: [Int]
+multiplosDe3 = [0,3..]
+		
+infinitosHolas :: [String]
+infinitosHolas = repeat "Hola"
+	\end{minted}
+\end{centrado}
