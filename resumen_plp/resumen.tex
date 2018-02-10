@@ -10,13 +10,22 @@ pdfcreator={pdflatex}]{hyperref}
 
 \usepackage{amsmath}
 \usepackage{ amssymb }
+\usepackage{bussproofs}
 
 \usepackage[spanish]{babel}
+
+
 \usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
 \usepackage{graphicx}
+\usepackage{xcolor}
+
+\usepackage{lscape}
 \usepackage{minted}
 \usepackage{a4wide} % márgenes un poco más anchos que lo usual
 \usepackage[titletoc,toc,page]{appendix}
+\usepackage{tikz}
+\usepackage{forest}
+
 
 \input{comandos.tex}
 \input{page.layout}
@@ -27,9 +36,13 @@ pdfcreator={pdflatex}]{hyperref}
 \date{\today}
 
 \author{Zamboni, Gianfranco}
-
-\maketitle
-\tableofcontents
+\pagenumbering{Alph}
+\begin{titlepage}
+    \maketitle
+    \thispagestyle{empty}
+    \tableofcontents
+\end{titlepage}
+\pagenumbering{arabic}
 
 \newpage
 \setcounter{page}{1}
