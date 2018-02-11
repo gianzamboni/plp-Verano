@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data} \PYG{k+kt}{RoseTree} \PYG{o+ow}{=} \PYG{k+kt}{Rose} \PYG{n}{a} \PYG{p}{[}\PYG{k+kt}{RoseTree} \PYG{n}{a}\PYG{p}{]}
+\end{Verbatim}

@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{generateBase}\PYG{o+ow}{::}\PYG{p}{([}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{k+kt}{Bool}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{p}{[}\PYG{n}{a}\PYG{p}{]}
+\PYG{n+nf}{generateBase} \PYG{n}{stop} \PYG{n}{x} \PYG{n}{next} \PYG{o+ow}{=}
+    \PYG{n}{generate} \PYG{n}{stop}
+        \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{xs} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kr}{if} \PYG{p}{((}\PYG{n}{length} \PYG{n}{xs}\PYG{p}{)} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{k+kr}{then} \PYG{n}{x}
+                \PYG{k+kr}{else} \PYG{p}{(}\PYG{n}{next} \PYG{p}{(}\PYG{n}{last} \PYG{n}{xs}\PYG{p}{))} \PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{vacioAB}\PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{vacioAB} \PYG{k+kt}{Nil} \PYG{o+ow}{=} \PYG{k+kt}{True}
+\PYG{n+nf}{vacioAB} \PYG{p}{(}\PYG{k+kt}{Bin} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}}\PYG{p}{)} \PYG{o+ow}{=} \PYG{k+kt}{False}
+\end{Verbatim}

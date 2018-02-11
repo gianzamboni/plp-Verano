@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{trasponer} \PYG{o+ow}{::} \PYG{p}{[[}\PYG{k+kt}{Int}\PYG{p}{]]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{k+kt}{Int}\PYG{p}{]]}
+\PYG{n+nf}{trasponer} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{k+kt}{[]}
+\PYG{n+nf}{trasponer} \PYG{n}{xss} \PYG{o+ow}{=} \PYG{n}{foldr} \PYG{p}{(}\PYG{n}{zipWith} \PYG{p}{(}\PYG{k+kt}{:}\PYG{p}{))} \PYG{p}{[} \PYG{k+kt}{[]} \PYG{o}{|} \PYG{n}{i} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{o}{..}\PYG{n}{length} \PYG{p}{(}\PYG{n}{head} \PYG{n}{xss}\PYG{p}{)]]} \PYG{n}{xss}
+\end{Verbatim}

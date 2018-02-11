@@ -1,0 +1,46 @@
+\newenvironment{centrado}
+    {
+     \begin{center}
+     \begin{minipage}{0.8\textwidth}
+ }    
+    {
+     \end{minipage}
+     \end{center}
+    }
+
+\newcommand{\rel}{\ensuremath{\mathcal{R}}}
+
+\newcommand{\equalDef}{\overset{def}{=}}
+
+\newcommand{\lambdaAbs}[3]{\lambda #1: #2 . #3}
+\newcommand{\lambdaAssign}[2]{#1~:=~#2}
+\newcommand{\lambdaApp}[2]{#1~#2}
+\newcommand{\lambdaIf}[3]{if~ #1~ then~ #2~ else~ #3}
+\newcommand{\lambdaTrue}{true}
+\newcommand{\lambdaFalse}{false}
+\newcommand{\lambdaLet}[4]{let~#1:#2 = #3~in~#4}
+\newcommand{\lambdaRef}[1]{ref~#1}
+\newcommand{\lambdaVar}[1]{#1}
+\newcommand{\lambdaValue}[1]{\color{red}#1\color{black}}
+\newcommand{\lambdaFix}[1]{fix~#1}
+
+\newcommand{\blue}[1]{\color{blue}#1\color{black}}
+\newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
+
+\newcommand{\judgeType}[3]{#1\triangleright #2 : #3}
+
+
+\newenvironment{scprooftree}[1]%
+{\gdef\scalefactor{#1}\begin{center}\proofSkipAmount \leavevmode}%
+    {\scalebox{\scalefactor}{\DisplayProof}\proofSkipAmount \end{center} }
+
+
+\tikzset{
+    every leaf node/.style={text=red, align=center},
+    every tree node/.style={text=blue, align=center},
+}
+
+\forestset{tikzQtree/.style={for tree={if n children=0{
+                node options=every leaf node/.try}{node options=every tree node/.try}, text centered}}}
+%\renewcommand{\appendixtocname}{Apéndices}
+%\renewcommand{\appendixpagename}{Apéndices}

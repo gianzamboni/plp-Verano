@@ -1,0 +1,36 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} La función max de Prelude ya hace esto}
+\PYG{n+nf}{max2} \PYG{o+ow}{::}\PYG{p}{(}\PYG{k+kt}{Float}\PYG{p}{,} \PYG{k+kt}{Float}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float}
+\PYG{n+nf}{max2} \PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)} \PYG{o}{|} \PYG{n}{x} \PYG{o}{\PYGZgt{}=} \PYG{n}{y} \PYG{o+ow}{=} \PYG{n}{x}
+            \PYG{o}{|} \PYG{n}{otherwise} \PYG{o+ow}{=} \PYG{n}{y}
+
+\PYG{n+nf}{max2Currificada} \PYG{o+ow}{::} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float}
+\PYG{n+nf}{max2Currificada} \PYG{n}{x} \PYG{n}{y} \PYG{o}{|} \PYG{n}{x} \PYG{o}{\PYGZgt{}=} \PYG{n}{y} \PYG{o+ow}{=} \PYG{n}{x}
+                    \PYG{o}{|} \PYG{n}{otherwise} \PYG{o+ow}{=} \PYG{n}{y}
+
+\PYG{n+nf}{normaVectorial} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{Float}\PYG{p}{,} \PYG{k+kt}{Float}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float}
+\PYG{n+nf}{normaVectorial} \PYG{p}{(}\PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{sqrt} \PYG{p}{(}\PYG{n}{x}\PYG{o}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{n}{y}\PYG{o}{\PYGZca{}}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+\PYG{n+nf}{normaVectorial} \PYG{o+ow}{::} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float}
+\PYG{n+nf}{normaVectorial} \PYG{n}{x} \PYG{n}{y} \PYG{o+ow}{=} \PYG{n}{sqrt} \PYG{p}{(}\PYG{n}{x}\PYG{o}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{o}{+} \PYG{n}{y}\PYG{o}{\PYGZca{}}\PYG{l+m+mi}{2}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} subtract ys esta definida en Prelude}
+\PYG{n+nf}{subtract1} \PYG{o+ow}{::} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float}
+\PYG{n+nf}{subtract1} \PYG{o+ow}{=} \PYG{n}{flip} \PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} La función pred definida en Prelude ya hace esto}
+\PYG{n+nf}{predecesor} \PYG{o+ow}{::} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float}
+\PYG{n+nf}{predecesor} \PYG{o+ow}{=} \PYG{n}{subtract} \PYG{l+m+mi}{1}
+
+\PYG{n+nf}{evaluarEnCero} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}
+\PYG{n+nf}{evaluarEnCero} \PYG{o+ow}{=} \PYG{n+nf}{\PYGZbs{}}\PYG{n}{f} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{f} \PYG{l+m+mi}{0}
+
+\PYG{n+nf}{dosVeces} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)}
+\PYG{n+nf}{dosVeces} \PYG{o+ow}{=} \PYG{n+nf}{\PYGZbs{}}\PYG{n}{f} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{f}\PYG{o}{.}\PYG{n}{f}
+
+\PYG{n+nf}{flipAll} \PYG{o+ow}{::} \PYG{p}{[}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{]}
+\PYG{n+nf}{flipAll} \PYG{o+ow}{=} \PYG{n}{map} \PYG{n}{flip}
+
+\PYG{n+nf}{flipRaro} \PYG{o+ow}{::} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c} \PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}
+\PYG{n+nf}{flipRaro} \PYG{o+ow}{=} \PYG{n}{flip} \PYG{n}{flip}
+\end{Verbatim}

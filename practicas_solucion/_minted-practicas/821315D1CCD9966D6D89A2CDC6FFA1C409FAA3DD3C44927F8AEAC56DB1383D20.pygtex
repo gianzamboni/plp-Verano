@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{inverso} \PYG{o+ow}{::} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Maybe} \PYG{k+kt}{Float}
+\PYG{n+nf}{inverso} \PYG{l+m+mi}{0} \PYG{o+ow}{=} \PYG{k+kt}{Nothing}
+\PYG{n+nf}{inverso} \PYG{n}{x} \PYG{o+ow}{=} \PYG{k+kt}{Just} \PYG{p}{(}\PYG{l+m+mi}{1}\PYG{o}{/}\PYG{n}{x}\PYG{p}{)}
+\end{Verbatim}

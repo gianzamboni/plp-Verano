@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{x}{inverso :: Float \PYGZhy{}\PYGZgt{} Maybe Float}
+\PYG{x}{inverso 0 = Nothing}
+\PYG{x}{inverso x = Just (1/x)}
+\end{Verbatim}

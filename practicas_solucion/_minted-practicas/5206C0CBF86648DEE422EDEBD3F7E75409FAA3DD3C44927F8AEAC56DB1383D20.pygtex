@@ -1,0 +1,6 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data} \PYG{k+kt}{AHD} \PYG{n}{a} \PYG{n}{b} \PYG{o+ow}{=}
+     \PYG{k+kt}{Hoja} \PYG{n}{b}
+   \PYG{o}{|} \PYG{k+kt}{Rama} \PYG{n}{tInt} \PYG{p}{(}\PYG{k+kt}{AHD} \PYG{n}{a} \PYG{n}{b}\PYG{p}{)}
+   \PYG{o}{|} \PYG{k+kt}{BinAHD} \PYG{p}{(}\PYG{k+kt}{AHD} \PYG{n}{a} \PYG{n}{b}\PYG{p}{)} \PYG{n}{a} \PYG{p}{(}\PYG{k+kt}{AHD} \PYG{n}{a} \PYG{n}{b}\PYG{p}{)}
+\end{Verbatim}

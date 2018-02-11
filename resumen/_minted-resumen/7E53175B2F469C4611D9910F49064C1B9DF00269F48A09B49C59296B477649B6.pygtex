@@ -1,0 +1,17 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data} \PYG{k+kt}{Formula} \PYG{o+ow}{=} \PYG{k+kt}{Proposicion} \PYG{k+kt}{String} \PYG{o}{|} \PYG{k+kt}{No} \PYG{k+kt}{Formula}
+                                  \PYG{o}{|} \PYG{k+kt}{Y} \PYG{k+kt}{Formula} \PYG{k+kt}{Formula}
+                                  \PYG{o}{|} \PYG{k+kt}{O} \PYG{k+kt}{Formula} \PYG{k+kt}{Formula}
+                                  \PYG{o}{|} \PYG{k+kt}{Imp} \PYG{k+kt}{Formula} \PYG{k+kt}{Formula}
+
+\PYG{n+nf}{foldFormula} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{String} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}
+               \PYG{p}{(}\PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)}
+               \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Formula} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}
+\PYG{n+nf}{foldFormula} \PYG{n}{fp} \PYG{n}{fn} \PYG{n}{fy} \PYG{n}{fo} \PYG{n}{fImp} \PYG{n}{form} \PYG{o+ow}{=} \PYG{k+kr}{case} \PYG{n}{form} \PYG{k+kr}{of} \PYG{k+kt}{:}
+		\PYG{k+kt}{Proposicion} \PYG{n}{s} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{fp} \PYG{n}{s}
+		\PYG{k+kt}{No} \PYG{n}{sf} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{fn} \PYG{p}{(}\PYG{n}{rec} \PYG{n}{sf}\PYG{p}{)}
+		\PYG{k+kt}{Y} \PYG{n}{sf1} \PYG{n}{sf2} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{fy} \PYG{p}{(}\PYG{n}{rec} \PYG{n}{sf1}\PYG{p}{)} \PYG{p}{(}\PYG{n}{rec} \PYG{n}{sf2}\PYG{p}{)}
+		\PYG{k+kt}{O} \PYG{n}{sf1} \PYG{n}{sf2} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{fo} \PYG{p}{(}\PYG{n}{rec} \PYG{n}{sf1}\PYG{p}{)} \PYG{p}{(}\PYG{n}{rec} \PYG{n}{sf2}\PYG{p}{)}
+		\PYG{k+kt}{Impl} \PYG{n}{sf1} \PYG{n}{sf2} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{fImpl} \PYG{p}{(}\PYG{n}{rec} \PYG{n}{sf1}\PYG{p}{)} \PYG{p}{(}\PYG{n}{rec} \PYG{n}{sf2}\PYG{p}{)}
+	\PYG{k+kr}{where} \PYG{n}{rec} \PYG{o+ow}{=} \PYG{n}{foldForm} \PYG{n}{fp} \PYG{n}{fn} \PYG{n}{fy} \PYG{n}{fo} \PYG{n}{fImp}
+\end{Verbatim}

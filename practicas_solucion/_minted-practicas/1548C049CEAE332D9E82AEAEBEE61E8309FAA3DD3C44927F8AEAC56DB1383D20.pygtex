@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{interseccion} \PYG{o+ow}{::} \PYG{k+kt}{Conj} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Conj} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Conj} \PYG{n}{a}
+\PYG{n+nf}{interseccion} \PYG{n}{c1} \PYG{n}{c2} \PYG{o+ow}{=} \PYG{p}{(} \PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{c1} \PYG{n}{x}\PYG{p}{)} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{p}{(}\PYG{n}{c2} \PYG{n}{x}\PYG{p}{)} \PYG{p}{)}
+\end{Verbatim}

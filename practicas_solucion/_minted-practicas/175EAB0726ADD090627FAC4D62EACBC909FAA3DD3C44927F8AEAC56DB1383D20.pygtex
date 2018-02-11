@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{=} \PYG{k+kt}{Nil} \PYG{o}{|} \PYG{k+kt}{Bin} \PYG{p}{(}\PYG{k+kt}{AB} \PYG{n}{a}\PYG{p}{)} \PYG{n}{a} \PYG{p}{(}\PYG{k+kt}{AB} \PYG{n}{a}\PYG{p}{)}
+\end{Verbatim}

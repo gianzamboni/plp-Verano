@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{permutaciones} \PYG{o+ow}{::} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{n}{a}\PYG{p}{]]}
+\PYG{n+nf}{permutaciones} \PYG{o+ow}{=} \PYG{n}{foldr}
+	\PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{n}{rec}\PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{concatMap} \PYG{p}{(}\PYG{n}{agregarEnTodasLasPosiciones} \PYG{n}{x}\PYG{p}{)} \PYG{n}{rec}\PYG{p}{)}
+	\PYG{p}{[}\PYG{k+kt}{[]}\PYG{p}{]}
+	\PYG{k+kr}{where} \PYG{n}{agregarEnTodasLasPosiciones} \PYG{n}{j} \PYG{n}{js} \PYG{o+ow}{=}
+		\PYG{p}{[} \PYG{p}{(}\PYG{n}{fst} \PYG{n}{h}\PYG{p}{)}\PYG{o}{++}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]}\PYG{o}{++}\PYG{p}{(}\PYG{n}{snd} \PYG{n}{h}\PYG{p}{)}\PYG{o}{|} \PYG{n}{h} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}} \PYG{p}{(}\PYG{n}{partir} \PYG{n}{js}\PYG{p}{)]}
+\end{Verbatim}

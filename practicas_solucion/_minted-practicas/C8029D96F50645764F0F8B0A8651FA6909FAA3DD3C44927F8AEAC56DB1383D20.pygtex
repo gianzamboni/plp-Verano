@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{prefijos} \PYG{o+ow}{::} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{n}{a}\PYG{p}{]]}
+\PYG{n+nf}{prefijos} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{p}{[}\PYG{n}{take} \PYG{n}{i} \PYG{n}{xs} \PYG{o}{|} \PYG{n}{i} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{o}{..}\PYG{p}{(}\PYG{n}{length} \PYG{n}{xs}\PYG{p}{)]]}
+\end{Verbatim}

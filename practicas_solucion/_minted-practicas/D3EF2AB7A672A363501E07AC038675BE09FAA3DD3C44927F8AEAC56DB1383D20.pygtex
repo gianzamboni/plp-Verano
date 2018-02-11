@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{listasFinitas} \PYG{o+ow}{::} \PYG{p}{[[}\PYG{k+kt}{Int}\PYG{p}{]]}
+\PYG{n+nf}{listasFinitas} \PYG{o+ow}{=} \PYG{n}{concat} \PYG{p}{[} \PYG{n}{listasQueSuman} \PYG{n}{i} \PYG{o}{|} \PYG{n}{i} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}} \PYG{p}{[}\PYG{l+m+mi}{1}\PYG{o}{..}\PYG{p}{]]}
+\end{Verbatim}

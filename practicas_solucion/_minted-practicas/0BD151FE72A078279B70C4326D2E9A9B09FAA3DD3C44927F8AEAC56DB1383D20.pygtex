@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{potencia} \PYG{o+ow}{::} \PYG{k+kt}{Integer} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Integer} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Integer}
+\PYG{n+nf}{potencia} \PYG{n}{n} \PYG{n}{m} \PYG{o+ow}{=} \PYG{n}{foldNat} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{n}\PYG{o}{*}\PYG{p}{))} \PYG{n}{n} \PYG{p}{(}\PYG{n}{m}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}
+\end{Verbatim}

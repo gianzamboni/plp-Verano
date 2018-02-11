@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kr}{data} \PYG{k+kt}{Rosetree} \PYG{o+ow}{=} \PYG{k+kt}{Rose} \PYG{n}{a} \PYG{p}{[}\PYG{k+kt}{Rosetree}\PYG{p}{]}
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} Hay varias formas de definir el fold para esta estructura}
+\PYG{n+nf}{foldRose} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{b}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Rosetree} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}
+\PYG{n+nf}{foldRose} \PYG{n}{f} \PYG{p}{(} \PYG{k+kt}{Rose} \PYG{n}{x} \PYG{n}{l} \PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{f} \PYG{n}{x} \PYG{p}{(} \PYG{n}{map} \PYG{p}{(} \PYG{n}{foldRose} \PYG{n}{f} \PYG{p}{)} \PYG{n}{l} \PYG{p}{)}
+
+\PYG{n+nf}{foldRose2} \PYG{o+ow}{::} \PYG{p}{(} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c} \PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}
+            \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Rosetree} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}
+\PYG{n+nf}{foldRose2} \PYG{n}{g} \PYG{n}{f} \PYG{n}{z} \PYG{p}{(}\PYG{k+kt}{Rose} \PYG{n}{x} \PYG{n}{l}\PYG{p}{)} \PYG{o+ow}{=}
+          \PYG{n}{g} \PYG{n}{x} \PYG{p}{(} \PYG{n}{foldr} \PYG{n}{f} \PYG{n}{z} \PYG{p}{(} \PYG{n}{map} \PYG{p}{(} \PYG{n}{foldRose} \PYG{n}{g} \PYG{n}{f} \PYG{n}{z} \PYG{p}{)} \PYG{n}{l} \PYG{p}{)} \PYG{p}{)}
+\end{Verbatim}

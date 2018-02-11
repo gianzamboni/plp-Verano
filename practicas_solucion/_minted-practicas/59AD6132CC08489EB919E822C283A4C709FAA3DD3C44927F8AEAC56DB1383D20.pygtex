@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{mapMatriz} \PYG{o+ow}{::} \PYG{p}{(} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b} \PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{b}
+\PYG{n+nf}{mapMatriz} \PYG{n}{f} \PYG{n}{m} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{n}{y} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{f} \PYG{p}{(}\PYG{n}{m} \PYG{n}{x} \PYG{n}{y}\PYG{p}{))}
+
+\PYG{n+nf}{filterMatriz} \PYG{o+ow}{::} \PYG{p}{(} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool} \PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]}
+\PYG{n+nf}{filterMatriz} \PYG{n}{p} \PYG{n}{m} \PYG{o+ow}{=} \PYG{p}{[} \PYG{n}{m} \PYG{n}{j} \PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{n}{j}\PYG{p}{)} \PYG{o}{|} \PYG{n}{i} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{o}{..}\PYG{p}{],} \PYG{n}{j} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{o}{..}\PYG{n}{i}\PYG{p}{],} \PYG{n}{p} \PYG{p}{(}\PYG{n}{m} \PYG{n}{j} \PYG{p}{(}\PYG{n}{i}\PYG{o}{\PYGZhy{}}\PYG{n}{j}\PYG{p}{))} \PYG{p}{]}
+
+\PYG{n+nf}{zipWithMatriz} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a}\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{n}{b}\PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{n}{c}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a}
+                 \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{c}
+\PYG{n+nf}{zipWithMatriz} \PYG{n}{f} \PYG{n}{m1} \PYG{n}{m2} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{i} \PYG{n}{j} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{f} \PYG{p}{(}\PYG{n}{m1} \PYG{n}{i} \PYG{n}{j}\PYG{p}{)} \PYG{p}{(}\PYG{n}{m2} \PYG{n}{i} \PYG{n}{j}\PYG{p}{))}
+\end{Verbatim}

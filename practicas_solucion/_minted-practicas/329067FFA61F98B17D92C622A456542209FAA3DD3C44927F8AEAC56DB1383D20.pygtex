@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{limpiar} \PYG{o+ow}{::} \PYG{k+kt}{String} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{String} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{String}
+\PYG{n+nf}{limpiar} \PYG{n}{xs} \PYG{n}{ys} \PYG{o+ow}{=} \PYG{p}{[} \PYG{n}{y} \PYG{o}{|} \PYG{n}{y} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}} \PYG{n}{ys}\PYG{p}{,} \PYG{n}{not}\PYG{p}{(}\PYG{n}{elem} \PYG{n}{y} \PYG{n}{xs}\PYG{p}{)} \PYG{p}{]}
+\end{Verbatim}

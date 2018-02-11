@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{difPromedio} \PYG{o+ow}{::} \PYG{p}{[}\PYG{k+kt}{Float}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{k+kt}{Float}\PYG{p}{]}
+\PYG{n+nf}{difPromedio} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{n}{map} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{y} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{y} \PYG{o}{\PYGZhy{}} \PYG{n}{promedio} \PYG{n}{xs}\PYG{p}{)} \PYG{n}{xs}
+    \PYG{k+kr}{where} \PYG{n}{promedio} \PYG{n}{xs} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{sum} \PYG{n}{xs}\PYG{p}{)} \PYG{o}{/} \PYG{p}{(}\PYG{n}{genericLength} \PYG{n}{xs}\PYG{p}{)}
+\end{Verbatim}

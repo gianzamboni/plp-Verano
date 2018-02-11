@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{mapConjunto} \PYG{o+ow}{::} \PYG{k+kt}{Eq} \PYG{n}{b} \PYG{o+ow}{=\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Conj} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Conj} \PYG{n}{b}
+\PYG{n+nf}{mapConjunto} \PYG{n}{xs} \PYG{n}{f} \PYG{n}{c} \PYG{o+ow}{=}
+    \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{not} \PYG{p}{(}\PYG{n}{null} \PYG{p}{(}\PYG{n}{filter}
+                          \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{y} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{c} \PYG{n}{y}\PYG{p}{)} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{p}{((}\PYG{n}{f} \PYG{n}{y}\PYG{p}{)} \PYG{o}{==} \PYG{n}{x}\PYG{p}{))}
+                          \PYG{n}{xs}
+                     \PYG{p}{)}
+                \PYG{p}{)}
+    \PYG{p}{)}
+\end{Verbatim}
