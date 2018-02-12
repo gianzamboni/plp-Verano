@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{longitud} \PYG{k+kt}{[]} \PYG{o+ow}{=} \PYG{l+m+mi}{0}
-\PYG{n+nf}{longitud} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{l+m+mi}{1} \PYG{o}{+} \PYG{p}{(}\PYG{n}{longitud} \PYG{n}{xs}\PYG{p}{)}
-\end{Verbatim}

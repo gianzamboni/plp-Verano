@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{signo} \PYG{n}{n} \PYG{o}{|} \PYG{n}{n} \PYG{o}{\PYGZgt{}=} \PYG{l+m+mi}{0}    \PYG{o+ow}{=} \PYG{k+kt}{True}
-        \PYG{o}{|} \PYG{n}{otherwise} \PYG{o+ow}{=} \PYG{k+kt}{False}
-\end{Verbatim}
