@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{foldAHD} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{)}
-           \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{AHD} \PYG{n}{a} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}
-\PYG{n+nf}{foldAHD} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{n}{z} \PYG{p}{(}\PYG{k+kt}{Hoja} \PYG{n}{e}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{z} \PYG{n}{e}
-\PYG{n+nf}{foldAHD} \PYG{n}{f} \PYG{n}{g} \PYG{n}{z} \PYG{p}{(}\PYG{k+kt}{Rama} \PYG{n}{e} \PYG{n}{ar}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{g} \PYG{n}{e} \PYG{p}{(}\PYG{n}{foldAHD} \PYG{n}{f} \PYG{n}{g} \PYG{n}{z} \PYG{n}{ar}\PYG{p}{)}
-\PYG{n+nf}{foldAHD} \PYG{n}{f} \PYG{n}{g} \PYG{n}{z} \PYG{p}{(}\PYG{k+kt}{BinAHD} \PYG{n}{ar1} \PYG{n}{e} \PYG{n}{ar2}\PYG{p}{)} \PYG{o+ow}{=}
-    \PYG{n}{f} \PYG{n}{e} \PYG{p}{(}\PYG{n}{foldAHD} \PYG{n}{f} \PYG{n}{g} \PYG{n}{z} \PYG{n}{ar1}\PYG{p}{)} \PYG{p}{(}\PYG{n}{foldAHD} \PYG{n}{f} \PYG{n}{g} \PYG{n}{z} \PYG{n}{ar2}\PYG{p}{)}
-\end{Verbatim}

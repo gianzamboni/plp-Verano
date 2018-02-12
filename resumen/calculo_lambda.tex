@@ -95,7 +95,12 @@ El árbol sintáctico de $\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$ es:
 
 \begin{center}
     \begin{forest} tikzQtree,
-[$\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$, [$x$][$y$][$\lambdaAbs{z}{Bool}{z}$[$z$]    ]
+[$\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$, 
+    [$x$]
+    [$y$]
+    [$\lambdaAbs{z}{Bool}{z}$
+        [$z$]
+    ]
 ]
 \end{forest}
 \end{center}
@@ -377,7 +382,7 @@ $$\judgeType{\Gamma|\Sigma}{M}{\sigma}$$
 
 Indicando esto, que $M$ es de tipo $\sigma$ en el contexto $\Gamma$ cuando el estado de la memoria se corresponde con el contexto de tipado $\Sigma$.
 
-\subsubsection{La extension de la que tanto hablamos}
+\subsubsection{La extension}
 
 \paragraph{Tipos}
 $$\sigma, \tau ~::=~ Bool~|Nat~|~\blue{Unit}~|~\blue{Ref~\sigma}~|~\sigma\to\tau$$

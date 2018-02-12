@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{productoAB} \PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Int}
-\PYG{n+nf}{productoAB} \PYG{k+kt}{Nil} \PYG{o+ow}{=} \PYG{l+m+mi}{1}
-\PYG{n+nf}{productoAB} \PYG{p}{(}\PYG{k+kt}{Bin} \PYG{n}{l} \PYG{n}{x} \PYG{n}{r}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{x} \PYG{o}{*} \PYG{p}{(}\PYG{n}{productoAB} \PYG{n}{l}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{productoAB} \PYG{n}{r}\PYG{p}{)}
-\end{Verbatim}

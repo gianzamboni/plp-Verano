@@ -1,4 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{vacio} \PYG{o+ow}{::} \PYG{k+kt}{Conj} \PYG{n}{a}
-\PYG{n+nf}{vacio} \PYG{n}{x} \PYG{o+ow}{=} \PYG{k+kt}{False}
-\end{Verbatim}

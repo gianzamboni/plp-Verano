@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZhy{}\PYGZhy{} La función abs de Prelude ya hace esto}
-\PYG{n+nf}{valorAbsoluto} \PYG{o+ow}{::} \PYG{k+kt}{Float} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Float}
-\PYG{n+nf}{valorAbsoluto} \PYG{n}{x} \PYG{o}{|} \PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{l+m+mi}{0}     \PYG{o+ow}{=} \PYG{o}{\PYGZhy{}}\PYG{n}{x}
-                \PYG{o}{|} \PYG{n}{otherwise} \PYG{o+ow}{=}  \PYG{n}{x}
-\end{Verbatim}

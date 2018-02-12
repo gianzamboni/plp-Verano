@@ -38,7 +38,7 @@
 \subsection{Ejercicio 2}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
--- La función abs de Prelude ya hace esto
+-- a) La función abs de Prelude ya hace esto
 valorAbsoluto :: Float -> Float
 valorAbsoluto x | x < 0     = -x
                 | otherwise =  x
@@ -46,12 +46,14 @@ valorAbsoluto x | x < 0     = -x
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
+-- b) 
 bisiesto :: Int -> Bool
 bisiesto x = (x `mod` 4) == 0
 	\end{minted}
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
+--c)
 factorial :: Int -> Int
 factorial 1 = 1
 factorial x = x * factorial (x-1)
@@ -79,6 +81,7 @@ divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
 \subsection{Ejercicio 3}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
+--a)
 inverso :: Float -> Maybe Float
 inverso 0 = Nothing
 inverso x = Just (1/x)
@@ -87,6 +90,7 @@ inverso x = Just (1/x)
 
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
+-- b)
 aEntero :: Either Int Bool -> Int
 aEntero (Left x) = x
 aEntero (Right x) | x == True = 1
@@ -97,12 +101,14 @@ aEntero (Right x) | x == True = 1
 \subsection{Ejercicio 4}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
+--a)
 limpiar :: String -> String -> String
 limpiar xs ys = [ y | y <- ys, not(elem y xs) ]
 \end{minted}
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
+-- b)
 difPromedio :: [Float] -> [Float]
 difPromedio xs = map (\y -> y - promedio xs) xs 
     where promedio xs = (sum xs) / (genericLength xs)
@@ -110,6 +116,7 @@ difPromedio xs = map (\y -> y - promedio xs) xs
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
+-- c)
 todosIguales :: [Int] -> Bool
 todosIguales = 
 	foldr (\y  rec -> ((length xs == 1) || (y == (head xs))) 
@@ -125,6 +132,7 @@ data AB a = Nil | Bin (AB a) a (AB a)
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines, tabsize=4]{haskell}
+-- a)
 vacioAB:: AB a -> Bool
 vacioAB Nil = True
 vacioAB (Bin _ _ _) = False
@@ -132,6 +140,7 @@ vacioAB (Bin _ _ _) = False
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines, tabsize=4]{haskell}
+-- b)
 negacionAB :: AB Bool -> AB Bool
 negacionAB Nil = Nil
 negacionAB (Bin l x r) = 
@@ -140,6 +149,7 @@ negacionAB (Bin l x r) =
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines, tabsize=4]{haskell}
+-- c)
 productoAB :: AB Int -> Int
 productoAB Nil = 1
 productoAB (Bin l x r) = x * (productoAB l) * (productoAB r)

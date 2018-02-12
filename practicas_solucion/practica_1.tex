@@ -115,7 +115,7 @@ listasFinitas = concat [ listasQueSuman i | i <- [1..]]
 
 \begin{centrado}
 	\begin{minted}[breaklines, tabsize=4]{haskell}
--- curry y uncurry ya están definidas en Prelude
+-- I. curry y uncurry ya están definidas en Prelude
 curry1 :: ((a,b) -> c) -> a -> b -> c
 curry1 f a b = f (a,b)
 	\end{minted}
@@ -123,12 +123,13 @@ curry1 f a b = f (a,b)
 
 \begin{centrado}
 \begin{minted}[breaklines, tabsize=4]{haskell}
+-- II.
 uncurry1 :: (a -> b -> c) -> (a, b) -> c
 uncurry1 f (a, b) = f a b
 	\end{minted}
 \end{centrado}
 
-No podemos definir una función \texttt{curryN} que tome una función con un número arbitrario de parametros, ya que la cantidad de parámetros de la función currificada depende de la cantidad de parámetros de la función original. Esto significa que \texttt{curryN} debería poder modificar la cantidad de parámetros que toma dependiendo de la función que se le pasa, lo que es imposible.
+\paragraph{III.} No podemos definir una función \texttt{curryN} que tome una función con un número arbitrario de parametros, ya que la cantidad de parámetros de la función currificada depende de la cantidad de parámetros de la función original. Esto significa que \texttt{curryN} debería poder modificar la cantidad de parámetros que toma dependiendo de la función que se le pasa, lo que es imposible.
 
 Otra idea sería tratar de definirla de manera que dada una función vaya remplazando los parámetros de a poco generando, de esta forma, n funciones parciales. Pero esto es imposible ya que la función debe tener la tupla de parámetros completa para poder ser evaluada de cualquier manera.
 
@@ -136,6 +137,7 @@ Otra idea sería tratar de definirla de manera que dada una función vaya rempla
 \subsection{Ejercicio 9}
 \begin{centrado}
 	\begin{minted}[breaklines,tabsize=4]{haskell}
+-- I.
 dc :: DivideConquer a b
 dc esTrivial resolver repartir combinar x = 
 	if esTrivial x then 
@@ -148,6 +150,7 @@ dc esTrivial resolver repartir combinar x =
 
 \begin{centrado}
 	\begin{minted}[breaklines,tabsize=4]{haskell}
+-- II.
 mergesort :: Ord a => [a] -> [a]
 mergesort = dc
     ((<=1).length)
@@ -159,6 +162,7 @@ mergesort = dc
 
 \begin{centrado}
 	\begin{minted}[breaklines,tabsize=4]{haskell}
+--III.    
 mapDC :: (a -> b) -> [a] -> [b]
 mapDC f = dc 
     ((<=1).length)
@@ -194,6 +198,7 @@ merge = foldr
 \subsection{Ejercicio 10}
 \begin{centrado}
 	\begin{minted}[breaklines,tabsize=4]{haskell}
+-- I.
 sumFold :: Num a => [a] -> a
 sumFold = foldr (+) 0
 
@@ -211,7 +216,7 @@ filterFold p = foldr (\x rec -> if (p x) then x:rec else rec) []
 	\end{minted}
 \end{centrado}
 
-La función \mintinline{haskell}{foldr1 :: Foldable t => (a -> a -> a) -> t a -> a} está definida en Prelude. Esta función es una variante de \mintinline{haskell}{foldr} en la que el caso base se da cuando la estructura contiene un único elemento y ese elemento es el resultado del caso base.
+\paragraph{II.} La función \mintinline{haskell}{foldr1 :: Foldable t => (a -> a -> a) -> t a -> a} está definida en Prelude. Esta función es una variante de \mintinline{haskell}{foldr} en la que el caso base se da cuando la estructura contiene un único elemento y ese elemento es el resultado del caso base.
 
 \begin{centrado}
 	\begin{minted}[breaklines, tabsize=4]{haskell}
@@ -223,7 +228,7 @@ mejorSegun f xs =
 
 \begin{centrado}
 	\begin{minted}[tabsize=4,breaklines]{haskell}
-
+-- III.
 sumaAlt :: Num a => [a] -> a   -- Preguntar
 sumaAlt =  foldr (-) 0
 	\end{minted}
@@ -231,6 +236,7 @@ sumaAlt =  foldr (-) 0
 
 \begin{centrado}
 	\begin{minted}[tabsize=4,breaklines]{haskell}
+-- IV.
 sumaAlt2 :: Num a => [a] -> a
 sumaAlt2 =  sumaAlt.reverse
 	\end{minted}
@@ -238,6 +244,7 @@ sumaAlt2 =  sumaAlt.reverse
 
 \begin{centrado}
 	\begin{minted}[tabsize=4,breaklines]{haskell}
+-- V.
 permutaciones :: [a] -> [[a]]
 permutaciones = foldr 
 	(\x rec-> concatMap (agregarEnTodasLasPosiciones x) rec) 
@@ -251,6 +258,7 @@ permutaciones = foldr
 
 \begin{centrado}
 	\begin{minted}[tabsize=4,breaklines]{haskell}
+-- I.
 partes :: [a] -> [[a]]
 partes = foldr (\x res -> res ++ (map (x:) res)) [[]]
 	\end{minted}
@@ -258,6 +266,7 @@ partes = foldr (\x res -> res ++ (map (x:) res)) [[]]
 
 \begin{centrado}
 	\begin{minted}[tabsize=4,breaklines]{haskell}
+-- II.
 prefijos :: [a] -> [[a]]
 prefijos xs = [take i xs | i <- [0..(length xs)]]
 	\end{minted}
@@ -265,6 +274,7 @@ prefijos xs = [take i xs | i <- [0..(length xs)]]
 
 \begin{centrado}
 	\begin{minted}[tabsize=4,breaklines]{haskell}
+-- III.
 sublistas :: [a] -> [[a]]
 sublistas xs = [[]] ++ [ take j (drop i xs)  
 		| i<-[0..(length xs)] , j<-[1..(length xs)-i]]
@@ -275,18 +285,20 @@ sublistas xs = [[]] ++ [ take j (drop i xs)
 \subsection{Ejercicio 12}
 \begin{centrado}
 	\begin{minted}[tabsize=4,breaklines]{haskell}
+-- a.
 sacarUna :: Eq a => a -> [a] -> [a]
 sacarUna x = recr (\y ys rec -> if (x==y) then ys else y:rec) []
 	\end{minted}
 \end{centrado}
 
-\mintinline{haskell}{recr}, nos permite escribir funciones recursivas cuyo paso recursivo no solo dependen del paso anterior, sino que tambien dependen de la cola de la lista. Mientras que \mintinline{haskell}{foldr} es el esquema recursivo de inducción estructural, es decir nos permite definir funciones que solo dependen del caso anterior.
+\paragraph{b.} \mintinline{haskell}{recr}, nos permite escribir funciones recursivas cuyo paso recursivo no solo dependen del paso anterior, sino que tambien dependen de la cola de la lista. Mientras que \mintinline{haskell}{foldr} es el esquema recursivo de inducción estructural, es decir nos permite definir funciones que solo dependen del caso anterior.
 
-En cuanto a la función \mintinline{haskell}{listasQueSuman} del ejercicio 6, vemos que el valor de esta función depende de todos los casos anteriores, por lo que se hacen tantas llamadas recursivas como casos anteriores haya. Evidentemente, ni \mintinline{haskell}{fold} y ni \mintinline{haskell}{recr} nos dan un mecanismo para hacer esto.
+\paragraph{c.} En cuanto a la función \mintinline{haskell}{listasQueSuman} del ejercicio 6, vemos que el valor de esta función depende de todos los casos anteriores, por lo que se hacen tantas llamadas recursivas como casos anteriores haya. Evidentemente, ni \mintinline{haskell}{fold} y ni \mintinline{haskell}{recr} nos dan un mecanismo para hacer esto.
 
 \subsection{Ejercicio 13}
 \begin{centrado}
 	\begin{minted}[breaklines, tabsize=4]{haskell}
+-- I.
 genLista :: a -> (a -> a) -> Int -> [a]
 genLista x proximo n = 
     foldr (\x rec ->  if null rec then [x]
@@ -298,6 +310,7 @@ genLista x proximo n =
 
 \begin{centrado}
 	\begin{minted}[breaklines, tabsize=4]{haskell}
+-- II.
 desdeHasta :: Int -> Int -> [Int]
 desdeHasta x z = genLista x (+1) (z-x)
 	\end{minted}
@@ -306,12 +319,14 @@ desdeHasta x z = genLista x (+1) (z-x)
 \subsection{Ejercicio 14}
 \begin{centrado}
 \begin{minted}[breaklines,tabsize=4]{haskell}
+-- I.
 mapPares :: (a -> b -> c) -> [(a,b)] -> [c]
 mapPares f = map (unCurry f) xs
 \end{minted}
 \end{centrado}
 \begin{centrado}
 	\begin{minted}[breaklines,tabsize=4]{haskell}
+-- II.
 armarPares :: [a] -> [b] -> [(a,b)]
 armarPares xs ys =
     if (length xs) > (length ys) then 
@@ -328,6 +343,7 @@ armarPares xs ys =
 
 \begin{centrado}
 \begin{minted}[tabsize=4, breaklines]{haskell}
+--III.
 mapDoble :: (a -> b -> c) -> [a] -> [b] -> [c]
 mapDoble f as  = mapPares f.(zip as)
 \end{minted}
@@ -337,6 +353,7 @@ mapDoble f as  = mapPares f.(zip as)
 \subsection{Ejercicio 15}
 \begin{centrado}
 \begin{minted}[breaklines,tabsize=4]{haskell}
+-- I.
 sumaMat :: [[Int]] -> [[Int]] -> [[Int]]
 sumaMat = zipWith (zipWith (+))
 \end{minted}
@@ -344,9 +361,11 @@ sumaMat = zipWith (zipWith (+))
 
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=4]{haskell}
+- II.
 trasponer :: [[Int]] -> [[Int]]
 trasponer [] = []
-trasponer xss = foldr (zipWith (:)) [ [] | i <- [1..length (head xss)]] xss
+trasponer xss = foldr (zipWith (:)) 
+    [ [] | i <- [1..length (head xss)]] xss
     \end{minted}
 \end{centrado}
 
@@ -363,6 +382,7 @@ generateBase stop x next =
 
 \begin{centrado}
     \begin{minted}[breaklines, tabsize=2]{haskell}
+-- I.
 generateBase::([a] ->Bool) ->a ->(a ->a) ->[a]
 generateBase stop x next = 
     generate stop 
@@ -373,6 +393,7 @@ generateBase stop x next =
 
 \begin{centrado}
     \begin{minted}[breaklines, tabsize=2]{haskell}
+-- II.
 factoriales::Int ->[Int]
 factoriales n = 
     generate ((==n).length)
@@ -383,12 +404,13 @@ factoriales n =
 
 \begin{centrado}
     \begin{minted}[breaklines, tabsize=2]{haskell}
+-- III.
 iterateN :: Int -> (a -> a) -> a -> [a]
 iterateN n f x = generateBase ((>n).length) x f
     \end{minted}
 \end{centrado}
 
-La función \mintinline{haskell}{iterate :: (a -> a) -> a -> [a]} toma una función $f$ que calcula el proximo elemento de la lista basandose en el último elemento agregado y un valor inicial $x$ y crea una lista infinita. La función \mintinline{haskell}{takeWhile :: (a -> Bool) -> [a] -> [a]} toma un predicado $p$ y una lista $l$ y devuelve elementos de la lista mientras cumplan $p$.
+\paragraph{IV.} La función \mintinline{haskell}{iterate :: (a -> a) -> a -> [a]} toma una función $f$ que calcula el proximo elemento de la lista basandose en el último elemento agregado y un valor inicial $x$ y crea una lista infinita. La función \mintinline{haskell}{takeWhile :: (a -> Bool) -> [a] -> [a]} toma un predicado $p$ y una lista $l$ y devuelve elementos de la lista mientras cumplan $p$.
 
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
@@ -404,6 +426,7 @@ generateFrom1 stop next =
 \subsection{Ejercicio 17}
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
+-- I.
 foldNat :: (Integer -> a -> a) -> a -> Integer -> a
 foldNat _ z 0 = z
 foldNat f z n = f n (foldNat f z (n-1))
@@ -412,6 +435,7 @@ foldNat f z n = f n (foldNat f z (n-1))
 
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
+-- II.
 potencia :: Integer -> Integer -> Integer
 potencia n m = foldNat (\x -> (n*)) n (m-1)
     \end{minted}
@@ -426,13 +450,10 @@ type Conj a = (a->Bool)
 
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
+-- I.
 vacio :: Conj a
 vacio x = False
-    \end{minted}
-\end{centrado}
 
-\begin{centrado}
-    \begin{minted}[tabsize=2, breaklines]{haskell}
 agregar :: Eq a => a -> Conj a -> Conj a
 agregar x c = (\y -> (y == x) || (c x))
     \end{minted}
@@ -440,13 +461,10 @@ agregar x c = (\y -> (y == x) || (c x))
 
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
+-- II.
 interseccion :: Conj a -> Conj a -> Conj a
 interseccion c1 c2 = ( \x -> (c1 x) && (c2 x) )
-    \end{minted}
-\end{centrado}
 
-\begin{centrado}
-    \begin{minted}[tabsize=2, breaklines]{haskell}
 union :: Conj a -> Conj a -> Conj a
 union c1 c2 =( \x -> (c1 x) || (c2 x) )
  \end{minted}
@@ -454,6 +472,7 @@ union c1 c2 =( \x -> (c1 x) || (c2 x) )
 
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
+-- III.
 conjuntoInfinito :: Conj a
 conjuntoInfinito = (\x -> True)
     \end{minted}
@@ -461,12 +480,13 @@ conjuntoInfinito = (\x -> True)
 
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
+-- IV.
 singleton :: Eq a => a -> Conj a
 singleton x = (==x)
     \end{minted}
 \end{centrado}
 
-A diferencia de otros tipos, el tipo \mintinline{haskell}{Conj} está definido como una función booleana que depende de un único parametro. Dado un conjunto $C$, no tenemos formar de saber cuales son los elementos que contiene sin haber probado uno por uno cada uno de los elementos de su dominio. Por ejemplo, si tuviesemos un conjunto de enteros, entonces para poder aplicar una función a cada uno de sus elementos deberíamos probar la pertenencia para cada entero posible y aplicar la función a aquellos que estén en el conjunto, sin embargo, los enteros son infinitos, por lo que la función \mintinline{haskell}{map} nunca terminaría.
+\paragraph{V.} A diferencia de otros tipos, el tipo \mintinline{haskell}{Conj} está definido como una función booleana que depende de un único parametro. Dado un conjunto $C$, no tenemos formar de saber cuales son los elementos que contiene sin haber probado uno por uno cada uno de los elementos de su dominio. Por ejemplo, si tuviesemos un conjunto de enteros, entonces para poder aplicar una función a cada uno de sus elementos deberíamos probar la pertenencia para cada entero posible y aplicar la función a aquellos que estén en el conjunto, sin embargo, los enteros son infinitos, por lo que la función \mintinline{haskell}{map} nunca terminaría.
 
 Teniendo esto en cuenta, podemos definir
 \begin{centrado}
@@ -498,22 +518,19 @@ mapConjunto xs f c =
 Mostramos dos posibles implementaciones para las funciones \mintinline{haskell}{fila} y \mintinline{haskell}{columna}
 \begin{centrado}
     \begin{minted}[breaklines, tabsize=2]{haskell}
+-- I
 fila :: Int -> MatrizInfinita a -> [a]
 fila x m = [ m x i | i <- [1..]]
-
-fila1::Int->MatrizInfinita a->[a]
-fila1 i m = map (\j -> m i j) [1..]
 
 columna :: Int -> MatrizInfinita a -> [a]
 columna x m = [ m i x | i <- [1..]]
 
-columna1::Int->MatrizInfinita a->[a]
-columna1 j m = map (\i -> m i j) [1..]
     \end{minted}
 \end{centrado}
 
 \begin{centrado}
     \begin{minted}[breaklines, tabsize=2]{haskell}
+-- II.
 trasponerInfinito :: MatrizInfinita a -> MatrizInfinita a
 trasponerInfinito m = (flip m)
     \end{minted}
@@ -522,6 +539,7 @@ trasponerInfinito m = (flip m)
 
 \begin{centrado}
     \begin{minted}[breaklines, tabsize=2]{haskell}
+-- III.
 mapMatriz :: ( a -> b ) -> MatrizInfinita a -> MatrizInfinita b
 mapMatriz f m = (\x y -> f (m x y))
 
@@ -536,6 +554,7 @@ zipWithMatriz f m1 m2 = (\i j -> f (m1 i j) (m2 i j))
 
 \begin{centrado}
     \begin{minted}[breaklines, tabsize=2]{haskell}
+--IV.
 sumaMatriz :: Num a => MatrizInfinita a -> MatrizInfinita a 
               -> MatrizInfinita a
 sumaMatriz = zipWithMatriz (+)
@@ -559,6 +578,7 @@ data AHD a b =
 
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
+-- I.
 foldAHD :: (a -> c -> c -> c) -> (a -> c -> c) -> (b -> c) 
            -> AHD a b -> c
 foldAHD _ _ z (Hoja e) = z e
@@ -570,6 +590,7 @@ foldAHD f g z (BinAHD ar1 e ar2) =
 
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
+-- II.
 mapAHD :: (a -> b) -> (c -> d) -> AHD a c -> AHD b d
 mapAHD f g = 
 foldAHD (\e rec1 rec2 -> BinAHD rec1 (f e) rec2)
@@ -581,6 +602,7 @@ foldAHD (\e rec1 rec2 -> BinAHD rec1 (f e) rec2)
 \subsection{Ejercicio 21}
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
+-- I    
 foldAB :: (a -> b -> b -> b) -> b -> AB a -> b
 foldAB _ z Nil = z
 foldAB f z (Bin ar1 e ar2) = 
@@ -590,6 +612,7 @@ foldAB f z (Bin ar1 e ar2) =
 
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
+-- II
 esNil :: AB a -> Bool
 esNil arbol = 
     case arbol of
@@ -624,8 +647,7 @@ espejo = foldAB (\x rec rec1 -> Bin rec1 x rec)
 
 \begin{centrado}
 	\begin{minted}[breaklines,tabsize=2]{haskell}
-
-
+-- III
 root :: AB a -> a
 root (Bin _ x _) = x
 
@@ -651,12 +673,14 @@ mismaEstructura =
 \subsection{Ejercicio 22}
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
+-- I.
 data RoseTree = Rose a [RoseTree a]   
     \end{minted}
 \end{centrado}
 
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
+-- II.
 foldRose :: (a -> [b] -> b) -> RoseTree a -> b
 foldRose f (Rose x xs) = f x (map (foldRose f) xs)
     \end{minted}
@@ -664,16 +688,17 @@ foldRose f (Rose x xs) = f x (map (foldRose f) xs)
 
 \begin{centrado}
     \begin{minted}[breaklines,tabsize=2]{haskell}
+-- III.a)
 hojasRT :: RoseTree a -> [a]
 hojasRT = foldRose (\x recs -> if null recs then [x]
                                else  x: (concat recs))
-
+--- III.b)
 distancias :: RoseTree a -> [(a, Integer)]
 distancias = 
     foldRose (\x recs -> if null recs then [(x,0)]
                          else map (\(t1,t2) -> (t1, t2 + 1)) 
                                   (concat recs))
-
+-- III.c)
 alturaRT :: RoseTree a -> Integer
 alturaRT = foldRose (\x recs -> if null recs then 0
                         else 1 + (max recs))

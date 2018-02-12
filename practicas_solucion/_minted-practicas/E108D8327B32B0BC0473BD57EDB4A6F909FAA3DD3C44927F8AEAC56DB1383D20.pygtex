@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{dc} \PYG{o+ow}{::} \PYG{k+kt}{DivideConquer} \PYG{n}{a} \PYG{n}{b}
-\PYG{n+nf}{dc} \PYG{n}{esTrivial} \PYG{n}{resolver} \PYG{n}{repartir} \PYG{n}{combinar} \PYG{n}{x} \PYG{o+ow}{=}
-	\PYG{k+kr}{if} \PYG{n}{esTrivial} \PYG{n}{x} \PYG{k+kr}{then}
-		\PYG{n}{resolver} \PYG{n}{x}
-	\PYG{k+kr}{else} \PYG{n}{combinar} \PYG{p}{(}\PYG{n}{map}  \PYG{n}{dc1} \PYG{p}{(}\PYG{n}{repartir} \PYG{n}{x}\PYG{p}{))}
-	\PYG{k+kr}{where} \PYG{n}{dc1} \PYG{o+ow}{=} \PYG{n}{dc} \PYG{n}{esTrivial} \PYG{n}{resolver} \PYG{n}{repartir} \PYG{n}{combinar}
-\end{Verbatim}

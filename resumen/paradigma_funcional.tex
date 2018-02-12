@@ -312,10 +312,10 @@ filter p = foldr (\x rec -> if (p x) then x:rec else rec) []
 \paragraph{Recursión primitiva}
 Recordemos de Logica y Computabilidad: una función h es recursiva primitiva si \textit{h} es de la forma:
 
-\begin{align}
+\begin{align*}
 		h(x_1,\dots,x_n,0) &= f(x_1,\dots,x_n) \\
 		h(x_1,\dots,x_n,t+1) &= g(h(x_1,\dots,x_n, t),x_1,\dots, x_n, t) \\
-\end{align}
+\end{align*}
 
 Es decir, el caso recursivo de \textit{h} no solo depende de la descomposición de sus parámetros, sino que, además, depende de sus parámetros.
 
