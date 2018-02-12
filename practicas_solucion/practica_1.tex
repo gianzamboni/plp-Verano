@@ -1,5 +1,48 @@
-\section{Programación Funcional}
-\subsection*{Tipos en Haskell}
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[pdftex,
+pdfauthor={Gianfranco Zamboni},
+pdftitle={Resumen: Paradigmas de Lenguajes de Programación},
+pdfsubject={},
+pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Programación, Imperativo, Funcional, Cálculo Lambda, Programación Orientada a Objetos, Objetos, Programación Lógica},
+pdfproducer={Latex with hyperref},
+pdfcreator={pdflatex}]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{ amssymb }
+\usepackage{bussproofs}
+
+\usepackage[spanish]{babel}
+
+
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\usepackage{lscape}
+\usepackage{minted}
+\usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage[titletoc,toc,page]{appendix}
+\usepackage{tikz}
+\usepackage{forest}
+
+\input{page.layout}
+\input{comandos}
+
+\setcounter{section}{1}
+
+\begin{document}
+
+\title{PLP - Práctica 1: Programación Funcional}
+
+\date{\today}
+
+\author{Zamboni, Gianfranco}
+
+\maketitle
+\setcounter{page}{1}
+
+\section*{Tipos en Haskell}
 \subsection{Ejercicio 1}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
@@ -49,7 +92,6 @@ flipRaro = flip flip
 \end{minted}
 \end{centrado}
 
-\newpage
 \subsection{Ejercicio 3}
 \begin{centrado}
 \begin{minted}[breaklines]{haskell}
@@ -110,7 +152,7 @@ listasFinitas = concat [ listasQueSuman i | i <- [1..]]
 \end{minted}
 \end{centrado}	
 
-\subsection*{Currificación}
+\section*{Currificación}
 \subsection{Ejercicio 8}
 
 \begin{centrado}
@@ -133,7 +175,7 @@ uncurry1 f (a, b) = f a b
 
 Otra idea sería tratar de definirla de manera que dada una función vaya remplazando los parámetros de a poco generando, de esta forma, n funciones parciales. Pero esto es imposible ya que la función debe tener la tupla de parámetros completa para poder ser evaluada de cualquier manera.
 
-\subsection*{Esquemas de recursión}
+\section*{Esquemas de recursión}
 \subsection{Ejercicio 9}
 \begin{centrado}
 	\begin{minted}[breaklines,tabsize=4]{haskell}
@@ -422,7 +464,7 @@ generateFrom1 stop next =
     \end{minted}
 \end{centrado}
 
-\subsection*{Otras estructuras de datos}
+\section*{Otras estructuras de datos}
 \subsection{Ejercicio 17}
 \begin{centrado}
     \begin{minted}[tabsize=2, breaklines]{haskell}
@@ -705,3 +747,4 @@ alturaRT = foldRose (\x recs -> if null recs then 0
     where max = mejorSegun (>)
     \end{minted}
 \end{centrado}
+\end{document}

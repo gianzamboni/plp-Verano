@@ -1,66 +1,202 @@
-\section{Introducción al Cálculo Lambda Tipado}
-\subsection*{Sintaxis}
+\documentclass[10pt,a4paper, landscape]{article}
+
+\usepackage[pdftex,
+pdfauthor={Gianfranco Zamboni},
+pdftitle={Resumen: Paradigmas de Lenguajes de Programación},
+pdfsubject={},
+pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Programación, Imperativo, Funcional, Cálculo Lambda, Programación Orientada a Objetos, Objetos, Programación Lógica},
+pdfproducer={Latex with hyperref},
+pdfcreator={pdflatex}]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{ amssymb }
+\usepackage{bussproofs}
+\usepackage{pifont}
+
+\usepackage[spanish]{babel}
+
+
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\usepackage{lscape}
+\usepackage{minted}
+\usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage[titletoc,toc,page]{appendix}
+\usepackage{tikz}
+\usepackage{forest}
+\usepackage{multicol}
+
+\input{landscape.page.layout}
+\input{comandos}
+
+
+
+\setcounter{section}{2}
+
+
+\begin{document}
+\title{PLP - Práctica 2: Introducción al Cálculo Lambda Tipado}
+
+\date{\today}
+
+\author{Zamboni, Gianfranco}
+
+\maketitle
+\setcounter{page}{1}
+
+\section*{Sintaxis}
 \subsection{Ejercicio 1}
 En este ejercicio, nos piden identificar las expresiones sitacticamente válidas. Tenemos que tener cuidado de no confundir estas expresiones con las expresiones correctamente tipadas. Todas las expresiones que nos permite escribir el conjunto de términos son expresiones válidas sintacticamente, aún si estas no pueden ser tipadas.
 
 \vspace*{5mm}
 \begin{center}
-\begin{tabular}{cc}
-    \textbf{Expresiones de términos} & \textbf{Expresiones de tipo}\\
-
-    $x$ & $\lambdaValue{\sigma}$ \\ 
-    \lambdaValue{$M$} & $Bool$ \\ 
-    $x~x$ & $Bool\to Bool$ \\ 
-    $M~M$ & $Bool\to Bool\to Bool$  \\ 
-    $true~false$ & $Bool\to Bool\to Nat$ \\ 
-    $true~succ(true~false)$ & $(Bool\to Bool)\to Nat$  \\ 
-    $\lambdaValue{\lambdaAbs{x}{\sigma}{succ(x)}}$ &  \\ 
-    $\lambdaAbs{x}{Bool}{succ(x)}$ &  \\ 
-$\lambdaAbs{x}{Bool}{\lambdaIf{0}{true}{\lambdaApp{0}{succ(x)}}}$ &  \\
-
-\end{tabular}
-
-\vspace*{5mm}
-\begin{tabular}{c}
-    \textbf{No validas} \\
-    $\lambda x.isZero(x)$ \\
-    $\lambda x:\lambdaIf{true}{Bool}{Nat.x}$ \\
-    $succ~true$ \\
-\end{tabular}
+    \begin{tabular}{c|c|c}
+        \textbf{Expresiones de términos} & \textbf{Expresiones de tipo} & \textbf{No válidas}\\
+        
+        $x$ & $Bool$ & $M$ \\ 
+        $x~x$  &  $Bool\to Bool$  &  $\sigma$ \\
+        $M~M$   & $Bool\to Bool\to Nat$ & $\lambda x.isZero(x)$ \\ 
+        $true~false$ &  $(Bool\to Bool)\to Nat$ & $\lambda x:\lambdaIf{true}{Bool}{Nat.x}$ \\ 
+        $true~succ(true~false)$     &   & $succ~true$ \\ 
+        ${\lambdaAbs{x}{\sigma}{succ(x)}}$ &   & \\ 
+        $\lambdaAbs{x}{Bool}{succ(x)}$     &  & \\ 
+        $\lambdaAbs{x}{Bool}{\lambdaIf{0}{true}{\lambdaApp{0}{succ(true)}}}$ &  & \\ 
+    \end{tabular}
 \end{center}
 
+\vspace*{\fill}
+\begin{multicols}{2}
 \subsection{Ejercicio 2}
-\begin{centrado}
-\begin{forest} tikzQtree,
-    [$isZero(pre(succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}})))$,
+
+    \begin{forest} tikzQtree,
+        [$isZero(pre(succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}})))$,
         [$pre(succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}}))$
-            [$succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}})$
-                [$\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}}$
-                    [$0$]
-                    [$\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}$
-                        [$true$]
-                        [$false$]
-                        [$\lambdaAbs{x}{Nat}{x}$
-                            [x]
+        [$succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}})$
+        [$\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}}$
+        [$0$]
+        [$\lambdaIf{true}{false}{\lambdaAbs{x}{Nat}{x}}$
+        [$true$]
+        [$false$]
+        [$\lambdaAbs{x}{Nat}{x}$
+        [x]
+        ]
+        ]                
+        ]
+        ]
+        ]
+        ]
+    \end{forest}
+
+\subsection{Ejercicio 3}
+\paragraph{1.}
+$\lambdaAbs{x}{Nat}{succ((\lambdaApp{\lambdaAbs{x}{Nat}{\blue{x}})}{\lambdaValue{x}})}$
+
+\paragraph{2. }En el término $\lambdaAbs{x_1}{Nat}{succ(x_2)}$, $x_1$ no aparece como subtérmino.
+
+\paragraph{3. } La expresión $x~(y~z)$ no sucede en la expresión $u~x~(y~z)$
+
+\begin{center}
+    \begin{forest} tikzQtree,
+        [$u~x~(y~z)$
+        [$u~x$
+        [$u$]
+        [$x$]
+        ]
+        [$y~z$
+        [$y$]
+        [$z$]
+        ]
+        ]
+    \end{forest}
+\end{center}
+
+\end{multicols}
+\vspace*{\fill}
+
+\newpage
+\subsection{Ejercicio 4}
+Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables libres
+\paragraph{a)}
+
+\begin{forest} tikzQtree,
+    [$\red{(}\blue{(}\red{u}~\red{x}\blue{)}(\red{y}~\red{z})\red{)}~(\lambdaAbs{v}{Bool}{\blue{v}})$
+    [$\blue{(}\red{u}~\red{x}\blue{)}(\red{y}~\red{z})$
+    [$\red{u}~\red{x}$
+    [$\red{u}$]
+    [$\red{x}$]
+    ]
+    [$\red{y}~\red{z}$
+    [$\red{y}$]
+    [$\red{z}$]
+    ]
+    ]
+    [$\lambdaAbs{v}{Bool}{\blue{v}}$
+    [$\red{v}$]
+    ]  
+    ]
+\end{forest}
+
+\paragraph{b)} En esta expresión aparece $(\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{x~z~(y~z)}}})~u$, la marco con una \xmark~ cuando aparece.
+
+\vspace*{5mm}
+\begin{forest}tikzQtree,
+[$\red{(}\blue{(}(\lambdaAbs{x}{Bool\to Nat \to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}\red{)}~ \red{w}$
+    [$\blue{(}(\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}$
+        [ \xmark $(\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}$ ,
+            [$\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}}$
+                [$\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\red{(}\blue{(}\red{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}$
+                    [$\lambdaAbs{z}{Bool}{\red{(}\blue{(}\red{x}~\blue{z}\blue{)}(\red{y}~\blue{z})\red{)}}$
+                        [$\blue{(}\red{x}~\red{z}\blue{)}(\red{y}~\red{z})$
+                            [$\red{x}~\red{z}$
+                                [$\red{x}$]
+                                [$\red{z}$]
+                            ]
+                            [$\red{y}~\red{z}$
+                                [$\red{y}$]
+                                [$\red{z}$]
+                            ]
                         ]
-                    ]                
+                    ]
+                ]
+            ]
+    [$\red{u}$]
+    ]
+    [$\red{v}$]
+    ]
+    [$\red{w}$]
+]
+\end{forest}
+
+\paragraph{c)}
+\begin{forest}tikzQtree,
+[$\red{(}\blue{(}\red{w}~(\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})\blue{)}~\red{u}\red{)}~\red{v}$
+    [$\blue{(}\red{w}~(\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ z)\green{)}}}})\blue{)}~\red{u}$
+        [$\red{w}~(\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})$
+            [$\red{w}$]
+            [$\lambdaAbs{x}{Bool\to Nat\to Bool}{\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}}$
+                [$\lambdaAbs{y}{Bool\to Nat}{\lambdaAbs{z}{Bool}{\green{(}\red{(}\red{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}$
+                    [$\lambdaAbs{z}{Bool}{\green{(}\red{(}\red{x}~\blue{z}\red{)}~(\red{y}~ \blue{z})\green{)}}$
+                        [$\red{(}\red{x}~\red{z}\red{)}~(\red{y}~ \red{z})$
+                            [$\red{x}~\red{z}$
+                                [$\red{x}$]
+                                [$\red{z}$]
+                            ]
+                            [$\red{y}~ \red{z}$
+                                [$\red{y}$]
+                                [$\red{z}$]
+                            ]
+                        ]
+                    ]
                 ]
             ]
         ]
+        [$\red{u}$]
     ]
+    [$\red{v}$]
+]
 \end{forest}
-\end{centrado}
-
-\subsection{Ejercicio 3}
-
-$$\lambdaAbs{x}{Nat}{succ((\lambdaApp{\lambdaAbs{x}{Nat}{\blue{x}})}{\lambdaValue{x}})}$$
-
-En el término $\lambdaAbs{x_1}{Nat}{succ(x_2)}$, $x_1$ no aparece como subtérmino.]
-
-\subsection{Ejercicio 4}
-A la espera...
-
-
 %\subsection{Ejercicio 5}
 %Al final de la práctica estan las soluciones de este ejercicio, hay que leerla con las hojas apaisadas. 
 %
@@ -73,188 +209,192 @@ A la espera...
 %$$\judgeType{\phi}{\lambdaIf{\lambdaIf{true}{false}{false}}{0}{succ(0)}}{Nat}$$
 %
 
-\begin{landscape}
-\subsection*{Tipado}
-\subsection{Ejercicio 5} \label{practica2:ejercicio5}
-\begin{center}
-  \begin{scprooftree}
-      \def\extraVskip{5pt}
-      \AxiomC{}
-      \RightLabel{T-True}
-      \UnaryInfC{$\judgeType{\phi}{true}{Bool}$}
-      
-      \AxiomC{}
-      \RightLabel{T-Zero}
-      \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
-      
-      \AxiomC{}
-      \RightLabel{T-Zero}
-      \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
-      \RightLabel{T-Succ}
-      \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
-      
-      \TrinaryInfC{$\judgeType{\phi}{\lambdaIf{true}{0}{succ(0)}}{Nat}$}
-    \end{scprooftree}
-\end{center}
+%\begin{landscape}
+%\subsection*{Tipado}
+%\subsection{Ejercicio 5} \label{practica2:ejercicio5}
+%\begin{center}
+%  \begin{scprooftree}
+%      \def\extraVskip{5pt}
+%      \AxiomC{}
+%      \RightLabel{T-True}
+%      \UnaryInfC{$\judgeType{\phi}{true}{Bool}$}
+%      
+%      \AxiomC{}
+%      \RightLabel{T-Zero}
+%      \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
+%      
+%      \AxiomC{}
+%      \RightLabel{T-Zero}
+%      \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
+%      \RightLabel{T-Succ}
+%      \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
+%      
+%      \TrinaryInfC{$\judgeType{\phi}{\lambdaIf{true}{0}{succ(0)}}{Nat}$}
+%    \end{scprooftree}
+%\end{center}
+%
+%\vspace*{2cm}
+%En la siguiente demostración $\Gamma =\{x:Nat,~y:Bool\}$
+%\begin{center}
+%   \begin{scprooftree}
+%       \def\extraVskip{5pt}
+%       
+%       \AxiomC{}
+%       \RightLabel{T-True}
+%       \UnaryInfC{$\judgeType{\Gamma}{true}{Bool}$}
+%       
+%       \AxiomC{}
+%       \RightLabel{T-False}
+%       \UnaryInfC{$\judgeType{\Gamma}{false}{Bool}$}
+%       
+%       \AxiomC{$z:Bool\in \Gamma,z:Bool$}
+%       \RightLabel{T-Var}
+%       \UnaryInfC{$\judgeType{\Gamma,z:Bool}{z}{Bool}$}            
+%       \RightLabel{T-Abs}
+%       \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{z}{Bool}{z}}{Bool\to Bool}$}
+%       
+%       \AxiomC{}
+%       \RightLabel{T-True}
+%       \UnaryInfC{$\judgeType{\Gamma}{true}{Bool}$}
+%       \RightLabel{T-App}
+%       \BinaryInfC{$\judgeType{\Gamma}{\lambdaApp{(\lambdaAbs{z}{Bool}{z})}{true}}{Bool}$}
+%       
+%       \RightLabel{T-If}
+%       \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{\lambdaApp{(\lambdaAbs{z}{Bool}{z})}{true}}}{Bool}$}
+%    \end{scprooftree}
+%\end{center}
+%
+%\vspace*{2cm}
+%\begin{center}
+%\begin{scprooftree}
+%    \def\extraVskip{5pt}
+%    
+%    \AxiomC{\red{$\judgeType{\phi,x:Bool}{x}{Bool}\Rightarrow \judgeType{\phi}{\lambdaAbs{x}{Bool}{x}}{Bool\to\tau}$}}
+%    \RightLabel{T-Abs}
+%    \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{x}{Bool}{x}}{Bool}$}
+%    
+%    \AxiomC{$\judgeType{\phi}{0}{Nat}$}
+%    
+%    \AxiomC{$\judgeType{\phi}{succ(0)}{Nat}$}
+%    
+%    \RightLabel{T-If}
+%    \TrinaryInfC{$\judgeType{\phi}{\lambdaIf{\lambdaAbs{x}{Bool}{x}}{0}{succ(0)}}{Nat}$}
+%\end{scprooftree}
+%\end{center}
+%
+%\newpage
+%En la próxima demostración $\Gamma = \{x : Bool \to Nat, y : Bool\}$ 
+%\begin{center}
+%\begin{scprooftree}
+%    \def\extraVskip{5pt}
+%    
+%    \AxiomC{$x:Bool\to Nat\in\Gamma$}
+%    \RightLabel{T-Var}
+%    \UnaryInfC{$\judgeType{\Gamma}{x}{Bool \to Nat}$}
+%    
+%    \AxiomC{$y:Bool\in\Gamma$}
+%    \RightLabel{T-Var}
+%    \UnaryInfC{$\judgeType{\Gamma}{y}{Bool}$}
+%    \RightLabel{T-App}
+%    \BinaryInfC{$\judgeType{\Gamma}{\lambdaIf{\lambdaAbs{x}{Bool}{x}}{0}{succ(0)}}{Nat}$}
+%\end{scprooftree}
+%\end{center}
+%
+%
+%\subsection{Ejercicio 6}
+%\begin{center}
+%\begin{scprooftree}
+%    \def\extraVskip{5pt}
+%    \AxiomC{}
+%    \RightLabel{T-Zero}
+%    \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
+%    
+%    \RightLabel{T-Succ}
+%    \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
+%\end{scprooftree}
+%\hspace{2cm}
+%\begin{scprooftree}
+%    \def\extraVskip{5pt}
+%        \AxiomC{}
+%        \RightLabel{Ya demostrado}
+%        \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
+%    
+%    \RightLabel{T-Zero}
+%    \UnaryInfC{$\judgeType{\phi}{isZero(succ(0))}{Bool}$}
+%\end{scprooftree}
+%
+%\vspace*{2cm}
+%\begin{scprooftree}
+%   \def\extraVskip{5pt}
+%            \AxiomC{}
+%        \RightLabel{T-True}    
+%        \UnaryInfC{$\judgeType{\phi}{true}{Bool}$}
+%
+%            \AxiomC{}
+%        \RightLabel{T-True}    
+%        \UnaryInfC{$\judgeType{\phi}{false}{Bool}$}
+%
+%            \AxiomC{}
+%       \RightLabel{T-True}    
+%       \UnaryInfC{$\judgeType{\phi}{false}{Bool}$}
+%
+%    \RightLabel{T-If}
+%     \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{false}}{Bool}$}
+%
+%        \AxiomC{}
+%    \RightLabel{T-Zero}
+%    \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
+%    
+%         \AxiomC{}
+%    \RightLabel{Ya demostrado}
+%    \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
+%            
+%\RightLabel{T-If}
+%\TrinaryInfC{$\judgeType{\phi}{\lambdaIf{\lambdaIf{true}{false}{false}}{0}{succ(0)}}{Nat}$}
+%    \end{scprooftree}
+%\end{center}
+%
+%\newpage
+%\subsection{Ejercicio 7}
+%En la próxima demostración $\Gamma = \{x:\sigma\}$
+%\begin{center}
+%\begin{scprooftree}
+%       \def\extraVskip{5pt}
+%\AxiomC{$x:Nat\in \Gamma$}
+%\RightLabel{T-Var}
+%\UnaryInfC{$\judgeType{\Gamma}{x}{Nat}$}
+%\RightLabel{T-Succ}
+%\UnaryInfC{$\judgeType{\Gamma}{succ(x)}{Nat}$}
+%\RightLabel{T-Succ}
+%\UnaryInfC{$\judgeType{\Gamma}{isZero(succ(x))}{\tau}$}
+%\end{scprooftree}
+%\end{center}
+%\vspace*{5mm}
+%Entonces, para que la demostración tenga sentido debe pasar que $\sigma = Nat$ y $\tau = Bool$
+%
+%\vspace*{2cm}
+%\begin{center}
+%    \begin{scprooftree}
+%   \def\extraVskip{5pt}
+%        
+%            \AxiomC{$\judgeType{\{x:\sigma\}}{x}{\sigma}$}
+%       \RightLabel{T-Abs}
+%        \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to\sigma}$}
+%        
+%            \AxiomC{$\judgeType{\{y:Bool\}}{0}{Nat}$}
+%        \RightLabel{T-Abs}
+%        \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{y}{Bool}{0}}{\sigma}$}
+%
+%\RightLabel{T-App}
+%\BinaryInfC{$\judgeType{\phi}{\lambdaApp{(\lambdaAbs{x}{\sigma}{x})}{(\lambdaAbs{y}{Bool}{0})}}{\sigma}$}
+%    \end{scprooftree}
+%\end{center}
+%
+%\vspace*{5mm}
+%El árbol de la segunda abstracción nos dice que $\sigma = Bool\to Nat$ y como el desgloce de la primera abstracción, no impuso ninguna otra condición sobre $\sigma$, entonces con este tipo funciona.
+%
+%\end{landscape}
 
-\vspace*{2cm}
-En la siguiente demostración $\Gamma =\{x:Nat,~y:Bool\}$
-\begin{center}
-   \begin{scprooftree}
-       \def\extraVskip{5pt}
-       
-       \AxiomC{}
-       \RightLabel{T-True}
-       \UnaryInfC{$\judgeType{\Gamma}{true}{Bool}$}
-       
-       \AxiomC{}
-       \RightLabel{T-False}
-       \UnaryInfC{$\judgeType{\Gamma}{false}{Bool}$}
-       
-       \AxiomC{$z:Bool\in \Gamma,z:Bool$}
-       \RightLabel{T-Var}
-       \UnaryInfC{$\judgeType{\Gamma,z:Bool}{z}{Bool}$}            
-       \RightLabel{T-Abs}
-       \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{z}{Bool}{z}}{Bool\to Bool}$}
-       
-       \AxiomC{}
-       \RightLabel{T-True}
-       \UnaryInfC{$\judgeType{\Gamma}{true}{Bool}$}
-       \RightLabel{T-App}
-       \BinaryInfC{$\judgeType{\Gamma}{\lambdaApp{(\lambdaAbs{z}{Bool}{z})}{true}}{Bool}$}
-       
-       \RightLabel{T-If}
-       \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{\lambdaApp{(\lambdaAbs{z}{Bool}{z})}{true}}}{Bool}$}
-    \end{scprooftree}
-\end{center}
+%\end{landscape}
 
-\vspace*{2cm}
-\begin{center}
-\begin{scprooftree}
-    \def\extraVskip{5pt}
-    
-    \AxiomC{\red{$\judgeType{\phi,x:Bool}{x}{Bool}\Rightarrow \judgeType{\phi}{\lambdaAbs{x}{Bool}{x}}{Bool\to\tau}$}}
-    \RightLabel{T-Abs}
-    \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{x}{Bool}{x}}{Bool}$}
-    
-    \AxiomC{$\judgeType{\phi}{0}{Nat}$}
-    
-    \AxiomC{$\judgeType{\phi}{succ(0)}{Nat}$}
-    
-    \RightLabel{T-If}
-    \TrinaryInfC{$\judgeType{\phi}{\lambdaIf{\lambdaAbs{x}{Bool}{x}}{0}{succ(0)}}{Nat}$}
-\end{scprooftree}
-\end{center}
-
-\newpage
-En la próxima demostración $\Gamma = \{x : Bool \to Nat, y : Bool\}$ 
-\begin{center}
-\begin{scprooftree}
-    \def\extraVskip{5pt}
-    
-    \AxiomC{$x:Bool\to Nat\in\Gamma$}
-    \RightLabel{T-Var}
-    \UnaryInfC{$\judgeType{\Gamma}{x}{Bool \to Nat}$}
-    
-    \AxiomC{$y:Bool\in\Gamma$}
-    \RightLabel{T-Var}
-    \UnaryInfC{$\judgeType{\Gamma}{y}{Bool}$}
-    \RightLabel{T-App}
-    \BinaryInfC{$\judgeType{\Gamma}{\lambdaIf{\lambdaAbs{x}{Bool}{x}}{0}{succ(0)}}{Nat}$}
-\end{scprooftree}
-\end{center}
-
-
-\subsection{Ejercicio 6}
-\begin{center}
-\begin{scprooftree}
-    \def\extraVskip{5pt}
-    \AxiomC{}
-    \RightLabel{T-Zero}
-    \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
-    
-    \RightLabel{T-Succ}
-    \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
-\end{scprooftree}
-\hspace{2cm}
-\begin{scprooftree}
-    \def\extraVskip{5pt}
-        \AxiomC{}
-        \RightLabel{Ya demostrado}
-        \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
-    
-    \RightLabel{T-Zero}
-    \UnaryInfC{$\judgeType{\phi}{isZero(succ(0))}{Bool}$}
-\end{scprooftree}
-
-\vspace*{2cm}
-\begin{scprooftree}
-   \def\extraVskip{5pt}
-            \AxiomC{}
-        \RightLabel{T-True}    
-        \UnaryInfC{$\judgeType{\phi}{true}{Bool}$}
-
-            \AxiomC{}
-        \RightLabel{T-True}    
-        \UnaryInfC{$\judgeType{\phi}{false}{Bool}$}
-
-            \AxiomC{}
-       \RightLabel{T-True}    
-       \UnaryInfC{$\judgeType{\phi}{false}{Bool}$}
-
-    \RightLabel{T-If}
-     \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{false}}{Bool}$}
-
-        \AxiomC{}
-    \RightLabel{T-Zero}
-    \UnaryInfC{$\judgeType{\phi}{0}{Nat}$}
-    
-         \AxiomC{}
-    \RightLabel{Ya demostrado}
-    \UnaryInfC{$\judgeType{\phi}{succ(0)}{Nat}$}
-            
-\RightLabel{T-If}
-\TrinaryInfC{$\judgeType{\phi}{\lambdaIf{\lambdaIf{true}{false}{false}}{0}{succ(0)}}{Nat}$}
-    \end{scprooftree}
-\end{center}
-
-\newpage
-\subsection{Ejercicio 7}
-En la próxima demostración $\Gamma = \{x:\sigma\}$
-\begin{center}
-\begin{scprooftree}
-       \def\extraVskip{5pt}
-\AxiomC{$x:Nat\in \Gamma$}
-\RightLabel{T-Var}
-\UnaryInfC{$\judgeType{\Gamma}{x}{Nat}$}
-\RightLabel{T-Succ}
-\UnaryInfC{$\judgeType{\Gamma}{succ(x)}{Nat}$}
-\RightLabel{T-Succ}
-\UnaryInfC{$\judgeType{\Gamma}{isZero(succ(x))}{\tau}$}
-\end{scprooftree}
-\end{center}
-\vspace*{5mm}
-Entonces, para que la demostración tenga sentido debe pasar que $\sigma = Nat$ y $\tau = Bool$
-
-\vspace*{2cm}
-\begin{center}
-    \begin{scprooftree}
-   \def\extraVskip{5pt}
-        
-            \AxiomC{$\judgeType{\{x:\sigma\}}{x}{\sigma}$}
-       \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to\sigma}$}
-        
-            \AxiomC{$\judgeType{\{y:Bool\}}{0}{Nat}$}
-        \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{y}{Bool}{0}}{\sigma}$}
-
-\RightLabel{T-App}
-\BinaryInfC{$\judgeType{\phi}{\lambdaApp{(\lambdaAbs{x}{\sigma}{x})}{(\lambdaAbs{y}{Bool}{0})}}{\sigma}$}
-    \end{scprooftree}
-\end{center}
-
-\vspace*{5mm}
-El árbol de la segunda abstracción nos dice que $\sigma = Bool\to Nat$ y como el desgloce de la primera abstracción, no impuso ninguna otra condición sobre $\sigma$, entonces con este tipo funciona.
-
-\end{landscape}
+\end{document}

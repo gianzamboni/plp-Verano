@@ -21,30 +21,36 @@
 \newcommand{\lambdaLet}[4]{let~#1:#2 = #3~in~#4}
 \newcommand{\lambdaRef}[1]{ref~#1}
 \newcommand{\lambdaVar}[1]{#1}
-\newcommand{\lambdaValue}[1]{\color{red}#1\color{black}}
+\newcommand{\lambdaValue}[1]{{\color{red}#1}}
 \newcommand{\lambdaFix}[1]{fix~#1}
 
-\newcommand{\blue}[1]{\color{blue}#1\color{black}}
-\newcommand{\red}[1]{\color{red}#1\color{black}}
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\green}[1]{{\color{green!40!black}#1}}
 \newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
 
 \newcommand{\judgeType}[3]{#1\triangleright #2 : #3}
+
+
+\newcommand{\xmark}{\ding{55}}%
 
 \newenvironment{scprooftree}
 {\leavevmode\hbox\bgroup}
 {\DisplayProof\egroup}
 
-%\newenvironment{scprooftree}[1]%
+\tikzset{
+    every tree node/.style={align=center},
+}
+
+\forestset{tikzQtree/.style={
+        for tree={node options=every tree node/.try}, text centered},
+        begin draw/.code={\begin{tikzpicture}[baseline=(current bounding box.center)]},
+        }
+
+
+%\newenvironment{scforestset}[1]%
 %{\gdef\scalefactor{#1}\proofSkipAmount \leavevmode\hbox\bgroup}%
 %    {\scalebox{\scalefactor}{\DisplayProof}\egroup\proofSkipAmount }
 
-
-\tikzset{
-    every leaf node/.style={text=red, align=center},
-    every tree node/.style={text=blue, align=center},
-}
-
-\forestset{tikzQtree/.style={for tree={if n children=0{
-                node options=every leaf node/.try}{node options=every tree node/.try}, text centered}}}
 %\renewcommand{\appendixtocname}{Apéndices}
 %\renewcommand{\appendixpagename}{Apéndices}
