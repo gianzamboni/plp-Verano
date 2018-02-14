@@ -1,0 +1,8 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} I.}
+\PYG{n+nf}{vacio} \PYG{o+ow}{::} \PYG{k+kt}{Conj} \PYG{n}{a}
+\PYG{n+nf}{vacio} \PYG{n}{x} \PYG{o+ow}{=} \PYG{k+kt}{False}
+
+\PYG{n+nf}{agregar} \PYG{o+ow}{::} \PYG{k+kt}{Eq} \PYG{n}{a} \PYG{o+ow}{=\PYGZgt{}} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Conj} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Conj} \PYG{n}{a}
+\PYG{n+nf}{agregar} \PYG{n}{x} \PYG{n}{c} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{y} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{y} \PYG{o}{==} \PYG{n}{x}\PYG{p}{)} \PYG{o}{||} \PYG{p}{(}\PYG{n}{c} \PYG{n}{x}\PYG{p}{))}
+\end{Verbatim}

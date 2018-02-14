@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} IV.}
+\PYG{n+nf}{sumaAlt2} \PYG{o+ow}{::} \PYG{k+kt}{Num} \PYG{n}{a} \PYG{o+ow}{=\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}
+\PYG{n+nf}{sumaAlt2} \PYG{o+ow}{=}  \PYG{n}{sumaAlt}\PYG{o}{.}\PYG{n}{reverse}
+\end{Verbatim}

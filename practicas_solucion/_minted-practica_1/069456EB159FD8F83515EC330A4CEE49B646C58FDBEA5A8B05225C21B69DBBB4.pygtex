@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} II.}
+\PYG{n+nf}{trasponerInfinito} \PYG{o+ow}{::} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a}
+\PYG{n+nf}{trasponerInfinito} \PYG{n}{m} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n}{flip} \PYG{n}{m}\PYG{p}{)}
+\end{Verbatim}

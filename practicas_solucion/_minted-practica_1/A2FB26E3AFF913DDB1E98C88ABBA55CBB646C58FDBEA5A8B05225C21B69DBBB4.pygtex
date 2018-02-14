@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} II.}
+\PYG{n+nf}{foldRose} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{b}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{RoseTree} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}
+\PYG{n+nf}{foldRose} \PYG{n}{f} \PYG{p}{(}\PYG{k+kt}{Rose} \PYG{n}{x} \PYG{n}{xs}\PYG{p}{)} \PYG{o+ow}{=} \PYG{n}{f} \PYG{n}{x} \PYG{p}{(}\PYG{n}{map} \PYG{p}{(}\PYG{n}{foldRose} \PYG{n}{f}\PYG{p}{)} \PYG{n}{xs}\PYG{p}{)}
+\end{Verbatim}

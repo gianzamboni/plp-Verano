@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{generateFrom1}\PYG{o+ow}{::} \PYG{p}{([}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{([}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]}
+\PYG{n+nf}{generateFrom1} \PYG{n}{stop} \PYG{n}{next} \PYG{o+ow}{=}
+    \PYG{n}{last}\PYG{o}{.}
+    \PYG{p}{(}\PYG{n}{takeWhile} \PYG{p}{(}\PYG{n}{not}\PYG{o}{.}\PYG{n}{stop}\PYG{p}{))}\PYG{o}{.}
+    \PYG{p}{(}\PYG{n}{iterate} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{ys} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{ys} \PYG{o}{++} \PYG{p}{[}\PYG{n}{next} \PYG{n}{ys}\PYG{p}{]))}
+\end{Verbatim}

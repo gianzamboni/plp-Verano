@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} I.}
+\PYG{n+nf}{partes} \PYG{o+ow}{::} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{n}{a}\PYG{p}{]]}
+\PYG{n+nf}{partes} \PYG{o+ow}{=} \PYG{n}{foldr} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{n}{res} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{res} \PYG{o}{++} \PYG{p}{(}\PYG{n}{map} \PYG{p}{(}\PYG{n}{x}\PYG{k+kt}{:}\PYG{p}{)} \PYG{n}{res}\PYG{p}{))} \PYG{p}{[}\PYG{k+kt}{[]}\PYG{p}{]}
+\end{Verbatim}

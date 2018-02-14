@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} II}
+\PYG{n+nf}{esNil} \PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}
+\PYG{n+nf}{esNil} \PYG{n}{arbol} \PYG{o+ow}{=}
+    \PYG{k+kr}{case} \PYG{n}{arbol} \PYG{k+kr}{of}
+               \PYG{k+kt}{Nil} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{True}
+               \PYG{k+kt}{Bin} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{k+kr}{\PYGZus{}} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{False}
+
+\PYG{n+nf}{altura} \PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Integer}
+\PYG{n+nf}{altura} \PYG{o+ow}{=} \PYG{n}{foldAB} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{n}{rec} \PYG{n}{rec1} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{l+m+mi}{1} \PYG{o}{+} \PYG{n}{rec} \PYG{o}{+} \PYG{n}{rec1}\PYG{p}{)} \PYG{l+m+mi}{0}
+
+\PYG{n+nf}{ramas} \PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{n}{a}\PYG{p}{]]}
+\PYG{n+nf}{ramas} \PYG{o+ow}{=} \PYG{n}{foldAB}
+    \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{e} \PYG{n}{rec} \PYG{n}{rec1} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kr}{if} \PYG{p}{(}\PYG{n}{null} \PYG{n}{rec}\PYG{p}{)} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{p}{(}\PYG{n}{null} \PYG{n}{rec1}\PYG{p}{)} \PYG{k+kr}{then} \PYG{p}{[[}\PYG{n}{e}\PYG{p}{]]}
+                    \PYG{k+kr}{else} \PYG{n}{map} \PYG{p}{(}\PYG{n}{e}\PYG{k+kt}{:}\PYG{p}{)} \PYG{p}{(}\PYG{n}{rec}\PYG{o}{++}\PYG{n}{rec1}\PYG{p}{)}
+    \PYG{p}{)}
+    \PYG{k+kt}{[]}
+
+\PYG{n+nf}{nodos} \PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Integer}
+\PYG{n+nf}{nodos} \PYG{o+ow}{=} \PYG{n}{foldAB} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{k+kr}{\PYGZus{}} \PYG{n}{rec} \PYG{n}{rec1} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{l+m+mi}{1} \PYG{o}{+} \PYG{n}{rec} \PYG{o}{+} \PYG{n}{rec1}\PYG{p}{)} \PYG{l+m+mi}{0}
+
+\PYG{n+nf}{hojas} \PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Integer}
+\PYG{n+nf}{hojas} \PYG{o+ow}{=}
+    \PYG{n}{foldAB} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{k+kr}{\PYGZus{}} \PYG{n}{rec} \PYG{n}{rec1} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kr}{if} \PYG{p}{(}\PYG{n}{rec} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{p}{(}\PYG{n}{rec1} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{k+kr}{then} \PYG{l+m+mi}{1}
+                           \PYG{k+kr}{else} \PYG{n}{rec} \PYG{o}{+} \PYG{n}{rec1}
+           \PYG{p}{)}
+           \PYG{l+m+mi}{0}
+
+\PYG{n+nf}{espejo} \PYG{o+ow}{::} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{AB} \PYG{n}{a}
+\PYG{n+nf}{espejo} \PYG{o+ow}{=} \PYG{n}{foldAB} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{n}{rec} \PYG{n}{rec1} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bin} \PYG{n}{rec1} \PYG{n}{x} \PYG{n}{rec}\PYG{p}{)}
+                \PYG{k+kt}{Nil}
+\end{Verbatim}

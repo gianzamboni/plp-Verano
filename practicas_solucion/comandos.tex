@@ -11,25 +11,39 @@
 \newcommand{\rel}{\ensuremath{\mathcal{R}}}
 
 \newcommand{\equalDef}{\overset{def}{=}}
+\newcommand{\alphaEq}[1]{\underset{#1}{\overset{\alpha-eq}{\leadsto}}}
+\newcommand{\reduceTo}[1]{\underset{#1}{\to}}
+
+
+\newcommand{\Bool}{\text{Bool}}
+\newcommand{\Nat}{\text{Nat}}
+\newcommand{\List}[1]{[~]_#1}
 
 \newcommand{\lambdaAbs}[3]{\lambda #1: #2 \text{.} #3}
 \newcommand{\lambdaAssign}[2]{#1~:=~#2}
 \newcommand{\lambdaApp}[2]{#1~#2}
-\newcommand{\lambdaIf}[3]{if~ #1~ then~ #2~ else~ #3}
+\newcommand{\lambdaIf}[3]{\text{if } #1 \text{ then } #2 \text{ else } #3}
 \newcommand{\lambdaTrue}{true}
 \newcommand{\lambdaFalse}{false}
-\newcommand{\lambdaLet}[4]{let~#1:#2 = #3~in~#4}
-\newcommand{\lambdaRef}[1]{ref~#1}
+\newcommand{\lambdaLet}[4]{\text{let}~#1:#2 = #3~in~#4}
+\newcommand{\lambdaRef}[1]{\text{ref}~#1}
 \newcommand{\lambdaVar}[1]{#1}
 \newcommand{\lambdaValue}[1]{{\color{red}#1}}
-\newcommand{\lambdaFix}[1]{fix~#1}
+\newcommand{\lambdaFix}[1]{\text{fix } #1}
+
+\newcommand{\lambdaLetrec}[3]{\text{letrec } #1 = #2 \text{ in }~#3}
+
+\newcommand{\lambdaListCase}[3]{\text{case } #1 \text{ of } \{[~]\leadsto#2~|~x::xs\leadsto#3\}}
+\newcommand{\lambdaListFold}[3]{\text{foldr } #1 \text{ base }\leadsto#2;~\text{rec}(h, r)\leadsto#3}
 
 \newcommand{\blue}[1]{{\color{blue}#1}}
 \newcommand{\red}[1]{{\color{red}#1}}
 \newcommand{\green}[1]{{\color{green!40!black}#1}}
+
 \newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
 
 \newcommand{\judgeType}[3]{#1\triangleright #2 : #3}
+
 
 
 \newcommand{\xmark}{\ding{55}}%

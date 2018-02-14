@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{mejorSegun} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Bool}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[}\PYG{n}{a}\PYG{p}{]} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}
+\PYG{n+nf}{mejorSegun} \PYG{n}{f} \PYG{n}{xs} \PYG{o+ow}{=}
+	\PYG{n}{foldr1} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{n}{rec} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kr}{if} \PYG{n}{f} \PYG{n}{x} \PYG{n}{rec} \PYG{k+kr}{then} \PYG{n}{x} \PYG{k+kr}{else} \PYG{n}{rec}\PYG{p}{)} \PYG{n}{xs}
+\end{Verbatim}

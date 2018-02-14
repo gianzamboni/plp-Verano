@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{}IV.}
+\PYG{n+nf}{sumaMatriz} \PYG{o+ow}{::} \PYG{k+kt}{Num} \PYG{n}{a} \PYG{o+ow}{=\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a}
+              \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a}
+\PYG{n+nf}{sumaMatriz} \PYG{o+ow}{=} \PYG{n}{zipWithMatriz} \PYG{p}{(}\PYG{o}{+}\PYG{p}{)}
+
+\PYG{n+nf}{zipMatriz} \PYG{o+ow}{::} \PYG{k+kt}{MatrizInfinita} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{n}{b}
+             \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{MatrizInfinita} \PYG{p}{(}\PYG{n}{a}\PYG{p}{,}\PYG{n}{b}\PYG{p}{)}
+\PYG{n+nf}{zipMatriz} \PYG{o+ow}{=} \PYG{n}{zipWithMatriz} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{n}{y} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{(}\PYG{n}{x}\PYG{p}{,}\PYG{n}{y}\PYG{p}{))}
+\end{Verbatim}

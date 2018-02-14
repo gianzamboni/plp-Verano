@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZhy{}\PYGZhy{} I}
+\PYG{n+nf}{foldAB} \PYG{o+ow}{::} \PYG{p}{(}\PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{AB} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{b}
+\PYG{n+nf}{foldAB} \PYG{k+kr}{\PYGZus{}} \PYG{n}{z} \PYG{k+kt}{Nil} \PYG{o+ow}{=} \PYG{n}{z}
+\PYG{n+nf}{foldAB} \PYG{n}{f} \PYG{n}{z} \PYG{p}{(}\PYG{k+kt}{Bin} \PYG{n}{ar1} \PYG{n}{e} \PYG{n}{ar2}\PYG{p}{)} \PYG{o+ow}{=}
+    \PYG{n}{f} \PYG{n}{e} \PYG{p}{(}\PYG{n}{foldAB} \PYG{n}{f} \PYG{n}{z} \PYG{n}{ar1}\PYG{p}{)} \PYG{p}{(}\PYG{n}{foldAB} \PYG{n}{f} \PYG{n}{z} \PYG{n}{ar2}\PYG{p}{)}
+\end{Verbatim}
