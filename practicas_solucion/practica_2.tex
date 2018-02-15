@@ -777,13 +777,50 @@ $$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~
 
 \end{scprooftree}
 
-\paragraph{4)} Los nuevos valores son $V~::= ...~| \List{\sigma}~|~V::V$
-
+\paragraph{4)} Los nuevos valores son $V~::= ...~|~\List{\sigma}~|~V::V$
 \paragraph{5)}
+
+\begin{multicols}{2}
 $$\frac{M_1\to M_1'}{M_1 :: M_2 \to M'_1::M_2}(\text{E-}::\text{1})$$
 
 \vspace*{5mm}
 $$\frac{M_2\to M_2'}{V :: M_2 \to V::M'_2}(\text{E-}::\text{2})$$
+
+\vspace*{5mm}
+$$\frac{}{\lambdaListCase{\List{\sigma}}{N}{O}\to N}(\text{E-Case}[~])$$
+
+\vspace*{5mm}
+$$\frac{}{\lambdaListCase{x::xs}{N}{O}\to O}(\text{E-Case}::)$$
+\end{multicols}
+\vspace*{5mm}
+$$\frac{M\to M'}{\lambdaListCase{M}{N}{O}\to\lambdaListCase{M'}{N}{O}}(\text{E-Case}\text{1})$$
+
+\begin{multicols}{2}
+$$\frac{}{\lambdaListFold{\List{\sigma}}{N}{O}\to N}(\text{E-Fold}[~])$$
+
+\vspace*{5mm}
+$$\frac{}{\lambdaListFold{h::xs}{N}{O}\to O}(\text{E-Fold}::)$$
+\end{multicols}
+
+\vspace*{5mm}
+$$\frac{M\to M'}{\lambdaListFold{M}{N}{O}\to\lambdaListFold{M'}{N}{O}}(\text{E-Fold}\text{1})$$
+
+
+\subsection{Ejercicio 18}
+\begin{multicols}{2}
+$M~:= ...~|~map(N,M)$
+
+$$\frac{\judgeType{\Gamma}{N}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{M}{\sigma\to\tau}}{\judgeType{\Gamma}{map(N,M)}{[\tau]}}(T-Map)$$
+\vfil
+
+Los valores del lenguaje no cambian.
+
+$$\frac{}{map{V}{\List{\sigma}}\to \List{\tau}}(\text{E-Map}[~])$$
+
+$$\frac{}{map{V_1}{V :: M}\to \List{\tau}}(\text{E-Map}[~])$$
+\end{multicols}
+
+
 
 \end{document}
 
