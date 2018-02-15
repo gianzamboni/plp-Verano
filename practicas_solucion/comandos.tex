@@ -17,7 +17,7 @@
 
 \newcommand{\Bool}{\text{Bool}}
 \newcommand{\Nat}{\text{Nat}}
-\newcommand{\List}[1]{[~]_#1}
+\newcommand{\List}[1]{[~]_{#1}}
 
 \newcommand{\lambdaAbs}[3]{\lambda #1: #2 \text{.} #3}
 \newcommand{\lambdaAssign}[2]{#1~:=~#2}
@@ -33,7 +33,7 @@
 
 \newcommand{\lambdaLetrec}[3]{\text{letrec } #1 = #2 \text{ in }~#3}
 
-\newcommand{\lambdaListCase}[3]{\text{case } #1 \text{ of } \{[~]\leadsto#2~|~x::xs\leadsto#3\}}
+\newcommand{\lambdaListCase}[3]{\text{case } #1 \text{ of } \{[~]\leadsto#2~|~h::t\leadsto#3\}}
 \newcommand{\lambdaListFold}[3]{\text{foldr } #1 \text{ base }\leadsto#2;~\text{rec}(h, r)\leadsto#3}
 
 \newcommand{\blue}[1]{{\color{blue}#1}}
@@ -41,6 +41,7 @@
 \newcommand{\green}[1]{{\color{green!40!black}#1}}
 
 \newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
+\newcommand{\multiReplaceBy}[2]{#1\{#2\}}
 
 \newcommand{\judgeType}[3]{#1\triangleright #2 : #3}
 

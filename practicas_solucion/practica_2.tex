@@ -63,18 +63,30 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
 \begin{center}
     \begin{tabular}{c|c|c}
         \textbf{Expresiones de términos} & \textbf{Expresiones de tipo} & \textbf{No válidas}\\
-        
-        $x$ & $\Bool$ & $M$ \\ 
-        $x~x$  &  $\Bool\to \Bool$  &  $\sigma$ \\
-        $M~M$   & $\Bool\to \Bool\to \Nat$ & $\lambda x.isZero(x)$ \\ 
-        $true~false$ &  $(\Bool\to \Bool)\to \Nat$ & $\lambda x:\lambdaIf{true}{\Bool}{\Nat.x}$ \\ 
-        $true~succ(true~false)$     &   & $succ~true$ \\ 
-        ${\lambdaAbs{x}{\sigma}{succ(x)}}$ &   & \\ 
-        $\lambdaAbs{x}{\Bool}{succ(x)}$     &  & \\ 
-        $\lambdaAbs{x}{\Bool}{\lambdaIf{0}{true}{\lambdaApp{0}{succ(true)}}}$ &  & \\ 
+       $x$ & $\Bool$ & $M$ \\ 
+       $x~x$ & $\Bool\to \Bool$ & $M~M$ \\      
+       $true~false$ & $\Bool\to \Bool\to \Nat$ & $\lambda x.isZero(x)$ \\
+       $true~succ(true~false)$ & $(\Bool\to \Bool)\to \Nat$ & ${\lambdaAbs{x}{\sigma}{succ(x)}}$\\
+       $\lambdaAbs{x}{\Bool}{succ(x)}$ & & $\lambda x:\lambdaIf{true}{\Bool}{\Nat.x}$ \\
+       $\lambdaAbs{x}{\Bool}{\lambdaIf{0}{true}{\lambdaApp{0}{succ(true)}}}$ & & $\sigma$ \\
+       & & $succ~true$
+%        $ &  &  \\ 
+%          &    &   \\
+%
+%           &  &  \\ 
+%         &   &  \\ 
+%             &   &  \\ 
+%         &   & \\ 
+%             &  & \\ 
+%         &  & \\ 
     \end{tabular}
 \end{center}
-
+%12. Bool
+%13. Bool → Bool
+%14. Bool → Bool → Nat
+%15. (Bool → Bool) → Nat
+%16. succ true\
+%17. λx : Bool. if 0 then true else 0 succ(true)
 \vspace*{\fill}
 \begin{multicols}{2}
 \subsection{Ejercicio 2}
@@ -439,6 +451,7 @@ Entonces, la expresión no es tipable.
 \BinaryInfC{$\judgeType{\Gamma}{x~y}{\tau}$}
     \end{scprooftree}
 
+En este caso, $\sigma = \sigma_1\to\tau$ para cualquier $\tau$ y cualquier $\sigma_1$. Sin embargo, el juicio de tipado no es derivable ya que el sistema de tipado no nos permite asegurar nada sobre el tipo de $y$.
 \vspace*{5mm}
 Acá no podemos hacer juicio de tipado porque no podemos asegurar que $y$ sea de tipo $\sigma_1$
 
@@ -605,29 +618,40 @@ Los programas en \red{rojo} son los que dan error y los programas en \blue{azul}
 \begin{tabular}{c|c}
 \textbf{Programas} & \textbf{No Programas}\\
 \hline
-$\lambdaApp{(\lambdaAbs{x}{\Bool}{pred(isZero(x))})}{true}$ & $\lambdaAbs{x}{\Nat}{pred(succ(y))}$\\
-\blue{$\lambdaAbs{x}{\Nat}{pred(succ(x))}$} & $\lambdaApp{(\lambdaAbs{f}{\Nat\to \Bool}{x})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$ \\
-\red{$\lambdaApp{(\lambdaAbs{x}{\Bool}{pred(isZero(x))})}{true}$} & \\
-$\lambdaApp{(\lambdaAbs{f}{\Nat\to \Bool}{\lambdaApp{f}{0}})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$ & \\
-\red{$\lambdaApp{(\lambdaAbs{f}{\Nat \to \Bool}{\lambdaApp{f}{pred(0)}})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$} & \\
+$\lambdaApp{(\lambdaAbs{x}{Bool}{x})}{true}$ & $\lambdaAbs{x}{\Nat}{pred(succ(y))}$ \\
+\blue{$\lambdaAbs{x}{\Nat}{pred(succ(x))}$}    & $\lambdaApp{(\lambdaAbs{x}{\Bool}{pred(isZero(x))})}{true}$ \\
+$\lambdaApp{(\lambdaAbs{f}{\Nat\to \Bool}{\lambdaApp{f}{0}})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$  & $\lambdaApp{(\lambdaAbs{f}{\Nat\to \Bool}{x})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$ \\
+\red{$\lambdaApp{(\lambdaAbs{f}{\Nat \to \Bool}{\lambdaApp{f}{pred(0)}})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$} &  \\
 $\lambdaFix{(\lambdaAbs{y}{\Nat}{succ(y)})}$ & \\
 $\lambdaLetrec{f}{\lambdaAbs{x}{\Nat}{succ(\lambdaApp{f}{x})}}{\lambdaApp{f}{0}}$ & \\
 \end{tabular}
 \end{center}
 
+
 \vspace*{5mm}
 \begin{multicols}{2}
 \subsection{Ejercicio 13}
-Cuando definimos $\to$, lo hacemos como una función deterministica que dada una expresión, siempre hay una única que regla que aplica para dar un paso en la reducción. Por lo que una expresión siempre reduce a la misma expresión, sin importar cuantos pasos hagamos.
+\textbf{1) }Cuando definimos $\to$, lo hacemos como una función deterministica que dada una expresión, siempre hay una única que regla que aplica para dar un paso en la reducción. Por lo que una expresión siempre reduce a la misma expresión, en un paso.
+
+\textbf{2) } Al haber, en cada paso, un único camino por el que reducir, si reducimos $M\twoheadrightarrow N$ y $M\twoheadrightarrow N'$, ambas reducciones en $n$ pasos, entonces $N = N'$
+
+\textbf{3)} No es cierto, con la mayoría de las expresiones seguimos un camino de reducción que nos llevará a una forma normal. En estos casos, $M'$ y $M''$ no pueden ser iguales, sin embargo, hay expresiones recursivas como $\lambdaFix{\lambdaAbs{x}{Bool->Bool}{x}}$ que cuando se las trata de reducir siempre evalúan a si mismas y, entonces vale siempre que $M' = M''$ .
 
 \subsection{Ejercicio 14}
-Cuando $M = 0$, tenemos que $succ(pred(0)) = 1$ y que $pred(succ(0)) = 0$, por lo que no siempre es lo mismo evaluar estas dos expresiones. $isZero(succ(M))$ evalúa a $false$ solo cuando $M$ es de tipo Nat y no evalúan a cero. Como dice el enunciado, hay infinitas expresiones que evalúan a cero, recordemos que las (infinitas) expresiones correctamente tipadas evaluán a un valor.3
+\textbf{1)} Cuando $M \twoheadrightarrow 0$, tenemos que $succ(pred(0)) = 1$ y que $pred(succ(0)) = 0$, por lo que no siempre es lo mismo evaluar estas dos expresiones. 
+
+\textbf{2)} $isZero(succ(M))\twoheadrightarrow false$ solo cuando $M$ es de tipo Nat y su forma normal es $0$. 
+
+\textbf{3)} Como dice el enunciado, hay infinitas expresiones que evalúan a cero, por lo tanto $isZero(pred(M))$ vale cuando $M\twoheadrightarrow 0$.
 
 \subsection{Ejercicio 15}
-Con la nueva regla, las abstracciones $\lambdaAbs{x}{\sigma}{M}$ pasan a ser expresiones reducibles mientras $M$ sea una expresión reducible, por lo que debemos considerarla un valor solo cuando su expresión interna es un valor. Además, esta nueva regla nos da un nuevo camino para reducirla cuando ex aplicada a un valor, es decir, en una expresión del tipo $\lambdaApp{\lambdaAbs{x}{\sigma}{M}}{N}$, podemos elegir entre usar esta regla o la regla E-Abs/$\beta$, por lo que hay que modificar esta regla para que solo sea apicable cuando $M$ está en su forma normal $F$, o sea no es posible seguir reduciendola. Entonces:
+\textbf{1)} Con la nueva regla, las abstracciones $\lambdaAbs{x}{\sigma}{M}$ pasan a ser expresiones reducibles mientras $M$ sea una expresión reducible, por lo que debemos considerarla un valor solo cuando su expresión interna es un valor.
+
+\textbf{2)} Además, esta nueva regla nos da un nuevo camino para reducirla cuando es aplicada a un valor, es decir, en una expresión del tipo $\lambdaApp{\lambdaAbs{x}{\sigma}{M}}{N}$, podemos elegir entre usar esta regla o la regla E-Abs/$\beta$, por lo que hay que modificar esta regla para que solo sea apicable cuando $M$ está en su forma normal $F$, o sea no es posible seguir reduciendola. Entonces:
 $$V~::=~ ...~|~\lambdaAbs{x}{\sigma}{V}$$
 $$\frac{}{\lambdaApp{\lambdaAbs{x}{\sigma}{F}}{V}\to \replaceBy{F}{x}{V}}(\text{E-Abs/}\beta)$$
-Ahora, si tratamos de reducir $\lambdaApp{(\lambdaAbs{x}{\Nat\to\Nat}{\lambdaApp{x}{\underline{23}}})}{(\lambdaAbs{x}{\Nat}{0})}$ nos encontraremos con que la expresión dentro de la primer abstracción es reducible pues $\lambdaApp{x}{\underline{23}}$ no es un valor. Sin embargo,  $x$ puede ser cualquier función de tipo  $\Nat\to\Nat$, o sea que tiene una variable libre, pero no sabemos como ni cuanta veces ocurre dentro de ella. Esto evita que podamos reducirla, trabando la computación.
+
+\textbf{3)} Ahora, si tratamos de reducir $\lambdaApp{(\lambdaAbs{x}{\Nat\to\Nat}{\lambdaApp{x}{\underline{23}}})}{(\lambdaAbs{x}{\Nat}{0})}$ nos encontraremos con que la expresión dentro de la primer abstracción es reducible pues $\lambdaApp{x}{\underline{23}}$ no es un valor. Sin embargo,  $x$ puede ser cualquier función de tipo  $\Nat\to\Nat$, o sea que tiene una variable libre, pero no sabemos como ni cuanta veces ocurre dentro de ella. Esto evita que podamos reducirla, trabando la computación.
 \end{multicols}
 
 
@@ -640,7 +664,7 @@ Para poder utilizar la reducción \textit{call-by-name} debemos eliminar la regl
 
 $$\frac{}{(\lambdaApp{\lambdaAbs{x}{\sigma}{M})}{N} \to \replaceBy{M}{x}{N}}(\text{E-App/}\beta)$$
 
-Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está en forma normal o no. La próxima reducción se hizo utilizando los cambios mencionados:
+Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está en forma normal o no. Esto evitará que si la expresión $M$ no usa a $x$, evaluemos $N$ inncesariamente. La próxima reducción se hizo utilizando los cambios mencionados:
 \end{multicols}
 
 \begin{equation*}
@@ -657,7 +681,7 @@ Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está e
 
 \newpage
 \section*{\centering Extensiones}
-\subsection{Ejercicio 17}
+\subsection{Ejercicio 17}\label{p2:e17}
 \paragraph{1)}
 \begin{multicols}{2}
 
@@ -790,17 +814,16 @@ $$\frac{M_2\to M_2'}{V :: M_2 \to V::M'_2}(\text{E-}::\text{2})$$
 $$\frac{}{\lambdaListCase{\List{\sigma}}{N}{O}\to N}(\text{E-Case}[~])$$
 
 \vspace*{5mm}
-$$\frac{}{\lambdaListCase{x::xs}{N}{O}\to O}(\text{E-Case}::)$$
+$$\frac{}{\lambdaListCase{V_1::V_2}{N}{O}\to\multiReplaceBy{O}{x\leftarrow V_1,~xs\leftarrow V_2}}(\text{E-Case}::)$$
 \end{multicols}
 \vspace*{5mm}
 $$\frac{M\to M'}{\lambdaListCase{M}{N}{O}\to\lambdaListCase{M'}{N}{O}}(\text{E-Case}\text{1})$$
 
-\begin{multicols}{2}
+\vspace*{5mm}
 $$\frac{}{\lambdaListFold{\List{\sigma}}{N}{O}\to N}(\text{E-Fold}[~])$$
 
 \vspace*{5mm}
-$$\frac{}{\lambdaListFold{h::xs}{N}{O}\to O}(\text{E-Fold}::)$$
-\end{multicols}
+$$\frac{}{\lambdaListFold{V_1::V_2}{N}{O}\to \multiReplaceBy{O}{h\leftarrow V_1,~r\leftarrow(\lambdaListFold{V_2}{N}{O})}}(\text{E-Fold}::)$$
 
 \vspace*{5mm}
 $$\frac{M\to M'}{\lambdaListFold{M}{N}{O}\to\lambdaListFold{M'}{N}{O}}(\text{E-Fold}\text{1})$$
@@ -811,16 +834,178 @@ $$\frac{M\to M'}{\lambdaListFold{M}{N}{O}\to\lambdaListFold{M'}{N}{O}}(\text{E-F
 $M~:= ...~|~map(N,M)$
 
 $$\frac{\judgeType{\Gamma}{N}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{M}{\sigma\to\tau}}{\judgeType{\Gamma}{map(N,M)}{[\tau]}}(T-Map)$$
-\vfil
 
+\vspace*{5mm}
 Los valores del lenguaje no cambian.
 
+\vspace*{5mm}
 $$\frac{}{map{V}{\List{\sigma}}\to \List{\tau}}(\text{E-Map}[~])$$
 
-$$\frac{}{map{V_1}{V :: M}\to \List{\tau}}(\text{E-Map}[~])$$
+\vspace*{5mm}
+$$\frac{}{map(V_1,~V_2 :: V_3)\to (\lambdaApp{V_1}{V_2})::map(V_1,V_3)}(\text{E-Map}::)$$
+
+\vspace*{5mm}
+$$\frac{M\to M'}{map(V, M)\to map(V,M')}(\text{E-Map1})$$
+
+\vspace*{5mm}
+$$\frac{M_1\to M'_1}{map(M_1, M_2)\to map(M'_1,M_2)}(\text{E-Map2})$$
 \end{multicols}
 
+\newpage
+\subsection{Ejercicio 19}
+\paragraph{1)}
+\begin{multicols}{2}
+$$\frac{\judgeType{\Gamma,x_1:\sigma_1,\dots,x_n:\sigma_n}{M}{\tau}}{\judgeType{\Gamma}{\mu x_1:\sigma_1,\dots,x_n:\sigma_n.M}{\tau}}(\text{T-}\mu)$$
 
+\vspace*{5mm}
+$$\frac{\judgeType{\Gamma}{M}{\{x_1:\sigma_1,\dots,x_n:\sigma_n\}\to\tau}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\text{para } n > 1}{\judgeType{\Gamma}{M~\#_i~N}{\{x_1:\sigma_1,\dots,x_{i-1}:\sigma_{i-1},x_{i+1}:\sigma_{i+1},\dots,x_n:\sigma_n\}\to\tau}}(\text{T-}\#_i)$$
 
+\vspace*{5mm}
+$$\frac{\judgeType{\Gamma}{M}{\{x_1:\sigma_1\}\to\tau}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma_1}}{\judgeType{\Gamma}{M~\#_1~N}{\tau}}(\text{T-}\#_1)$$
+\end{multicols}
+
+\vspace*{5mm}
+\paragraph{2)} $V~::=~\dots~|~\mu x_1:\sigma_1,\dots,x_n:\sigma_n.M$
+\begin{multicols}{2}
+$$\frac{M\to M'}{M~\#_i~N \to M'~\#_i~N}(\text{E-}\#1)$$
+
+\vspace*{5mm}
+$$\frac{N\to N'}{V~\#_i~N \to V~\#_i~N'}(\text{E-}\#2)$$\
+
+$$\frac{}{(\mu x_1:\sigma_1.M)~\#_1~V \to \replaceBy{M}{x_1}{V}}(\text{E-}\#3)$$
+\vfill
+
+\end{multicols}
+\vspace*{5mm}
+$$\frac{}{(\mu x_1:\sigma_1,\dots,x_n:\sigma_n.M)~\#_i~V \to \mu x_1:\sigma_1,\dots,x_{i-1}:\sigma_{i-1},x_{i+1}:\sigma_{i+1},\dots,x_n:\sigma_n.(\replaceBy{M}{x_i}{V})}(\text{E-}\#4) \text{ para todo } n > 1$$
+
+\paragraph{3)} $\lambdaAbs{x}{\sigma}{M}\equalDef \mu x:\sigma.M$ y $\lambdaApp{M_1}{M_2}\equalDef M_1~\#_1~M_2$
+
+\newpage
+\subsection{Ejercicio 20}
+Acá usamos la extensión con registros vista en la teórica.
+
+$M~:=~\dots~|~unionReg(M,M)$
+
+Los valores no cambian.
+
+$$\frac{\judgeType{\Gamma}{M}{\{l_i:\sigma_i^{i\in 1..n}\}}\hspace*{5mm}\judgeType{\Gamma}{N}{\{l_i:\sigma_i^{i\in n+1..m}\}}\hspace*{5mm}l_i=l_j \Rightarrow i = j}{\judgeType{\Gamma}{unionReg(M,N)}{\{l_i:\sigma_i^{i\in 1..m}\}}}(T-UnionReg)$$
+
+\begin{multicols}{2}
+
+\vspace*{5mm}
+$$\frac{M\to M'}{unionReg(M,N)\to unionReg(M',N)}(E-UnionReg1)$$
+
+\vspace*{5mm}
+$$\frac{N\to N'}{unionReg(V,N)\to unionReg(V,N')}(E-UnionReg2)$$
+
+\vspace*{5mm}
+$$\frac{}{unionReg(\{l_i:V_i^{i\in 1..n}\},\{l_i:V_i^{i\in n+1..m}\})\to \{l_i:V_i^{i\in 1..m}\}}(E-UnionReg3)$$
+\end{multicols}
+
+\subsection{Ejercicio 21}
+\begin{multicols}{2}
+$\textbf{Not} \equalDef \lambdaAbs{x}{Bool}{\lambdaIf{x}{false}{true}}$
+
+\vspace*{5mm}
+$\textbf{And} \equalDef \lambdaAbs{x}{Bool}{\lambdaAbs{y}{Bool}{\lambdaIf{x}{y}{false}}}$
+
+\vfill
+
+$\textbf{Or} \equalDef \lambdaAbs{x}{Bool}{\lambdaAbs{y}{Bool}{\lambdaIf{x}{true}{y}}}$
+
+\vspace*{5mm}
+$\textbf{Xor} \equalDef \lambdaAbs{x}{Bool}{\textbf{Or}~(\textbf{And}~x~(\textbf{Not}~y))~(\textbf{And}~(\textbf{Not}~x)~y)}$
+\end{multicols}
+
+\subsubsection*{Ejercicio 22}
+\paragraph{1)}
+
+\begin{multicols}{2}
+$$\frac{\judgeType{\Gamma}{M_i}{\sigma_i\to\tau}\hspace*{5mm}i\in1..n\hspace*{5mm}\sigma_i=\sigma_j\Rightarrow i =j }{\judgeType{\Gamma}{[(M_1,\dots,M_n)]}{\text{Union}(\sigma_1,\dots,\sigma_n)_\tau}}(T-Union)$$
+
+\vspace*{5mm}
+$$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\text{Union}(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{\lambdaApp{M}{N}}{\tau}}(T-UnionApp)$$
+\end{multicols}
+
+\newpage
+\paragraph{2)} $\Gamma = \{y:\Nat\}$
+
+\vspace*{5mm}
+    \begin{scprooftree}
+   \def\extraVskip{5pt}
+        
+        \AxiomC{$y:Nat\in\Gamma$}
+    \RightLabel{T-Var}
+    \UnaryInfC{$\judgeType{\Gamma}{y}{Nat}$}
+
+        \AxiomC{Demostrado en (1)}
+        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Bool}{y}}{\Bool\to\Nat}$}
+          
+        \AxiomC{Demostrado en (2)}
+        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Nat}{x}}{\Nat\to\Nat}$}
+        
+        \AxiomC{$\Bool\neq\Nat$}
+    \RightLabel{T-Union}    \TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{Nat}{x})]}{\text{Union}(\Nat,\Bool)_\Nat}$}
+
+    \AxiomC{$\Nat\in\{\Bool,\Nat\}$}
+    
+\RightLabel{T-UnionApp}
+\TrinaryInfC{$\judgeType{\Gamma}{\lambdaApp{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{Nat}{x})]}{y}}{\Nat}$}
+\end{scprooftree}
+
+\vspace*{1cm}
+\begin{multicols}{2}
+
+(1)    \begin{scprooftree}
+   \def\extraVskip{5pt}
+                \AxiomC{$y:\Nat\in\Gamma,x:\Bool$}
+            \RightLabel{T-Var}
+            \UnaryInfC{$\judgeType{\Gamma,x:\Bool}{y}{\Nat}$}
+        \RightLabel{T-Abs}
+        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Bool}{y}}{\Bool\to\Nat}$}
+    \end{scprooftree}
+
+(2)    \begin{scprooftree}
+   \def\extraVskip{5pt}
+                   \AxiomC{$x:\Nat\in\Gamma,x:\Nat$}
+               \RightLabel{T-Var}
+               \UnaryInfC{$\judgeType{\Gamma,x:\Nat}{x}{\Nat}$}
+           \RightLabel{T-Abs}
+           \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Nat}{x}}{\Nat\to\Nat}$}
+    \end{scprooftree}
+\end{multicols}
+
+\paragraph{3)} $V~:=~\dots~|~[(V_1,\dots,V_n)]$. Cada valor, sera una expresión lamda que podremos reducir cuando la apliquemos a otra expresión.
+
+\paragraph{4)}
+\begin{multicols}{2}
+$$\frac{M_j\to M_j'}{[(V_i^{i\in 1..j-1}, M_j, M_i^{i\in j+1..n})]\to[(V_i^{i\in 1..j-1}, M'_j, M_i^{i\in j+1..n})]}(\text{E-Un1})$$
+
+$$\frac{}{\lambdaApp{[(V_i^{i\in 1..n})]}{V}\to \lambdaApp{V_i}{V}}(\text{E-AppUnion})$$
+\end{multicols}
+
+\subsection{Ejercicio 23}
+Usamos la extensión del ejercicio \ref{p2:e17}
+
+\paragraph{1)}
+\begin{multicols}{2}
+$head_\sigma \equalDef \lambdaAbs{xs}{[\sigma]}{\lambdaListCase{xs}{\bot_\sigma}{h}}$ 
+
+$tail_\sigma \equalDef \lambdaAbs{xs}{[\sigma]}{\lambdaListCase{xs}{\List{\sigma}}{t}}$
+\end{multicols}
+
+\paragraph{2)}
+$iterate_\sigma\equalDef \lambdaFix{(\lambdaAbs{g}{(\sigma\to\sigma)\to\sigma\to[\sigma]}{\lambdaAbs{f}{\sigma\to\sigma}{\lambdaAbs{x}{\sigma}{x::(g~f~(f~x))}}})}$
+
+\paragraph{3)} 
+
+$isNull_\sigma \equalDef \lambdaAbs{xs}{[\sigma]}{\lambdaListCase{xs}{true}{false}}$
+
+\vspace*{5mm}
+$zip_{\sigma,\tau}\equalDef \lambdaFix{(\lambdaAbs{g}{[\sigma]\to[\tau]\to[\sigma\times\tau]}{\lambdaAbs{xs}{[\sigma]}{\lambdaAbs{ys}{[\tau]}{\lambdaIf{\textbf{Or}~(isNull_\tau~ys)~(isNull_\sigma~xs)}{\List
+{\sigma\times\tau}}{(head_\tau~ys,head_\sigma~xs):(g~(tail_\sigma~xs)~(tail_\tau~ys)}}}})}$
+
+\paragraph{4)}
+$take_\sigma\equalDef \lambdaFix{(\lambdaAbs{f}{\Nat\to[\sigma]}{\lambdaAbs{n}{\Nat}{\lambdaAbs{xs}{[\sigma]}{\lambdaIf{\textbf{Or}~isZero(n)~(isNull~xs)}{\List{\sigma}}{(head~xs)::(f~pred(n)~(tail~xs))}}}})}$
 \end{document}
-
