@@ -68,17 +68,8 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
        $true~false$ & $\Bool\to \Bool\to \Nat$ & $\lambda x.isZero(x)$ \\
        $true~succ(true~false)$ & $(\Bool\to \Bool)\to \Nat$ & ${\lambdaAbs{x}{\sigma}{succ(x)}}$\\
        $\lambdaAbs{x}{\Bool}{succ(x)}$ & & $\lambda x:\lambdaIf{true}{\Bool}{\Nat.x}$ \\
-       $\lambdaAbs{x}{\Bool}{\lambdaIf{0}{true}{\lambdaApp{0}{succ(true)}}}$ & & $\sigma$ \\
+       $\lambdaAbs{x}{\Bool}{\lambdaIf{0}{true}{0~succ(true)}}$ & & $\sigma$ \\
        & & $succ~true$
-%        $ &  &  \\ 
-%          &    &   \\
-%
-%           &  &  \\ 
-%         &   &  \\ 
-%             &   &  \\ 
-%         &   & \\ 
-%             &  & \\ 
-%         &  & \\ 
     \end{tabular}
 \end{center}
 %12. Bool
@@ -92,10 +83,10 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
 \subsection{Ejercicio 2}
 
     \begin{forest} tikzQtree,
-        [$isZero(pre(succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}})))$,
-        [$pre(succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}}))$
-        [$succ(\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}})$
-        [$\lambdaApp{0}{\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}}$
+        [$isZero(pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}})))$,
+        [$pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}))$
+        [$succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}})$
+        [$0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}$
         [$0$]
         [$\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}$
         [$true$]
@@ -112,7 +103,7 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
 
 \subsection{Ejercicio 3}
 \paragraph{1.}
-$\lambdaAbs{x}{\Nat}{succ((\lambdaApp{\lambdaAbs{x}{\Nat}{\blue{x}})}{\lambdaValue{x}})}$
+$\lambdaAbs{x}{\Nat}{succ((\lambdaAbs{x}{\Nat}{\blue{x}})~\lambdaValue{x})}$
 
 \paragraph{2. }En el término $\lambdaAbs{x_1}{\Nat}{succ(x_2)}$, $x_1$ no aparece como subtérmino.
 
@@ -266,10 +257,10 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
        \RightLabel{T-True}
        \UnaryInfC{$\judgeType{\Gamma}{true}{\Bool}$}
        \RightLabel{T-App}
-       \BinaryInfC{$\judgeType{\Gamma}{\lambdaApp{(\lambdaAbs{z}{\Bool}{z})}{true}}{\Bool}$}
+       \BinaryInfC{$\judgeType{\Gamma}{(\lambdaAbs{z}{\Bool}{z})~true}{\Bool}$}
        
        \RightLabel{T-If}
-       \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{\lambdaApp{(\lambdaAbs{z}{\Bool}{z})}{true}}}{\Bool}$}
+       \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{(\lambdaAbs{z}{\Bool}{z})~true}}{\Bool}$}
     \end{scprooftree}
 \end{center}
 
@@ -400,7 +391,7 @@ Entonces, $\sigma = \Nat$ y $\tau = \Bool$
         \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{y}{\Bool}{0}}{\sigma}$}
 
 \RightLabel{T-App}
-\BinaryInfC{$\judgeType{\phi}{\lambdaApp{(\lambdaAbs{x}{\sigma}{x})}{(\lambdaAbs{y}{\Bool}{0})}}{\sigma}$}
+\BinaryInfC{$\judgeType{\phi}{(\lambdaAbs{x}{\sigma}{x})~(\lambdaAbs{y}{\Bool}{0})}{\sigma}$}
     \end{scprooftree}
 
 \vspace*{5mm}
@@ -586,16 +577,20 @@ No hay nada que nos asegure que $x:\sigma$ pertenece a $\Gamma$
 
 \section*{\centering Semántica}
 \subsection{Ejercicio 10}
-\paragraph{1)} $\replaceBy{(\lambdaAbs{y}{\sigma}{\lambdaApp{x}{(\lambdaAbs{x}{\tau}{x})}})}{x}{(\lambdaAbs{y}{\rho}{\lambdaApp{x}{y}})}\alphaEq{y=w;~x=z}\replaceBy{(\lambdaAbs{w}{\sigma}{\lambdaApp{x}{(\lambdaAbs{z}{\tau}{z})}})}{x}{(\lambdaAbs{y}{\rho}{\lambdaApp{x}{y}})} \equalDef \lambdaAbs{w}{\sigma}{\lambdaApp{(\lambdaAbs{y}{\rho}{\lambdaApp{x}{y}})}{(\lambdaAbs{z}{\tau}{z})}}$
+\paragraph{1)} $\replaceBy{(\lambdaAbs{y}{\sigma}{x~(\lambdaAbs{x}{\tau}{x})})}{x}{(\lambdaAbs{y}{\rho}{x~y})}
+\alphaEq{y=w;~x=z}\replaceBy{(\lambdaAbs{w}{\sigma}{x~(\lambdaAbs{z}{\tau}{z})})}{x}{(\lambdaAbs{y}{\rho}{x~y})} 
+\equalDef \lambdaAbs{w}{\sigma}{(\lambdaAbs{y}{\rho}{x~y})~(\lambdaAbs{z}{\tau}{z})}$
 
 \paragraph{2)}
 \begin{equation*}
 \begin{split}
-\replaceBy{(\lambdaApp{y}{(\lambdaAbs{v}{\sigma}{\lambdaApp{x}{v}})})}{x}{(\lambdaAbs{y}{\tau}{\lambdaApp{v}{y}})} &\equalDef
-\lambdaApp{\replaceBy{y}{x}{(\lambdaAbs{y}{\tau}{\lambdaApp{v}{y}})}}{\replaceBy{(\lambdaAbs{v}{\sigma}{\lambdaApp{x}{v}})}{x}{(\lambdaAbs{y}{\tau}{\lambdaApp{v}{y}})}} \equalDef
-\lambdaApp{y}{\replaceBy{(\lambdaAbs{v}{\sigma}{\lambdaApp{x}{v}})}{x}{(\lambdaAbs{y}{\tau}{\lambdaApp{v}{y}})}} \\
+\replaceBy{(y~(\lambdaAbs{v}{\sigma}{x~v}))}{x}{(\lambdaAbs{y}{\tau}{v~y})} 
+&\equalDef \replaceBy{y}{x}{(\lambdaAbs{y}{\tau}{v~y})}~\replaceBy{(\lambdaAbs{v}{\sigma}{x~v})}{x}{(\lambdaAbs{y}{\tau}{v~y})}
+\equalDef
+y~\replaceBy{(\lambdaAbs{v}{\sigma}{x~v})}{x}{(\lambdaAbs{y}{\tau}{v~y})} \\
 &\alphaEq{v=z}
-\lambdaApp{y}{\replaceBy{(\lambdaAbs{z}{\sigma}{\lambdaApp{x}{z}})}{x}{(\lambdaAbs{y}{\tau}{\lambdaApp{v}{y}})}} \equalDef \lambdaApp{y}{(\lambdaAbs{z}{\sigma}{\lambdaApp{(\lambdaAbs{y}{\tau}{\lambdaApp{v}{y}})}{z}})}
+y~\replaceBy{(\lambdaAbs{z}{\sigma}{x~z})}{x}{(\lambdaAbs{y}{\tau}{v~y}}) 
+\equalDef y~(\lambdaAbs{z}{\sigma}{(\lambdaAbs{y}{\tau}{v~y})~z})
 \end{split}
 \end{equation*}
 
@@ -604,9 +599,9 @@ No hay nada que nos asegure que $x:\sigma$ pertenece a $\Gamma$
 \begin{tabular}{c|c}
 \textbf{Es un valor} & \textbf{No es un valor} \\
 \hline
-$\lambdaAbs{x}{\Bool}{\underline{2}}$ & $\lambdaApp{(\lambdaAbs{x}{\Bool}{x})}{true}$ \\
+$\lambdaAbs{x}{\Bool}{\underline{2}}$ & $(\lambdaAbs{x}{\Bool}{x})~true$ \\
 $\lambdaAbs{x}{\Bool}{pred(\underline{2})}$ &  $x$ \\
-$\lambdaAbs{y}{\Nat}{\lambdaApp{(\lambdaAbs{x}{\Bool}{pred(\underline{2})})}{true}}$ &  \\
+$\lambdaAbs{y}{\Nat}{(\lambdaAbs{x}{\Bool}{pred(\underline{2})})~true}$ &  \\
 $succ(succ(0))$ &  \\
 \end{tabular}
 \end{center}
@@ -618,12 +613,12 @@ Los programas en \red{rojo} son los que dan error y los programas en \blue{azul}
 \begin{tabular}{c|c}
 \textbf{Programas} & \textbf{No Programas}\\
 \hline
-$\lambdaApp{(\lambdaAbs{x}{Bool}{x})}{true}$ & $\lambdaAbs{x}{\Nat}{pred(succ(y))}$ \\
-\blue{$\lambdaAbs{x}{\Nat}{pred(succ(x))}$}    & $\lambdaApp{(\lambdaAbs{x}{\Bool}{pred(isZero(x))})}{true}$ \\
-$\lambdaApp{(\lambdaAbs{f}{\Nat\to \Bool}{\lambdaApp{f}{0}})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$  & $\lambdaApp{(\lambdaAbs{f}{\Nat\to \Bool}{x})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$ \\
-\red{$\lambdaApp{(\lambdaAbs{f}{\Nat \to \Bool}{\lambdaApp{f}{pred(0)}})}{(\lambdaAbs{x}{\Nat}{isZero(x)})}$} &  \\
+$(\lambdaAbs{x}{Bool}{x})~true$ & $\lambdaAbs{x}{\Nat}{pred(succ(y))}$ \\
+\blue{$\lambdaAbs{x}{\Nat}{pred(succ(x))}$}    & $(\lambdaAbs{x}{\Bool}{pred(isZero(x))})~true$ \\
+$(\lambdaAbs{f}{\Nat\to \Bool}{f~0})~(\lambdaAbs{x}{\Nat}{isZero(x)})$  & $(\lambdaAbs{f}{\Nat\to \Bool}{x})~(\lambdaAbs{x}{\Nat}{isZero(x)})$ \\
+\red{$(\lambdaAbs{f}{\Nat \to \Bool}{f~pred(0)})~(\lambdaAbs{x}{\Nat}{isZero(x)})$} &  \\
 $\lambdaFix{(\lambdaAbs{y}{\Nat}{succ(y)})}$ & \\
-$\lambdaLetrec{f}{\lambdaAbs{x}{\Nat}{succ(\lambdaApp{f}{x})}}{\lambdaApp{f}{0}}$ & \\
+$\lambdaLetrec{f}{\lambdaAbs{x}{\Nat}{succ(f~x)}}{f~0}$ & \\
 \end{tabular}
 \end{center}
 
@@ -647,11 +642,11 @@ $\lambdaLetrec{f}{\lambdaAbs{x}{\Nat}{succ(\lambdaApp{f}{x})}}{\lambdaApp{f}{0}}
 \subsection{Ejercicio 15}
 \textbf{1)} Con la nueva regla, las abstracciones $\lambdaAbs{x}{\sigma}{M}$ pasan a ser expresiones reducibles mientras $M$ sea una expresión reducible, por lo que debemos considerarla un valor solo cuando su expresión interna es un valor.
 
-\textbf{2)} Además, esta nueva regla nos da un nuevo camino para reducirla cuando es aplicada a un valor, es decir, en una expresión del tipo $\lambdaApp{\lambdaAbs{x}{\sigma}{M}}{N}$, podemos elegir entre usar esta regla o la regla E-Abs/$\beta$, por lo que hay que modificar esta regla para que solo sea apicable cuando $M$ está en su forma normal $F$, o sea no es posible seguir reduciendola. Entonces:
+\textbf{2)} Además, esta nueva regla nos da un nuevo camino para reducirla cuando es aplicada a un valor, es decir, en una expresión del tipo $\lambdaAbs{x}{\sigma}{M}~N$, podemos elegir entre usar esta regla o la regla E-Abs/$\beta$, por lo que hay que modificar esta regla para que solo sea apicable cuando $M$ está en su forma normal $F$, o sea no es posible seguir reduciendola. Entonces:
 $$V~::=~ ...~|~\lambdaAbs{x}{\sigma}{V}$$
-$$\frac{}{\lambdaApp{\lambdaAbs{x}{\sigma}{F}}{V}\to \replaceBy{F}{x}{V}}(\text{E-Abs/}\beta)$$
+$$\frac{}{\lambdaAbs{x}{\sigma}{F}~V\to \replaceBy{F}{x}{V}}(\text{E-Abs/}\beta)$$
 
-\textbf{3)} Ahora, si tratamos de reducir $\lambdaApp{(\lambdaAbs{x}{\Nat\to\Nat}{\lambdaApp{x}{\underline{23}}})}{(\lambdaAbs{x}{\Nat}{0})}$ nos encontraremos con que la expresión dentro de la primer abstracción es reducible pues $\lambdaApp{x}{\underline{23}}$ no es un valor. Sin embargo,  $x$ puede ser cualquier función de tipo  $\Nat\to\Nat$, o sea que tiene una variable libre, pero no sabemos como ni cuanta veces ocurre dentro de ella. Esto evita que podamos reducirla, trabando la computación.
+\textbf{3)} Ahora, si tratamos de reducir $(\lambdaAbs{x}{\Nat\to\Nat}{x~\underline{23}})~(\lambdaAbs{x}{\Nat}{0})$ nos encontraremos con que la expresión dentro de la primer abstracción es reducible pues $x~\underline{23}$ no es un valor. Sin embargo,  $x$ puede ser cualquier función de tipo  $\Nat\to\Nat$, o sea que tiene una variable libre, pero no sabemos como ni cuanta veces ocurre dentro de ella. Esto evita que podamos reducirla, trabando la computación.
 \end{multicols}
 
 
@@ -662,19 +657,19 @@ $$\frac{}{\lambdaApp{\lambdaAbs{x}{\sigma}{F}}{V}\to \replaceBy{F}{x}{V}}(\text{
 Para poder utilizar la reducción \textit{call-by-name} debemos eliminar la regla E-App/$v$ que nos dice que debemos reducir la expresión usada como parámetro hasta obtener un valor y remplazar E-App2/$\beta$ por:
 \vfil
 
-$$\frac{}{(\lambdaApp{\lambdaAbs{x}{\sigma}{M})}{N} \to \replaceBy{M}{x}{N}}(\text{E-App/}\beta)$$
+$$\frac{}{(\lambdaAbs{x}{\sigma}{M})~N \to \replaceBy{M}{x}{N}}(\text{E-App/}\beta)$$
 
 Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está en forma normal o no. Esto evitará que si la expresión $M$ no usa a $x$, evaluemos $N$ inncesariamente. La próxima reducción se hizo utilizando los cambios mencionados:
 \end{multicols}
 
 \begin{equation*}
 \begin{split}
-&\lambdaApp{(\lambdaApp{\lambdaApp{\lambdaAbs{f}{\Nat\to\Nat}{\lambdaAbs{g}{\Nat\to\Nat}{\lambdaAbs{x}{\Nat}{\lambdaApp{f}{(\lambdaApp{g}{x})}}}})}{(\lambdaAbs{x}{\Nat}{succ(x)})}}{(\lambdaAbs{x}{\Nat}{succ(x)})}}{\underline{5}} \\
-&\reduceTo{\text{E-App}/\beta} \lambdaApp{(\lambdaApp{(\lambdaAbs{g}{\Nat\to\Nat}{\lambdaAbs{x}{\Nat}{\lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{(\lambdaApp{g}{x})}}})}{(\lambdaAbs{x}{\Nat}{succ(x)})}}{\underline{5}}
-\reduceTo{\text{E-App}/\beta} \lambdaApp{(\lambdaAbs{x}{\Nat}{\lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{(\lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{x})}})}{\underline{5}}\\
-&\reduceTo{\text{E-App}/\beta} \lambdaApp{(\lambdaAbs{x}{\Nat}{\lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{(\lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{x})}})}{\underline{5}} 
-\reduceTo{\text{E-App}/\beta} \lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{(\lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{\underline{5}})}
-\reduceTo{\text{E-App}/\beta} succ(\lambdaApp{(\lambdaAbs{x}{\Nat}{succ(x)})}{\underline{5}}) \\
+&(\lambdaAbs{f}{\Nat\to\Nat}{\lambdaAbs{g}{\Nat\to\Nat}{\lambdaAbs{x}{\Nat}{f~(g~x)}}})~(\lambdaAbs{x}{\Nat}{succ(x)})~(\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5} \\
+    &\reduceTo{\text{E-App}/\beta} ((\lambdaAbs{g}{\Nat\to\Nat}{\lambdaAbs{x}{\Nat}{(\lambdaAbs{x}{\Nat}{succ(x)})~(g~x)}})~(\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5}
+\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{\Nat}{(\lambdaAbs{x}{\Nat}{succ(x)})~((\lambdaAbs{x}{\Nat}{succ(x)})~x)})~\underline{5}\\
+&\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{\Nat}{(\lambdaAbs{x}{\Nat}{succ(x)})~((\lambdaAbs{x}{\Nat}{succ(x)})~x)})~\underline{5} 
+\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{\Nat}{succ(x)})~((\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5})
+\reduceTo{\text{E-App}/\beta} succ((\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5}) \\
 &\reduceTo{\text{E-Succ; E-App}/\beta} succ(succ(\underline{5})) 
 \end{split}
 \end{equation*}
@@ -702,14 +697,14 @@ Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está e
 \end{forest}
 
  \begin{forest} tikzQtree,
-[$\lambdaListFold{1 :: 2 :: 3 ::\lambdaApp{(\lambdaAbs{x}{[\Nat]}{x})}{\List{\Nat}}}{0}{h+r}$,
-    [$1 :: 2 :: 3 :: \lambdaApp{(\lambdaAbs{x}{[\Nat]}{x})}{\List{\Nat}}$
+[$\lambdaListFold{1 :: 2 :: 3 ::(\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}}{0}{h+r}$,
+    [$1 :: 2 :: 3 :: (\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$
         [$1$]
-        [$2 :: 3 :: \lambdaApp{(\lambdaAbs{x}{[\Nat]}{x})}{\List{\Nat}}$,
+        [$2 :: 3 :: (\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$,
             [$2$]
-            [$3 :: \lambdaApp{(\lambdaAbs{x}{[\Nat]}{x})}{\List{\Nat}}$,
+            [$3 :: (\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$,
                 [$3$]
-                [$\lambdaApp{(\lambdaAbs{x}{[\Nat]}{x})}{\List{\Nat}}$,
+                [$(\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$,
                     [$\lambdaAbs{x}{[\Nat]}{x}$,
                         [$x$]
                     ]
@@ -842,7 +837,7 @@ Los valores del lenguaje no cambian.
 $$\frac{}{map{V}{\List{\sigma}}\to \List{\tau}}(\text{E-Map}[~])$$
 
 \vspace*{5mm}
-$$\frac{}{map(V_1,~V_2 :: V_3)\to (\lambdaApp{V_1}{V_2})::map(V_1,V_3)}(\text{E-Map}::)$$
+$$\frac{}{map(V_1,~V_2 :: V_3)\to (V_1~V_2)::map(V_1,V_3)}(\text{E-Map}::)$$
 
 \vspace*{5mm}
 $$\frac{M\to M'}{map(V, M)\to map(V,M')}(\text{E-Map1})$$
@@ -879,7 +874,7 @@ $$\frac{}{(\mu x_1:\sigma_1.M)~\#_1~V \to \replaceBy{M}{x_1}{V}}(\text{E-}\#3)$$
 \vspace*{5mm}
 $$\frac{}{(\mu x_1:\sigma_1,\dots,x_n:\sigma_n.M)~\#_i~V \to \mu x_1:\sigma_1,\dots,x_{i-1}:\sigma_{i-1},x_{i+1}:\sigma_{i+1},\dots,x_n:\sigma_n.(\replaceBy{M}{x_i}{V})}(\text{E-}\#4) \text{ para todo } n > 1$$
 
-\paragraph{3)} $\lambdaAbs{x}{\sigma}{M}\equalDef \mu x:\sigma.M$ y $\lambdaApp{M_1}{M_2}\equalDef M_1~\#_1~M_2$
+\paragraph{3)} $\lambdaAbs{x}{\sigma}{M}\equalDef \mu x:\sigma.M$ y $M_1~M_2\equalDef M_1~\#_1~M_2$
 
 \newpage
 \subsection{Ejercicio 20}
@@ -918,14 +913,14 @@ $\textbf{Or} \equalDef \lambdaAbs{x}{Bool}{\lambdaAbs{y}{Bool}{\lambdaIf{x}{true
 $\textbf{Xor} \equalDef \lambdaAbs{x}{Bool}{\textbf{Or}~(\textbf{And}~x~(\textbf{Not}~y))~(\textbf{And}~(\textbf{Not}~x)~y)}$
 \end{multicols}
 
-\subsubsection*{Ejercicio 22}
+\subsection*{Ejercicio 22}
 \paragraph{1)}
 
 \begin{multicols}{2}
 $$\frac{\judgeType{\Gamma}{M_i}{\sigma_i\to\tau}\hspace*{5mm}i\in1..n\hspace*{5mm}\sigma_i=\sigma_j\Rightarrow i =j }{\judgeType{\Gamma}{[(M_1,\dots,M_n)]}{\text{Union}(\sigma_1,\dots,\sigma_n)_\tau}}(T-Union)$$
 
 \vspace*{5mm}
-$$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\text{Union}(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{\lambdaApp{M}{N}}{\tau}}(T-UnionApp)$$
+$$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\text{Union}(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{M~N}{\tau}}(T-UnionApp)$$
 \end{multicols}
 
 \newpage
@@ -951,7 +946,7 @@ $$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\text{
     \AxiomC{$\Nat\in\{\Bool,\Nat\}$}
     
 \RightLabel{T-UnionApp}
-\TrinaryInfC{$\judgeType{\Gamma}{\lambdaApp{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{Nat}{x})]}{y}}{\Nat}$}
+\TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{Nat}{x})]~y}{\Nat}$}
 \end{scprooftree}
 
 \vspace*{1cm}
@@ -982,7 +977,7 @@ $$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\text{
 \begin{multicols}{2}
 $$\frac{M_j\to M_j'}{[(V_i^{i\in 1..j-1}, M_j, M_i^{i\in j+1..n})]\to[(V_i^{i\in 1..j-1}, M'_j, M_i^{i\in j+1..n})]}(\text{E-Un1})$$
 
-$$\frac{}{\lambdaApp{[(V_i^{i\in 1..n})]}{V}\to \lambdaApp{V_i}{V}}(\text{E-AppUnion})$$
+$$\frac{\forall~\Gamma~\hspace*{5mm}\judgeType{\Gamma}{V_i}{\sigma_i\to\tau}\hspace*{5mm}\judgeType{\Gamma}{V}{\sigma_i}\hspace*{5mm}\text{para algún }i\in 1..n}{[(V_i^{i\in 1..n})]~V\to V_i~V}(\text{E-AppUnion})$$
 \end{multicols}
 
 \subsection{Ejercicio 23}
@@ -1008,4 +1003,67 @@ $zip_{\sigma,\tau}\equalDef \lambdaFix{(\lambdaAbs{g}{[\sigma]\to[\tau]\to[\sigm
 
 \paragraph{4)}
 $take_\sigma\equalDef \lambdaFix{(\lambdaAbs{f}{\Nat\to[\sigma]}{\lambdaAbs{n}{\Nat}{\lambdaAbs{xs}{[\sigma]}{\lambdaIf{\textbf{Or}~isZero(n)~(isNull~xs)}{\List{\sigma}}{(head~xs)::(f~pred(n)~(tail~xs))}}}})}$
+
+\subsection{Ejercicio 24}
+\paragraph{1)}
+\begin{multicols}{2}
+$$\frac{\judgeType{\Gamma}{M}{\sigma}}{\judgeType{\Gamma}{detener(M)}{\text{det}(\sigma)}}(\text{T-Det})$$
+
+\vspace*{5mm}
+$$\frac{\judgeType{\Gamma}{M}{\text{det}(\sigma)}}{\judgeType{\Gamma}{continuar(M)}{\sigma}}(\text{T-Cont})$$
+
+\vspace*{5mm}
+$$\frac{\judgeType{\Gamma,x:\text{det}(\sigma)}{M}{\tau}~\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}}{\judgeType{\Gamma}{(\lambdaAbs{x}{\text{det}(\sigma)}{M})~N}{\tau}}(\text{T-DetApp})$$
+\end{multicols}
+
+\paragraph{2)} $\Gamma = \{y:Bool\}$
+
+\vspace*{5mm}
+\begin{scprooftree}
+\def\extraVskip{5pt}
+
+           \AxiomC{Demostrado en (1)}
+       \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{\lambdaIf{y}{continuar(x)}{false}}{\Bool}$}
+            \AxiomC{}
+        \RightLabel{T-Zero}
+        \UnaryInfC{$\judgeType{\Gamma}{0}{\Nat}$}
+        
+    \RightLabel{T-isZeroZero}
+    \UnaryInfC{$\judgeType{\Gamma}{isZero(0)}{\Bool}$}
+\RightLabel{T-DetApp}
+\BinaryInfC{$\judgeType{\Gamma}{(\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}})~isZero(0)}{\Bool}$}
+\end{scprooftree}
+
+\vspace*{1cm}
+(1)\begin{scprooftree}
+            \AxiomC{$y:\Bool\in\Gamma,x:\text{det}(\Bool)$}
+        \RightLabel{T-Var}
+        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{y}{\Bool}$}
+        
+                \AxiomC{$x:\text{det}(\Bool)\in\Gamma,x:\text{det}(\Bool)$}
+            \RightLabel{T-Var}
+            \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{x}{\text{det}(\Bool)}$}
+        \RightLabel{T-Cont}
+        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{continuar(x)}{\Bool}$}   
+
+            \AxiomC{}
+        \RightLabel{T-False}
+        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{false}{\Bool}$}
+        
+    \RightLabel{T-If}
+    \TrinaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{\lambdaIf{y}{continuar(x)}{false}}{\Bool}$}
+\end{scprooftree}
+
+\paragraph{3)} $V~::=~...~|~detener(M)$
+
+\begin{multicols}{2}
+$$\frac{}{continuar(detener(M))\to M}(\text{E-Cont})$$
+
+$$\frac{\judgeType{\Gamma}{N}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{V}{det(\sigma)\to\tau}}{V~N \to V~detener(N)}(\text{E-AppDet})$$
+\end{multicols}
+
+Debemos modificar la regla E-App2 para que solo sea aplicable cuando $V$ no es del tipo $\text{det}(\sigma)\to\tau$
+
+$$\frac{\judgeType{\Gamma}{V}{\sigma\to\tau} \text{ con } \sigma\neq\text{det}(\sigma_1)\forall\sigma_1\hspace{5mm}M_2\to M_2'}{M_1~M_2\to M_1~M'_2}$$
 \end{document}
+
