@@ -1,46 +1,11 @@
 \documentclass[10pt,a4paper, landscape]{article}
+\input{header}
 
-\usepackage[pdftex,
-pdfauthor={Gianfranco Zamboni},
-pdftitle={Resumen: Paradigmas de Lenguajes de Programación},
-pdfsubject={},
-pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Programación, Imperativo, Funcional, Cálculo Lambda, Programación Orientada a Objetos, Objetos, Programación Lógica},
-pdfproducer={Latex with hyperref},
-pdfcreator={pdflatex}]{hyperref}
-
-\usepackage{amsmath}
-\usepackage{ amssymb }
-\usepackage{bussproofs}
-\usepackage{pifont}
-
-\usepackage[spanish]{babel}
-
-
-\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
-\usepackage{graphicx}
-\usepackage{xcolor}
-
-\usepackage{lscape}
-\usepackage{minted}
-\usepackage{a4wide} % márgenes un poco más anchos que lo usual
-\usepackage[titletoc,toc,page]{appendix}
-\usepackage{tikz}
-\usepackage{forest}
-\usepackage{multicol}
-
-\input{landscape.page.layout}
-\input{comandos}
-
-\setlength{\columnsep}{1cm}
-
-
-
-
-\setcounter{section}{2}
+\setcounter{section}{3}
 
 
 \begin{document}
-\title{PLP - Práctica 2: Introducción al Cálculo Lambda Tipado}
+\title{PLP - Práctica 3: Inferencia de tipos}
 
 \date{\today}
 
@@ -53,9 +18,6 @@ pdfcreator={pdflatex}]{hyperref}
 \section*{\centering Sintaxis}
 \subsection{Ejercicio 1}
 \begin{multicols}{2}
-En este ejercicio, nos piden identificar las expresiones sitacticamente válidas. Tenemos que tener cuidado de no confundir estas expresiones con las expresiones correctamente tipadas. 
-
-Todas las expresiones que nos permite escribir el conjunto de términos son expresiones válidas sintacticamente, aún si estas no pueden ser tipadas.
 
 \end{multicols}
 
@@ -63,12 +25,12 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
 \begin{center}
     \begin{tabular}{c|c|c}
         \textbf{Expresiones de términos} & \textbf{Expresiones de tipo} & \textbf{No válidas}\\
-       $x$ & $\Bool$ & $M$ \\ 
-       $x~x$ & $\Bool\to \Bool$ & $M~M$ \\      
-       $true~false$ & $\Bool\to \Bool\to \Nat$ & $\lambda x.isZero(x)$ \\
-       $true~succ(true~false)$ & $(\Bool\to \Bool)\to \Nat$ & ${\lambdaAbs{x}{\sigma}{succ(x)}}$\\
-       $\lambdaAbs{x}{\Bool}{succ(x)}$ & & $\lambda x:\lambdaIf{true}{\Bool}{\Nat.x}$ \\
-       $\lambdaAbs{x}{\Bool}{\lambdaIf{0}{true}{0~succ(true)}}$ & & $\sigma$ \\
+       $x$ & $ Bool$ & $M$ \\ 
+       $x~x$ & $ Bool\to  Bool$ & $M~M$ \\      
+       $true~false$ & $ Bool\to  Bool\to  Nat$ & $\lambda x.isZero(x)$ \\
+       $true~succ(true~false)$ & $( Bool\to  Bool)\to  Nat$ & ${\lambdaAbs{x}{\sigma}{succ(x)}}$\\
+       $\lambdaAbs{x}{ Bool}{succ(x)}$ & & $\lambda x:\lambdaIf{true}{ Bool}{ Nat.x}$ \\
+       $\lambdaAbs{x}{ Bool}{\lambdaIf{0}{true}{0~succ(true)}}$ & & $\sigma$ \\
        & & $succ~true$
     \end{tabular}
 \end{center}
@@ -78,15 +40,15 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
 \subsection{Ejercicio 2}
 
     \begin{forest} tikzQtree,
-        [$isZero(pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}})))$,
-        [$pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}))$
-        [$succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}})$
-        [$0~\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}$
+        [$isZero(pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}})))$,
+        [$pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}}))$
+        [$succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}})$
+        [$0~\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}}$
         [$0$]
-        [$\lambdaIf{true}{false}{\lambdaAbs{x}{\Nat}{x}}$
+        [$\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}}$
         [$true$]
         [$false$]
-        [$\lambdaAbs{x}{\Nat}{x}$
+        [$\lambdaAbs{x}{ Nat}{x}$
         [x]
         ]
         ]                
@@ -98,9 +60,9 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
 
 \subsection{Ejercicio 3}
 \paragraph{1.}
-$\lambdaAbs{x}{\Nat}{succ((\lambdaAbs{x}{\Nat}{\blue{x}})~\lambdaValue{x})}$
+$\lambdaAbs{x}{ Nat}{succ((\lambdaAbs{x}{ Nat}{\blue{x}})~\lambdaValue{x})}$
 
-\paragraph{2. }En el término $\lambdaAbs{x_1}{\Nat}{succ(x_2)}$, $x_1$ no aparece como subtérmino.
+\paragraph{2. }En el término $\lambdaAbs{x_1}{ Nat}{succ(x_2)}$, $x_1$ no aparece como subtérmino.
 
 \paragraph{3. } La expresión $x~(y~z)$ no sucede en la expresión $u~x~(y~z)$
 
@@ -128,7 +90,7 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
 \paragraph{a)}
 
 \begin{forest} tikzQtree,
-    [$\red{(}\blue{(}\red{u}~\red{x}\blue{)}(\red{y}~\red{z})\red{)}~(\lambdaAbs{v}{\Bool}{\blue{v}})$
+    [$\red{(}\blue{(}\red{u}~\red{x}\blue{)}(\red{y}~\red{z})\red{)}~(\lambdaAbs{v}{ Bool}{\blue{v}})$
     [$\blue{(}\red{u}~\red{x}\blue{)}(\red{y}~\red{z})$
     [$\red{u}~\red{x}$
     [$\red{u}$]
@@ -139,22 +101,22 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
     [$\red{z}$]
     ]
     ]
-    [$\lambdaAbs{v}{\Bool}{\blue{v}}$
+    [$\lambdaAbs{v}{ Bool}{\blue{v}}$
     [$\red{v}$]
     ]  
     ]
 \end{forest}
 
-\paragraph{b)} En esta expresión aparece $(\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{x~z~(y~z)}}})~u$, la marco con una \xmark~ cuando aparece.
+\paragraph{b)} En esta expresión aparece $(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{x~z~(y~z)}}})~u$, la marco con una \xmark~ cuando aparece.
 
 \vspace*{5mm}
 \begin{forest}tikzQtree,
-[$\red{(}\blue{(}(\lambdaAbs{x}{\Bool\to \Nat \to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}\red{)}~ \red{w}$
-    [$\blue{(}(\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}$
-        [ \xmark $(\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}$ ,
-            [$\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}}$
-                [$\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\red{(}\blue{(}\red{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}$
-                    [$\lambdaAbs{z}{\Bool}{\red{(}\blue{(}\red{x}~\blue{z}\blue{)}(\red{y}~\blue{z})\red{)}}$
+[$\red{(}\blue{(}(\lambdaAbs{x}{ Bool\to  Nat \to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}\red{)}~ \red{w}$
+    [$\blue{(}(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}$
+        [ \xmark $(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}$ ,
+            [$\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}}$
+                [$\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\red{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}$
+                    [$\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\red{x}~\blue{z}\blue{)}(\red{y}~\blue{z})\red{)}}$
                         [$\blue{(}\red{x}~\red{z}\blue{)}(\red{y}~\red{z})$
                             [$\red{x}~\red{z}$
                                 [$\red{x}$]
@@ -178,13 +140,13 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
 
 \paragraph{c)}
 \begin{forest}tikzQtree,
-[$\red{(}\blue{(}\red{w}~(\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})\blue{)}~\red{u}\red{)}~\red{v}$
-    [$\blue{(}\red{w}~(\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ z)\green{)}}}})\blue{)}~\red{u}$
-        [$\red{w}~(\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})$
+[$\red{(}\blue{(}\red{w}~(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})\blue{)}~\red{u}\red{)}~\red{v}$
+    [$\blue{(}\red{w}~(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ z)\green{)}}}})\blue{)}~\red{u}$
+        [$\red{w}~(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})$
             [$\red{w}$]
-            [$\lambdaAbs{x}{\Bool\to \Nat\to \Bool}{\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}}$
-                [$\lambdaAbs{y}{\Bool\to \Nat}{\lambdaAbs{z}{\Bool}{\green{(}\red{(}\red{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}$
-                    [$\lambdaAbs{z}{\Bool}{\green{(}\red{(}\red{x}~\blue{z}\red{)}~(\red{y}~ \blue{z})\green{)}}$
+            [$\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}}$
+                [$\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\red{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}$
+                    [$\lambdaAbs{z}{ Bool}{\green{(}\red{(}\red{x}~\blue{z}\red{)}~(\red{y}~ \blue{z})\green{)}}$
                         [$\red{(}\red{x}~\red{z}\red{)}~(\red{y}~ \red{z})$
                             [$\red{x}~\red{z}$
                                 [$\red{x}$]
@@ -212,50 +174,50 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
       \def\extraVskip{5pt}
       \AxiomC{}
       \RightLabel{T-True}
-      \UnaryInfC{$\judgeType{\emptyset}{true}{\Bool}$}
+      \UnaryInfC{$\judgeType{\emptyset}{true}{ Bool}$}
       
       \AxiomC{}
       \RightLabel{T-Zero}
-      \UnaryInfC{$\judgeType{\emptyset}{0}{\Nat}$}
+      \UnaryInfC{$\judgeType{\emptyset}{0}{ Nat}$}
       
       \AxiomC{}
       \RightLabel{T-Zero}
-      \UnaryInfC{$\judgeType{\emptyset}{0}{\Nat}$}
+      \UnaryInfC{$\judgeType{\emptyset}{0}{ Nat}$}
       \RightLabel{T-Succ}
-      \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\Nat}$}
+      \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{ Nat}$}
       
-      \TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{true}{0}{succ(0)}}{\Nat}$}
+      \TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{true}{0}{succ(0)}}{ Nat}$}
     \end{scprooftree}
 
 \vspace*{5mm}
 \paragraph{2)}
-En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
+En la siguiente demostración $\Gamma =\{x: Nat,~y: Bool\}$
 \begin{center}
    \begin{scprooftree}
        \def\extraVskip{5pt}
        
        \AxiomC{}
        \RightLabel{T-True}
-       \UnaryInfC{$\judgeType{\Gamma}{true}{\Bool}$}
+       \UnaryInfC{$\judgeType{\Gamma}{true}{ Bool}$}
        
        \AxiomC{}
        \RightLabel{T-False}
-       \UnaryInfC{$\judgeType{\Gamma}{false}{\Bool}$}
+       \UnaryInfC{$\judgeType{\Gamma}{false}{ Bool}$}
        
-       \AxiomC{$z:\Bool\in \Gamma,z:\Bool$}
+       \AxiomC{$z: Bool\in \Gamma,z: Bool$}
        \RightLabel{T-Var}
-       \UnaryInfC{$\judgeType{\Gamma,z:\Bool}{z}{\Bool}$}            
+       \UnaryInfC{$\judgeType{\Gamma,z: Bool}{z}{ Bool}$}            
        \RightLabel{T-Abs}
-       \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{z}{\Bool}{z}}{\Bool\to \Bool}$}
+       \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{z}{ Bool}{z}}{ Bool\to  Bool}$}
        
        \AxiomC{}
        \RightLabel{T-True}
-       \UnaryInfC{$\judgeType{\Gamma}{true}{\Bool}$}
+       \UnaryInfC{$\judgeType{\Gamma}{true}{ Bool}$}
        \RightLabel{T-App}
-       \BinaryInfC{$\judgeType{\Gamma}{(\lambdaAbs{z}{\Bool}{z})~true}{\Bool}$}
+       \BinaryInfC{$\judgeType{\Gamma}{(\lambdaAbs{z}{ Bool}{z})~true}{ Bool}$}
        
        \RightLabel{T-If}
-       \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{(\lambdaAbs{z}{\Bool}{z})~true}}{\Bool}$}
+       \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{(\lambdaAbs{z}{ Bool}{z})~true}}{ Bool}$}
     \end{scprooftree}
 \end{center}
 
@@ -264,33 +226,33 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
 \begin{scprooftree}
     \def\extraVskip{5pt}
     
-    \AxiomC{\red{$\judgeType{\emptyset,x:\Bool}{x}{\Bool}\Rightarrow \judgeType{\emptyset}{\lambdaAbs{x}{\Bool}{x}}{\Bool\to\tau}$}}
+    \AxiomC{\red{$\judgeType{\emptyset,x: Bool}{x}{ Bool}\Rightarrow \judgeType{\emptyset}{\lambdaAbs{x}{ Bool}{x}}{ Bool\to\tau}$}}
     \RightLabel{T-Abs}
-    \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{\Bool}{x}}{\Bool}$}
+    \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{ Bool}{x}}{ Bool}$}
     
-    \AxiomC{$\judgeType{\emptyset}{0}{\Nat}$}
+    \AxiomC{$\judgeType{\emptyset}{0}{ Nat}$}
     
-    \AxiomC{$\judgeType{\emptyset}{succ(0)}{\Nat}$}
+    \AxiomC{$\judgeType{\emptyset}{succ(0)}{ Nat}$}
     
     \RightLabel{T-If}
-    \TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{\lambdaAbs{x}{\Bool}{x}}{0}{succ(0)}}{\Nat}$}
+    \TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{\lambdaAbs{x}{ Bool}{x}}{0}{succ(0)}}{ Nat}$}
 \end{scprooftree}
 
 \vspace*{5mm}
-\paragraph{4)} En la próxima demostración $\Gamma = \{x : \Bool \to \Nat, y : \Bool\}$ 
+\paragraph{4)} En la próxima demostración $\Gamma = \{x :  Bool \to  Nat, y :  Bool\}$ 
 \begin{center}
 \begin{scprooftree}
     \def\extraVskip{5pt}
     
-    \AxiomC{$x:\Bool\to \Nat\in\Gamma$}
+    \AxiomC{$x: Bool\to  Nat\in\Gamma$}
     \RightLabel{T-Var}
-    \UnaryInfC{$\judgeType{\Gamma}{x}{\Bool \to \Nat}$}
+    \UnaryInfC{$\judgeType{\Gamma}{x}{ Bool \to  Nat}$}
     
-    \AxiomC{$y:\Bool\in\Gamma$}
+    \AxiomC{$y: Bool\in\Gamma$}
     \RightLabel{T-Var}
-    \UnaryInfC{$\judgeType{\Gamma}{y}{\Bool}$}
+    \UnaryInfC{$\judgeType{\Gamma}{y}{ Bool}$}
     \RightLabel{T-App}
-    \BinaryInfC{$\judgeType{\Gamma}{\lambdaIf{\lambdaAbs{x}{\Bool}{x}}{0}{succ(0)}}{\Nat}$}
+    \BinaryInfC{$\judgeType{\Gamma}{\lambdaIf{\lambdaAbs{x}{ Bool}{x}}{0}{succ(0)}}{ Nat}$}
 \end{scprooftree}
 \end{center}
 
@@ -300,23 +262,23 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
 \begin{multicols}{2}
 \paragraph{1)}\label{p2:e6:s1}\begin{scprooftree}
     \def\extraVskip{5pt}
-    \AxiomC{\red{$\sigma = \Nat$}}
+    \AxiomC{\red{$\sigma =  Nat$}}
     \RightLabel{T-Zero}
     \UnaryInfC{$\judgeType{\emptyset}{0}{\sigma}$}
     
     \RightLabel{T-Succ}
     \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\sigma}$}
-\end{scprooftree}$\Rightarrow \sigma = \Nat$
+\end{scprooftree}$\Rightarrow \sigma =  Nat$
 
 \paragraph{2)} \begin{scprooftree}
     \def\extraVskip{5pt}
         \AxiomC{}
         \RightLabel{Ejercicio \ref{p2:e6:s1}}
-        \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\Nat}\Rightarrow \red{\sigma = \Bool}$}
+        \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{ Nat}\Rightarrow \red{\sigma =  Bool}$}
     
     \RightLabel{T-IsZero}
     \UnaryInfC{$\judgeType{\emptyset}{isZero(succ(0))}{\sigma}$}
-\end{scprooftree}$\Rightarrow \sigma = \Bool$
+\end{scprooftree}$\Rightarrow \sigma =  Bool$
 
 \end{multicols}
 
@@ -326,30 +288,30 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
    \def\extraVskip{5pt}
             \AxiomC{}
         \RightLabel{T-True}    
-        \UnaryInfC{$\judgeType{\emptyset}{true}{\Bool}$}
+        \UnaryInfC{$\judgeType{\emptyset}{true}{ Bool}$}
 
             \AxiomC{}
         \RightLabel{T-True}    
-        \UnaryInfC{$\judgeType{\emptyset}{false}{\Bool}$}
+        \UnaryInfC{$\judgeType{\emptyset}{false}{ Bool}$}
 
             \AxiomC{}
        \RightLabel{T-True}    
-       \UnaryInfC{$\judgeType{\emptyset}{false}{\Bool}$}
+       \UnaryInfC{$\judgeType{\emptyset}{false}{ Bool}$}
 
     \RightLabel{T-If}
-     \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{false}}{\Bool}$}
+     \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{false}}{ Bool}$}
 
-        \AxiomC{\red{$\sigma = \Nat$}}
+        \AxiomC{\red{$\sigma =  Nat$}}
     \RightLabel{T-Zero}
     \UnaryInfC{$\judgeType{\emptyset}{0}{\sigma}$}
     
-         \AxiomC{\red{$\sigma = \Nat$}}
+         \AxiomC{\red{$\sigma =  Nat$}}
     \RightLabel{Ejercicio \ref{p2:e6:s1}}
     \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\sigma}$}
             
 \RightLabel{T-If}
 \TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{\lambdaIf{true}{false}{false}}{0}{succ(0)}}{\sigma}$}
-    \end{scprooftree}$\Rightarrow \sigma = \Nat$
+    \end{scprooftree}$\Rightarrow \sigma =  Nat$
 \end{center}
 
 \subsection{Ejercicio 7}
@@ -359,17 +321,17 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
 \vspace*{5mm}
 \begin{scprooftree}
        \def\extraVskip{5pt}
-\AxiomC{$x:\Nat\in \Gamma$}
+\AxiomC{$x: Nat\in \Gamma$}
 \RightLabel{T-Var}
-\UnaryInfC{$\judgeType{\Gamma}{x}{\Nat}$}
+\UnaryInfC{$\judgeType{\Gamma}{x}{ Nat}$}
 \RightLabel{T-Succ}
-\UnaryInfC{$\judgeType{\Gamma}{succ(x)}{\Nat}$}
+\UnaryInfC{$\judgeType{\Gamma}{succ(x)}{ Nat}$}
 \RightLabel{T-Succ}
 \UnaryInfC{$\judgeType{\Gamma}{isZero(succ(x))}{\tau}$}
 \end{scprooftree}
 
 \vspace*{5mm}
-Entonces, $\sigma = \Nat$ y $\tau = \Bool$
+Entonces, $\sigma =  Nat$ y $\tau =  Bool$
 
 \vspace*{5mm}
 \paragraph{2)}  \hfil
@@ -381,16 +343,16 @@ Entonces, $\sigma = \Nat$ y $\tau = \Bool$
        \RightLabel{T-Abs}
         \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to\sigma}$}
         
-            \AxiomC{$\judgeType{\{y:\Bool\}}{0}{\Nat}$}
+            \AxiomC{$\judgeType{\{y: Bool\}}{0}{ Nat}$}
         \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{y}{\Bool}{0}}{\sigma}$}
+        \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{y}{ Bool}{0}}{\sigma}$}
 
 \RightLabel{T-App}
-\BinaryInfC{$\judgeType{\emptyset}{(\lambdaAbs{x}{\sigma}{x})~(\lambdaAbs{y}{\Bool}{0})}{\sigma}$}
+\BinaryInfC{$\judgeType{\emptyset}{(\lambdaAbs{x}{\sigma}{x})~(\lambdaAbs{y}{ Bool}{0})}{\sigma}$}
     \end{scprooftree}
 
 \vspace*{5mm}
-El árbol de la segunda abstracción nos dice que $\sigma = \Bool\to \Nat$. Por lo que la primera abstracción seria la función identidad de funciones del tipo $\Bool\to \Nat$.
+El árbol de la segunda abstracción nos dice que $\sigma =  Bool\to  Nat$. Por lo que la primera abstracción seria la función identidad de funciones del tipo $ Bool\to  Nat$.
 \end{multicols}
 
 \paragraph{3)} $\Gamma = \{y:\tau\}$
@@ -400,9 +362,9 @@ El árbol de la segunda abstracción nos dice que $\sigma = \Bool\to \Nat$. Por 
     \begin{scprooftree}
    \def\extraVskip{5pt}
         
-            \AxiomC{\red{$\judgeType{\Gamma,x:\sigma}{x}{\sigma}\Rightarrow \judgeType{\Gamma,x:\sigma}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to \Bool}$}}
+            \AxiomC{\red{$\judgeType{\Gamma,x:\sigma}{x}{\sigma}\Rightarrow \judgeType{\Gamma,x:\sigma}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to  Bool}$}}
        \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\sigma}{x}}{\Bool}$}
+        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\sigma}{x}}{ Bool}$}
         
         \AxiomC{$\judgeType{\Gamma}{y}{\sigma}$}
         
@@ -469,12 +431,12 @@ Entonces $\sigma = \tau\to\tau$ para cualquier tipo $\tau$
     \begin{scprooftree}
    \def\extraVskip{5pt}
         
-           \AxiomC{$x: \Bool\to\tau\in\Gamma \Rightarrow \sigma = \Bool\to\tau$}
+           \AxiomC{$x:  Bool\to\tau\in\Gamma \Rightarrow \sigma =  Bool\to\tau$}
        \RightLabel{T-Var}
-        \UnaryInfC{$\judgeType{\Gamma}{x}{\Bool\to\tau}$}
+        \UnaryInfC{$\judgeType{\Gamma}{x}{ Bool\to\tau}$}
         
         \RightLabel{T-True}
-        \AxiomC{$\judgeType{\Gamma}{true}{\Bool}$}
+        \AxiomC{$\judgeType{\Gamma}{true}{ Bool}$}
         
 
 \RightLabel{T-App}
@@ -482,7 +444,7 @@ Entonces $\sigma = \tau\to\tau$ para cualquier tipo $\tau$
     \end{scprooftree}
     
 \vspace*{5mm}
-Entonces $\sigma = \Bool\to\tau$ para cualquier tipo $\tau$
+Entonces $\sigma =  Bool\to\tau$ para cualquier tipo $\tau$
 
 \paragraph{7)} $\Gamma = \{x:\sigma\}$
 
@@ -490,12 +452,12 @@ Entonces $\sigma = \Bool\to\tau$ para cualquier tipo $\tau$
     \begin{scprooftree}
    \def\extraVskip{5pt}
         
-           \AxiomC{\red{$x: \Bool\to\sigma\in\Gamma$}}
+           \AxiomC{\red{$x:  Bool\to\sigma\in\Gamma$}}
        \RightLabel{T-Var}
-        \UnaryInfC{$\judgeType{\Gamma}{x}{\Bool\to\sigma}$}
+        \UnaryInfC{$\judgeType{\Gamma}{x}{ Bool\to\sigma}$}
         
         \RightLabel{T-True}
-        \AxiomC{$\judgeType{\Gamma}{true}{\Bool}$}
+        \AxiomC{$\judgeType{\Gamma}{true}{ Bool}$}
         
 
 \RightLabel{T-App}
@@ -504,7 +466,7 @@ Entonces $\sigma = \Bool\to\tau$ para cualquier tipo $\tau$
     
 \vspace*{5mm}
 
-Tenemos que $x$ debe ser de tipo $\sigma$ y $\Bool\to\sigma$ al mismo tiempo, por lo que no es posible dar un tipo a esta expresión
+Tenemos que $x$ debe ser de tipo $\sigma$ y $ Bool\to\sigma$ al mismo tiempo, por lo que no es posible dar un tipo a esta expresión
 
 \paragraph{8)} $\Gamma = \{x:\sigma\}$
 
@@ -527,7 +489,7 @@ Tenemos que $x$ debe ser de tipo $\sigma$ y $\Bool\to\sigma$ al mismo tiempo, po
     
 \vspace*{5mm}
 
-Tenemos que $x$ debe ser de tipo $\sigma$ y $\Bool\to\sigma$ al mismo tiempo, por lo que no es posible dar un tipo a esta expresión
+Tenemos que $x$ debe ser de tipo $\sigma$ y $ Bool\to\sigma$ al mismo tiempo, por lo que no es posible dar un tipo a esta expresión
 
 \end{multicols}
 
@@ -594,9 +556,9 @@ y~\replaceBy{(\lambdaAbs{z}{\sigma}{x~z})}{x}{(\lambdaAbs{y}{\tau}{v~y}})
 \begin{tabular}{c|c}
 \textbf{Es un valor} & \textbf{No es un valor} \\
 \hline
-$\lambdaAbs{x}{\Bool}{\underline{2}}$ & $(\lambdaAbs{x}{\Bool}{x})~true$ \\
-$\lambdaAbs{x}{\Bool}{pred(\underline{2})}$ &  $x$ \\
-$\lambdaAbs{y}{\Nat}{(\lambdaAbs{x}{\Bool}{pred(\underline{2})})~true}$ &  \\
+$\lambdaAbs{x}{ Bool}{\underline{2}}$ & $(\lambdaAbs{x}{ Bool}{x})~true$ \\
+$\lambdaAbs{x}{ Bool}{pred(\underline{2})}$ &  $x$ \\
+$\lambdaAbs{y}{ Nat}{(\lambdaAbs{x}{ Bool}{pred(\underline{2})})~true}$ &  \\
 $succ(succ(0))$ &  \\
 \end{tabular}
 \end{center}
@@ -608,12 +570,12 @@ Los programas en \red{rojo} son los que dan error y los programas en \blue{azul}
 \begin{tabular}{c|c}
 \textbf{Programas} & \textbf{No Programas}\\
 \hline
-$(\lambdaAbs{x}{Bool}{x})~true$ & $\lambdaAbs{x}{\Nat}{pred(succ(y))}$ \\
-\blue{$\lambdaAbs{x}{\Nat}{pred(succ(x))}$}    & $(\lambdaAbs{x}{\Bool}{pred(isZero(x))})~true$ \\
-$(\lambdaAbs{f}{\Nat\to \Bool}{f~0})~(\lambdaAbs{x}{\Nat}{isZero(x)})$  & $(\lambdaAbs{f}{\Nat\to \Bool}{x})~(\lambdaAbs{x}{\Nat}{isZero(x)})$ \\
-\red{$(\lambdaAbs{f}{\Nat \to \Bool}{f~pred(0)})~(\lambdaAbs{x}{\Nat}{isZero(x)})$} &  \\
-$\lambdaFix{(\lambdaAbs{y}{\Nat}{succ(y)})}$ & \\
-$\lambdaLetrec{f}{\lambdaAbs{x}{\Nat}{succ(f~x)}}{f~0}$ & \\
+$(\lambdaAbs{x}{Bool}{x})~true$ & $\lambdaAbs{x}{ Nat}{pred(succ(y))}$ \\
+\blue{$\lambdaAbs{x}{ Nat}{pred(succ(x))}$}    & $(\lambdaAbs{x}{ Bool}{pred(isZero(x))})~true$ \\
+$(\lambdaAbs{f}{ Nat\to  Bool}{f~0})~(\lambdaAbs{x}{ Nat}{isZero(x)})$  & $(\lambdaAbs{f}{ Nat\to  Bool}{x})~(\lambdaAbs{x}{ Nat}{isZero(x)})$ \\
+\red{$(\lambdaAbs{f}{ Nat \to  Bool}{f~pred(0)})~(\lambdaAbs{x}{ Nat}{isZero(x)})$} &  \\
+$\lambdaFix{(\lambdaAbs{y}{ Nat}{succ(y)})}$ & \\
+$\lambdaLetrec{f}{\lambdaAbs{x}{ Nat}{succ(f~x)}}{f~0}$ & \\
 \end{tabular}
 \end{center}
 
@@ -641,7 +603,7 @@ $\lambdaLetrec{f}{\lambdaAbs{x}{\Nat}{succ(f~x)}}{f~0}$ & \\
 $$V~::=~ ...~|~\lambdaAbs{x}{\sigma}{V}$$
 $$\frac{}{\lambdaAbs{x}{\sigma}{F}~V\to \replaceBy{F}{x}{V}}(\text{E-Abs/}\beta)$$
 
-\textbf{3)} Ahora, si tratamos de reducir $(\lambdaAbs{x}{\Nat\to\Nat}{x~\underline{23}})~(\lambdaAbs{x}{\Nat}{0})$ nos encontraremos con que la expresión dentro de la primer abstracción es reducible pues $x~\underline{23}$ no es un valor. Sin embargo,  $x$ puede ser cualquier función de tipo  $\Nat\to\Nat$, o sea que tiene una variable libre, pero no sabemos como ni cuanta veces ocurre dentro de ella. Esto evita que podamos reducirla, trabando la computación.
+\textbf{3)} Ahora, si tratamos de reducir $(\lambdaAbs{x}{ Nat\to Nat}{x~\underline{23}})~(\lambdaAbs{x}{ Nat}{0})$ nos encontraremos con que la expresión dentro de la primer abstracción es reducible pues $x~\underline{23}$ no es un valor. Sin embargo,  $x$ puede ser cualquier función de tipo  $ Nat\to Nat$, o sea que tiene una variable libre, pero no sabemos como ni cuanta veces ocurre dentro de ella. Esto evita que podamos reducirla, trabando la computación.
 \end{multicols}
 
 
@@ -659,12 +621,12 @@ Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está e
 
 \begin{equation*}
 \begin{split}
-&(\lambdaAbs{f}{\Nat\to\Nat}{\lambdaAbs{g}{\Nat\to\Nat}{\lambdaAbs{x}{\Nat}{f~(g~x)}}})~(\lambdaAbs{x}{\Nat}{succ(x)})~(\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5} \\
-    &\reduceTo{\text{E-App}/\beta} ((\lambdaAbs{g}{\Nat\to\Nat}{\lambdaAbs{x}{\Nat}{(\lambdaAbs{x}{\Nat}{succ(x)})~(g~x)}})~(\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5}
-\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{\Nat}{(\lambdaAbs{x}{\Nat}{succ(x)})~((\lambdaAbs{x}{\Nat}{succ(x)})~x)})~\underline{5}\\
-&\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{\Nat}{(\lambdaAbs{x}{\Nat}{succ(x)})~((\lambdaAbs{x}{\Nat}{succ(x)})~x)})~\underline{5} 
-\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{\Nat}{succ(x)})~((\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5})
-\reduceTo{\text{E-App}/\beta} succ((\lambdaAbs{x}{\Nat}{succ(x)})~\underline{5}) \\
+&(\lambdaAbs{f}{ Nat\to Nat}{\lambdaAbs{g}{ Nat\to Nat}{\lambdaAbs{x}{ Nat}{f~(g~x)}}})~(\lambdaAbs{x}{ Nat}{succ(x)})~(\lambdaAbs{x}{ Nat}{succ(x)})~\underline{5} \\
+    &\reduceTo{\text{E-App}/\beta} ((\lambdaAbs{g}{ Nat\to Nat}{\lambdaAbs{x}{ Nat}{(\lambdaAbs{x}{ Nat}{succ(x)})~(g~x)}})~(\lambdaAbs{x}{ Nat}{succ(x)})~\underline{5}
+\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{ Nat}{(\lambdaAbs{x}{ Nat}{succ(x)})~((\lambdaAbs{x}{ Nat}{succ(x)})~x)})~\underline{5}\\
+&\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{ Nat}{(\lambdaAbs{x}{ Nat}{succ(x)})~((\lambdaAbs{x}{ Nat}{succ(x)})~x)})~\underline{5} 
+\reduceTo{\text{E-App}/\beta} (\lambdaAbs{x}{ Nat}{succ(x)})~((\lambdaAbs{x}{ Nat}{succ(x)})~\underline{5})
+\reduceTo{\text{E-App}/\beta} succ((\lambdaAbs{x}{ Nat}{succ(x)})~\underline{5}) \\
 &\reduceTo{\text{E-Succ; E-App}/\beta} succ(succ(\underline{5})) 
 \end{split}
 \end{equation*}
@@ -676,12 +638,12 @@ Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está e
 \begin{multicols}{2}
 
  \begin{forest} tikzQtree,
-[$\lambdaListCase{0 :: succ(0) :: \List{\Nat}}{false}{isZero(x)}$,
-    [$0 :: succ(0) :: \List{\Nat}$,
+[$\lambdaListCase{0 :: succ(0) :: \List{ Nat}}{false}{isZero(x)}$,
+    [$0 :: succ(0) :: \List{ Nat}$,
         [$0$]
-        [$succ(0) :: \List{\Nat}$,
+        [$succ(0) :: \List{ Nat}$,
             [$succ(0)$]
-            [$\List{\Nat}$]
+            [$\List{ Nat}$]
         ]
     ]
     [$false$]
@@ -692,18 +654,18 @@ Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está e
 \end{forest}
 
  \begin{forest} tikzQtree,
-[$\lambdaListFold{1 :: 2 :: 3 ::(\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}}{0}{h+r}$,
-    [$1 :: 2 :: 3 :: (\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$
+[$\lambdaListFold{1 :: 2 :: 3 ::(\lambdaAbs{x}{[ Nat]}{x})~\List{ Nat}}{0}{h+r}$,
+    [$1 :: 2 :: 3 :: (\lambdaAbs{x}{[ Nat]}{x})~\List{ Nat}$
         [$1$]
-        [$2 :: 3 :: (\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$,
+        [$2 :: 3 :: (\lambdaAbs{x}{[ Nat]}{x})~\List{ Nat}$,
             [$2$]
-            [$3 :: (\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$,
+            [$3 :: (\lambdaAbs{x}{[ Nat]}{x})~\List{ Nat}$,
                 [$3$]
-                [$(\lambdaAbs{x}{[\Nat]}{x})~\List{\Nat}$,
-                    [$\lambdaAbs{x}{[\Nat]}{x}$,
+                [$(\lambdaAbs{x}{[ Nat]}{x})~\List{ Nat}$,
+                    [$\lambdaAbs{x}{[ Nat]}{x}$,
                         [$x$]
                     ]
-                    [$\List{\Nat}$]
+                    [$\List{ Nat}$]
                 ]
             ]
         ]
@@ -726,68 +688,68 @@ $$\frac{}{\judgeType{\Gamma}{\List{\sigma}}{[\sigma]}}(\text{T-Vacio})$$
 $$\frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{[\sigma]}}{\judgeType{\Gamma}{M::N}{[\sigma]}}(\text{T-}::)$$
 
 \vspace*{5mm}
-$$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,xs:[\sigma]}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListCase{M}{N}{O}}{\tau}}(T-Case)$$
+$$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,t:[\sigma]}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListCase{M}{N}{O}}{\tau}}(T-Case)$$
 
 \vspace*{5mm}
 $$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,r:\tau}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListFold{M}{N}{O}}{\tau}}(T-Fold)$$
 
 \end{multicols}
 
-\paragraph{3)} $\Gamma = \{x:\Bool,~y:[\Bool]\}$
+\paragraph{3)} $\Gamma = \{x: Bool,~y:[ Bool]\}$
 
 \vspace*{5mm}
     \begin{scprooftree}
    \def\extraVskip{5pt}
 
     \AxiomC{Demostración de abajo (1)}
-    \UnaryInfC{$\judgeType{\Gamma}{x :: x :: y}{[\Bool]}$}
+    \UnaryInfC{$\judgeType{\Gamma}{x :: x :: y}{[ Bool]}$}
     
-        \AxiomC{$y:[\Bool]\in\Gamma$}
+        \AxiomC{$y:[ Bool]\in\Gamma$}
     \RightLabel{T-Var}        
-    \UnaryInfC{$\judgeType{\Gamma}{y}{[\Bool]}$}       
+    \UnaryInfC{$\judgeType{\Gamma}{y}{[ Bool]}$}       
 
         \AxiomC{Demostración abajo (2)}
-    \UnaryInfC{$\judgeType{\Gamma,h:\Bool,r:[\Bool]}{\lambdaIf{h}{r}{\List{\Bool}}}{[\Bool]}$}
+    \UnaryInfC{$\judgeType{\Gamma,h: Bool,r:[ Bool]}{\lambdaIf{h}{r}{\List{ Bool}}}{[ Bool]}$}
 \RightLabel{T-Fold}
-\TrinaryInfC{$\judgeType{\Gamma}{\lambdaListFold{x :: x :: y}{y}{\lambdaIf{h}{r}{\List{\Bool}}}}{[\Bool]}$}
+\TrinaryInfC{$\judgeType{\Gamma}{\lambdaListFold{x :: x :: y}{y}{\lambdaIf{h}{r}{\List{ Bool}}}}{[ Bool]}$}
     \end{scprooftree}
 
 \vspace*{2cm}(1)
 \begin{scprooftree}
-            \AxiomC{$x:\Bool\in\Gamma$}
+            \AxiomC{$x: Bool\in\Gamma$}
         \RightLabel{T-Var}
-        \UnaryInfC{$\judgeType{\Gamma}{x}{\Bool}$}
+        \UnaryInfC{$\judgeType{\Gamma}{x}{ Bool}$}
 
-                \AxiomC{$x:\Bool\in\Gamma$}
+                \AxiomC{$x: Bool\in\Gamma$}
             \RightLabel{T-Var}
-            \UnaryInfC{$\judgeType{\Gamma}{x}{\Bool}$}
+            \UnaryInfC{$\judgeType{\Gamma}{x}{ Bool}$}
                 
-                \AxiomC{$y:[\Bool]\in\Gamma$}
+                \AxiomC{$y:[ Bool]\in\Gamma$}
             \RightLabel{T-Var}        
-            \UnaryInfC{$\judgeType{\Gamma}{y}{[\Bool]}$}  
+            \UnaryInfC{$\judgeType{\Gamma}{y}{[ Bool]}$}  
                   
         \RightLabel{T-$::$}        
-        \BinaryInfC{$\judgeType{\Gamma}{ x :: y}{[\Bool]}$}
+        \BinaryInfC{$\judgeType{\Gamma}{ x :: y}{[ Bool]}$}
         
     \RightLabel{T-$::$}
-    \BinaryInfC{$\judgeType{\Gamma}{x :: x :: y}{[\Bool]}$}
+    \BinaryInfC{$\judgeType{\Gamma}{x :: x :: y}{[ Bool]}$}
 \end{scprooftree}
 
 \vspace*{2cm}(2)
 \begin{scprooftree}
-          \AxiomC{$h:\Bool\in\Gamma,h:\Bool,r:[\Bool]$}
+          \AxiomC{$h: Bool\in\Gamma,h: Bool,r:[ Bool]$}
         \RightLabel{T-Var}        
-        \UnaryInfC{$\judgeType{\Gamma,h:\Bool,r:[\Bool]}{h}{\Bool}$}       
+        \UnaryInfC{$\judgeType{\Gamma,h: Bool,r:[ Bool]}{h}{ Bool}$}       
  
-           \AxiomC{$r:[\Bool]\in\Gamma,h:\Bool,r:[\Bool]$}
+           \AxiomC{$r:[ Bool]\in\Gamma,h: Bool,r:[ Bool]$}
          \RightLabel{T-Var}        
-         \UnaryInfC{$\judgeType{\Gamma,h:\Bool,r:[\Bool]}{r}{[\Bool]}$}       
+         \UnaryInfC{$\judgeType{\Gamma,h: Bool,r:[ Bool]}{r}{[ Bool]}$}       
         
           \AxiomC{}
         \RightLabel{T-Vacio}        
-        \UnaryInfC{$\judgeType{\Gamma,h:\Bool,r:[\Bool]}{\List{\Bool}}{[\Bool]}$}       
+        \UnaryInfC{$\judgeType{\Gamma,h: Bool,r:[ Bool]}{\List{ Bool}}{[ Bool]}$}       
         
-    \TrinaryInfC{$\judgeType{\Gamma,h:\Bool,r:[\Bool]}{\lambdaIf{h}{r}{\List{\Bool}}}{[\Bool]}$}
+    \TrinaryInfC{$\judgeType{\Gamma,h: Bool,r:[ Bool]}{\lambdaIf{h}{r}{\List{ Bool}}}{[ Bool]}$}
 
 \end{scprooftree}
 
@@ -804,7 +766,7 @@ $$\frac{M_2\to M_2'}{V :: M_2 \to V::M'_2}(\text{E-}::\text{2})$$
 $$\frac{}{\lambdaListCase{\List{\sigma}}{N}{O}\to N}(\text{E-Case}[~])$$
 
 \vspace*{5mm}
-$$\frac{}{\lambdaListCase{V_1::V_2}{N}{O}\to\multiReplaceBy{O}{x\leftarrow V_1,~xs\leftarrow V_2}}(\text{E-Case}::)$$
+$$\frac{}{\lambdaListCase{V_1::V_2}{N}{O}\to\multiReplaceBy{O}{h\leftarrow V_1,~t\leftarrow V_2}}(\text{E-Case}::)$$
 \end{multicols}
 \vspace*{5mm}
 $$\frac{M\to M'}{\lambdaListCase{M}{N}{O}\to\lambdaListCase{M'}{N}{O}}(\text{E-Case}\text{1})$$
@@ -912,14 +874,14 @@ $\textbf{Xor} \equalDef \lambdaAbs{x}{Bool}{\textbf{Or}~(\textbf{And}~x~(\textbf
 \paragraph{1)}
 
 \begin{multicols}{2}
-$$\frac{\judgeType{\Gamma}{M_i}{\sigma_i\to\tau}\hspace*{5mm}i\in1..n\hspace*{5mm}\sigma_i=\sigma_j\Rightarrow i =j }{\judgeType{\Gamma}{[(M_1,\dots,M_n)]}{\Union(\sigma_1,\dots,\sigma_n)_\tau}}(T-Union)$$
+$$\frac{\judgeType{\Gamma}{M_i}{\sigma_i\to\tau}\hspace*{5mm}i\in1..n\hspace*{5mm}\sigma_i=\sigma_j\Rightarrow i =j }{\judgeType{\Gamma}{[(M_1,\dots,M_n)]}{Union(\sigma_1,\dots,\sigma_n)_\tau}}(T-Union)$$
 
 \vspace*{5mm}
-$$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\Union(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{M~N}{\tau}}(T-UnionApp)$$
+$$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{Union(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{M~N}{\tau}}(T-UnionApp)$$
 \end{multicols}
 
 \newpage
-\paragraph{2)} $\Gamma = \{y:\Nat\}$
+\paragraph{2)} $\Gamma = \{y: Nat\}$
 
 \vspace*{5mm}
     \begin{scprooftree}
@@ -930,18 +892,18 @@ $$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\Union
     \UnaryInfC{$\judgeType{\Gamma}{y}{Nat}$}
 
         \AxiomC{Demostrado en (1)}
-        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Bool}{y}}{\Bool\to\Nat}$}
+        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{ Bool}{y}}{ Bool\to Nat}$}
           
         \AxiomC{Demostrado en (2)}
-        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Nat}{x}}{\Nat\to\Nat}$}
+        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{ Nat}{x}}{ Nat\to Nat}$}
         
-        \AxiomC{$\Bool\neq\Nat$}
-    \RightLabel{T-Union}    \TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{\Nat}{x})]}{\Union(\Nat,\Bool)_{\Nat}}$}
+        \AxiomC{$ Bool\neq Nat$}
+    \RightLabel{T-Union}    \TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{ Bool}{y},\lambdaAbs{x}{ Nat}{x})]}{Union( Nat, Bool)_{ Nat}}$}
 
-    \AxiomC{$\Nat\in\{\Bool,\Nat\}$}
+    \AxiomC{$ Nat\in\{ Bool, Nat\}$}
     
 \RightLabel{T-UnionApp}
-\TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{Nat}{x})]~y}{\Nat}$}
+\TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{ Bool}{y},\lambdaAbs{x}{Nat}{x})]~y}{ Nat}$}
 \end{scprooftree}
 
 \vspace*{1cm}
@@ -949,20 +911,20 @@ $$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\Union
 
 (1)    \begin{scprooftree}
    \def\extraVskip{5pt}
-                \AxiomC{$y:\Nat\in\Gamma,x:\Bool$}
+                \AxiomC{$y: Nat\in\Gamma,x: Bool$}
             \RightLabel{T-Var}
-            \UnaryInfC{$\judgeType{\Gamma,x:\Bool}{y}{\Nat}$}
+            \UnaryInfC{$\judgeType{\Gamma,x: Bool}{y}{ Nat}$}
         \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Bool}{y}}{\Bool\to\Nat}$}
+        \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{ Bool}{y}}{ Bool\to Nat}$}
     \end{scprooftree}
 
 (2)    \begin{scprooftree}
    \def\extraVskip{5pt}
-                   \AxiomC{$x:\Nat\in\Gamma,x:\Nat$}
+                   \AxiomC{$x: Nat\in\Gamma,x: Nat$}
                \RightLabel{T-Var}
-               \UnaryInfC{$\judgeType{\Gamma,x:\Nat}{x}{\Nat}$}
+               \UnaryInfC{$\judgeType{\Gamma,x: Nat}{x}{ Nat}$}
            \RightLabel{T-Abs}
-           \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Nat}{x}}{\Nat\to\Nat}$}
+           \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{ Nat}{x}}{ Nat\to Nat}$}
     \end{scprooftree}
 \end{multicols}
 
@@ -997,7 +959,7 @@ $zip_{\sigma,\tau}\equalDef \lambdaFix{(\lambdaAbs{g}{[\sigma]\to[\tau]\to[\sigm
 {\sigma\times\tau}}{(head_\tau~ys,head_\sigma~xs):(g~(tail_\sigma~xs)~(tail_\tau~ys)}}}})}$
 
 \paragraph{4)}
-$take_\sigma\equalDef \lambdaFix{(\lambdaAbs{f}{\Nat\to[\sigma]}{\lambdaAbs{n}{\Nat}{\lambdaAbs{xs}{[\sigma]}{\lambdaIf{\textbf{Or}~isZero(n)~(isNull~xs)}{\List{\sigma}}{(head~xs)::(f~pred(n)~(tail~xs))}}}})}$
+$take_\sigma\equalDef \lambdaFix{(\lambdaAbs{f}{ Nat\to[\sigma]}{\lambdaAbs{n}{ Nat}{\lambdaAbs{xs}{[\sigma]}{\lambdaIf{\textbf{Or}~isZero(n)~(isNull~xs)}{\List{\sigma}}{(head~xs)::(f~pred(n)~(tail~xs))}}}})}$
 
 \subsection{Ejercicio 24}
 \paragraph{1)}
@@ -1018,37 +980,37 @@ $$\frac{\judgeType{\Gamma}{M}{\text{det}(\sigma)\to\tau}~\hspace*{5mm}\judgeType
 \def\extraVskip{5pt}
 
            \AxiomC{Demostrado en (1)}
-       \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}}}{\text{det}(\Bool)\to\Bool}$}
+       \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}}}{\text{det}( Bool)\to Bool}$}
             \AxiomC{}
         \RightLabel{T-Zero}
-        \UnaryInfC{$\judgeType{\Gamma}{0}{\Nat}$}
+        \UnaryInfC{$\judgeType{\Gamma}{0}{ Nat}$}
         
     \RightLabel{T-isZeroZero}
-    \UnaryInfC{$\judgeType{\Gamma}{isZero(0)}{\Bool}$}
+    \UnaryInfC{$\judgeType{\Gamma}{isZero(0)}{ Bool}$}
 \RightLabel{T-DetApp}
-\BinaryInfC{$\judgeType{\Gamma}{(\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}})~isZero(0)}{\Bool}$}
+\BinaryInfC{$\judgeType{\Gamma}{(\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}})~isZero(0)}{ Bool}$}
 \end{scprooftree}
 
 \vspace*{1cm}
 (1)\begin{scprooftree}
-            \AxiomC{$y:\Bool\in\Gamma,x:\text{det}(\Bool)$}
+            \AxiomC{$y: Bool\in\Gamma,x:\text{det}( Bool)$}
         \RightLabel{T-Var}
-        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{y}{\Bool}$}
+        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}( Bool)}{y}{ Bool}$}
         
-                \AxiomC{$x:\text{det}(\Bool)\in\Gamma,x:\text{det}(\Bool)$}
+                \AxiomC{$x:\text{det}( Bool)\in\Gamma,x:\text{det}( Bool)$}
             \RightLabel{T-Var}
-            \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{x}{\text{det}(\Bool)}$}
+            \UnaryInfC{$\judgeType{\Gamma,x:\text{det}( Bool)}{x}{\text{det}( Bool)}$}
         \RightLabel{T-Cont}
-        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{continuar(x)}{\Bool}$}   
+        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}( Bool)}{continuar(x)}{ Bool}$}   
 
             \AxiomC{}
         \RightLabel{T-False}
-        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{false}{\Bool}$}
+        \UnaryInfC{$\judgeType{\Gamma,x:\text{det}( Bool)}{false}{ Bool}$}
         
     \RightLabel{T-If}
-    \TrinaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{\lambdaIf{y}{continuar(x)}{false}}{\Bool}$}
+    \TrinaryInfC{$\judgeType{\Gamma,x:\text{det}( Bool)}{\lambdaIf{y}{continuar(x)}{false}}{ Bool}$}
 \RightLabel{T-Abs}
-\UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}}}{\text{det}(\Bool)\to\Bool}$}
+\UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}}}{\text{det}( Bool)\to Bool}$}
 \end{scprooftree}
 
 \newpage

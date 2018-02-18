@@ -1,35 +1,6 @@
 \documentclass[10pt,a4paper]{article}
 
-\usepackage[pdftex,
-pdfauthor={Gianfranco Zamboni},
-pdftitle={Paradigmas de Lenguajes de Programación},
-pdfsubject={},
-pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Programación, Imperativo, Funcional, Cálculo Lambda, Programación Orientada a Objetos, Objetos, Programación Lógica, Recursion, Tipado, Sintaxis, Semantica},
-pdfproducer={Latex with hyperref},
-pdfcreator={pdflatex}]{hyperref}
-
-\usepackage{amsmath}
-\usepackage{ amssymb }
-\usepackage{bussproofs}
-\usepackage{multicol}
-\usepackage[spanish]{babel}
-
-
-\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
-\usepackage{graphicx}
-\usepackage{xcolor}
-
-\usepackage{lscape}
-\usepackage{minted}
-\usepackage{a4wide} % márgenes un poco más anchos que lo usual
-\usepackage[titletoc,toc,page]{appendix}
-\usepackage{tikz}
-\usepackage{forest}
-
-\setcounter{tocdepth}{1}
-
-\input{comandos.tex}
-\input{page.layout}
+\input{header}
 
 \begin{document}
 \title{Resumen: Paradigmas de Lenguajes de Programación}
@@ -388,6 +359,9 @@ $$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
 \frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_1(M)}{\sigma}}(\text{T-}\pi_1)\hspace*{1cm}\frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_2(M)}{\tau}}(\text{T-}\pi_2)
 \end{equation*}
 
+\paragraph{Valores}
+$$V~::=~\dots~|~<V,V>$$
+
 \paragraph{Axiomas y reglas de evaluación}
 \begin{equation*}
 \frac{M\to M'}{<M,N>\to<M',N>}(\text{E-Tuplas})\hspace*{1cm}\frac{N\to N'}{<\lambdaValue{V},N>\to<\lambdaValue{V},N'>}(\text{E-Tuplas1})
@@ -401,6 +375,60 @@ $$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
 \frac{M\to M'}{\pi_2(M)\to\pi_2(M')}(\text{E-}\pi_2)\hspace*{1cm}\frac{}{\pi_2(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_2}}(\text{E-}\pi'_2)
 \end{equation*}
 
+\newpage
+\section{Extensión con árboles binarios}
+
+\paragraph{Tipos}
+$$\sigma,\tau~::= \dots~|~AB_\sigma$$
+
+\paragraph{Términos}
+$$M,~N~::=~\dots~|~\text{Nil}_\sigma~|~\text{Bin}(M, N, O)~|~\text{raiz}(M)~|~\text{der}(M)~|~\text{izq}(M)~|~\text{esNil}(M)$$
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+\begin{gathered}
+    \frac{}{\judgeType{\Gamma}{\text{Nil}_\sigma}{AB_\sigma}}(\text{T-Nil})\hspace*{1cm}
+\frac{\judgeType{\Gamma}{M}{AB_\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{O}{AB_\sigma}}{\judgeType{\Gamma}{\text{Bin}(M, N, O)}{AB_\sigma}}(\text{T-Bin}) \\
+\vspace*{5mm}\\
+\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{raiz}(M)}{\sigma}}(\text{T-raiz})\hspace*{1cm}
+\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{der}(M)}{AB_\sigma}}(\text{T-der})
+\vspace*{5mm} \\
+\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{izq}(M)}{AB_\sigma}}(\text{T-izq})
+\hspace*{1cm}
+\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{isNil}(M)}{Bool}}(\text{T-isNil})
+\end{gathered}
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)$$
+
+\paragraph{Axiomas y reglas de evaluación}
+\begin{equation*}
+\frac{M\to M'}{\text{Bin}(M,N,O)\to \text{Bin}(M',N,O)}(\text{E-Bin1})\hspace*{1cm}\frac{N\to N'}{\text{Bin}(V,N,O)\to \text{Bin}(V,N',O)}(\text{E-Bin2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{O\to O'}{\text{Bin}(V_1,V_2,O)\to \text{Bin}(V_1,V_2,O')}(\text{E-Bin3})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M\to M'}{\text{raiz}(M)\to\text{raiz}(M')}(\text{E-Raiz1})\hspace*{1cm}\frac{}{\text{raiz}(\text{Bin}(V_1,V_2,V_3))\to V_2}(\text{E-Bin3})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M\to M'}{\text{der}(M)\to\text{der}(M')}(\text{E-Der1})\hspace*{1cm}\frac{}{\text{der}(\text{Bin}(V_1,V_2,V_3))\to V_3}(\text{E-Der2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M\to M'}{\text{izq}(M)\to\text{izq}(M')}(\text{E-Izq1})\hspace*{1cm}\frac{}{\text{izq}(\text{Bin}(V_1,V_2,V_3))\to V_1}(\text{E-Izq2})
+\end{equation*}
+\hspace*{5mm}
+\begin{equation*}
+\frac{}{\text{isNil}(M)\to\text{izq}(M')}(\text{E-isNil1})\hspace*{1cm}\frac{}{\text{isNil}(\text{Bin}(V_1,V_2,V_3))\to false}(\text{E-isNilBin})
+\end{equation*}
+\hspace*{5mm}
+\begin{equation*}
+\frac{}{\text{isNil}(\text{Bin}(V_1,V_2,V_3))\to true}(\text{E-isNilNil})
+\end{equation*}
 
 \newpage
 \section{Algoritmo de Martelli-Montanari}
@@ -410,7 +438,7 @@ $$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
 $\{\sigma_1\to\sigma_2 \equalDot\tau_1\to\tau_2\}\cup G\mapsto \{\sigma_1\equalDot\tau_1,~\sigma_2 \equalDot\tau_2\}\cup G$
 \item \textbf{Eliminación de par trivial}
 
-$\{\Nat \equalDot\Nat\}\cup G\mapsto G$
+$\{ Nat \equalDot Nat\}\cup G\mapsto G$
 
 $\{\Bool \equalDot\Bool\}\cup G\mapsto G$
 
@@ -425,7 +453,7 @@ $\{\text{s}\equalDot\sigma\}\cup G\mapsto_{\sigma/s} G[\sigma/s]$
 
 \item \textbf{Falla}
 
-$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$, con $(\sigma,\tau)\in T\cup T^{-1}$ y $T =\{(\Bool,\Nat), (Nat, \sigma_1\to\sigma_2), (\Bool, \sigma_1\to\sigma_2\}$. Acá, la notación $T^{-1}$ se refiere al conjunto con cada tupla de $T$ invertida.
+$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$, con $(\sigma,\tau)\in T\cup T^{-1}$ y $T =\{(\Bool, Nat), (Nat, \sigma_1\to\sigma_2), (\Bool, \sigma_1\to\sigma_2\}$. Acá, la notación $T^{-1}$ se refiere al conjunto con cada tupla de $T$ invertida.
 
 \item \textbf{Occur Check} Si $s\neq\sigma$ y $s\in FV(\sigma)$
 

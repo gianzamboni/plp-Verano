@@ -26,7 +26,7 @@ En funcional, computar significa tomar una expresión y reducirla hasta que sea 
 Son una forma de particionar el universo de valores de acuerdo a ciertas propiedades. Hay:
 \begin{itemize}
 	\item \textbf{Tipos básicos} (Int, Bool, Float) ó primitivos que son los que ya vienen definidos en el lenguaje por literales y representan valores 
-	\item \textbf{Tipos compuestos} (pares, listas) que son aquellos que se definen a partir de otros tipos.
+	\item \textbf{Tipos compuestos} (pares, ) que son aquellos que se definen a partir de otros tipos.
 \end{itemize}
 
 Cada tipo de dato tiene asociado operaciones que no tienen significado para otros tipos.
@@ -43,7 +43,7 @@ Otra cosa a tener en cuenta, es que los tipos ofrecidos por el lenguaje deben se
 
 \paragraph{Inferencia de tipos} Dada una expresión e determinar si tiene tipo o no y, si lo tiene, cuál es ese tipo según las reglas.
 
-\paragraph{Chequeo de tipos} Dada una expresión \mintinline{haskell}{e} y un tipo \mintinline{haskell}{A}, determinar si \mintinline{haskell}{e :: A} o no.
+\paragraph{Chequeo de tipos} Dada una expresión tipable \mintinline{haskell}{e} y un tipo \mintinline{haskell}{A}, determinar si \mintinline{haskell}{e :: A} o no.
 
 \subsection{Tipo Función}
 Un programa en el paradigma funcional es una función descripta por un conjunto de ecuaciones (expresiones) que definen uno o más valores. Estas ecuaciones son evaluadas (reducidas) hasta llegar a una expresión atómica que nos indique el valor de las mismas.

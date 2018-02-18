@@ -18,7 +18,7 @@ M~::=~&x \\
 
 Ahora, si bien la mayoría de los términos son iguales a los términos originales, necesitariamos alguna forma de convertir los términos del lambda cálculo a términos no tipados y viceversa. Para el primer caso, definimos la función $\Erase$ que dado un término del lambda cálculo, \textbf{elimina} las anotaciones de tipos de las abstracciones que contenga. Por ejemplos: 
 
-$$\Erase(\lambdaAbs{x}{\Nat}{\lambdaAbs{f}{\Nat\to\Nat}{f~x}}) = \lambdaAbsI{x}{\lambdaAbsI{f}{f~x}}$$
+$$\Erase(\lambdaAbs{x}{Nat}{\lambdaAbs{f}{Nat\to Nat}{f~x}}) = \lambdaAbsI{x}{\lambdaAbsI{f}{f~x}}$$
 
 \paragraph{Chequeos de tipo}
 Realizar el chequeo de tipo es determinar, para un término estándar (del lenguaje $\lambda$ tipado) $M$, si existe $\Gamma$ y $\sigma$ tales que $\judgeType{\Gamma}{M}{\sigma}$ es derivable. Osea que nos indica si $M$ es un término tipable o no.
@@ -42,7 +42,7 @@ Una \textbf{variables de tipo} s es una variable que representa una expresión d
 
 Debemos agregar esta nueva expresión a las expresiones  de tipo del cálculo lambda:
 
-$$\sigma~::=~\text{s}~|~\Nat~|~Bool~|~\sigma\to\tau$$
+$$\sigma~::=~\text{s}~|~Nat~|~Bool~|~\sigma\to\tau$$
 
 
 \subsection{Sustitución de tipos}
@@ -50,7 +50,7 @@ Una función $S$ de sustitución es una función que mapea variables de tipo en 
 
 Describimos $S$ usando la notación $\{\sigma_1/t_1,\dots,\sigma_n/t_n\}$ indicando que la variable $t_i$ debe ser remplazada por $\sigma_1$. Además, definimos el \textbf{conjunto soporte} de $S$ al conjunto $\{t_1,\dots,t_n\}$ como el conjunto que representa las variables que afecta $S$.
 
-Por ejemplo, si $S = \{ \Bool/t \}$, entonces $S(\lambdaAbs{x}{\text{t}}{x}) = \lambdaAbs{x}{\Bool}{x}$ y el tipo soporte de $S$ es $\{t\}$.
+Por ejemplo, si $S = \{  Bool/t \}$, entonces $S(\lambdaAbs{x}{\text{t}}{x}) = \lambdaAbs{x}{ Bool}{x}$ y el tipo soporte de $S$ es $\{t\}$.
 
 La sustitución cuyo soporte es $\emptyset$, es la \textbf{sustitución identidad}.
 
@@ -70,11 +70,11 @@ El algoritmo de inferencia que vamos a proponer analiza un término (sin notacio
 
 Para realizar la síntesis debemos \textbf{compatibilizar} la información de tipos de cada subtérmino, por cada variable $x$ del término tenemos que tomar los tipos que le asigno cada súbtermino y unificarlos. Es decir, debemos encontrar una sustitución $S$ que nos permita remplazar los tipos que dió cada subexpresión por un tipo único. Veamos un ejemplo:
 
-Sea $M = x~y + x~(y+1)$, del primer súbtermino $x~y$ ténemos que $x :: \text{s}\to \text{t}$ e $y :: \text{s}$, del subtérmino $x~(y+1)$ tenemos que $x::\Nat\to \text{u}$ e $y :: \Nat$. Ahora, $x$ e $y$ pueden tener un solo tipo en $M$, por lo que necesitamos una sustitución que nos permita unificar $\text{s}\to \text{t}$ con $\Nat\to \text{u}$ y $s$ con $\Nat$. En este caso podemos definir $S = \{\Nat/\text{s},~\text{u}/\text{t}\}$, concluyendo que $x :: \Nat\to\text{t}$ e $y:\Nat$.
+Sea $M = x~y + x~(y+1)$, del primer súbtermino $x~y$ ténemos que $x :: \text{s}\to \text{t}$ e $y :: \text{s}$, del subtérmino $x~(y+1)$ tenemos que $x::Nat\to \text{u}$ e $y :: Nat$. Ahora, $x$ e $y$ pueden tener un solo tipo en $M$, por lo que necesitamos una sustitución que nos permita unificar $\text{s}\to \text{t}$ con $Nat\to \text{u}$ y $s$ con $Nat$. En este caso podemos definir $S = \{Nat/\text{s},~\text{u}/\text{t}\}$, concluyendo que $x :: Nat\to\text{t}$ e $y:Nat$.
 
 \paragraph{Ecuación de unificación} Es una expresión de la forma $\sigma_1 \equalDot \sigma_2$ cuya solución es una sustitución tal que $S\sigma_1 = S\sigma_2$. Por lo general tendremos un conjunto de ecuaciones de unificación y la solución a dicho conjunto será la sustitución que unifica todas las expresiones.
 
-En el ejemplo anterior, las ecuaciones de unificación hubiesen sido $\{\text{s}\to\text{t}\equalDot \Nat\to\text{u},~\text{s}\equalDot\Nat\}$
+En el ejemplo anterior, las ecuaciones de unificación hubiesen sido $\{\text{s}\to\text{t}\equalDot Nat\to\text{u},~\text{s}\equalDot Nat\}$
 
 Diremos que una sustitución $S$ es un \textbf{unificador más general (MGU)} de $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$, si es solución de ese conjunto y es más general que cualquier otra de sus soluciones.
 
@@ -96,9 +96,9 @@ Las secuencias que terminan en un \textit{goal} vacío son \textbf{exitosas}, el
 $\{\sigma_1\to\sigma_2 \equalDot\tau_1\to\tau_2\}\cup G\mapsto \{\sigma_1\equalDot\tau_1,~\sigma_2 \equalDot\tau_2\}\cup G$
 \item \textbf{Eliminación de par trivial}
 
-$\{\Nat \equalDot\Nat\}\cup G\mapsto G$
+$\{Nat \equalDot Nat\}\cup G\mapsto G$
 
-$\{\Bool \equalDot\Bool\}\cup G\mapsto G$
+$\{ Bool \equalDot Bool\}\cup G\mapsto G$
 
 $\{\text{s} \equalDot\text{s}\}\cup G\mapsto G$
 \item \textbf{Swap} Si $\sigma$ no es una variable,
@@ -111,7 +111,7 @@ $\{\text{s}\equalDot\sigma\}\cup G\mapsto_{\sigma/s} G[\sigma/s]$
 
 \item \textbf{Falla}
 
-$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$, con $(\sigma,\tau)\in T\cup T^{-1}$ y $T =\{(\Bool,\Nat), (Nat, \sigma_1\to\sigma_2), (\Bool, \sigma_1\to\sigma_2\}$. Acá, la notación $T^{-1}$ se refiere al conjunto con cada tupla de $T$ invertida.
+$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$, con $(\sigma,\tau)\in T\cup T^{-1}$ y $T =\{( Bool,Nat), (Nat, \sigma_1\to\sigma_2), ( Bool, \sigma_1\to\sigma_2\}$. Acá, la notación $T^{-1}$ se refiere al conjunto con cada tupla de $T$ invertida.
 
 \item \textbf{Occur Check} Si $s\neq\sigma$ y $s\in FV(\sigma)$
 
@@ -220,6 +220,9 @@ $\WFunc(\red{U~V}) \equalDef \judgeType{S\Gamma_1\cup S\Gamma_2}{S~(M~N)}{St}$
 \end{centrado}
 
 \subsubsection{Caso abstracción}
+$$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma \backslash\{x:\tau\}}{\lambdaAbs{x}{\tau}{M}}{\tau\to\rho}$$
+
+
 Sea $\WFunc(U) = \judgeType{\Gamma}{M}{\rho}$, si $\Gamma$ tiene información de tipos para $x$, es decir $x:\tau\in\Gamma$ para algún $\tau$, entonces:
 
 $$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma \backslash\{x:\tau\}}{\lambdaAbs{x}{\tau}{M}}{\tau\to\rho}$$
@@ -239,3 +242,25 @@ $\WFunc(\red{\lambdaFix{(U)}}) \equalDef \judgeType{S\Gamma}{S~\lambdaFix{(M)}}{
 
 \subsubsection{Complejidad del algoritmo}
 Tanto la unificación como la inferencia para cálculo lambda se puede realizar en tiempo lineal. Sin embargo, el tipo principal asociado a un término sin anotaciones puede ser \red{exponencial} en el tamaño del término.
+
+\subsubsection{Extensión del algoritmo a nuevos tipos}
+Para extender el algoritmo a otros tipos debemos agregar los casos correspondientes al nuevo tipo teniendo en cuenta que los llamados recursivos devuelven un contexto, un término y un tipo sobre los que no podemos asumir nada.
+Si la nueva regla tiene tipos iguales o contextos repetidos, debemos unificarlos. Y si la regla liga alguna variable, entonces vamos a poder dividir en dos casos: 
+Si alguno de los contextos recursivos tiene información sobre esa variable, entonces sacamos su tipo del contexto que la contenga, sino le asignamos una variable fresca de tipo. Si la regla tiene restricciones adicionales, se incorporan como posibles fallas. Veamos un ejemplo para la extensión de listas.
+
+\subsubsection{Extensión del algoritmo para listas}
+$\WFunc([]) = \judgeType{\emptyset}{\List{t}}{t}$ con $t$ variable fresca.
+
+$\WFunc(U_1::U_2) = \judgeType{S\Gamma_1\cup S\Gamma_2}{S(M_1::M_2)}{S[\sigma_1]}$
+
+\begin{centrado}
+\begin{itemize}
+    \item $\WFunc(U_i) = \judgeType{\Gamma_i}{M_i}{\sigma_i}$
+    \item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{[\sigma_1]\equalDot\sigma_2\} $
+\end{itemize}
+\end{centrado}
+
+\end{document}
+
+
+
