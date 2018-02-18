@@ -246,7 +246,7 @@ Tanto la unificación como la inferencia para cálculo lambda se puede realizar 
 \subsubsection{Extensión del algoritmo a nuevos tipos}
 Para extender el algoritmo a otros tipos debemos agregar los casos correspondientes al nuevo tipo teniendo en cuenta que los llamados recursivos devuelven un contexto, un término y un tipo sobre los que no podemos asumir nada.
 Si la nueva regla tiene tipos iguales o contextos repetidos, debemos unificarlos. Y si la regla liga alguna variable, entonces vamos a poder dividir en dos casos: 
-Si alguno de los contextos recursivos tiene información sobre esa variable, entonces sacamos su tipo del contexto que la contenga, sino le asignamos una variable fresca de tipo. Si la regla tiene restricciones adicionales, se incorporan como posibles fallas. Veamos un ejemplo para la extensión de listas.
+Si alguno de los contextos recursivos tiene información sobre esa variable, entonces sacamos su tipo del contexto que la contenga, sino le asignamos una variable fresca de tipo. Si la regla tiene restricciones adicionales, se incorporan como posibles fallas. Veamos un ejemplo para la extensión de listas (definida en el ejercicio 17 de la práctica 2).
 
 \subsubsection{Extensión del algoritmo para listas}
 $\WFunc([]) = \judgeType{\emptyset}{\List{t}}{t}$ con $t$ variable fresca.
@@ -257,6 +257,27 @@ $\WFunc(U_1::U_2) = \judgeType{S\Gamma_1\cup S\Gamma_2}{S(M_1::M_2)}{S[\sigma_1]
 \begin{itemize}
     \item $\WFunc(U_i) = \judgeType{\Gamma_i}{M_i}{\sigma_i}$
     \item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{[\sigma_1]\equalDot\sigma_2\} $
+\end{itemize}
+\end{centrado}
+
+
+$\WFunc(\lambdaListCase{U}{U_2}{U_3}) =$
+ 
+\quad$\judgeType{S\Gamma_1\cup S\Gamma_2\cup S\Gamma_3\backslash\{h,t\}}{S(\lambdaListCase{M_1}{M_2}{M_3})}{S\sigma_2}$
+
+\begin{centrado}
+\begin{itemize}
+    \item $\WFunc(U_i) = \judgeType{\Gamma_i}{M_i}{\sigma_i}$ con $i = 1,2,3$
+    \item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{\sigma_1\equalDot [t_1],~t_1\equalDot \tau_h,~\tau_t\equalDot \sigma_1,~\sigma_2\equalDot\sigma_3\} $ con 
+\[ \tau_h = \begin{cases} 
+      \sigma_h & \text{si } h:\sigma_h\in\Gamma_3 \\
+      t_2 & \text{sino} \\
+   \end{cases} \hspace*{5mm}\text{ y }\hspace*{5mm}
+    \tau_t = \begin{cases} 
+         \sigma_t & \text{si } t:\sigma_t\in\Gamma_3 \\
+         t_2 & \text{sino} \\
+      \end{cases}
+\]
 \end{itemize}
 \end{centrado}
 
