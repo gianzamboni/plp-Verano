@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZhy{}\PYGZhy{} III.}
-\PYG{n+nf}{conjuntoInfinito} \PYG{o+ow}{::} \PYG{k+kt}{Conj} \PYG{n}{a}
-\PYG{n+nf}{conjuntoInfinito} \PYG{o+ow}{=} \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{x} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{True}\PYG{p}{)}
-\end{Verbatim}

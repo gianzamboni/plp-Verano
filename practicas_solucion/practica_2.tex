@@ -72,12 +72,7 @@ Todas las expresiones que nos permite escribir el conjunto de términos son expr
        & & $succ~true$
     \end{tabular}
 \end{center}
-%12. Bool
-%13. Bool → Bool
-%14. Bool → Bool → Nat
-%15. (Bool → Bool) → Nat
-%16. succ true\
-%17. λx : Bool. if 0 then true else 0 succ(true)
+
 \vspace*{\fill}
 \begin{multicols}{2}
 \subsection{Ejercicio 2}
@@ -217,19 +212,19 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
       \def\extraVskip{5pt}
       \AxiomC{}
       \RightLabel{T-True}
-      \UnaryInfC{$\judgeType{\phi}{true}{\Bool}$}
+      \UnaryInfC{$\judgeType{\emptyset}{true}{\Bool}$}
       
       \AxiomC{}
       \RightLabel{T-Zero}
-      \UnaryInfC{$\judgeType{\phi}{0}{\Nat}$}
+      \UnaryInfC{$\judgeType{\emptyset}{0}{\Nat}$}
       
       \AxiomC{}
       \RightLabel{T-Zero}
-      \UnaryInfC{$\judgeType{\phi}{0}{\Nat}$}
+      \UnaryInfC{$\judgeType{\emptyset}{0}{\Nat}$}
       \RightLabel{T-Succ}
-      \UnaryInfC{$\judgeType{\phi}{succ(0)}{\Nat}$}
+      \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\Nat}$}
       
-      \TrinaryInfC{$\judgeType{\phi}{\lambdaIf{true}{0}{succ(0)}}{\Nat}$}
+      \TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{true}{0}{succ(0)}}{\Nat}$}
     \end{scprooftree}
 
 \vspace*{5mm}
@@ -269,16 +264,16 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
 \begin{scprooftree}
     \def\extraVskip{5pt}
     
-    \AxiomC{\red{$\judgeType{\phi,x:\Bool}{x}{\Bool}\Rightarrow \judgeType{\phi}{\lambdaAbs{x}{\Bool}{x}}{\Bool\to\tau}$}}
+    \AxiomC{\red{$\judgeType{\emptyset,x:\Bool}{x}{\Bool}\Rightarrow \judgeType{\emptyset}{\lambdaAbs{x}{\Bool}{x}}{\Bool\to\tau}$}}
     \RightLabel{T-Abs}
-    \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{x}{\Bool}{x}}{\Bool}$}
+    \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{\Bool}{x}}{\Bool}$}
     
-    \AxiomC{$\judgeType{\phi}{0}{\Nat}$}
+    \AxiomC{$\judgeType{\emptyset}{0}{\Nat}$}
     
-    \AxiomC{$\judgeType{\phi}{succ(0)}{\Nat}$}
+    \AxiomC{$\judgeType{\emptyset}{succ(0)}{\Nat}$}
     
     \RightLabel{T-If}
-    \TrinaryInfC{$\judgeType{\phi}{\lambdaIf{\lambdaAbs{x}{\Bool}{x}}{0}{succ(0)}}{\Nat}$}
+    \TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{\lambdaAbs{x}{\Bool}{x}}{0}{succ(0)}}{\Nat}$}
 \end{scprooftree}
 
 \vspace*{5mm}
@@ -307,20 +302,20 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
     \def\extraVskip{5pt}
     \AxiomC{\red{$\sigma = \Nat$}}
     \RightLabel{T-Zero}
-    \UnaryInfC{$\judgeType{\phi}{0}{\sigma}$}
+    \UnaryInfC{$\judgeType{\emptyset}{0}{\sigma}$}
     
     \RightLabel{T-Succ}
-    \UnaryInfC{$\judgeType{\phi}{succ(0)}{\sigma}$}
+    \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\sigma}$}
 \end{scprooftree}$\Rightarrow \sigma = \Nat$
 
 \paragraph{2)} \begin{scprooftree}
     \def\extraVskip{5pt}
         \AxiomC{}
         \RightLabel{Ejercicio \ref{p2:e6:s1}}
-        \UnaryInfC{$\judgeType{\phi}{succ(0)}{\Nat}\Rightarrow \red{\sigma = \Bool}$}
+        \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\Nat}\Rightarrow \red{\sigma = \Bool}$}
     
     \RightLabel{T-IsZero}
-    \UnaryInfC{$\judgeType{\phi}{isZero(succ(0))}{\sigma}$}
+    \UnaryInfC{$\judgeType{\emptyset}{isZero(succ(0))}{\sigma}$}
 \end{scprooftree}$\Rightarrow \sigma = \Bool$
 
 \end{multicols}
@@ -331,29 +326,29 @@ En la siguiente demostración $\Gamma =\{x:\Nat,~y:\Bool\}$
    \def\extraVskip{5pt}
             \AxiomC{}
         \RightLabel{T-True}    
-        \UnaryInfC{$\judgeType{\phi}{true}{\Bool}$}
+        \UnaryInfC{$\judgeType{\emptyset}{true}{\Bool}$}
 
             \AxiomC{}
         \RightLabel{T-True}    
-        \UnaryInfC{$\judgeType{\phi}{false}{\Bool}$}
+        \UnaryInfC{$\judgeType{\emptyset}{false}{\Bool}$}
 
             \AxiomC{}
        \RightLabel{T-True}    
-       \UnaryInfC{$\judgeType{\phi}{false}{\Bool}$}
+       \UnaryInfC{$\judgeType{\emptyset}{false}{\Bool}$}
 
     \RightLabel{T-If}
      \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{false}}{\Bool}$}
 
         \AxiomC{\red{$\sigma = \Nat$}}
     \RightLabel{T-Zero}
-    \UnaryInfC{$\judgeType{\phi}{0}{\sigma}$}
+    \UnaryInfC{$\judgeType{\emptyset}{0}{\sigma}$}
     
          \AxiomC{\red{$\sigma = \Nat$}}
     \RightLabel{Ejercicio \ref{p2:e6:s1}}
-    \UnaryInfC{$\judgeType{\phi}{succ(0)}{\sigma}$}
+    \UnaryInfC{$\judgeType{\emptyset}{succ(0)}{\sigma}$}
             
 \RightLabel{T-If}
-\TrinaryInfC{$\judgeType{\phi}{\lambdaIf{\lambdaIf{true}{false}{false}}{0}{succ(0)}}{\sigma}$}
+\TrinaryInfC{$\judgeType{\emptyset}{\lambdaIf{\lambdaIf{true}{false}{false}}{0}{succ(0)}}{\sigma}$}
     \end{scprooftree}$\Rightarrow \sigma = \Nat$
 \end{center}
 
@@ -384,14 +379,14 @@ Entonces, $\sigma = \Nat$ y $\tau = \Bool$
         
             \AxiomC{$\judgeType{\{x:\sigma\}}{x}{\sigma}$}
        \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to\sigma}$}
+        \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to\sigma}$}
         
             \AxiomC{$\judgeType{\{y:\Bool\}}{0}{\Nat}$}
         \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeType{\phi}{\lambdaAbs{y}{\Bool}{0}}{\sigma}$}
+        \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{y}{\Bool}{0}}{\sigma}$}
 
 \RightLabel{T-App}
-\BinaryInfC{$\judgeType{\phi}{(\lambdaAbs{x}{\sigma}{x})~(\lambdaAbs{y}{\Bool}{0})}{\sigma}$}
+\BinaryInfC{$\judgeType{\emptyset}{(\lambdaAbs{x}{\sigma}{x})~(\lambdaAbs{y}{\Bool}{0})}{\sigma}$}
     \end{scprooftree}
 
 \vspace*{5mm}
@@ -917,10 +912,10 @@ $\textbf{Xor} \equalDef \lambdaAbs{x}{Bool}{\textbf{Or}~(\textbf{And}~x~(\textbf
 \paragraph{1)}
 
 \begin{multicols}{2}
-$$\frac{\judgeType{\Gamma}{M_i}{\sigma_i\to\tau}\hspace*{5mm}i\in1..n\hspace*{5mm}\sigma_i=\sigma_j\Rightarrow i =j }{\judgeType{\Gamma}{[(M_1,\dots,M_n)]}{\text{Union}(\sigma_1,\dots,\sigma_n)_\tau}}(T-Union)$$
+$$\frac{\judgeType{\Gamma}{M_i}{\sigma_i\to\tau}\hspace*{5mm}i\in1..n\hspace*{5mm}\sigma_i=\sigma_j\Rightarrow i =j }{\judgeType{\Gamma}{[(M_1,\dots,M_n)]}{\Union(\sigma_1,\dots,\sigma_n)_\tau}}(T-Union)$$
 
 \vspace*{5mm}
-$$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\text{Union}(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{M~N}{\tau}}(T-UnionApp)$$
+$$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\Union(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{M~N}{\tau}}(T-UnionApp)$$
 \end{multicols}
 
 \newpage
@@ -941,7 +936,7 @@ $$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{\text{
         \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\Nat}{x}}{\Nat\to\Nat}$}
         
         \AxiomC{$\Bool\neq\Nat$}
-    \RightLabel{T-Union}    \TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{Nat}{x})]}{\text{Union}(\Nat,\Bool)_\Nat}$}
+    \RightLabel{T-Union}    \TrinaryInfC{$\judgeType{\Gamma}{[(\lambdaAbs{x}{\Bool}{y},\lambdaAbs{x}{\Nat}{x})]}{\Union(\Nat,\Bool)_{\Nat}}$}
 
     \AxiomC{$\Nat\in\{\Bool,\Nat\}$}
     
@@ -1013,7 +1008,7 @@ $$\frac{\judgeType{\Gamma}{M}{\sigma}}{\judgeType{\Gamma}{detener(M)}{\text{det}
 $$\frac{\judgeType{\Gamma}{M}{\text{det}(\sigma)}}{\judgeType{\Gamma}{continuar(M)}{\sigma}}(\text{T-Cont})$$
 
 \vspace*{5mm}
-$$\frac{\judgeType{\Gamma,x:\text{det}(\sigma)}{M}{\tau}~\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}}{\judgeType{\Gamma}{(\lambdaAbs{x}{\text{det}(\sigma)}{M})~N}{\tau}}(\text{T-DetApp})$$
+$$\frac{\judgeType{\Gamma}{M}{\text{det}(\sigma)\to\tau}~\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}}{\judgeType{\Gamma}{M~N}{\tau}}(\text{T-DetApp})$$
 \end{multicols}
 
 \paragraph{2)} $\Gamma = \{y:Bool\}$
@@ -1023,7 +1018,7 @@ $$\frac{\judgeType{\Gamma,x:\text{det}(\sigma)}{M}{\tau}~\hspace*{5mm}\judgeType
 \def\extraVskip{5pt}
 
            \AxiomC{Demostrado en (1)}
-       \UnaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{\lambdaIf{y}{continuar(x)}{false}}{\Bool}$}
+       \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}}}{\text{det}(\Bool)\to\Bool}$}
             \AxiomC{}
         \RightLabel{T-Zero}
         \UnaryInfC{$\judgeType{\Gamma}{0}{\Nat}$}
@@ -1052,18 +1047,29 @@ $$\frac{\judgeType{\Gamma,x:\text{det}(\sigma)}{M}{\tau}~\hspace*{5mm}\judgeType
         
     \RightLabel{T-If}
     \TrinaryInfC{$\judgeType{\Gamma,x:\text{det}(\Bool)}{\lambdaIf{y}{continuar(x)}{false}}{\Bool}$}
+\RightLabel{T-Abs}
+\UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}}}{\text{det}(\Bool)\to\Bool}$}
 \end{scprooftree}
 
+\newpage
 \paragraph{3)} $V~::=~...~|~detener(M)$
 
 \begin{multicols}{2}
-$$\frac{}{continuar(detener(M))\to M}(\text{E-Cont})$$
 
-$$\frac{\judgeType{\Gamma}{N}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{V}{det(\sigma)\to\tau}}{V~N \to V~detener(N)}(\text{E-AppDet})$$
+$$\frac{M\to M'}{continuar(M)\to continuar(M')}(\text{E-Cont})$$
+
+\hspace*{5mm}
+$$\frac{}{continuar(detener(M))\to M}(\text{E-Cont1})$$
+
+$$\frac{\judgeType{\Gamma}{N}{\sigma}}{(\lambdaAbs{x}{\text{det}(\sigma)}{M})~N \to (\lambdaAbs{x}{\text{det}(\sigma)}{M})~detener(N)}(\text{E-AppDet})$$
 \end{multicols}
 
-Debemos modificar la regla E-App2 para que solo sea aplicable cuando $V$ no es del tipo $\text{det}(\sigma)\to\tau$
+Debemos modificar la regla E-App2 y E-AppAbs para mantener el determinismo:
 
-$$\frac{\judgeType{\Gamma}{V}{\sigma\to\tau} \text{ con } \sigma\neq\text{det}(\sigma_1)\forall\sigma_1\hspace{5mm}M_2\to M_2'}{M_1~M_2\to M_1~M'_2}$$
+\begin{multicols}{2}
+$$\frac{\judgeType{\Gamma}{V}{\sigma\to\tau}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}\hspace*{5mm}M_2\to M_2'}{V~M_2\to V~M'_2}(\text{T-App2})$$
+
+$$\frac{\judgeType{\Gamma}{V}{\sigma}}{(\lambdaAbs{x}{\sigma}{M})~V\to \replaceBy{M}{x}{V}}(\text{T-Abs2})$$
+\end{multicols}
 \end{document}
 

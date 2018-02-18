@@ -2,7 +2,7 @@
 
 
 
-\subsection{Extensión con Registros \texorpdfstring{$\lambda^{...r}$}{lambda ...r+}}
+\section{Extensión con Registros \texorpdfstring{$\lambda^{...r}$}{lambda ...r+}}
 
 \paragraph{Tipos}
 $$\sigma, \tau ~::=~...~|~\{l_i : \sigma_i ~^{i\in 1..n}\}$$
@@ -45,7 +45,7 @@ $$V~::=~\dots~|~\{l_i = V_i ~^{i\in 1..n}\}$$
 \frac{M_j\to M_j'}{\{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M_j, l_i = M_i ~^{i\in j+1..n}\} \to \{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M'_j, l_i = M_i ~^{i\in j+1..n}\}}(\text{E-RCD})
 \end{equation*}
 \vspace*{5mm}
-\subsection{Extensión con Declaraciones Locales (\texorpdfstring{$\lambda^{...let}$}{lambda ...let})}\label{extension_lambda:let}
+\section{Extensión con Declaraciones Locales (\texorpdfstring{$\lambda^{...let}$}{lambda ...let})}\label{extension_lambda:let}
 
 Con esta extensión, agregamos al lenguaje el término $\lambdaLet{x}{\sigma}{M}{N}$, que evalúa $M$ a un valor, liga $x$ a $V$ y, luego, evalúa $N$. Este término solo mejora la legibilidad de los programas que ya podemos definir con el lenguaje hasta ahora definido.
 
@@ -76,7 +76,7 @@ Y $letRec$ se puede definir  en base a $let$ y $fix$ (definido en \ref{lambda_ca
 
 $$\lambdaLet{f}{\sigma\to\sigma}{(\lambdaFix{\lambdaAbs{f}{\sigma\to\sigma}{\lambdaAbs{x}{\sigma}{M}}})}{N}$$
 
-\subsection{Extensión con tuplas}
+\section{Extensión con tuplas}
 
 \paragraph{Tipos}
 $$\sigma,\tau~::= \dots~|~\sigma\times\tau$$

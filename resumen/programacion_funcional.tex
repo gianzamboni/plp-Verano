@@ -8,7 +8,9 @@ La programación funcional se concentra en el primer aspecto.
 
 \paragraph{Valor} Entidad matemática abstracta con ciertas propiedades.
 
-\paragraph{Expresión} Secuencia de símbolos utilizada para denotar un valor. Hay dos tipos de expresiones:
+\subsubsection{Expresión} 
+
+Secuencia de símbolos utilizada para denotar un valor. Hay dos tipos de expresiones:
 \begin{itemize}
 	\item \textbf{Atómicas ó formas formales}: Son las expresiones más simples y denotan un valor.
 	\item \textbf{Compuestas}: Expresiones que se construyen combinando otras expresiones.
@@ -241,7 +243,7 @@ data Arbol a = Hoja a | Nodo a (Arbol a) (Arbol a)
 Cuando tenemos un conjunto de funciones que manipulan ciertas estructuras de manera similar, podemos abstraer este comportamiento en funciones de alto orden que nos facilitarán su escritura.
 
 A continuación, veremos unos ejemplos de esquemas sobre listas: 
-\paragraph{Map}
+\subsubsection{Map}
 Dada una lista \mintinline{haskell}{l}, aplica una función \mintinline{haskell}{f} a cada elemento de \mintinline{haskell}{l}.
 \begin{centrado}
 	\begin{minted}{haskell}
@@ -261,7 +263,7 @@ dobleL = map doble
 
 \mintinline{haskell}{dobleL} calcula el doble de cada elemento de una lista.
 
-\paragraph{Filter}
+\subsubsection{Filter}
 Dada una lista \mintinline{haskell}{l} y un predicado \mintinline{haskell}{p}, selecciona todos los elementos de \mintinline{haskell}{l} que cumplen \mintinline{haskell}{p}.
 
 \begin{centrado}
@@ -282,7 +284,7 @@ masQueCero = filter (>0)
 
 \mintinline{haskell}{masQueCero} se queda con todos los elementos mayores de una lista
 
-\paragraph{Fold}
+\subsubsection{Fold}
 La función {fold} es la función que expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \mintinline{haskell}{l} y una función \mintinline{haskell}{f} que denota un valor que depende de todos los elementos de la lista \mintinline{haskell}{l} y un valor inicial \mintinline{haskell}{z}, aplica y combina las soluciones parciales obtenidas por \mintinline{haskell}{f} de manera  ``iterativa''. 
 Hay dos tipos de fold: \mintinline{haskell}{foldr} (acumula desde la derecha) y \mintinline{haskell}{foldl} (acumula desde la izquierda).
 
@@ -309,7 +311,7 @@ filter p = foldr (\x rec -> if (p x) then x:rec else rec) []
 \end{centrado}
 
 
-\paragraph{Recursión primitiva}
+\subsubsection{Recursión primitiva}
 Recordemos de Logica y Computabilidad: una función h es recursiva primitiva si \textit{h} es de la forma:
 
 \begin{align*}
@@ -343,7 +345,7 @@ insert x = recr [x] (\y ys zs -> if x<y then (x:y:ys) else (y:zs))
 
 En el segundo caso, \mintinline{haskell}{insert} es una función que agrega el elemento \mintinline{haskell}{x} a una lista \mintinline{haskell}{xs} que se le pase como parámetro.
 
-\paragraph{Divide \& Conquer}
+\subsubsection{Divide \& Conquer}
 La técnica de Divide \& Conquer consiste en dividir un problema en problemas más fáciles de resolver y luego, combinando los resultados parciales, lograr
 obtener un resultado general. En este caso, \mintinline{haskell}{DivideConquer} es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un elemento de tipo \texttt{b}:
 \begin{centrado}

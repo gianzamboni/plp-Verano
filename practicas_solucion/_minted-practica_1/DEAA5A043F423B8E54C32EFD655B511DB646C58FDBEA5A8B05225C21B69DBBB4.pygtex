@@ -1,6 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZhy{}\PYGZhy{} I.}
-\PYG{n+nf}{foldNat} \PYG{o+ow}{::} \PYG{p}{(}\PYG{k+kt}{Integer} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}\PYG{p}{)} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kt}{Integer} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{n}{a}
-\PYG{n+nf}{foldNat} \PYG{k+kr}{\PYGZus{}} \PYG{n}{z} \PYG{l+m+mi}{0} \PYG{o+ow}{=} \PYG{n}{z}
-\PYG{n+nf}{foldNat} \PYG{n}{f} \PYG{n}{z} \PYG{n}{n} \PYG{o+ow}{=} \PYG{n}{f} \PYG{n}{n} \PYG{p}{(}\PYG{n}{foldNat} \PYG{n}{f} \PYG{n}{z} \PYG{p}{(}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{))}
-\end{Verbatim}

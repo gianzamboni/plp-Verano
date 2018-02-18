@@ -11,6 +11,7 @@
 \newcommand{\rel}{\ensuremath{\mathcal{R}}}
 
 \newcommand{\equalDef}{\overset{def}{=}}
+\newcommand{\equalDot}{\overset{\cdot}{=}}
 
 \newcommand{\lambdaAbs}[3]{\lambda #1: #2 . #3}
 \newcommand{\lambdaAssign}[2]{#1~:=~#2}
@@ -23,6 +24,10 @@
 \newcommand{\lambdaVar}[1]{#1}
 \newcommand{\lambdaValue}[1]{\color{red}#1\color{black}}
 \newcommand{\lambdaFix}[1]{fix~#1}
+
+\newcommand{\lambdaAbsI}[2]{\lambda #1. #2}
+
+
 
 \newcommand{\blue}[1]{\color{blue}#1\color{black}}
 \newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
@@ -42,5 +47,16 @@
 
 \forestset{tikzQtree/.style={for tree={if n children=0{
                 node options=every leaf node/.try}{node options=every tree node/.try}, text centered}}}
-%\renewcommand{\appendixtocname}{Apéndices}
-%\renewcommand{\appendixpagename}{Apéndices}
+                
+                
+\DeclareMathOperator{\Erase}{Erase}
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Bool}{Bool}
+\DeclareMathOperator{\Union}{Union}
+
+\newcommand{\WFunc}{\mathbb{W}}
+
+\newcommand{\red}[1]{{\color{red}#1}}%\renewcommand{\appendixtocname}{Apéndices}
+\newcommand{\green}[1]{{\color{green!40!black}#1}}%\renewcommand{\appendixpagename}{Apéndices}
+
+

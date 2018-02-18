@@ -1,0 +1,514 @@
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[pdftex,
+pdfauthor={Gianfranco Zamboni},
+pdftitle={Paradigmas de Lenguajes de Programación},
+pdfsubject={},
+pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Programación, Imperativo, Funcional, Cálculo Lambda, Programación Orientada a Objetos, Objetos, Programación Lógica, Recursion, Tipado, Sintaxis, Semantica},
+pdfproducer={Latex with hyperref},
+pdfcreator={pdflatex}]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{ amssymb }
+\usepackage{bussproofs}
+\usepackage{multicol}
+\usepackage[spanish]{babel}
+
+
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage{graphicx}
+\usepackage{xcolor}
+
+\usepackage{lscape}
+\usepackage{minted}
+\usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage[titletoc,toc,page]{appendix}
+\usepackage{tikz}
+\usepackage{forest}
+
+\setcounter{tocdepth}{1}
+
+\input{comandos.tex}
+\input{page.layout}
+
+\begin{document}
+\title{Resumen: Paradigmas de Lenguajes de Programación}
+
+\date{\today}
+
+\author{Zamboni, Gianfranco}
+
+\section{Esquemas de recursión}
+
+\begin{centrado}
+	\begin{minted}{haskell}
+map :: (a -> b) -> [a] -> [b]
+map _ [] = []
+map f (x:xs) = (f x) : (map f xs)
+	\end{minted}
+\end{centrado} 
+
+\begin{centrado}
+	\begin{minted}{haskell}
+filter :: (a -> Bool) -> [a] -> [a]
+filter _ [] = []
+filter p (x:xs) | (p x)     = x : (filter p xs)
+                | otherwise = filter p xs  
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}{haskell}
+foldr :: (a -> b -> b) -> b -> [a] -> b
+foldr _ z [] = z
+foldr f z (x:xs) = f x (foldr f z xs)
+		
+foldl :: (b -> a -> b) -> b -> [a] -> b
+foldl f z [] = z
+foldl f z (x : xs) = foldl f (f z x) xs
+\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}{haskell}
+recr :: b -> (a -> [a] -> b -> b) -> [a] -> b
+recr z _ []= z
+recr z f (x:xs) = f x xs (recr z f xs)
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+type DivideConquer a b  = (a -> Bool) -> (a -> b) -> (a -> [a]) -> 
+                          ([b] -> b) -> a -> b                         
+\end{minted}
+\end{centrado}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+divideConquerListas :: DivideConquer [a] b
+-- Esto significa que DivideConquerLista es de tipo 
+-- ([a] -> Bool) -> ([a] -> b) -> ([a] -> [[a]]) -> ([b] -> b)
+-- -> [a] -> b
+
+divideConquerListas esTrivial resolver repartir combinar l =
+	if (esTrivial l) then resolver l
+	else combinar (map dc (repartir l))
+where dc = divideConquerListas esTrivial resolver repartir combinar
+                        
+	\end{minted}
+\end{centrado}
+
+\newpage
+\section{Cálculo lambda $\lambda^{bn}$}
+\subsubsection*{Función Free Variables}
+\begin{equation*}
+\begin{split}
+FV(x) &\equalDef {x} \\
+FV(true) = FV(false) &\equalDef \emptyset \\
+FV(\lambdaIf{M}{P}{Q}) &\equalDef FV(M)\cup FV(P)\cup FV(Q) \\
+FV(\lambdaApp{M}{N}) &\equalDef FV(M)\cup FV(N) \\
+FV(\lambdaAbs{x}{\sigma}{M}) &\equalDef FV(M) \backslash \{x\}
+\end{split}
+\end{equation*}
+\subsubsection*{Sustitución}
+\begin{equation*}
+\begin{split}
+\replaceBy{x}{x}{N} &\equalDef N \\
+\replaceBy{a}{x}{N} &\equalDef a \text{ si } a \in \{true,false\}\cup\mathcal{X}\backslash\{x\} \\
+\replaceBy{(\lambdaIf{M}{P}{Q})}{x}{N} &\equalDef \lambdaIf{\replaceBy{M}{x}{N}}{\replaceBy{P}{x}{N}}{\replaceBy{Q}{x}{N}}\\
+\replaceBy{(\lambdaApp{M_1}{M_2})}{x}{N} &\equalDef \lambdaApp{\replaceBy{M_1}{x}{N}}{\replaceBy{M_2}{x}{N}}\\
+\replaceBy{(\lambdaAbs{y}{\sigma}{M})}{x}{N} &\equalDef \lambdaAbs{y}{\sigma}{\replaceBy{M}{x}{N}}~x\neq y,~y\notin~FV(N)
+\end{split}
+\end{equation*}
+
+\subsubsection{Tipos}
+$\sigma, \tau ~::=~ Bool~|~Nat~|~\sigma\to\tau$
+\subsubsection*{Expresiones}
+\begin{equation}
+\begin{split}
+M, P, Q ~ ::&= ~ true~|~ false~|~ \lambdaIf{M}{P}{Q} \\
+&|~ \lambdaApp{M}{N}~|~ \lambdaAbs{x}{\sigma}{M} \\
+&|~x~|~0~|~succ(M)~|~pred(M)~|~isZero(M)
+\end{split}
+\end{equation}
+
+
+
+
+\subsubsection{Reglas de tipado}
+
+\begin{equation*}
+\begin{gathered}
+    \frac{}{\judgeType{\Gamma}{\lambdaValue{true}}{Bool}}(\text{T-True}) \hspace*{2cm} \frac{}{\judgeType{\Gamma}{\lambdaValue{false}}{Bool}}(\text{T-False})\hspace*{2cm} \\
+    \vspace*{5mm} \\
+    \frac{x:\sigma\in\Gamma}{\judgeType{\Gamma}{\lambdaValue{x}}{\sigma}}(\text{T-Var})\hspace*{2cm}
+    \frac{\judgeType{\Gamma}{M}{Bool}\hspace*{5mm}\judgeType{\Gamma}{P}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{Q}{\sigma}}{\judgeType{\Gamma}{\lambdaIf{M}{P}{Q}}{\sigma}}(\text{T-If}) \\
+    \vspace*{5mm} \\
+    \frac {\judgeType{\Gamma,x:\sigma}{M}{\tau}}
+          {\judgeType{\Gamma}{\lambdaValue{\lambdaAbs{x}{\sigma}{M}}}{\sigma\to\tau}}(\text{T-Abs})\hspace*{2cm}
+    \frac{\judgeType{\Gamma}{M}{\sigma\to\tau}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}}{\judgeType{\Gamma}{\lambdaApp{M}{N}}{\tau}}(\text{T-App})
+\end{gathered}
+\end{equation*}
+
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{\judgeType{\Gamma}{0}{Nat}}(\text{T-Zero})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{M}{Nat}}
+{\judgeType{\Gamma}{succ(M)}{Nat}}(\text{T-Succ})\hspace*{1cm}
+\frac{\judgeType{\Gamma}{M}{Nat}}{\judgeType{\Gamma}{pred(M)}{Nat}}(\text{T-Pred})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{M}{Nat}}{\judgeType{\Gamma}{isZero(M)}{Bool}}(\text{T-IsZero})
+\end{equation*}
+
+
+\subsubsection*{Valores}
+$ V~::=~true~|~false~|~\lambdaAbs{x}{\sigma}{M}|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^n(0)$
+
+\subsection*{Reglas de semánticas}
+\begin{equation*}
+\frac{}{\lambdaIf{\lambdaValue{true}}{M_1}{M_2} \to M_1}(\text{E-IfTrue})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{\lambdaIf{\lambdaValue{false}}{M_1}{M_2} \to M_2}(\text{E-IfFalse})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1\to M'_1}{\lambdaIf{M_1}{M_2}{M_3}\to\lambdaIf{M'_1}{M_2}{M_3}}(\text{E-If})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1\to M'_1}{\lambdaApp{M_1}{M_2} \to 
+\lambdaApp{M'_1}{M_2}}(\text{E-App1}~ /~ \mu)
+\hspace*{5mm}
+\frac{M_2 \to M'_2}{\lambdaApp{\lambdaValue{V_1}}{M_2} \to 
+	\lambdaApp{\lambdaValue{V_1}}{M'_2}}(\text{E-App2}~/~v)
+\end{equation*}	
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{\lambdaApp{(\lambdaAbs{x}{\sigma}{M})}{\lambdaValue{V}} \to 
+	\replaceBy{M}{x}{\lambdaValue{V}}}(\text{E-App3}~/~\beta)
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1\to M_1'}{succ(M_1)\to succ(M'_1)}(\text{E-Succ})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{pred(0)\to 0}(\text{E-PredZero})\hspace*{1cm}\frac{}{pred(succ(\underline{n}))\to \underline{n}}(\text{E-PredSucc})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1\to M_1'}{pred(M_1)\to pred(M'_1)}(\text{E-Pred})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{isZero(0)\to true}(\text{E-IsZeroZero})\hspace*{1cm}\frac{}{isZero(succ(\underline{n}))\to false}(\text{E-isZeroSucc})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\hspace*{1cm}\frac{M_1\to M'_1}{isZero(M_1)\to isZero(M_1')}(\text{E-isZero})
+\end{equation*}
+
+\newpage
+\section{Extensión con memoria $\lambda^{bnu}$}
+\paragraph{Tipos}
+$$\sigma, \tau ~::=~ Bool~|Nat~|~\blue{Unit}~|~\blue{Ref~\sigma}~|~\sigma\to\tau$$
+
+\paragraph{Términos}
+
+$$ M~::=~ \dots~|~unit~|~\lambdaRef{M}~|~!M~|~\lambdaAssign{M}{N}!|~    l$$
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+\frac{}{\judgeType{\Gamma|\Sigma}{unit}{Unit}}(\text{T-Unit})\hspace*{1cm}\frac{\judgeType{\Gamma|\Sigma}{M_1}{\sigma}}{\judgeType{\Gamma|\Sigma}{\lambdaRef{M_1}}{Ref~\sigma}}(\text{T-Ref})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma|\Sigma}{M_1}{Ref~\sigma}}{\judgeType{\Gamma}{!M_1}{\sigma}}(\text{T-DeRef})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma|\Sigma}{M_1}{Ref~\sigma}\hspace*{5mm}\judgeType{\Gamma|\Sigma}{M_2}{\sigma}}{\judgeType{\Gamma}{\lambdaAssign{M_1}{M_2}}{Unit}}(\text{T-Assing})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\Sigma(l) = \sigma}{\judgeType{\Gamma|Signa}{l}{Ref~\sigma}}(\text{T-Loc})
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~unit~|~l$$
+
+\paragraph{Axiomas y reglas semánticas}
+\begin{equation*}
+\frac{M_1|\mu\to M'_1|\mu'}{\lambdaApp{M_1}{M_2}|\mu\to \lambdaApp{M'_1}{M_2}|\mu'}(\text{E-App1})\hspace*{1cm}\frac{M_2|\mu\to M'_2|\mu'}{\lambdaApp{\lambdaValue{V_1}}{M_2}|\mu\to \lambdaApp{\lambdaValue{V_1}}{M'_2}|\mu'}(\text{E-App2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{(\lambdaApp{\lambdaAbs{x}{\sigma}{M})}{\lambdaValue{V}}|\mu\to \replaceBy{M}{x}{\lambdaValue{V}}|\mu'}(\text{E-AppAbs})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1|\mu\to M'_1|\mu'}{!M_1|\mu\to !M_1'|\mu'}(\text{E-DeRef})\hspace*{1cm}
+\frac{\mu(l) = \lambdaValue{V}}{!l|\mu\to V|\mu}(\text{E-DerefLoc})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1|\mu\to M'_1|\mu'}{\lambdaAssign{M_1}{M_2}~|\mu\to \lambdaAssign{M'_1}{M_2}|\mu'}(\text{E-Assign1})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_2|\mu\to M'_2|\mu'}{\lambdaAssign{\lambdaValue{V}}{M_2}|\mu\to \lambdaAssign{\lambdaValue{V}}{M'_2}|\mu'}(\text{E-Assign2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{\lambdaAssign{l}{\lambdaValue{V}}|\mu\to unit|\mu[l\to \lambdaValue{V}]}(\text{E-Assign})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_1|\mu\to M'_1|\mu'}{\lambdaRef{M_1}|\mu\to \lambdaRef{M'_1}|\mu'}(\text{E-Ref})\hspace*{1cm}
+\frac{l\notin Dom(\mu)}{\lambdaRef{\lambdaValue{V}}|\mu\to l|\mu\oplus(l\to \lambdaValue{V})}(\text{E-RefV})
+\end{equation*}
+
+\newpage
+\section{Extensión con recursión $\lambda^{..r}$}
+\paragraph{Términos}
+$$M~:=~\dots~|~\lambdaFix{M}$$
+
+\paragraph{Regla de tipado}
+\begin{equation*}
+    \frac{\judgeType{\Gamma}{M}{\sigma\to\sigma}}{\judgeType{\Gamma}{\lambdaFix{M}}{\sigma}}(\text{T-Fix})
+\end{equation*}
+
+\paragraph{Reglas de evaluación}
+\begin{equation*}
+    \frac{M_1\to M'_1}{\lambdaFix{M_1}\to\lambdaFix{M'_1}}(\text{E-Fix})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{\lambdaFix{(\lambdaAbs{x}{\sigma}{M})}\to\replaceBy{M}{x}{\lambdaFix{\lambdaAbs{x}{\sigma}{M}}}}(\text{E-FixBeta})
+\end{equation*}
+
+\section{Extensión con Declaraciones Locales (\texorpdfstring{$\lambda^{...let}$}{lambda ...let})}\label{extension_lambda:let}
+
+Con esta extensión, agregamos al lenguaje el término $\lambdaLet{x}{\sigma}{M}{N}$, que evalúa $M$ a un valor, liga $x$ a $V$ y, luego, evalúa $N$. Este término solo mejora la legibilidad de los programas que ya podemos definir con el lenguaje hasta ahora definido.
+
+\paragraph{Términos}
+$$ M~::=~ \dots~|~\lambdaLet{x}{\sigma}{M}{N} $$
+
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{M}{\sigma_1}\hspace*{5mm}\judgeType{\Gamma,x:\sigma_1}{N}{\sigma_2}}{\judgeType{\Gamma}{\lambdaLet{x}{\sigma_1}{M}{N}}{\sigma_2}}(\text{T-Let})
+\end{equation*}
+
+\paragraph{Axiomas y reglas de evaluación}
+
+\begin{equation*}
+\frac{M_1\to M_1'}{\lambdaLet{x}{\sigma}{M_1}{M_2}\to \lambdaLet{x}{\sigma}{M'_1}{M_2}}(\text{E-Let})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{}{\lambdaLet{x}{\sigma}{\lambdaValue{V_1}}{M_2}\to \replaceBy{M_2}{x}{\lambdaValue{V_1}}}(\text{E-LetV})
+\end{equation*}
+
+\subsubsection{Construcción \textit{let} recursivo (Letrec)}
+Una construcción alternativa para definir funciones recursivas es 
+$$letrec~f:\sigma\to\sigma = \lambdaAbs{x}{\sigma}{M~in~N}$$
+
+Y $letRec$ se puede definir  en base a $let$ y $fix$ (definido en \ref{lambda_calculo:recursion}) de la siguiente forma:
+
+$$\lambdaLet{f}{\sigma\to\sigma}{(\lambdaFix{\lambdaAbs{f}{\sigma\to\sigma}{\lambdaAbs{x}{\sigma}{M}}})}{N}$$
+
+
+\newpage
+\section{Extensión con Registros \texorpdfstring{$\lambda^{...r}$}{lambda ...r+}}
+
+\paragraph{Tipos}
+$$\sigma, \tau ~::=~...~|~\{l_i : \sigma_i ~^{i\in 1..n}\}$$
+
+El tipo $\{l_i : \sigma_i^{i\in 1..n}\}$ representan las estructuras con $n$ atributos tipados, por ejemplo: $\{nombre : String,edad:Nat\}$
+\paragraph{Términos}
+$$ M~::=~ \dots~|~\{l_i = M_i ~^{i\in 1..n}\}~|~M.l $$
+
+Los términos significan:
+\begin{itemize}
+    \item El registro $\{l_i = M_i ~^{i\in 1..n}\}$ evalua $\{l_i = V_i ~^{i\in 1..n}\}$  donde $V_i$ es el valores al que evalúa $M_i$ para $i\in 1..n$.
+    \item $M.l$: Proyecta el valor de la etiqueta $l$ del registro $M$
+\end{itemize}
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{M_i}{\sigma_i} \text{ para cada } i \in 1..n}{\judgeType{\Gamma}{\{l_i = M_i ~^{i\in 1..n}\}}{\{l_i : \sigma_i ~^{i\in 1..n}\}}}(\text{T-RCD})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{\{l_i = M_i ~^{i\in 1..n}\}}{\{l_i : \sigma_i ~^{i\in 1..n}\}}\hspace*{5mm} j \in 1..n}
+{\judgeType{\Gamma}{M.l_j}{\sigma_j}}(\text{T-Proj})
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~\{l_i = V_i ~^{i\in 1..n}\}$$
+
+\paragraph{Axiomas y reglas de evaluación}
+
+\begin{equation*}
+\frac{j\in 1..n}{\{l_i = \lambdaValue{V_i} ~^{i\in 1..n}\}.l_j \to \lambdaValue{V_j}}(\text{E-ProjRcd})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M \to M'}{M.l \to M'.l}(\text{E-Proj})
+\end{equation*}
+
+\vspace*{5mm}
+\begin{equation*}
+\frac{M_j\to M_j'}{\{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M_j, l_i = M_i ~^{i\in j+1..n}\} \to \{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M'_j, l_i = M_i ~^{i\in j+1..n}\}}(\text{E-RCD})
+\end{equation*}
+\vspace*{5mm}
+
+\newpage
+\section{Extensión con tuplas}
+
+\paragraph{Tipos}
+$$\sigma,\tau~::= \dots~|~\sigma\times\tau$$
+
+\paragraph{Términos}
+$$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+    \frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}}{\judgeType{\Gamma}{<M,N>}{\sigma\times\tau}}(\text{T-Tupla})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_1(M)}{\sigma}}(\text{T-}\pi_1)\hspace*{1cm}\frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_2(M)}{\tau}}(\text{T-}\pi_2)
+\end{equation*}
+
+\paragraph{Axiomas y reglas de evaluación}
+\begin{equation*}
+\frac{M\to M'}{<M,N>\to<M',N>}(\text{E-Tuplas})\hspace*{1cm}\frac{N\to N'}{<\lambdaValue{V},N>\to<\lambdaValue{V},N'>}(\text{E-Tuplas1})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M\to M'}{\pi_1(M)\to\pi_1(M')}(\text{E-}\pi_1)\hspace*{1cm}\frac{}{\pi_1(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_1}}(\text{E-}\pi'_1)
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+\frac{M\to M'}{\pi_2(M)\to\pi_2(M')}(\text{E-}\pi_2)\hspace*{1cm}\frac{}{\pi_2(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_2}}(\text{E-}\pi'_2)
+\end{equation*}
+
+
+\newpage
+\section{Algoritmo de Martelli-Montanari}
+\begin{enumerate}
+\item \textbf{Descomposición}
+
+$\{\sigma_1\to\sigma_2 \equalDot\tau_1\to\tau_2\}\cup G\mapsto \{\sigma_1\equalDot\tau_1,~\sigma_2 \equalDot\tau_2\}\cup G$
+\item \textbf{Eliminación de par trivial}
+
+$\{\Nat \equalDot\Nat\}\cup G\mapsto G$
+
+$\{\Bool \equalDot\Bool\}\cup G\mapsto G$
+
+$\{\text{s} \equalDot\text{s}\}\cup G\mapsto G$
+\item \textbf{Swap} Si $\sigma$ no es una variable,
+
+$\{\sigma \equalDot\text{s}\}\cup G\mapsto \{\text{s}\equalDot\sigma\}\cup G$
+
+\item \textbf{Eliminación de variable} Si $s\notin FV(\sigma)$
+
+$\{\text{s}\equalDot\sigma\}\cup G\mapsto_{\sigma/s} G[\sigma/s]$
+
+\item \textbf{Falla}
+
+$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$, con $(\sigma,\tau)\in T\cup T^{-1}$ y $T =\{(\Bool,\Nat), (Nat, \sigma_1\to\sigma_2), (\Bool, \sigma_1\to\sigma_2\}$. Acá, la notación $T^{-1}$ se refiere al conjunto con cada tupla de $T$ invertida.
+
+\item \textbf{Occur Check} Si $s\neq\sigma$ y $s\in FV(\sigma)$
+
+$\{\text{s}\equalDot\sigma\}\cup G\mapsto \red{\texttt{falla}}$
+\end{enumerate}
+
+\section{Función $\WFunc$}
+\subsubsection*{Constantes y variables}
+\begin{equation*}
+\begin{split}
+\WFunc(\red{true}) &\equalDef \judgeType{\emptyset}{true}{Bool} \\
+\WFunc(\red{false}) &\equalDef \judgeType{\emptyset}{false}{Bool} \\
+\WFunc(\red{x}) &\equalDef \judgeType{\{x:s\}}{x}{s}, \text{ \textit{s} variable fresca } \\
+\WFunc(\red{0}) &\equalDef \judgeType{\emptyset}{0}{Nat} \\
+\end{split}
+\end{equation*}
+\begin{multicols}{2}
+
+\subsubsection*{Caso \textit{succ}}
+$\WFunc(\red{succ(U)}) \equalDef \judgeType{S\Gamma}{S~succ(M)}{Nat}$
+\begin{centrado}
+\begin{itemize}
+\item $\WFunc(U) = \judgeType{\Gamma}{M}{\tau}$
+\item $S = MGU\{\tau\equalDot Nat\}$
+\end{itemize}
+\end{centrado}
+
+\subsubsection*{Caso \textit{pred}}
+$\WFunc(\red{pred(U)}) \equalDef \judgeType{S\Gamma}{S~pred(M)}{Nat}$
+\begin{centrado}
+\begin{itemize}
+\item $\WFunc(U) = \judgeType{\Gamma}{M}{\tau}$
+\item $S = MGU\{\tau\equalDot Nat\}$
+\end{itemize}
+\end{centrado}
+
+\end{multicols}
+
+\subsubsection*{Caso \textit{isZero}}
+$\WFunc(\red{isZero(U)}) \equalDef \judgeType{S\Gamma}{S~isZero(M)}{Bool}$
+\begin{centrado}
+\begin{itemize}
+\item $\WFunc(U) = \judgeType{\Gamma}{M}{\tau}$
+\item $S = MGU\{\tau\equalDot Nat\}$
+\end{itemize}
+\end{centrado}
+
+\subsubsection*{Caso \textit{ifThenElse}}
+$\WFunc(\red{\lambdaIf{U}{V}{W}}) \equalDef \judgeType{S\Gamma_1\cup S\Gamma_2\cup S\Gamma_3}{S~(\lambdaIf{M}{P}{Q})}{S\sigma}$
+\begin{centrado}
+\begin{itemize}
+\item $\WFunc(U) = \judgeType{\Gamma_1}{M}{\rho}$
+\item $\WFunc(V) = \judgeType{\Gamma_2}{P}{\sigma}$
+\item $\WFunc(W) = \judgeType{\Gamma_3}{Q}{\tau}$
+\item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{\sigma\equalDot\tau\,~\rho\equalDot Bool\}$
+\end{itemize}
+\end{centrado}
+
+\subsubsection*{Caso aplicación}
+$\WFunc(\red{U~V}) \equalDef \judgeType{S\Gamma_1\cup S\Gamma_2}{S~(M~N)}{St}$
+\begin{centrado}
+\begin{itemize}
+\item $\WFunc(U) = \judgeType{\Gamma_1}{M}{\tau}$
+\item $\WFunc(V) = \judgeType{\Gamma_2}{N}{\rho}$
+\item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{\tau\equalDot\rho\to t\}$ con $t$ variable fresca
+\end{itemize}
+\end{centrado}
+
+\subsubsection*{Caso abstracción}
+Sea $\WFunc(U) = \judgeType{\Gamma}{M}{\rho}$, si $\Gamma$ tiene información de tipos para $x$, es decir $x:\tau\in\Gamma$ para algún $\tau$, entonces:
+
+$$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma \backslash\{x:\tau\}}{\lambdaAbs{x}{\tau}{M}}{\tau\to\rho}$$
+
+Si $\Gamma$ no tiene información de tipos para $x$ ($x\notin \text{Dom}(\Gamma)$), entonces elegimos una variable fresca $s$ y
+
+$$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma}{\lambdaAbs{x}{s}{M}}{s\to\rho}$$
+
+\subsubsection*{Caso \textit{fix}}
+$\WFunc(\red{\lambdaFix{(U)}}) \equalDef \judgeType{S\Gamma}{S~\lambdaFix{(M)}}{St}$
+\begin{centrado}
+\begin{itemize}
+\item $\WFunc(U) = \judgeType{\Gamma_1}{M}{\tau}$
+\item $S = MGU\{\tau\equalDot t\to t\}$ con $t$ variable fresca
+\end{itemize}
+\end{centrado}
+\end{document}

@@ -26,6 +26,7 @@ pdfcreator={pdflatex}]{hyperref}
 \usepackage{tikz}
 \usepackage{forest}
 
+\setcounter{tocdepth}{1}
 
 \input{comandos.tex}
 \input{page.layout}
@@ -56,9 +57,11 @@ pdfcreator={pdflatex}]{hyperref}
 
 \input{calculo_lambda}
 
+\input{inferencia_tipos}
 \appendix
 \input{apendice_haskell}
 
 \newpage
 \input{apendice_extensiones_lambda}
+
 \end{document}

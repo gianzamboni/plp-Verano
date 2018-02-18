@@ -1,7 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nf}{listasQueSuman} \PYG{o+ow}{::} \PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{p}{[[}\PYG{k+kt}{Int}\PYG{p}{]]}
-\PYG{n+nf}{listasQueSuman} \PYG{l+m+mi}{1} \PYG{o+ow}{=} \PYG{p}{[[}\PYG{l+m+mi}{1}\PYG{p}{]]}
-\PYG{n+nf}{listasQueSuman} \PYG{n}{n} \PYG{o+ow}{=}
-    \PYG{p}{[}\PYG{n}{n}\PYG{p}{]}\PYG{k+kt}{:}\PYG{p}{(} \PYG{n}{concat}
-	    \PYG{p}{[} \PYG{n}{map} \PYG{p}{((}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{n}{i}\PYG{p}{)}\PYG{k+kt}{:}\PYG{p}{)} \PYG{p}{(}\PYG{n}{listasQueSuman} \PYG{n}{i}\PYG{p}{)} \PYG{o}{|} \PYG{n}{i} \PYG{o+ow}{\PYGZlt{}\PYGZhy{}} \PYG{p}{[} \PYG{l+m+mi}{1}\PYG{o}{..}\PYG{n}{n}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1} \PYG{p}{]} \PYG{p}{]}
-\end{Verbatim}

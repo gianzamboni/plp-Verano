@@ -43,7 +43,7 @@ Para conseguir las variables ligadas de una expresión, vamos a definir la funci
 \begin{equation*}
 \begin{split}
 FV(x) &\equalDef {x} \\
-FV(true) = FV(false) &\equalDef \phi \\
+FV(true) = FV(false) &\equalDef \emptyset \\
 FV(\lambdaIf{M}{P}{Q}) &\equalDef FV(M)\cup FV(P)\cup FV(Q) \\
 FV(\lambdaApp{M}{N}) &\equalDef FV(M)\cup FV(N) \\
 FV(\lambdaAbs{x}{\sigma}{M}) &\equalDef FV(M) \backslash \{x\}
@@ -276,7 +276,7 @@ $$and \equalDef \lambdaAbs{x}{Bool}{\lambdaAbs{y}{Bool}{\lambdaIf{x}{y}{false}}}
 \subsection{Extensión Naturales (\texorpdfstring{$\lambda^{bn}$}{lambda bn})}
 
 \paragraph{Tipos}
-$$\sigma, \tau ~::=~ Bool~|Nat~|~\sigma\to\tau$$
+$$\sigma, \tau ~::=~ Bool~|~Nat~|~\sigma\to\tau$$
 
 \paragraph{Términos}
 $$ M~::=~ \dots~|~0~|~succ(M)~|~pred(M)~|~isZero(M) $$
@@ -308,7 +308,7 @@ $$V~::=~\dots~|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^
 
 \paragraph{Axiomas y reglas de evaluación}
 
-\begin{equation*}
+{\tiny \begin{equation*}
 \frac{M_1\to M_1'}{succ(M_1)\to succ(M'_1)}(\text{E-Succ})
 \end{equation*}
 \vspace*{5mm}
@@ -327,7 +327,7 @@ $$V~::=~\dots~|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^
 \begin{equation*}
 \hspace*{1cm}\frac{M_1\to M'_1}{isZero(M_1)\to isZero(M_1')}(\text{E-isZero})
 \end{equation*}
-
+}
 
 
 \subsection{Simulación de lenugajes imperativos}
@@ -389,7 +389,7 @@ $$\sigma, \tau ~::=~ Bool~|Nat~|~\blue{Unit}~|~\blue{Ref~\sigma}~|~\sigma\to\tau
 
 \paragraph{Términos}
 
-$$ M~::=~ \dots~|~unit~|~\lambdaRef{M}~|~!M~|~\lambdaAssign{M}{N} |~    l$$
+$$ M~::=~ \dots~|~unit~|~\lambdaRef{M}~|~!M~|~\lambdaAssign{M}{N}~|~    l$$
 
 \paragraph{Axiomas y reglas de tipado}
 \begin{equation*}
@@ -445,7 +445,7 @@ $$V~::=~\dots~|~unit~|~l$$
 \subsubsection{Correción de tipos en un lenguaje con referencias}
 Al agregar referencia, hay consecuencias. Una de ellas es que no todo término cerrado y bien tipado termina. Por lo que debemos reformular las definiciones de corrección del lenguaje, es decir, debemos indicar que significa el \textbf{progreso} y la \textbf{preservación} cuando hay referencias.
 
-\paragraph{Preservación} La preservación nos aseguraba que no importa cuantas veces reduzcamos una expresión, esta debería mantener su tipo. Sin embargo, con las asignaciones podemos cambiar el tipo de ciertos valores durante la ejecución de un programa, lo que implica que la expresión podria cambiar su tipo. Para definir la preservación precisamos una noción de compatibilidad entre el store y el contexto de tipado que nos permita asegurar que si los valores no cambian su tipo, entonces la expresión mantiene su tipo.
+\subsubsection{Preservación} La preservación nos aseguraba que no importa cuantas veces reduzcamos una expresión, esta debería mantener su tipo. Sin embargo, con las asignaciones podemos cambiar el tipo de ciertos valores durante la ejecución de un programa, lo que implica que la expresión podria cambiar su tipo. Para definir la preservación precisamos una noción de compatibilidad entre el store y el contexto de tipado que nos permita asegurar que si los valores no cambian su tipo, entonces la expresión mantiene su tipo.
 
 Decimos que $\Gamma|\Sigma\triangleright\mu$ si y solo si $Dom(\Sigma) = Dom(\mu)$ y $\judgeType{\Gamma|Sigma}{\mu(l)}{\Sigma(l)}$ para todo $l\in Dom(\mu)$. Es decir, $\mu$ es compatible con $\Sigma$ si ambas funciones tiene el mismo dominio, y es cierto que los tipos de cada etiqueta de $\mu$ coinciden con los tipos que se les asignó en $\Sigma$.
 
@@ -458,7 +458,7 @@ La nueva definición nos dice que dada una expresión $M$ de tipo $\sigma$ y un 
 
 Para que $\mu'$ sea compatible con $\Sigma'$ puede haber dos posibilidad: O qué $\mu' = \mu$ y $\Sigma = \Sigma'$ o qué $\mu'$ sea una extensión de $\mu$, es decir que se haya creado una referencia nueva, en cuyo caso ninguno de los tipos fue modificado y $\Sigma'$ es $\Sigma$ extendido con el tipo de la nueva referencia.
 
-\paragraph{Progreso} El progreso nos aseguraba que dada una expresión, entonces su ejecución termina en un valor o no termina. Para el nuevo lenguaje, hay que tener en cuenta el contexto de tipado:
+\subsubsection{Progreso} El progreso nos aseguraba que dada una expresión, entonces su ejecución termina en un valor o no termina. Para el nuevo lenguaje, hay que tener en cuenta el contexto de tipado:
 
 \begin{centrado}
     Si $M$ es cerrado y bien tipado en un contexto de tipado de memoria $\Sigma$, entonces

@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+c1}{\PYGZhy{}\PYGZhy{} II.}
-\PYG{n+nf}{factoriales}\PYG{o+ow}{::}\PYG{k+kt}{Int} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}}\PYG{p}{[}\PYG{k+kt}{Int}\PYG{p}{]}
-\PYG{n+nf}{factoriales} \PYG{n}{n} \PYG{o+ow}{=}
-    \PYG{n}{generate} \PYG{p}{((}\PYG{o}{==}\PYG{n}{n}\PYG{p}{)}\PYG{o}{.}\PYG{n}{length}\PYG{p}{)}
-             \PYG{p}{(}\PYG{n+nf}{\PYGZbs{}}\PYG{n}{xs} \PYG{o+ow}{\PYGZhy{}\PYGZgt{}} \PYG{k+kr}{if} \PYG{n}{null} \PYG{n}{xs} \PYG{k+kr}{then} \PYG{l+m+mi}{1}
-                     \PYG{k+kr}{else} \PYG{p}{(}\PYG{n}{last} \PYG{n}{xs}\PYG{p}{)}\PYG{o}{*}\PYG{p}{(}\PYG{n}{length} \PYG{n}{xs}\PYG{p}{))}
-\end{Verbatim}
