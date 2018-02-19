@@ -1,0 +1,512 @@
+\documentclass[10pt,a4paper]{article}
+\input{header}
+
+\setcounter{section}{3}
+
+
+\begin{document}
+\title{PLP - Práctica 3: Inferencia de tipos}
+
+\date{\today}
+
+\author{Zamboni, Gianfranco}
+
+\maketitle
+\setcounter{page}{1}
+
+\subsection{Ejercicio 1}
+\paragraph{I)} $$S(\{x:t\to Bool\}) = \{x: Nat\to Bool\}$$
+\paragraph{II)} 
+\begin{equation*}
+\begin{split}
+&S(\judgeType{\{x:t\to Bool\}}{\lambdaAbs{x}{t_1\to Bool}{x}}{Nat\to t_2}) \\
+&= \judgeType{S\{x:t\to Bool\}}{S(\lambdaAbs{x}{t_1\to Bool}{x})}{S(Nat\to t_2)} \\
+&= \judgeType{\{x:Bool\to Bool\}}{\lambdaAbs{x}{t_2\to t_3\to Bool}{x}}{Nat\to t_2}
+\end{split}
+\end{equation*}
+
+\subsection{Ejercicio 2}
+\paragraph{I)}
+\begin{align*}
+MGU(\{t_1\to t_2\equalDot Nat\to Bool\}) \goesTo{1}{} \{t_1\equalDot Nat,~t_2\equalDot Bool\} \goesTo{4}{Nat/t_1} \{t_2\equalDot Bool\} \goesTo{4}{Bool/t_2} \emptyset
+\end{align*}
+
+Entonces $S=\{Bool/t_2\}\circ\{Nat/t_1\} = \{Bool/t_2,~Nat/t_1\}$
+
+\paragraph{II)}$MGU(\{t_1\to t_2\equalDot t_3\}) \goesTo{4}{t_1\to t_2/t_3} \emptyset$
+
+Entonces $S = \{t_1\to t_2/t_3\}$
+
+\paragraph{III)}$MGU(\{t_1\to t_2\equalDot t_2\}) \goesTo{6}{} \falla$ porque $t_2\in FV(t_1\to t_2)$ y $t_2\neq t_1\to t_2$
+
+\paragraph{IV)}$MGU(\{(t_2\to t_1)\to Bool\equalDot t_2\to t_3\}) \goesTo{1}{} \{(t_2\to t_1)\equalDot t_2,~ Bool\equalDot t_3\} \goesTo{6}{} \falla$ porque $t_2\in FV(t_2\to t_1)$ y $t_2\neq t_2\to t_1$
+
+\paragraph{V)}$MGU(\{t_2\to t_1\to Bool\equalDot t_2\to t_3\}) \goesTo{1}{} \{(t_2\equalDot t_2,~ t_1\to Bool\equalDot t_3\} \goesTo{2}{} \{t_1\to Bool\equalDot t_3\} \goesTo{4}{t_1\to t_2/t_3} \emptyset$
+
+Entonces $S = \{t_1\to Bool/t_3\}$
+
+\paragraph{V)}$MGU(\{t_2\to t_1\to Bool\equalDot t_2\to t_3\}) \goesTo{1}{} \{(t_2\equalDot t_2,~ t_1\to Bool\equalDot t_3\} \goesTo{2}{} \{t_1\to Bool\equalDot t_3\} \goesTo{4}{t_1\to t_2/t_3} \emptyset$
+
+Entonces $S = \{t_1\to Bool/t_3\}$
+
+\paragraph{VI)}
+\begin{align*}
+&MGU(\{t_1\to Bool\equalDot Nat\to Bool, ~t_1\equalDot t_2\to t_3\}) \goesTo{1}{} \{t_1\equalDot Nat,~ Bool\equalDot Bool, ~t_1\equalDot t_2\to t_3\} \\
+&\goesTo{4}{Nat/t_1} \{Bool\equalDot Bool, ~\red{Nat\equalDot t_2\to t_3}\} \goesTo{5}{} \falla
+\end{align*}
+
+\paragraph{VII)}
+\begin{align*}
+&MGU(\{t_1\to Bool\equalDot Nat\to Bool, ~t_2\equalDot t_1\to t_1\}) \goesTo{1}{} \{t_1\equalDot Nat,~ Bool\equalDot Bool, ~t_2\equalDot t_1\to t_1\} \\
+&\goesTo{4}{Nat/t_1} \{Bool\equalDot Bool, ~t_2\equalDot Nat\to Nat\} \goesTo{2}{} \{t_2\equalDot Nat\to Nat\} \goesTo{4}{Nat\to Nat/t_2} \emptyset
+\end{align*}
+
+Entonces $S = \{Nat/t_1\} \circ \{Nat\to Nat/t_2\} = \{Nat/t_1,~Nat\to Nat/t_2\}$
+
+\paragraph{VIII)}
+\begin{align*}
+&MGU(\{t_1\to t_2\equalDot t_3\to t_4, ~t_3\equalDot t_2\to t_1\}) \goesTo{1}{} \{t_1\equalDot t_3,~ t_2\equalDot t_4, ~t_3\equalDot t_2\to t_1\} \\
+&\goesTo{4}{t_3/t_1} \{t_2\equalDot t_4, ~\red{t_3\equalDot t_2\to t_3}\} \goesTo{6}{} \falla\\
+\end{align*}
+
+\subsection{Ejercicio 3}
+
+\begin{itemize}
+\item $t\to u$ unifica con $Nat\to Bool$ y $(Nat\to u)\to Bool$,
+    $$MGU(\{t\to u \equalDot Nat\to Bool\}) = \{Nat/t,~Bool/u\}$$
+    $$MGU(\{t\to u \equalDot (Nat\to u)\to Bool\}) = \{Nat\to Bool/t,~Bool/u\}$$
+\item $Nat$ unifica con $t$,
+    $$MGU(\{Nat \equalDot t\}) = \{Nat/t\}$$
+\item $u\to bool$ unifica con $t$ y $Nat\to Bool$, 
+    $$MGU(\{u\to Bool \equalDot t\}) = \{u\to Bool/t\}$$
+    $$MGU(\{u\to Bool \equalDot Nat\to Bool\}) = \{Nat/u\}$$
+\item $a\to b \to c$ unifica con $t$, y $Nat\to u \to Bool$
+    $$MGU(\{a\to b \to c \equalDot t\}) = \{a\to b \to c/t\}$$
+        $$MGU(\{a\to b \to c \equalDot Nat\to u \to Bool\}) = \{Nat/a,~u/b~, Bool/c\}$$
+\end{itemize}
+
+\subsection{Ejercicio 4}
+\paragraph{I)}
+\begin{itemize}
+    \item $M_1 = Id_{Bool}$ y $M_2 = Id_{Nat}$
+    \item $M_1 = (\lambdaAbs{x}{Nat\to Nat}{0})~(\lambdaAbs{y}{Nat}{0})$ y $M_2 = (\lambdaAbs{x}{Bool\to Nat}{0})~(\lambdaAbs{y}{Bool}{0})$
+\end{itemize}
+
+\paragraph{II)}
+\begin{itemize}
+    \item La identidad otra vez.
+    \item No se me ocurrió
+\end{itemize}
+
+\newpage
+\subsection{Ejercicio 5}
+\subsubsection*{I)}
+\begin{center}
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{z}{\lambdaIf{z}{0}{succ(0)}}$ \blue{(5)},
+    [$\lambdaIf{z}{0}{succ(0)}$ \blue{(4)},
+        [$z$ \blue{(1)}]
+        [$0$ \blue{(2)}]
+        [$succ(0)$ \blue{(3)},
+            [$0$ \blue{(2)}]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(z) \equalDef \judgeType{\{z:t_1\}}{z}{t_1}$
+
+\paragraph{(2)} $\WFunc(0) \equalDef \judgeType{\emptyset}{0}{Nat}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(succ(0)) \equalDef \judgeType{S\emptyset}{S(succ(0))}{Nat} = \judgeType{\emptyset}{succ(0)}{Nat}$ 
+\begin{centrado}
+$S = MGU(\{Nat\equalDot Nat\}) \goesTo{2}{} \emptyset$
+\end{centrado}
+
+\paragraph{(4)} $\WFunc(\lambdaIf{z}{0}{succ(0)}) \equalDef \judgeType{S\{z:t_1\}\cup S\emptyset \cup S\emptyset}{\lambdaIf{z}{0}{succ(0)}}{SNat}$
+
+\quad\quad$ = \judgeType{\{z:Bool\}}{\lambdaIf{z}{0}{succ(0)}}{Nat}$ 
+\begin{centrado}
+$S = MGU(\{t_1\equalDot Bool\}) \goesTo{4}{Bool/t1} \emptyset~\Rightarrow~S = \{Bool/t1\}$
+\end{centrado}
+
+\paragraph{(5)} $\WFunc(\lambdaAbsI{z}{\lambdaIf{z}{0}{succ(0)}}) \equalDef \judgeType{\emptyset}{\lambdaAbs{z}{Bool}{\lambdaIf{z}{0}{succ(0)}}}{Nat}$
+
+\subsubsection*{II)}
+\begin{center}
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{y}{succ((\lambdaAbsI{x}{x})~y)}$ \blue{(6)},
+    [$succ((\lambdaAbsI{x}{x})~y)$ \blue{(5)},
+        [$(\lambdaAbsI{x}{x})~y$ \blue{(4)},
+            [$\lambdaAbsI{x}{x}$ \blue{(2)},
+                [$x$ \blue{(1)}]
+            ]
+            [$y$ \blue{(3)}]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(x) \equalDef \judgeType{\{x:t_1\}}{x}{t_1}$
+
+\paragraph{(2)} $\WFunc(\lambdaAbsI{x}{x}) \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_1}{x}}{t_1\to t_1}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(y) \equalDef  \judgeType{\{y:t_2\}}{y}{t_2}$
+
+\paragraph{(4)} $\WFunc((\lambdaAbsI{x}{x})~y) \equalDef \judgeType{S\emptyset \cup S\{y:t_2\}}{S(\lambdaAbs{x}{t_1}{x})~Sy}{St_3} = \judgeType{\{y:t_1\}}{(\lambdaAbs{x}{t_1}{x})~y}{t_1}$ 
+\begin{centrado}
+$S = MGU(\{t_1\to t_1 \equalDot t_2\to t_3\}) \goesTo{1}{} \{t_1\equalDot t_2,~ t_1 \equalDot t_3\} \goesTo{4}{t_1/t_2}\{t_1 \equalDot t_3\} \goesTo{4}{t_1/t_3} \emptyset$ $\Rightarrow~S = \{t_1/t_2,~t_1/t_3\}$
+\end{centrado}
+
+\paragraph{(5)} $\WFunc(succ((\lambdaAbsI{x}{x})~y)) \equalDef \judgeType{S\{y:t_1\}}{S(succ((\lambdaAbs{x}{t_1}{x})~y))}{Nat}$ 
+
+\quad\quad\quad$ = \judgeType{\{y:Nat\}}{succ((\lambdaAbs{x}{Nat}{x})~y)}{Nat}$
+
+\begin{centrado}
+$S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = \{Nat/t_1\}$
+\end{centrado}
+
+\paragraph{(6)} $\WFunc(\lambdaAbsI{y}{succ((\lambdaAbsI{x}{x})~y)}) \equalDef \judgeType{\emptyset}{\lambdaAbs{y}{Nat}{succ((\lambdaAbs{x}{Nat}{x})~y)}}{Nat\to Nat}$ 
+
+
+\subsubsection*{III)}
+\begin{center}
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{\lambdaIf{isZero(x)}{x}{(\lambdaIf{x}{x}{x}})}$,
+    [\red{$\lambdaIf{isZero(x)}{x}{(\lambdaIf{x}{x}{x}})$} \blue{(8)},
+        [$isZero(x)$ \blue{(5)},
+            [$x$ \blue{(1)}]
+        ]
+        [$x$ \blue{(6)}]
+        [$\lambdaIf{x}{x}{x}$ \blue{(7)},
+            [$x$ \blue{(2)}]
+            [$x$ \blue{(3)}]
+            [$x$ \blue{(4)}]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(x) \equalDef \judgeType{\{x:t_1\}}{x}{t_1}$
+
+\paragraph{(2)} $\WFunc(x) \equalDef \judgeType{\{x:t_2\}}{x}{t_2}$
+
+\paragraph{(3)} $\WFunc(x) \equalDef \judgeType{\{x:t_3\}}{x}{t_3}$
+
+\paragraph{(4)} $\WFunc(x) \equalDef \judgeType{\{x:t_4\}}{x}{t_4}$
+
+\end{multicols}
+
+\paragraph{(5)} $\WFunc(isZero(x)) \equalDef \judgeType{S\{x:t_1\}}{S(isZero(x))}{Bool} = \judgeType{\{x:Nat\}}{isZero(x)}{Bool}$ 
+\begin{centrado}
+$S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = \{Nat/t_1\}$
+\end{centrado}
+
+\paragraph{(6)} $\WFunc(x) \equalDef \judgeType{\{x:t_5\}}{x}{t_5}$
+
+\paragraph{(7)} 
+\begin{align*}
+\WFunc(\lambdaIf{x}{x}{x}) &\equalDef \judgeType{S\{x:t_2\}\cup S\{x:t_3\}\cup S\{x:t_4\}}{\lambdaIf{x}{x}{x}}{t_3}\\ &= \judgeType{\{x:Bool\}}{\lambdaIf{x}{x}{x}}{Bool}
+\end{align*}
+
+\begin{align*}
+&S = MGU(\{t_2 \equalDot t_3,~t_2 \equalDot t_4, t_3 \equalDot t_4,~t_2 \equalDot Bool\}) \goesTo{4}{t_2/t_3} \{t_2 \equalDot t_4, t_2 \equalDot t_4,~t_2 \equalDot Bool\} \\ &\goesTo{4}{t_2/t_4} \{t_2 \equalDot t_2,~t_2 \equalDot Bool\} \goesTo{2}{} \{t_2 \equalDot Bool\} \goesTo{4}{Bool/t_2} \emptyset \\
+&\Rightarrow~S = \{Bool/t_2,~Bool/t_4,~Bool/t_3\}
+\end{align*}
+
+
+\paragraph{(8)}
+\begin{align*}
+\WFunc(&\lambdaIf{isZero(x)}{x}{(\lambdaIf{x}{x}{x}})) \\
+&\equalDef \judgeType{S\{x:Nat\}\cup S\{x:t_5\}\cup S\{x:Bool\}}{\lambdaIf{isZero(x)}{x}{(\lambdaIf{x}{x}{x}})}{t_5}\\ 
+\end{align*}
+
+$S = MGU(\{Nat \equalDot t_5,~Nat \equalDot Bool, t_5 \equalDot Bool,~\red{Nat \equalDot Bool}\}) \goesTo{6}{} \falla$
+
+\subsubsection*{IV)}
+
+\begin{center}
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaIf{x}{y}{succ(0)}}}$ \blue{(7)},
+    [$\lambdaAbsI{y}{\lambdaIf{x}{y}{succ(0)}}$ \blue{(6)},
+        [$\lambdaIf{x}{y}{succ(0)}$ \blue{(5)},
+            [$x$ \blue{(2)}]
+            [$y$ \blue{(3)}]
+            [$succ(0)$ \blue{(4)}
+                [$0$ \blue{(1)}]
+            ]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(0) \equalDef \judgeType{\emptyset}{0}{Nat}$
+
+\paragraph{(2)} $\WFunc(x) \equalDef \judgeType{\{x:t_1\}}{x}{t_1}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(x) \equalDef \judgeType{\{y:t_2\}}{x}{t_2}$
+
+\paragraph{(4)} $\WFunc(succ(0)) \equalDef \judgeType{S\emptyset}{S(succ(0))}{Nat} = \judgeType{\emptyset}{(succ(0))}{Nat}$ y $S = \emptyset$
+
+\paragraph{(5)} 
+\begin{align*}
+\WFunc(\lambdaIf{x}{y}{succ(0)}) &\equalDef \judgeType{S\{x:t_1\}\cup S\{y:t_2\}\cup S\emptyset}{S(\lambdaIf{x}{y}{succ(0)})}{t_2}\\ &= \judgeType{\{x:Bool, y:Nat\}}{\lambdaIf{x}{y}{succ(0)}}{Nat}
+\end{align*}
+
+\begin{align*}
+&S = MGU(\{t_1 \equalDot Bool,~t_2 \equalDot Nat\}) \goesTo{4}{Bool/t_1} \{t_2 \equalDot Nat\} \goesTo{4}{Nat/t_2} \emptyset \\
+&\Rightarrow S = \{Bool/t_1,~Nat/t_2\}
+\end{align*}
+
+
+\paragraph{(6)}
+\begin{align*}
+\WFunc(\lambdaAbsI{y}{\lambdaIf{x}{y}{succ(0)}}) \equalDef \judgeType{\{x:Bool\}}{\lambdaAbs{y}{Nat}{\lambdaIf{x}{y}{succ(0)}}}{Nat\to Nat}\\ 
+\end{align*}
+
+\paragraph{(7)}
+\begin{align*}
+\WFunc&(\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaIf{x}{y}{succ(0)}}}) \\
+&\equalDef \judgeType{\emptyset}{\lambdaAbs{x}{Bool}{\lambdaAbs{y}{Nat}{\lambdaIf{x}{y}{succ(0)}}}}{Bool\to Nat\to Nat} 
+\end{align*}
+
+
+\newpage
+\subsubsection*{V)}
+
+\begin{center}
+\begin{forest} tikzQtree,
+[$\lambdaIf{true}{(\lambdaAbsI{x}{0})~0}{(\lambdaAbsI{x}{0})~false}$ \blue{(8)},
+    [$true$ \blue{(1)}]
+    [$(\lambdaAbsI{x}{0})~0$ \blue{(4)},
+        [$\lambdaAbsI{x}{0}$ \blue{(3)},
+            [$0$ \blue{(2)}]
+        ]
+        [$0$ \blue{(2)}]
+    ]
+    [$(\lambdaAbsI{x}{0})~false$ \blue{(7)}
+        [$\lambdaAbsI{x}{0}$ \blue{(5)},
+            [$0$ \blue{(2)}]
+        ]
+        [$false$ \blue{(6)}]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(true) \equalDef \judgeType{\emptyset}{true}{Bool}$
+
+\paragraph{(2)} $\WFunc(0) \equalDef \judgeType{\emptyset}{0}{Nat}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(\lambdaAbsI{x}{0}) \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_1}{0}}{t_1\to Nat}$
+
+\paragraph{(4)} $\WFunc((\lambdaAbsI{x}{0})~0) \equalDef \judgeType{S\emptyset}{S(\lambdaAbs{x}{t_1}{0})~S0}{St_2} = \judgeType{\emptyset}{(\lambdaAbs{x}{Nat}{0})~0}{Nat}$
+
+\begin{centrado}
+\begin{align*}
+S &= MGU(\{t_1\to Nat \equalDot Nat\to t_2\}) \goesTo{1}{} \{t_1\equalDot Nat,~ Nat \to t_4\} \goesTo{4}{Nat/t_1} \{Nat \to t_4\} \\
+&\goesTo{4}{Nat/t_4} \emptyset \\
+&\Rightarrow S=\{Nat/t_1, Nat/t_2\}
+\end{align*}
+\end{centrado}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(5)} $\WFunc(\lambdaAbsI{x}{0}) \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_3}{0}}{t_3\to Nat}$
+
+\paragraph{(6)} $\WFunc(false) \equalDef \judgeType{\emptyset}{false}{Bool}$
+\end{multicols}
+
+
+\paragraph{(7)} $\WFunc((\lambdaAbsI{x}{0})~false) \equalDef \judgeType{S\emptyset}{S(\lambdaAbs{x}{t_3}{0})~Sfalse}{St_4} = \judgeType{\emptyset}{(\lambdaAbs{x}{Bool}{0})~false}{Nat}$
+
+\begin{centrado}
+\begin{align*}
+S &= MGU(\{t_3\to Nat \equalDot Bool\to t_4\}) \goesTo{1}{} \{t_3\equalDot Bool,~ Nat \to t_4\} \goesTo{4}{Bool/t_3} \\
+&\{Nat \to t_4\} \goesTo{4}{Nat/t_4} \emptyset \\
+&\Rightarrow S=\{Bool/t_3, Nat/t_4\}
+\end{align*}
+\end{centrado}
+
+
+\paragraph{(8)} 
+\begin{align*}
+&\WFunc(\lambdaIf{true}{(\lambdaAbsI{x}{0})~0}{(\lambdaAbsI{x}{0})~false}) \\
+&\equalDef \judgeType{S\emptyset}{S(\lambdaIf{true}{(\lambdaAbs{x}{Nat}{0})~0}{(\lambdaAbs{x}{Bool}{0})~false})}{SNat} \\
+&=\judgeType{\emptyset}{\lambdaIf{true}{(\lambdaAbs{x}{Nat}{0})~0}{(\lambdaAbs{x}{Bool}{0})~false}}{Nat}
+\end{align*}
+\begin{centrado}
+\begin{align*}
+S &= MGU(\{Bool\equalDot Bool,~Nat \equalDot Nat\}) \goesTo{2}{\times 2} \emptyset\\
+&\Rightarrow S=\emptyset
+\end{align*}
+\end{centrado}
+
+\newpage
+\subsubsection*{VI)}
+
+\begin{center}
+
+\begin{forest} tikzQtree,
+[$(\lambdaAbsI{f}{\lambdaIf{true}{f~0}{f~False}})~(\lambdaAbsI{x}{0})$,
+    [$\lambdaAbsI{f}{\lambdaIf{true}{f~0}{f~False}}$,
+        [\red{$\lambdaIf{true}{f~0}{f~False}$} \blue{(8)},
+            [$true$ \blue{(1)}]
+            [$f~0$ \blue{(4)},
+                [$f$ \blue{(2)}]
+                [$0$ \blue{(3)}]
+            ]
+            [$f~false$ \blue{(7)},
+                [$f$ \blue{(5)}]
+                [$false$ \blue{(6)}]
+            ]
+        ]
+    ]
+    [$\lambdaAbsI{x}{0}$,
+        [$0$]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(true) \equalDef \judgeType{\emptyset}{true}{Bool}$
+
+\paragraph{(2)} $\WFunc(f) \equalDef \judgeType{\{f:t_1\}}{f}{t_1}$
+
+\paragraph{(3)} $\WFunc(0) \equalDef \judgeType{\emptyset}{0}{Nat}$
+
+\end{multicols}
+
+
+\paragraph{(4)} $\WFunc(f~0) \equalDef \judgeType{S\{f:t_1\}}{Sf~S0}{St_2} = \judgeType{\{f:Nat\to t_2\}}{f~0}{t_2}$
+
+\begin{centrado}
+\begin{align*}
+S &= MGU(\{t_1\equalDot Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
+&\Rightarrow S=\{Nat\to t_2/t_1\}
+\end{align*}
+\end{centrado}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(5)} $\WFunc(f) \equalDef \judgeType{\{f:t_3\}}{f}{t_3}$
+
+\paragraph{(6)} $\WFunc(false) \equalDef \judgeType{\emptyset}{false}{Bool}$
+\end{multicols}
+
+
+\paragraph{(7)} $\WFunc(f~false) \equalDef \judgeType{S\{f:t_3\}}{Sf~Sfalse}{St_4} = \judgeType{\{f:Bool\to t_4\}}{f~false}{t_4}$
+
+\begin{centrado}
+\begin{align*}
+S &= MGU(\{t_1\equalDot Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
+&\Rightarrow S=\{Nat\to t_2/t_1\}
+\end{align*}
+\end{centrado}
+
+
+
+\paragraph{(8)} 
+\begin{align*}
+&\WFunc(\lambdaIf{true}{f~0}{f~false}) \\
+&\equalDef \judgeType{S\{f:Nat\to t_2\} \cup S\{f:Bool\to t_4\}}{S(\lambdaIf{true}{f~0}{f~false})}{St_2} \\
+\end{align*}
+\begin{align*}
+S &= MGU(\{Bool\equalDot Bool,~Nat\to t_2 \equalDot Bool \to t_4\}) \goesTo{1}{} \{Bool\equalDot Bool,~\red{Nat \equalDot Bool},~t_2 \equalDot t_4\} \goesTo{5}{} \falla\\
+\end{align*}
+
+\subsubsection*{VII)}
+
+\begin{center}
+
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}}}$ \blue{(8)},
+    [$\lambdaAbsI{y}{\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}}$ \blue{(7)},
+        [$\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}$ \blue{(6)},
+            [$\lambdaIf{z}{y}{succ(x)}$ \blue{(5)},
+                [$z$ \blue{(1)}]
+                [$y$ \blue{(2)}]
+                [$succ(x)$ \blue{(4)},
+                    [$x$ \blue{(3)}]
+                ]
+            ]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(z) \equalDef \judgeType{\{z:t_1\}}{z}{t_1}$
+
+\paragraph{(2)} $\WFunc(y) \equalDef \judgeType{\{y:t_2\}}{y}{t_2}$
+
+\paragraph{(3)} $\WFunc(x) \equalDef \judgeType{\{x:t_3\}}{x}{t_3}$
+
+\end{multicols}
+
+
+\paragraph{(4)} $\WFunc(succ(x)) \equalDef \judgeType{S\{x:t_3\}}{Ssucc(x)}{Nat} = \judgeType{\{x:Nat\}}{succ(x)}{Nat}$
+
+\begin{centrado}
+\begin{align*}
+S = MGU(\{t_3\equalDot Nat\}) \goesTo{4}{Nat/t3}  \emptyset \Rightarrow S=\{Nat/t_3\}
+\end{align*}
+\end{centrado}
+
+\vspace*{5mm}
+
+\paragraph{(5)} 
+\begin{align*}
+\WFunc&(\lambdaIf{z}{y}{succ(x)}) \\
+&\equalDef \judgeType{S\{z:t_1\} \cup S\{y:t_2\}\cup S\{x:Nat\}}{S(\lambdaIf{z}{y}{succ(x)})}{St_2} \\
+& = \judgeType{\{z:Bool,~y:Nat,~x:Nat\}}{\lambdaIf{z}{y}{succ(x)}}{Nat}
+\end{align*}
+\begin{align*}
+S &= MGU(\{t_1 \equalDot Bool,~Nat \equalDot t_3\}) = \{Bool/t_1,~Nat/t_3\}
+\end{align*}
+
+\paragraph{(6)} 
+\begin{align*}
+\WFunc(\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}})
+\equalDef \judgeType{\{y:Nat,~x:Nat\}}{\lambdaAbs{z}{Bool}{\lambdaIf{z}{y}{succ(x)}}}{Nat}
+\end{align*}
+
+\paragraph{(7)}
+\begin{align*}
+\WFunc(\lambdaAbsI{y}{\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}})
+\equalDef \judgeType{\{x:Nat\}}{\lambdaAbs{y}{Nat}{\lambdaAbs{z}{Bool}{\lambdaIf{z}{y}{succ(x)}}}}{Nat}
+\end{align*}
+
+\paragraph{(8)}
+\begin{align*}
+\WFunc&(\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}}}) \\
+&\equalDef \judgeType{\emptyset}{\lambdaAbs{x}{Nat}{\lambdaAbs{y}{Nat}{\lambdaAbs{z}{Bool}{\lambdaIf{z}{y}{succ(x)}}}}}{Nat}
+\end{align*}
+
+\end{document}

@@ -11,7 +11,10 @@
 \newcommand{\rel}{\ensuremath{\mathcal{R}}}
 
 \newcommand{\equalDef}{\overset{def}{=}}
+\newcommand{\equalDot}{\overset{\cdot}{=}}
 \newcommand{\alphaEq}[1]{\underset{#1}{\overset{\alpha-eq}{\leadsto}}}
+
+\newcommand{\goesTo}[2]{\underset{#2}{\overset{#1}{\leadsto}}}
 \newcommand{\reduceTo}[1]{\underset{#1}{\to}}
 
 
@@ -20,6 +23,7 @@
 \DeclareMathOperator{\Bool}{Bool}
 \DeclareMathOperator{\Union}{Union}
 
+\newcommand{\WFunc}{\mathbb{W}}
 
 \newcommand{\List}[1]{[~]_{#1}}
 
@@ -35,6 +39,9 @@
 \newcommand{\lambdaValue}[1]{{\color{red}#1}}
 \newcommand{\lambdaFix}[1]{\text{fix } #1}
 
+
+\newcommand{\lambdaAbsI}[2]{\lambda #1\text{.} #2}
+
 \newcommand{\lambdaLetrec}[3]{\text{letrec } #1 = #2 \text{ in }~#3}
 
 \newcommand{\lambdaListCase}[3]{\text{case } #1 \text{ of } \{[~]\leadsto#2~|~h::t\leadsto#3\}}
@@ -43,6 +50,8 @@
 \newcommand{\blue}[1]{{\color{blue}#1}}
 \newcommand{\red}[1]{{\color{red}#1}}
 \newcommand{\green}[1]{{\color{green!40!black}#1}}
+
+\newcommand{\falla}{\red{\texttt{falla}}}
 
 \newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
 \newcommand{\multiReplaceBy}[2]{#1\{#2\}}
