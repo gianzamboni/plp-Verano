@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{book}
+\documentclass[10pt,a4paper]{article}
 
 \input{header}
 \begin{document}
@@ -18,20 +18,1537 @@
 \newpage
 \setcounter{page}{1}
 
-\input{introduccion}
+\section{Introducción}
+\paragraph{Paradigma} Marco filosófico y teórico de una escuela científica o disciplina en la que se formulan teorías, leyes y generalizaciones y se llevan a cabo experimentos que les dan sustento.
+
+\paragraph{Lenguaje de programación} Es un lenguaje usado para comunicar instrucciones a una computadora. Estas instrucciones describen cómputos que llevará a cabo la computadora.
+
+Un lenguaje de programación es computacionalmente completo si puede expresar todas las funciones computables.
+
+\paragraph{Paradigma de lenguaje de programación} Marco filosófico y teórico en el que se formulan soluciones a problemas de naturaleza algorítmica. Lo entendemos como un estilo de programación en el que se escriben soluciones a problemas en términos de algoritmos.
+
+Su ingrediente básico es el modelo de cómputo que es la visión que tiene el usuario de cómo se ejecutan sus programas.
+
+\subsection{Aspectos del lenguaje}
+
+\paragraph{Sintaxis} Descripción del conjunto de secuencias de símbolos considerados como programas válidos.
+
+\subsubsection{Semántica}
+
+Descripción del significado de instrucciones y expresiones puede ser informal (e.g. Castellano) o formal (basado en técnicas matemáticas).
+
+\paragraph{Semántica operacional} Un programa es un mecanismo que dado un elemento del conjunto de partida, sigue una sucesión de pasos para calcular el elemento correspondiente del conjunto de llegada.
+
+\paragraph{Semántica axiomática} Interpreta a un programa como un conjunto de propiedades verdaderas que indican los estados que puede llegar a tomar.
+
+\paragraph{Semántica denotacional} Un programa es un valor matemático (función) que relaciona cada elemento de un conjunto de partida (expresiones que lo componen) con un único elemento de otro conjunto de llegada (significado de las expresiones).
+
+\subsubsection{Sistema de tipo}
+Es una herramienta que nos permite analizar código para prevenir errores comunes en tiempo de ejecución (e.g. evitar sumar booleanos, aplicar función a número incorrecto de argumentos, etc). En general, requiere anotaciones de tipo en el código fuente. 
+
+Además sirve para que la especificación de un programa sea más clara.
+
+Hay dos tipos de análisis de tipos:
+\begin{itemize}
+	\item \textbf{Estático}: Análisis de tipos en tiempo de compilación.
+	\item \textbf{Dinámico}: Análisis de tipos en tiempo de ejecución.
+\end{itemize}
+
+\subsection{Paradigmas}
+\subsubsection{Paradigma Imperativo}
+
+\paragraph{Estado global} Se usan variables que representan celdas de memoria en distintos momentos del tiempo. En ellas vamos almacenando resultados intermedios del problema.
+
+\paragraph{Asignación} Es la acción que modifica las celdas de memoria
+
+\paragraph{Control de flujo} Es la forma que tenemos de controlar el orden y la cantidad de veces que se repite un cómputo dentro del programa. En este paradigma, la repetición de cómputos se basa en la iteración.
+
+\vspace*{5mm}
+
+Por lo general, los lenguajes de este paradigma son eficientes ya que el modelo de ejecución usado y la arquitectura de las computadoras (a nivel procesador) son parecidos. Sin embargo, el bajo nivel de abstracción que nos proveen hacen que, por lo general, la implementación de un problema sea difícil de entender.
+
+\subsubsection{Paradigma Funcional}
+No tiene un estado global. Un cómputo se expresa a través de la aplicación y composición de funciones y los resultados intermedios (salida de las funciones) son pasados directamente a otras funciones como argumentos. Todas las expresiones de este paradigma son tipadas y usa la recursión para repetir cómputos.
+
+Ofrece un alto nivel de abstracción, es declarativo, usa una matemática elegante y se puede usar razonamiento algebraico para demostrar correctitud de programas.
+
+\subsubsection{Paradigma Lógico}
+Los programas son predicados de la lógica proposicional y la computación esta expresada a través de proof search. No existe un estado global y los resultados intermedios son pasados por unificación. La repetición se basa en la recursión.
+
+Ofrece un alto nivel de abstracción, es muy declarativo y, al ser predicados, tiene fundamentos lógicos robustos pero su ejecución es muy lenta.
+
+\subsubsection{Paradigma Orientado a Objetos}
+La computación se realiza a través del intercambio de mensajes entre objetos. Tiene dos enfoques: basados en clases o basados en prototipos.
+
+Ofrece alto nivel de abstracción y arquitecturas extensibles pero usa una matemática de programas compleja.
+
 \newpage
+\part{Parádigma Funcional}
+\setcounter{section}{0}
 
-\chapter{Parádigma Funcional}
+\section{Programación Funcional}
+Los dos aspectos fundamentales de la programación son:
+\begin{itemize}
+	\item Transformación de la información.
+	\item Interacción con el medio (cargar datos, interfaces gráficas, etc).
+\end{itemize}
+La programación funcional se concentra en el primer aspecto.
 
-\input{programacion_funcional}
+\paragraph{Valor} Entidad matemática abstracta con ciertas propiedades.
 
-\input{calculo_lambda}
+\subsubsection{Expresión} 
 
-\input{inferencia_tipos}
+Secuencia de símbolos utilizada para denotar un valor. Hay dos tipos de expresiones:
+\begin{itemize}
+	\item \textbf{Atómicas ó formas formales}: Son las expresiones más simples y denotan un valor.
+	\item \textbf{Compuestas}: Expresiones que se construyen combinando otras expresiones.
+\end{itemize}
+
+Puede haber expresiones incorrectas (mal formadas) debido a errores sintácticos (expresiones mal escritas) o a errores de tipo (expresiones que denotan operaciones sobre tipos incorrectos).
+
+En funcional, computar significa tomar una expresión y reducirla hasta que sea atómica.
+
+\paragraph{Transparencia referencial} El valor que denota una expresión solo depende de los símbolos que la constituyen. Esto nos permite indicar. Esto nos permite hacer uso de un programa sin considerar la necesidad de considerar los detalles de su ejecución y nos permite demostrar propiedades usando las propiedades de las subexpresiones y métodos  de deducción lógica.
+
+\subsection{Tipos}
+Son una forma de particionar el universo de valores de acuerdo a ciertas propiedades. Hay:
+\begin{itemize}
+	\item \textbf{Tipos básicos} (Int, Bool, Float) ó primitivos que son los que ya vienen definidos en el lenguaje por literales y representan valores 
+	\item \textbf{Tipos compuestos} (pares, ) que son aquellos que se definen a partir de otros tipos.
+\end{itemize}
+
+Cada tipo de dato tiene asociado operaciones que no tienen significado para otros tipos.
+
+A toda expresión bien formada se le puede asignar un tipo que sólo depende los componentes de la expresión (strong-typing). Dada una expresión, se puede deducir su tipo a partir de su constitución.
+
+\subsubsection{Notación}  
+\mintinline{haskell}{e :: A } se lee “la expresión \mintinline{haskell}{e} tiene tipo \mintinline{haskell}{A}” y significa que el valor denotado por \mintinline{haskell}{e} pertenece al conjunto de valores denotado por \mintinline{haskell}{A}.
+
+\subsubsection{Propiedades deseables de un lenguaje funcional}
+Se busca que un lenguaje le asigne un tipo de manera automática al mayor número posible de expresiones con sentido y que no le asigne ningún tipo al mayor número posible de expresiones mal formadas. Además, se busca que el tipo de la expresión se mantenga si es reducida.
+
+Otra cosa a tener en cuenta, es que los tipos ofrecidos por el lenguaje deben ser descriptivos y razonablemente sencillos de leer.
+
+\paragraph{Inferencia de tipos} Dada una expresión e determinar si tiene tipo o no y, si lo tiene, cuál es ese tipo según las reglas.
+
+\paragraph{Chequeo de tipos} Dada una expresión tipable \mintinline{haskell}{e} y un tipo \mintinline{haskell}{A}, determinar si \mintinline{haskell}{e :: A} o no.
+
+\subsection{Tipo Función}
+Un programa en el paradigma funcional es una función descripta por un conjunto de ecuaciones (expresiones) que definen uno o más valores. Estas ecuaciones son evaluadas (reducidas) hasta llegar a una expresión atómica que nos indique el valor de las mismas.
+
+\paragraph{Funciones} Las funciones son valores especiales que representan transformación de datos. En haskell el tipo de una función se escribe: \mintinline{haskell}{->}. Las funciones se aplican a elementos de un conjunto de entrada definido por el tipo de entrada de la función y devuelve un elemento del tipo de salida.
+
+Al ser valores, las funciones pueden ser argumentos y resultados de otras funciones, pueden almacenarse y pueden ser estructuras de datos.
+
+\paragraph{Funciones de alto orden} Son funciones que manipulan otras funciones.
+
+\paragraph{Lenguaje Funcional Puro} Lenguaje de expresiones con transparencia referencial y funciones como valores, cuyo modelo de cómputo es la reducción realizada mediante el reemplazo de iguales por iguales.
+
+\paragraph{Polimorfismo paramétrico} Cuando una función tiene un parámetro que puede ser instanciado de diferentes maneras en diferentes usos. Esta propiedad se da dentro de los sistemas de tipos.
+
+Dada una expresión que puede ser tipada de infinitas maneras, el sistema puede asignarle un tipo que sea más general que todos ellos, y tal que en cada uso pueda transformarse en uno particular.
+
+Hay funciones que a pesar de poseer polimorfismo paramétrico, no aceptan cualquier clase de tipo, sino que requieren que los tipos con las que son llamadas tengan ciertas propiedades. Por ejemplo, que tengan relaciones de igualdad (\mintinline{haskell}{Eq}), relación de order (\mintinline{haskell}{Ord}), que se comporten como números (\mintinline{haskell}{Num}) o que puedan ser mostrados en pantalla (\mintinline{haskell}{Show})
+
+\subsubsection{Evaluación}
+Por lo general, dependiendo del orden de evaluación del lenguaje, el tipo de evaluación se  clasifica en:
+
+\paragraph{Evaluación Estricta} Si una parte de una expresión se indefine, entonces la expresión se indefine. La evaluación eager, en la que un en lenguaje computa una expresión apenas es definida, es de este tipo. 
+
+\paragraph{Evaluación no Estricta} Puede pasar que una expresión esté definida a pesar de que alguna de sus partes se haya indefinido. La evaluación lazy, en la que un lenguaje solo computa una expresión cuando de esta depende el valor de otra expresión, es de este tipo.
+
+Haskell usa evaluación lazy de izquierda a derecha, resolviendo primero las partes más externas de la expresión y luego, si es necesario, sus partes.
+
+\paragraph{Currificación} Correspondencia entre cada función de múltiples parámetros y una de alto orden que retorna una función intermedia que completa el trabajo.
+Por cada \textit{f} definida como:
+\begin{centrado}
+	\begin{minted}{haskell}
+		f :: (a,b) -> c
+		f (x,y) = e
+	\end{minted}
+\end{centrado} 
+existe un función \textit{f'} tal que se puede escribir:
+\begin{centrado}
+	\begin{minted}{haskell}
+		f' :: a -> (b -> c)
+		(f' x) y = e
+	\end{minted}
+\end{centrado} 
+
+La currificación nos da mayor expresividad y la posibilidad de realizar evaluación parcial. Además, nos permite tratar el código de manera más modular al momento de inferir tipos y transformar programas.
+
+\paragraph{Evaluación parcial} Se evalúan las funciones parcialmente, lo que nos permite llamarlas con menos parámetros de los que necesitan. Esto nos devuelve una función con las expresiones asociadas a los valores pasados como parámetros y que toma como parámetros los parámetros faltantes de la función original.
+
+\subsection{Inducción/Recursion}
+
+La inducción es un mecanismo que nos permite definir conjuntos infinitos, probar propiedades sobre sus elementos y definir funciones recursivas sobre ellos con garantía de terminación.
+
+\paragraph{Principio de extensionalidad:} Dadas dos expresiones A y B, si A y B denotan el mismo valor, entonces A puede ser remplazada por B y B por A sin que esto afecte al resultado de una equación.
+
+\subsubsection{Inducción estructural}
+Una definición inductiva de un conjunto $\rel$ consiste en dar condiciones de dos tipos:
+\begin{itemize}
+	\item reglas base ($z\in\rel$) que afirman que algún elemento simple $x$ pertenece a $\rel$
+	\item reglas inductivas ($y_1\in\rel,\dots,y_n\in\rel\Rightarrow y\in\rel$) que afirman que un elemento compuesto $y$ pertenece a
+	$\rel$ siempre que sus partes $y_1,\dots,y_n$ pertenezcan a $\rel$
+	(e $y$ no satisface otra regla de las dadas)
+\end{itemize}
+
+y pedir que $\rel$ sea el menor conjunto (en sentido de
+la inclusión) que satisfaga todas las reglas dadas.
+
+\subsubsection{Funciones recursivas}
+Sea \mintinline{haskell}{S} un conjunto inductivo, y \mintinline{haskell}{T} uno cualquiera. Una definición recursiva estructural de una función \mintinline{haskell}{f :: S -> T} es una definición de la siguiente forma:
+\begin{itemize}
+	\item Por cada elemento base \mintinline{haskell}{z}, el valor de \mintinline{haskell}{(f z)} se da directamente usando valores previamente definidos
+	\item Por cada elemento inductivo \mintinline{haskell}{y}, con partes inductivas \mintinline{haskell}{y1}, ..., \mintinline{haskell}{yn}, el valor de \mintinline{haskell}{(f y)} se da usando valores previamente definidos y los valores \mintinline{haskell}{(f y1)}, ..., \mintinline{haskell}{(f yn)}.
+\end{itemize}
+
+\subsubsection{Principio de inducción}
+Sea $S$ un conjunto inductivo, y sea $P$ una propiedad sobre los elementos de S. Si se cumple que:
+\begin{itemize}
+	\item para cada elemento $z\in S$ tal que $z$ cumple con una regla base, $P(z)$ es verdadero, y
+	\item para cada elemento $y\in S$ construido en una regla inductiva utilizando los elementos \\ $y_1, ..., y_n$, si $P(y_1 ), ..., P(y_n)$ son verdaderos entonces $P(y)$ lo es
+	
+\end{itemize}
+
+entonces $P(x)$ se cumple para todos los $x\in S$.
+
+\subsection{Parametrización}
+Dado un conjunto de funciones que se comportan de la misma manera buscamos encontrar alguna forma de crear una función que las genere automáticamente. 
+
+\paragraph{Esquema de funciones} Dado un conjunto de funciones ``parecidas'', el esquema de estas funciones son los que no permiten parametrizar correctamente alguno de los parámetros.
+
+La parametrización nos permitirá crear definiciones más concisas y modulares, reutilizar código y demostrar propiedades generales de manera más fácil.
+
+\subsection{Tipos algebraicos}
+
+\subsubsection{Definición de tipos}
+Hay dos formas de definir un tipo de dato:
+\begin{itemize}
+	\item \textbf{De manera algebraica:} Establecemos qué \textit{forma} tendrá cada \textit{elemento} y damos un mecanismo único para inspeccionar cada elemento.
+	\item \textbf{De manera abstracta:} Determinamos cuales serán las \textit{operaciones} que manipularán los elementos, \textbf{SIN} decir cuál será la forma exacta del tipo ni de las operaciones que definimos.
+\end{itemize}
+
+\subsubsection{Tipos algebraicos en Haskell}
+Los definimos mediante \textbf{constantes} llamadas \textit{constructores} cuyos nombres comienzan con mayúscula. Los constructores no tienen asociada una regla de reducción y pueden tener argumentos.
+
+Para implementarlos en Haskell, usamos la clausula \texttt{data} que introduce un nuevo tipo algebraico, los nombres de su constructores y sus argumentos.
+
+\textbf{Ejemplos:}
+\begin{centrado}
+	\begin{minted}{haskell}
+		data Sensacion = Frio | Calor
+		data Shape = Circle Float | Rect Float Float
+	\end{minted}
+\end{centrado}
+
+Los tipos algebraicos pueden tener argumentos. Esto nos permite definir tipos que contienen al conjunto de elementos de otro tipo más los elementos del tipo que se están definiendo.
+
+\textbf{Ejemplo:}
+\begin{centrado}
+	\begin{minted}{haskell}
+		data Maybe = Nothing | Just a
+	\end{minted}
+\end{centrado}
+\texttt{Maybe} tiene todos los elementos del tipo a con \texttt{Just} adelante más el elemento \textit{Nothing}
+
+\vspace*{5mm}
+
+Son considerados tipos algebraicos porque:
+\begin{itemize}
+	\item toda combinación válida de constructores y valores es elemento del tipo algebraico (y solo ellas lo son)
+	\item y porque dos elementos de un tipo algebraico son iguales si y solo si están construidos utilizando los mismos constructores aplicados a los mismos valores.
+\end{itemize}
+Al principio de esta sección, dijimos que además de establecer la forma que tiene el tipo, debemos dar un mecanismo único de inspección. En Haskell, este mecanismo es el \textbf{Pattern Matching}.
+
+
+\subsubsection{Pattern Matching}
+El pattern matching es la búsqueda de patrones especiales (en nuestro caso, los constructores de nuestro tipo) dentro de una expresión en el lado izquierdo de una ecuación que, si tiene éxito, nos permita inspeccionar el valor de la misma.
+
+Si el pattern matching resulta exitoso, entonces ligas las variables del patrón.
+
+\subsubsection{Tipos especiales}
+\paragraph{Tupla} Este tipo es un tipo algebraico con sintaxis especial. Una tupla es un estructura que posee varios elementos de distintos tipos. Por ejemplo: \mintinline{haskell}{(Float,Int)} es una tupla cuyo primer elemento es un \mintinline{haskell}{Float} y tiene como segundo elemento a un \mintinline{haskell}{Int}.
+
+\paragraph{Maybe} El tipo \texttt{Maybe}, definido en el último ejemplo, nos permite expresar la posibilidad de que el resultado sea erróneo, sin necesidad de usar casos especiales. De esta forma, logramos evitar el uso de $\bot$ hasta que el programador lo decida, permitiendo controlar errores.
+
+\paragraph{Either} El tipo \mintinline{haskell}{Either} representa la unión disjunta de dos conjuntos (los elementos de uno se identifican con \mintinline{haskell}{Left} y los del otro con \mintinline{haskell}{Right}. Sirve para mantener el tipado fuerte y poder devolver elementos de distintos tipos o para representar el origen de un valor.
+\begin{centrado}
+	\begin{minted}{haskell}
+		data Either = Left a | Right b
+	\end{minted}
+\end{centrado}
+
+\subsubsection{Expresividad}
+Los tipos algebraicos no pueden representar cualquier cosa, por ejemplo, los números racionales son pares de enteros (numerador, denominador) cuya igualdad puede no depender de los valores con los que fueron construidos o incluso pueden llegar a no ser validos. Esto es así porque no todo par de enteros es un número racional, por ejemplo el (1,0). 
+
+Además recordemos que la igualdad de dos elementos de un tipo algebraico solo se da si estos fueron construidos exactamente de la misma forma. Si seguimos con el ejemplo de los racionales, sabemos que hay racionales iguales con distinto numerador y denominador como el (4,2) y el (2,1), sin embargo estos dos pares no podrían ser nunca iguales si fuesen tomados como un tipo algebraico.
+
+\subsubsection{Clases de tipos algebraicos}
+
+\paragraph{Enumerativos} Solo constructores sin argumentos.
+
+\paragraph{Productos} Un único constructor con varios argumentos.
+
+\paragraph{Sumas} Varios constructores con argumentos.
+
+\paragraph{Recursivos} Utilizan el tipo definido como argumento.
+
+\subsection{Tipos algebraicos recursivos}
+Un tipo algebraico recursivo tiene al menos menos uno de los constructores con el tipo que se define como argumento y es la concreción, en Haskell, de un conjunto definido inductivamente.
+
+Cada constructor define un caso de una definición inductiva de un conjunto. Si tiene al tipo definido como argumento, entonces es un caso inductivo, si no, es un caso base.
+
+En estos caso, el pattern matching nos da una forma de realizar analizar los casos y de acceder a los elementos inductivos que forman a un elemento dado. Por esta razón, se pueden definir funciones recursivas.
+
+A estos tipos, les damos un significado a través de funciones definidas recursivamente. Estas funciones manipulan simbólicamente al tipo. Sin embargo, estas manipulaciones, por si solas no tienen un significado, sino que el significado se lo dan las propiedades que dichas manipulaciones deben cumplir.
+
+\paragraph{Enteros} Notación unaria para expresar tipos enteros.
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		data N = Z | S N
+	\end{minted}
+\end{centrado}
+
+\paragraph{Listas} Definición equivalente a las listas de Haskell
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		data List a = Nil | Cons a (List a)
+	\end{minted}
+\end{centrado}
+
+\paragraph{Árboles}
+Un árbol es un tipo algebraico tal que al menos un elemento compuesto tiene dos componentes inductivas.
+
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		data Arbol a = Hoja a | Nodo a (Arbol a) (Arbol a)
+	\end{minted}
+\end{centrado}
+
+\subsection{Esquemas de recursión} \label{sec:funcional.sub:esquemas_recursion}
+Cuando tenemos un conjunto de funciones que manipulan ciertas estructuras de manera similar, podemos abstraer este comportamiento en funciones de alto orden que nos facilitarán su escritura.
+
+A continuación, veremos unos ejemplos de esquemas sobre listas: 
+\subsubsection{Map}
+Dada una lista \mintinline{haskell}{l}, aplica una función \mintinline{haskell}{f} a cada elemento de \mintinline{haskell}{l}.
+\begin{centrado}
+	\begin{minted}{haskell}
+		map :: (a -> b) -> [a] -> [b]
+		map _ [] = []
+		map f (x:xs) = (f x) : (map f xs)
+	\end{minted}
+\end{centrado} 
+
+\textbf{Ejemplo:}
+\begin{centrado}
+	\begin{minted}{haskell}
+		doble x = x + x
+		dobleL = map doble  
+	\end{minted}
+\end{centrado} 
+
+\mintinline{haskell}{dobleL} calcula el doble de cada elemento de una lista.
+
+\subsubsection{Filter}
+Dada una lista \mintinline{haskell}{l} y un predicado \mintinline{haskell}{p}, selecciona todos los elementos de \mintinline{haskell}{l} que cumplen \mintinline{haskell}{p}.
+
+\begin{centrado}
+	\begin{minted}{haskell}
+		filter :: (a -> Bool) -> [a] -> [a]
+		filter _ [] = []
+		filter p (x:xs) | (p x)     = x : (filter p xs)
+		| otherwise = filter p xs  
+	\end{minted}
+\end{centrado}
+
+\textbf{Ejemplo}
+\begin{centrado}
+	\begin{minted}{haskell}
+		masQueCero = filter (>0)
+	\end{minted}
+\end{centrado}
+
+\mintinline{haskell}{masQueCero} se queda con todos los elementos mayores de una lista
+
+\subsubsection{Fold}
+La función {fold} es la función que expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \mintinline{haskell}{l} y una función \mintinline{haskell}{f} que denota un valor que depende de todos los elementos de la lista \mintinline{haskell}{l} y un valor inicial \mintinline{haskell}{z}, aplica y combina las soluciones parciales obtenidas por \mintinline{haskell}{f} de manera  ``iterativa''. 
+Hay dos tipos de fold: \mintinline{haskell}{foldr} (acumula desde la derecha) y \mintinline{haskell}{foldl} (acumula desde la izquierda).
+
+\begin{centrado}
+	\begin{minted}{haskell}
+		foldr :: (a -> b -> b) -> b -> [a] -> b
+		foldr _ z [] = z
+		foldr f z (x:xs) = f x (foldr f z xs)
+		
+		
+		foldl :: (b -> a -> b) -> b -> [a] -> b
+		foldl f z [] = z
+		foldl f z (x : xs) = foldl f (f z x) xs
+	\end{minted}
+\end{centrado}
+
+\textbf{Ejemplos}
+
+\begin{centrado}
+	\begin{minted}{haskell}
+		map f = foldr (\x rec -> (f x): rec) []
+		filter p = foldr (\x rec -> if (p x) then x:rec else rec) []
+	\end{minted}
+\end{centrado}
+
+
+\subsubsection{Recursión primitiva}
+Recordemos de Logica y Computabilidad: una función h es recursiva primitiva si \textit{h} es de la forma:
+
+\begin{align*}
+	h(x_1,\dots,x_n,0) &= f(x_1,\dots,x_n) \\
+	h(x_1,\dots,x_n,t+1) &= g(h(x_1,\dots,x_n, t),x_1,\dots, x_n, t) \\
+\end{align*}
+
+Es decir, el caso recursivo de \textit{h} no solo depende de la descomposición de sus parámetros, sino que, además, depende de sus parámetros.
+
+En Haskell, podemos definir una función que dada una lista \mintinline{haskell}{l}, un caso base \mintinline{haskell}{z} y un caso recursivo primitivo \mintinline{haskell}{f}, aplique la definición de \mintinline{haskell}{z} y \mintinline{haskell}{f} a la lista:
+\begin{centrado}
+	\begin{minted}{haskell}
+		recr :: b -> (a -> [a] -> b -> b) -> [a] -> b
+		recr z _ []= z
+		recr z f (x:xs) = f x xs (recr z f xs)
+	\end{minted}
+\end{centrado}
+
+En listas, este tipo de esquemas es difícil de ver. Como ejemplo, escibimos la función \mintinline{haskell}{insertar} de una lista con recursión primitiva:
+\begin{centrado}
+	\begin{minted}{haskell}
+		-- Insert con pattern matching
+		insert :: a -> [a] -> [a]
+		insert x [] = [x]
+		insert x (y:ys) = if x<y then (x:y:ys) else (y:insert x ys)
+		
+		-- Insert con recursión primitiva
+		insert x = recr [x] (\y ys zs -> if x<y then (x:y:ys) else (y:zs))
+	\end{minted}
+\end{centrado}
+
+En el segundo caso, \mintinline{haskell}{insert} es una función que agrega el elemento \mintinline{haskell}{x} a una lista \mintinline{haskell}{xs} que se le pase como parámetro.
+
+\subsubsection{Divide \& Conquer}
+La técnica de Divide \& Conquer consiste en dividir un problema en problemas más fáciles de resolver y luego, combinando los resultados parciales, lograr
+obtener un resultado general. En este caso, \mintinline{haskell}{DivideConquer} es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un elemento de tipo \texttt{b}:
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		type DivideConquer a b  = (a -> Bool) -> (a -> b) -> (a -> [a]) -> 
+		([b] -> b) -> a -> b                         
+	\end{minted}
+\end{centrado}
+Las funciones que toma como parámetro son:
+\begin{itemize}
+	\item \mintinline{haskell}{esTrivial :: a -> Bool} que devuelve verdadero si elemento de tipo \texttt{a} es el caso base del problema.
+	\item \mintinline{haskell}{resolver :: a -> b} que resuelve el problema cuando el elemento de tipo \texttt{a} es el caso trivial
+	\item \mintinline{haskell}{repartir :: a -> [a]} que divide al elemento de tipo \texttt{a} en la cantidad de subproblemas necesarios para resolver el problema.
+	\item \mintinline{haskell}{combinar :: [b] -> b} que resuelve todos los subproblemas obtenidos por \texttt{repartir} y combina sus soluciones para obtener el resultado final.
+\end{itemize}
+
+\textbf{Ejemplo}
+
+Vamos a definir el Divide \& Conquer para listas:
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		divideConquerListas :: DivideConquer [a] b
+		-- Esto significa que DivideConquerLista es de tipo 
+		-- ([a] -> Bool) -> ([a] -> b) -> ([a] -> [[a]]) -> ([b] -> b)
+		-- -> [a] -> b
+		
+		divideConquerListas esTrivial resolver repartir combinar l =
+		if (esTrivial l) then resolver l
+		else combinar (map dc (repartir l))
+		where dc = divideConquerListas esTrivial resolver repartir combinar
+		
+	\end{minted}
+\end{centrado}
+
+
+\paragraph{Otros esquemas de recursión} Los esquemas de recursión que nombramos, no son los únicos que existen y además, pueden ser definidos para otros tipos recursivos, no solo para listas.
+
+\subsubsection{La función fold y como definirla}
+Todo tipo algebraico tiene asociado un patrón de inducción estructural. En particular, dado un tipo algebraico recursivo \mintinline{haskell}{T}, podemos definir la función \mintinline{haskell}{foldrT:: * -> a} donde * son los parámetros de la función. A continuación damos algunas propiedades que debe cumplir para asegurarnos de la definimos correctamente:
+\begin{itemize}
+	\item Por cada constructor recursivo debe tomar una función que tome como parámetros a cada elemento del constructor que no sea del tipo \texttt{T} y un parámetro de tipo \texttt{a} por cada elemento del tipo \texttt{T}  del constructor. Esta función devuelve un elemento del tipo \texttt{a} y es la que resolverá recursivamente el caso planteado usando la segunda clase de parámetros.
+	\item Por cada constructor base de \texttt{T} debe tomar un parámetro de tipo \text{a} que será el elemento devuelto por la función si cae en alguno de dichos casos.
+	\item Por último, si la función está bien implementada, si remplazamos cada parámetro por el contructor correspondiente que tiene asignado, la función resultante debería ser la función identidad del tipo \texttt{T}.
+\end{itemize}
+
+
+Al momento de definir \texttt{fold} ayuda mucho plantear el esquema de recursión del tipo.
+
+\newpage
+\section{Cálculo Lambda Tipado}
+
+El cálculo lambda es un modelo de computación turing completo basado en \textbf{funciones} introducido por \textbf{Alonzo Church}. Este modelo consiste en un conjunto de expresiones o terminos que representan abstracciones o aplicaciones de funciones y cuyos valores pueden ser determinados aplicando ciertas reglas sintacticas hasta obtener lo 	que se dice su forma normal, una expresión que, a falta de reglas no puede ser reducida de ninguna manera. En nuestro caso, estamos estudiando cálculo lambda tipado, es decir que habrá expresiones que, a pesar de estar bien formadas, no tendrán sentido.
+
+\subsection{Expresiones de Tipos de \texorpdfstring{$\lambda^b$}{lambda b}}
+El primer lenguaje lambda que usamos en la materia tiene dos \textbf{tipos} $Bool$ y $\sigma\rightarrow\theta$ que son los tipos de los valores booelanos y las funciones que van de un tipo $\sigma$ a un tipo $\theta$, respectivamente. Y lo notamos:
+\begin{equation*}
+	\sigma,\theta ~::=~ Bool ~|~ \sigma\rightarrow\theta
+\end{equation*}
+
+Una vez que definamos por completo el lenguaje lambda para estos dos tipos, esto es definir reglas de sintaxis, de tipado y de reducción de expresiones, vamos a extender el lenguaje con los naturales y, luego, con otros tipos de interés, como abstracciones de memoria y comandos.
+\subsubsection{Términos de \texorpdfstring{$\lambda^b$}{lambda b}}
+Ahora debemos definir los \textbf{términos} que nos permitirán escribir las expresiones válidas del tipado. Sea $\mathcal{X}$ un conjunto infinito enumerable de variables y $x\in\mathcal{X}$. Los \textbf{términos} de $\lambda^b$ están dados por:
+
+\begin{equation*}
+	\begin{split}
+		M, P, Q ~ ::&= ~ true \\
+		& |~ false \\
+		& |~ \lambdaIf{M}{P}{Q} \\
+		& |~ \lambdaApp{M}{N} \\
+		& |~ \lambdaAbs{x}{\sigma}{M} \\
+		& |~ x
+	\end{split}
+\end{equation*}
+
+Esto significa que dados tres términos $M$, $P$ y $Q$, los términos válidos del lenguaje son:
+\begin{itemize}
+	\item $true$ y $false$ que representan las \textbf{constantes de verdad}.
+	\item $ \lambdaIf{M}{P}{Q}$ que expresa el \textbf{condicional}.
+	\item $\lambdaApp{M}{N}$ que indica la \textbf{aplicación} de la función denotada por el termino $M$ al argumento $N$.
+	\item $\lambdaAbs{x}{\sigma}{M}$ que es una \textbf{función} (abstracción) cuyo parámetro formal es $x$ y cuyo cuerpo es $M$
+	\item $x$, una \textbf{variable de términos}.
+\end{itemize}
+
+\subsubsection{Variables ligadas y libres}
+Por como definimos el lenguaje, una variable $x$ puede ocurrir de dos formas: \textbf{libre} o \textbf{ligada}. Decimos que $x$ ocurre \textbf{libre} si no se encuentra bajo el alcance de una ocurrencia de $\lambda x$. Caso contrario ocurre ligada.
+
+Por ejemplo:
+$$\lambdaAbs{x}{Bool}{\lambdaIf{true}{\underbrace{x}_{ligada}}{\underbrace{y}_{libre}}} $$
+
+Para conseguir las variables ligadas de una expresión, vamos a definir la función $FV$ que toma como parámetro una expresión y devuelve el conjunto de variables libres de la misma.
+
+\begin{equation*}
+	\begin{split}
+		FV(x) &\equalDef {x} \\
+		FV(true) = FV(false) &\equalDef \emptyset \\
+		FV(\lambdaIf{M}{P}{Q}) &\equalDef FV(M)\cup FV(P)\cup FV(Q) \\
+		FV(\lambdaApp{M}{N}) &\equalDef FV(M)\cup FV(N) \\
+		FV(\lambdaAbs{x}{\sigma}{M}) &\equalDef FV(M) \backslash \{x\}
+	\end{split}
+\end{equation*}
+
+\subsubsection{Reglas de sustitución}
+
+Una de las operaciones que podemos realizar sobre las expresiones del lenguaje es la \textbf{sustitución} que, dado un término $M$, sustituye todas las ocurrencias \textbf{libres} de una variable $x$ en dicho término por un término $N$. La notamos:
+
+$$\replaceBy{M}{x}{N}$$
+
+Esta operación nos sirve para darle semántica a la aplicación de funciones y es sencilla de definir, sin embargo debemos tener en cuenta algunos casos especiales.
+
+\paragraph{$\alpha$-equivalencia} Dos terminos $M$ y $N$ que difieren solamente en el nombre de sus variables ligadas se dicen $\alpha$-equivalentes. Esta relación es una relación de equivalencia. Técnicamente, la sustitución está definida sobre clases de $\alpha$-equivalencia de términos
+
+
+\paragraph{Captura de variables}\label{calculo_lambda:captura_variables} El primer problema se da cuando la sustitución que deseamos realizar sustituye una variable por otra con el mismo nombre que alguna de las variables ligadas de la expresión. Por ejemplo:
+$$\replaceBy{(\lambdaAbs{z}{\sigma}{x})}{x}{z} = \lambdaAbs{z}{\sigma}{z}$$
+
+En estos casos, si realizamos la sustitución cambiariamos el significado de la expresión (en el caso mostrado, estariamos convirtiendo la función constante que devuelve $x$ en la función identidad). Por esta razón debemos asegurarnos que cuando realizemos la operación $\replaceBy{\lambdaAbs{y}{\sigma}{M}}{x}{N}$, la variable ligada $y$ sea renombrada de tal manera que \textbf{no} ocurra libre en $N$.
+
+\vspace*{5mm}
+Entonces, teniendo en cuenta lo mencionado, definimos el comportamiento de la operación:
+
+\begin{equation*}
+	\begin{split}
+		\replaceBy{x}{x}{N} &\equalDef N \\
+		\replaceBy{a}{x}{N} &\equalDef a \text{ si } a \in \{true,false\}\cup\mathcal{X}\backslash\{x\} \\
+		\replaceBy{(\lambdaIf{M}{P}{Q})}{x}{N} &\equalDef \lambdaIf{\replaceBy{M}{x}{N}}{\replaceBy{P}{x}{N}}{\replaceBy{Q}{x}{N}}\\
+		\replaceBy{(\lambdaApp{M_1}{M_2})}{x}{N} &\equalDef \lambdaApp{\replaceBy{M_1}{x}{N}}{\replaceBy{M_2}{x}{N}}\\
+		\replaceBy{(\lambdaAbs{y}{\sigma}{M})}{x}{N} &\equalDef \lambdaAbs{y}{\sigma}{\replaceBy{M}{x}{N}}~x\neq y,~y\notin~FV(N)
+	\end{split}
+\end{equation*}
+
+La condición $x\neq y,~y\notin~FV(N)$ está para que efectivamente no se produzca la situación mencionada en el parrafo anterior. Y \textbf{siempre} puede cumplirse, solo hay que renombrar las variables de manera apropiada.
+
+\subsubsection{Árbol sintáctico}
+Dada una expresión $M$, su árbol sintáctico es un árbol que tiene como raíz a $M$ y como hijos de la raíz a todos los subtérminos válidos de la expresión.
+\paragraph{Ejemplos}
+El árbol sintáctico de $true$ es:
+\begin{center}
+	\begin{forest} tikzQtree,
+		[$true$]
+	\end{forest}
+\end{center}
+
+El árbol sintáctico de $\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$ es:
+
+\begin{center}
+	\begin{forest} tikzQtree,
+		[$\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$, 
+		[$x$]
+		[$y$]
+		[$\lambdaAbs{z}{Bool}{z}$
+		[$z$]
+		]
+		]
+	\end{forest}
+\end{center}
+
+\subsection{Sistema de tipado}
+El sistema de tipado es un sistema formal de deducción (o derivación) que utiliza axiomas y reglas de tipado para caracterizar un subconjunto de los términos. A estos términos los llamamos \textbf{términos tipados}.
+
+Como dijimos, vamos a estudiar lenguajes de cálculo lambda tipado, por lo que para que una expresión sea considerada una expresión válida del lenguaje no solo debe ser sintácticamente correcta sino que debemos poder inferir su tipo a través del sistema de tipado que definamos. Y si no es posible inferir el tipo de una expresión con el sistema dado, entonces no la consideraremos una expresión válida del lenguaje.
+
+\paragraph{Contexto de tipado}: Es un conjunto de pares $x_i:\sigma_i$, anotado $\Gamma = \{x_1:\sigma_1, \dots, x_n:\sigma_n\}$ que nos indica los tipos de cada variable de un programa.
+
+Dado un contexto de tipado $\Gamma$, un \textbf{juicio de tipado} es una expresion $\judgeType{\Gamma}{M}{\sigma}$ que se lee ``el término M tiene tipo $\sigma$ asumiendo el contexto de tipado $\Gamma$''. 
+
+\subsubsection{Axiomas de tipado de \texorpdfstring{$\lambda^b$}{lambda b}}
+
+\begin{equation*}
+	\begin{gathered}
+		\frac{}{\judgeType{\Gamma}{\lambdaValue{true}}{Bool}}(\text{T-True}) \hspace*{2cm} \frac{}{\judgeType{\Gamma}{\lambdaValue{false}}{Bool}}(\text{T-False})\hspace*{2cm} \\
+		\vspace*{5mm} \\
+		\frac{x:\sigma\in\Gamma}{\judgeType{\Gamma}{\lambdaValue{x}}{\sigma}}(\text{T-Var})\hspace*{2cm}
+	\end{gathered}
+\end{equation*}
+
+\vspace*{5mm}
+Los axiomas \textbf{T-True} y \textbf{T-False} nos dicen, que no importa el contexto en el que se encuentren los valores \textit{true} y \textit{false}, respectivamente, ambos valores serán de tipo \textit{Bool}. El axioma \textbf{T-Var}, nos dice que una variable libre $x$ es de $\sigma$ en un contexto $\Gamma$ entonces el par $x:\sigma$ se encuentra en $\Gamma$
+
+\subsubsection{Reglas de tipado de \texorpdfstring{$\lambda^b$}{lambda b}}
+\begin{equation*}
+	\begin{gathered}
+		\frac{\judgeType{\Gamma}{M}{Bool}\hspace*{5mm}\judgeType{\Gamma}{P}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{Q}{\sigma}}{\judgeType{\Gamma}{\lambdaIf{M}{P}{Q}}{\sigma}}(\text{T-If}) \\
+		\vspace*{5mm} \\
+		\frac {\judgeType{\Gamma,x:\sigma}{M}{\tau}}
+		{\judgeType{\Gamma}{\lambdaValue{\lambdaAbs{x}{\sigma}{M}}}{\sigma\to\tau}}(\text{T-Abs})\hspace*{2cm}
+		\frac{\judgeType{\Gamma}{M}{\sigma\to\tau}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}}{\judgeType{\Gamma}{\lambdaApp{M}{N}}{\tau}}(\text{T-App})
+	\end{gathered}
+\end{equation*}
+
+\vspace*{5mm}
+\textbf{T-If} nos dice que si $\lambdaIf{M}{P}{Q}$ es de tipo $\sigma$ en $\Gamma$, entonces $M$ es de tipo $Bool$ y $P$ y $Q$ son de tipo $\sigma$ en $\Gamma$.
+
+\textbf{T-Abs} indica que si $\lambdaAbs{x}{\sigma}{M}$ es de tipo $\sigma\to\tau$ en $\Gamma$, entonces $M$ es de tipo $\tau$ y $x$ en de tipo $\sigma$ en $\Gamma$.
+
+\textbf{T-App} significa que si $\lambdaApp{M}{N}$ es de tipo $\sigma\to\tau$ en $\Gamma$, entonces $M$ es de tipo $\tau$ en el contexto $\Gamma, x:\sigma$. Este es el contexto formado por la unión disjunta entre $\Gamma$ y $x:sigma$, o en castellano, el contexto que remplaza el tipo de $x$ en $Gamma$ por $\sigma$.
+
+\subsubsection{Resultados básicos}
+
+Si $\judgeType{\Gamma}{M}{\sigma}$ puede derivarse usando los axiomas y reglas de tipados decimos que el juicio es \textbf{derivable}. Además, si el juicio se puede derivar para algún $\Gamma$ y $\sigma$, entonces decimos que $M$ es \textbf{tipable}.
+
+\paragraph{Unicidad de tipos} Si $\judgeType{\Gamma}{M}{\sigma}$ y $\judgeType{\Gamma}{M}{\tau}$ son derivables, entonces $\sigma = \tau$
+
+\paragraph{Weakening + Strengthening} Si $\judgeType{\Gamma}{M}{\sigma}$ es derivable y $\Gamma\cap\Gamma'$ contiene a todas las variables libres de $M$, entonces $\judgeType{\Gamma'}{M}{\sigma}$
+
+\paragraph{Sustitución} Si $\judgeType{\Gamma,x:\sigma}{M}{\tau}$ y $\judgeType{\Gamma}{N}{\sigma}$ son derivables, entonces $\judgeType{\Gamma}{\replaceBy{M}{x}{N}}{\tau}$ es derivable.
+
+\subsubsection{Demostración de juicios de tipado}
+Dado un sistema tipado, queremos ver si un juicio de tipado es correcto. Para hacer esto, iremos aplicando, al juicio, las reglas del sistema hasta llegar a sus axiomas o hasta llegar a una contradicción o incertidumbre. Si pasa lo primero, entonces el juicio es correcto, si pasa lo segundo, el juicio está mal.
+
+\subsection{Semántica operacional}Ya definimos cuales serán los términos y expresiones válidas de nuestro lenguaje. El siguiente paso, es definir algún mecanismo que nos permita inferir el significado o \textbf{valor} de un término. 
+
+Para lograr este objetivo definimos lo que se llama \textbf{semántica operacional}, un mecanismo que interpreta a los \textbf{términos como estados} de una máquina abstracta y define una \textbf{función de transición} que indica, dado un estado, cual es el siguiente.
+
+De esta forma, el significado de un término $M$ es el estado final que alcanza la máquina al comenzar con $M$ como estado inicial.
+
+Tenemos dos formas de definir la semántica:
+\begin{itemize}
+	\item \textbf{Small-step}: La función de transición describe un paso de computación, descomponiendo los términos compuestos en términos más simples y especificando el orden el que deben ser reducidos.
+	\item \textbf{Big-step} (o \textbf{Natural Semantics}): La función de transición, en un paso, evalúa el termino a su resultado.
+\end{itemize}
+
+Nosotros vamos a usar la primer opción. Y la formulamos a través de \textbf{juicios de evaluación} 
+$$M\to N$$ que se leen ``\textit{el término M reduce, en un paso, al término N}''.
+
+Para establecer el significado de estos juicios, vamos a definir \textbf{axiomas de evaluación} y \textbf{reglas de evaluación}. Los axiomas nos indicarán cuales juicios de evaluación son siempre derivables y las reglas nos dirán que juicios son derivables dado un contexto. Las reglas de la semántica asumen que las expresiones están bien tipadas.
+
+\subsubsection{Expresiones Booleanas}\label{calculo_lambda:semantica:booleanas}
+Los valores de las  expresiones booleanas son:
+$$ V~::=~true~|~false$$
+y son usados para reducir el término $\lambdaIf{M_1}{M_2}{M_3}$ mediante los siguientes axiomas:
+
+\begin{equation*}
+	\frac{}{\lambdaIf{\lambdaValue{true}}{M_1}{M_2} \to M_1}(\text{E-IfTrue})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{}{\lambdaIf{\lambdaValue{false}}{M_1}{M_2} \to M_2}(\text{E-IfFalse})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_1\to M'_1}{\lambdaIf{M_1}{M_2}{M_3}\to\lambdaIf{M'_1}{M_2}{M_3}}(\text{E-If})
+\end{equation*}
+
+\vspace*{5mm}
+Estas reglas nos indican que dado un término del tipo $\lambdaIf{M_1}{M_2}{M_3}$, si $M_1 = true$, entonces podemos remplazar la expresión por $M_2$, si $M_1=false$ entonces podemos remplazar la expresión por $M_3$ y si $M_1$ es una expresión reducible a $M'_1$, entonces podemos remplazar la expresión por $\lambdaIf{M'_1}{M_2}{M_3}$.
+
+Con estas reglas definimos la estrategia de evaluación del condicional que se corresponde el orden habitual en lenguajes de programación:
+\begin{enumerate}
+	\item Primero evaluamos la guarda del condicional
+	\item y una vez que la guarda sea un valor, evaluamos la expresión del \textit{then} o del \textit{else} según corresponda.
+\end{enumerate}
+
+\subsubsection{Propiedades}
+
+\paragraph{Determinismo} Si $M\to M'$ y $M\to M''$ entonces $M' = M''$, esto quiere decir que el valor que representa $M$ no cambia con las reducciones que le apliquemos.
+
+\paragraph{Valores en forma normal} Una \textbf{forma normal} es un término que no puede evaluarse más. Consideraremos que terminamos de evaluar un término cuando conseguimos su forma normal.
+
+Todos los valores tiene una forma normal, sin embargo hay que tener en cuenta que como estamos definiendo un lenguaje tipado, habrá formas normales que no representen ningún valor.
+
+\subsubsection{Evaluación en muchos pasos}
+El juicio de \textbf{evualuación de muchos pasos} $\twoheadrightarrow$ es la clausura reflexiva, transitiva de $\to$. Es decir, la menor relación tal que:
+\begin{enumerate}
+	\item Si $M\to M'$, entonces $M\twoheadrightarrow M'$
+	\item $M\twoheadrightarrow M$ para todo $M$
+	\item Si $M\twoheadrightarrow M'$ y $M' \twoheadrightarrow M''$, entonces $M\twoheadrightarrow M''$
+\end{enumerate}
+
+\paragraph{Unicidad de formas normales} Si $M\twoheadrightarrow U$ y $M\twoheadrightarrow V$ con $U$ y $V$ formas normales, entonces $U = V$
+
+\paragraph{Terminación}
+Para todo $M$ existe una forma normal $N$ tal que $M\twoheadrightarrow N$
+
+
+\subsection{Semántica operacional de \texorpdfstring{$\lambda^b$}{lambda b}}
+En la sección \ref{calculo_lambda:semantica:booleanas} definimos el comportamiento de las expresiones booleanas, sin embargo, nos falta definir como reducir términos del tipo $\lambdaAbs{x}{\sigma}{M}$ y $\lambdaApp{M}{N}$.
+
+Lo primero a tener en cuenta, es que vamos a considerar a los términos de $\lambdaAbs{x}{\sigma}{M}$ como valores, sin si $M$ es reducible o nó. Entonce, nuestro conjunto de valores del lenguaje sería:
+
+$$ V  ~::=~ true~|~false~|~\lambdaAbs{x}{\sigma}{M}$$
+
+Por lo que todo término bien tipado y cerrado (sin variables libres) evalúa a alguna de estos términos. Si es de tipo $Bool$ evalúa a $true$ o $false$, si es de tipo $\sigma\to\tau$ evalúa a $\lambdaAbs{x}{\sigma{M}}$
+A las reglas y axiomas definidos para los tipos booleanos agregamos los siguientes:
+
+\begin{equation*}
+	\frac{M_1\to M'_1}{\lambdaApp{M_1}{M_2} \to 
+		\lambdaApp{M'_1}{M_2}}(\text{E-App1}~ /~ \mu)
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_2 \to M'_2}{\lambdaApp{\lambdaValue{V_1}}{M_2} \to 
+		\lambdaApp{\lambdaValue{V_1}}{M'_2}}(\text{E-App2}~/~v)
+\end{equation*}	
+\vspace*{5mm}
+\begin{equation*}
+	\frac{}{\lambdaApp{(\lambdaAbs{x}{\sigma}{M})}{\lambdaValue{V}} \to 
+		\replaceBy{M}{x}{\lambdaValue{V}}}(\text{E-App2}~/~\beta)
+\end{equation*}
+
+\paragraph{Estado de error} Es un estado que \textbf{no es} un valor pero en el que la computación está trabada. Representa el estado en el cual el sistema de runtime de una implementación real generaría una excepción.
+
+El sistema de tipado, nos garantiza que si un término cerrado está bien tipado entonces evalúa a un valor.
+
+
+\paragraph{Corrección}
+La corrección de un término nos asegura dos cosas:	\textbf{Progreso} y \textbf{Preservación}.
+
+El \textbf{progreso} asegura que si $M$ es un término cerrado y bien tipado, entonces $M$ es un valor o existe $M'$ tal que $M\to M'$. En otras palabras, nos asegura que la evaluación no puede trabarse para términos cerrados y bien tipados que no son valores. Y si un programa termina, entonces nos devuelve un valor.
+
+La \textbf{preservación} asegura que la evaluación de un término $M$ cerrado y bien tipado preserva tipos. Es decir, no importa cuanta veces se reduzca $M$, el término resultante siempre es del tipo original.
+
+$$\text{Si } \judgeType{\Gamma}{M}{\sigma} \text{ y } M\to N \text{ entonces } \judgeType{\Gamma}{N}{\sigma}$$	
+
+\paragraph{Extendiendo el lenguaje}
+Cuando queramos extender el lenguaje, debemos realizar los mismos pasos que realizamos para definir el lenguaje $\lambda^b$, esto es decir, agregar el nuevo tipo al conjunto de tipos, definir los términos de ese tipo, sus reglas de tipado y sus reglas semánticas, asegurándonos de que las nuevas reglas no interfieran con las ya definidas. Esto es, no debemos definir reglas que las contradigan o que den nuevas formas de inferir algo que ya se podía inferir con otras reglas.
+
+En el apéndice de extensiones, muestro algunas extensiones que servirán como ejemplo.
+
+
+\paragraph{Macros} Hay expresiones del lenguaje que usaremos con demasiada frecuencia, para estas expresiones podremos definir macros que simplificaran su escritura. Algunos ejemplos son:
+
+$$Id_{Bool} \equalDef \lambdaAbs{x}{Bool}{x}$$
+$$and \equalDef \lambdaAbs{x}{Bool}{\lambdaAbs{y}{Bool}{\lambdaIf{x}{y}{false}}}$$
+
+\subsection{Extensión Naturales (\texorpdfstring{$\lambda^{bn}$}{lambda bn})}
+
+\paragraph{Tipos}
+$$\sigma, \tau ~::=~ Bool~|~Nat~|~\sigma\to\tau$$
+
+\paragraph{Términos}
+$$ M~::=~ \dots~|~0~|~succ(M)~|~pred(M)~|~isZero(M) $$
+
+Los términos significan:
+\begin{itemize}
+	\item $succ(M)$: evaluar $M$ hasta arrojar un número e incrementarlo.
+	\item $pred(M)$: evaluar $M$ hasta arrojar un número y decrementar.
+	\item $iszero(M)$: evaluar $M$ hasta arrojar un número, luego retornar $true/false$ según sea cero o no.
+\end{itemize}
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{}{\judgeType{\Gamma}{0}{Nat}}(\text{T-Zero})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{Nat}}
+	{\judgeType{\Gamma}{succ(M)}{Nat}}(\text{T-Succ})\hspace*{1cm}
+	\frac{\judgeType{\Gamma}{M}{Nat}}{\judgeType{\Gamma}{pred(M)}{Nat}}(\text{T-Pred})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{Nat}}{\judgeType{\Gamma}{isZero(M)}{Bool}}(\text{T-IsZero})
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^n(0)$$
+
+\paragraph{Axiomas y reglas de evaluación}
+
+{\tiny \begin{equation*}
+		\frac{M_1\to M_1'}{succ(M_1)\to succ(M'_1)}(\text{E-Succ})
+	\end{equation*}
+	\vspace*{5mm}
+	\begin{equation*}
+		\frac{}{pred(0)\to 0}(\text{E-PredZero})\hspace*{1cm}\frac{}{pred(succ(\underline{n}))\to \underline{n}}(\text{E-PredSucc})
+	\end{equation*}
+	\vspace*{5mm}
+	\begin{equation*}
+		\frac{M_1\to M_1'}{pred(M_1)\to pred(M'_1)}(\text{E-Pred})
+	\end{equation*}
+	\vspace*{5mm}
+	\begin{equation*}
+		\frac{}{isZero(0)\to true}(\text{E-IsZeroZero})\hspace*{1cm}\frac{}{isZero(succ(\underline{n}))\to false}(\text{E-isZeroSucc})
+	\end{equation*}
+	\vspace*{5mm}
+	\begin{equation*}
+		\hspace*{1cm}\frac{M_1\to M'_1}{isZero(M_1)\to isZero(M_1')}(\text{E-isZero})
+	\end{equation*}
+}
+
+
+\subsection{Simulación de lenugajes imperativos}
+Los lenguajes imperativos se caracterizan por su capacidad de asignar y modificar variables dentro de un programa. Esto lo hace a través de comandos, expresiones del lenguaje cuyo objetivo es crear un efecto sobre el estado de la computadora. 
+
+Queremos extender el lenguaje $\lambda$ para que poder simular comandos y efectos sobre la memoria.
+
+En un lenguaje imperativo \textbf{todas} las variables son \textbf{mutables}, es decir, que hay operaciones que pueden modificar su valor. Para lograr esto, hace uso de tres operaciones básicas:
+
+\begin{itemize}
+	\item \textbf{Asignación:} $x := M$ almacena en la referencia $x$ el valor de $M$
+	\item \textbf{Alocación (Reserva de memoria)} $ref~M$ genera una referencia fresca cuyo contenido es el valor de $M$
+	\item \textbf{Derreferenciación (Lectura):} $!x$ sigue la referencia $x$ y retorna su contenido.
+\end{itemize}
+
+
+Notemos que una vez que agreguemos estas expresiones al lenguaje lambda, este dejará de ser un lenguaje funcional \textbf{puro} (un lenguaje en el todas sus expresiones carecen de efecto).
+
+Nos gustaría agregar las expresiones mencionadas a nuestro lenguaje, para esto primero debemos asignarles un tipo. 
+
+\paragraph{Asignacion} Lo primero que debemos tener en cuenta, es que la igualdad ($x := M$) es una expresión de la cual no nos interesa saber su valor sino el efecto que tiene la misma sobre el contexto. Entonces, debemos definir un nuevo tipo que nos permita identificar cuando una expresión evaluada solo fue evaluada para generar un efecto. Nombraremos este tipo $Unit$ y su conjunto de valores será solo el valor $unit$. Podemos decir que este tipo cumple el rol de $void$ en C.
+
+\paragraph{Macro punto y coma ( ; )} En lenguajes con efectos laterales, como el que estamos definiendo, esta macro nos servirá para definir el orden de evaluación de varias expresiones en \textbf{secuencia}.
+
+$$M_1;M_2 \equalDef \lambdaApp{(\lambdaAbs{x}{Unit}{M_2})}{M_1} \hspace*{5mm} x\notin FV(M_2)$$
+
+Por como definimos las reglas semánticas del lenguaje, esto significa que primero se evalúa $M_1$ y luego $M_2$. 
+
+\subsubsection{Extensión con Referencias (\texorpdfstring{$\lambda^{bnu}$}{lambda bnu})}
+
+
+
+\paragraph{Referencias}
+Una referencia es una abstracción de una porción de memoria que se encuentra en uso. Usaremos el tipo $Ref~\sigma$ para diferenciar las expresiones que representan referencias. 
+
+\paragraph{Representación}
+Representaremos las posiciones con \textbf{direcciones simbólicas} o \textit{locations} usando etiquetas $l,l_1$ y definiremos a la \textbf{memoria} o \textit{store} como una función parcial $\mu$ que dada una dirección nos devuelve el valor almacenado en ella. Y notaremos:
+\begin{itemize}
+	\item $\mu[l\to V]$ es el store resultante de \textbf{pisar} $\mu(l)$ con $V$.
+	\item $\mu\oplus(l\to V)$ es el \textbf{store extendido} resultante de ampliar $\mu$ con una nueva asociación $l \to V$ asumiendo que $l \notin Dom(\mu)$.    
+\end{itemize}
+
+\paragraph{Uso en semántica} Ahora necesitamos una forma de usar estas nuevas definiciones en nuestras evaluaciones, por lo que agregaremos las etiquetas al conjunto de valores y, a partir de ahora, los juicios de evaluación, tendrán la siguiente forma: 
+$$M|\mu \to M'|\mu'$$
+Esto significa que una expresión $M$ reduce a $M'$ y que afecta a $\mu$ de tal forma que pasa a ser $\mu'$, así reflejaremos los cambios de estado de la memoria.
+
+Notemos que, a pesar de que agregamos las etiquetas $l$ como términos y valores, estás son solo producto de la formalización y \textbf{no} se pretende que sean usadas por el programador.
+
+\paragraph{Uso en tipado} Con la posibilidad de modificar la memoria durante la ejecución de un programa, se hace necesaria la definición de un contexto que nos permita inferir el tipo del valor almacenado en las posiciones usadas. Introducimos el \textbf{contexto de tipado} $\Sigma$ para direcciones como una función parcial de direcciones a tipos. Y los juicios de tipado serán de la siguiente forma:
+
+$$\judgeType{\Gamma|\Sigma}{M}{\sigma}$$
+
+Indicando esto, que $M$ es de tipo $\sigma$ en el contexto $\Gamma$ cuando el estado de la memoria se corresponde con el contexto de tipado $\Sigma$.
+
+\subsubsection{La extension}
+
+\paragraph{Tipos}
+$$\sigma, \tau ~::=~ Bool~|Nat~|~\blue{Unit}~|~\blue{Ref~\sigma}~|~\sigma\to\tau$$
+
+\paragraph{Términos}
+
+$$ M~::=~ \dots~|~unit~|~\lambdaRef{M}~|~!M~|~\lambdaAssign{M}{N}~|~    l$$
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{}{\judgeType{\Gamma|\Sigma}{unit}{Unit}}(\text{T-Unit})\hspace*{1cm}\frac{\judgeType{\Gamma|\Sigma}{M_1}{\sigma}}{\judgeType{\Gamma|\Sigma}{\lambdaRef{M_1}}{Ref~\sigma}}(\text{T-Ref})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma|\Sigma}{M_1}{Ref~\sigma}}{\judgeType{\Gamma}{!M_1}{\sigma}}(\text{T-DeRef})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma|\Sigma}{M_1}{Ref~\sigma}\hspace*{5mm}\judgeType{\Gamma|\Sigma}{M_2}{\sigma}}{\judgeType{\Gamma}{\lambdaAssign{M_1}{M_2}}{Unit}}(\text{T-Assing})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\Sigma(l) = \sigma}{\judgeType{\Gamma|Signa}{l}{Ref~\sigma}}(\text{T-Loc})
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~unit~|~l$$
+
+\paragraph{Axiomas y reglas semánticas}
+\begin{equation*}
+	\frac{M_1|\mu\to M'_1|\mu'}{\lambdaApp{M_1}{M_2}|\mu\to \lambdaApp{M'_1}{M_2}|\mu'}(\text{E-App1})\hspace*{1cm}\frac{M_2|\mu\to M'_2|\mu'}{\lambdaApp{\lambdaValue{V_1}}{M_2}|\mu\to \lambdaApp{\lambdaValue{V_1}}{M'_2}|\mu'}(\text{E-App2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{}{(\lambdaApp{\lambdaAbs{x}{\sigma}{M})}{\lambdaValue{V}}|\mu\to \replaceBy{M}{x}{\lambdaValue{V}}|\mu'}(\text{E-AppAbs})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_1|\mu\to M'_1|\mu'}{!M_1|\mu\to !M_1'|\mu'}(\text{E-DeRef})\hspace*{1cm}
+	\frac{\mu(l) = \lambdaValue{V}}{!l|\mu\to V|\mu}(\text{E-DerefLoc})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_1|\mu\to M'_1|\mu'}{\lambdaAssign{M_1}{M_2}|\mu\to \lambdaAssign{M'_1}{M_2}|\mu'}(\text{E-Assign1})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_2|\mu\to M'_2|\mu'}{\lambdaAssign{\lambdaValue{V}}{M_2}|\mu\to \lambdaAssign{\lambdaValue{V}}{M'_2}|\mu'}(\text{E-Assign2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{}{\lambdaAssign{l}{\lambdaValue{V}}|\mu\to unit|\mu[l\to \lambdaValue{V}]}(\text{E-Assign})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_1|\mu\to M'_1|\mu'}{\lambdaRef{M_1}|\mu\to \lambdaRef{M'_1}|\mu'}(\text{E-Ref})\hspace*{1cm}
+	\frac{l\notin Dom(\mu)}{\lambdaRef{\lambdaValue{V}}|\mu\to l|\mu\oplus(l\to \lambdaValue{V})}(\text{E-RefV})
+\end{equation*}
+
+\subsubsection{Correción de tipos en un lenguaje con referencias}
+Al agregar referencia, hay consecuencias. Una de ellas es que no todo término cerrado y bien tipado termina. Por lo que debemos reformular las definiciones de corrección del lenguaje, es decir, debemos indicar que significa el \textbf{progreso} y la \textbf{preservación} cuando hay referencias.
+
+\subsubsection{Preservación} La preservación nos aseguraba que no importa cuantas veces reduzcamos una expresión, esta debería mantener su tipo. Sin embargo, con las asignaciones podemos cambiar el tipo de ciertos valores durante la ejecución de un programa, lo que implica que la expresión podria cambiar su tipo. Para definir la preservación precisamos una noción de compatibilidad entre el store y el contexto de tipado que nos permita asegurar que si los valores no cambian su tipo, entonces la expresión mantiene su tipo.
+
+Decimos que $\Gamma|\Sigma\triangleright\mu$ si y solo si $Dom(\Sigma) = Dom(\mu)$ y $\judgeType{\Gamma|Sigma}{\mu(l)}{\Sigma(l)}$ para todo $l\in Dom(\mu)$. Es decir, $\mu$ es compatible con $\Sigma$ si ambas funciones tiene el mismo dominio, y es cierto que los tipos de cada etiqueta de $\mu$ coinciden con los tipos que se les asignó en $\Sigma$.
+
+Entonces definimos la preservación de la siguiente manera:
+\begin{centrado}
+	\textbf{Si}  $\judgeType{\Gamma|\Sigma}{M}{\sigma}$ y $M|\mu\to N|\mu'$ y $\Gamma|\Sigma\triangleright\mu$ \textbf{entonces existe un} $\Sigma'$ \textbf{que contiene a} $\Sigma$\textbf{ tal que} $\judgeType{\Gamma|\Sigma'}{N}{\sigma}$ y $\Gamma|\Sigma'\triangleright\mu'$
+\end{centrado}
+
+La nueva definición nos dice que dada una expresión $M$ de tipo $\sigma$ y un contexto $\Gamma\Sigma$ compatible con $\mu$, si pasa que cuando reducimos $M|\mu\to N|\mu'$, $mu'$ es compatible con $\Sigma'$, entonces la reducción tendrá el mismo tipo que $M$.
+
+Para que $\mu'$ sea compatible con $\Sigma'$ puede haber dos posibilidad: O qué $\mu' = \mu$ y $\Sigma = \Sigma'$ o qué $\mu'$ sea una extensión de $\mu$, es decir que se haya creado una referencia nueva, en cuyo caso ninguno de los tipos fue modificado y $\Sigma'$ es $\Sigma$ extendido con el tipo de la nueva referencia.
+
+\subsubsection{Progreso} El progreso nos aseguraba que dada una expresión, entonces su ejecución termina en un valor o no termina. Para el nuevo lenguaje, hay que tener en cuenta el contexto de tipado:
+
+\begin{centrado}
+	Si $M$ es cerrado y bien tipado en un contexto de tipado de memoria $\Sigma$, entonces
+	\begin{itemize}
+		\item $M$ es un valor
+		\item o bien para cualquier memoria $\mu$ que sea compatible con $\Sigma$, existe $M'$ y $\mu'$ tal que $M|\mu\to M'|\mu'$
+	\end{itemize}
+\end{centrado}
+
+Esto quiere decir que solo se puede asegurar progreso cuando $\mu$ es compatible con $\Sigma$.
+
+\subsection{Extensión con recursión}\label{lambda_calculo:recursion}
+Queremos dar al lenguaje $\lambda$, la capacidad de interpretar expresiones recursivas. Definimos, entonces, la función $fix M$ que dado para función $M$ devuelve el punto fijo de dicha función, es decir, un valor $x$ tal que $M x$ evalúa a $x$.
+
+Veamos un ejemplo, supongamos que tenemos la función $f(n) = \textbf{If } n=0 \textbf{ then } 1 \textbf{ else } n*f(n-1)$. Cuando evaluamos $f$ en $0$, obtenemos su definición para el valor $O$, cuando la evaluamos en $1$, la definimos para $0$ y $1$, con cada valor que tengamos, la iremos definiendo para ese valor y para todos los anteriores. 
+
+Podríamos pensar que cuando evaluamos $n\to\inf$, obtenemos una función que se define para todos los valores naturales, es decir obtenemos la función factorial, propiamente dicha.
+
+\paragraph{Términos}
+$$M~:=~\dots~|~\lambdaFix{M}$$
+
+\paragraph{Regla de tipado}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{\sigma\to\sigma}}{\judgeType{\Gamma}{\lambdaFix{M}}{\sigma}}(\text{T-Fix})
+\end{equation*}
+
+\paragraph{Reglas de evaluación}
+\begin{equation*}
+	\frac{M_1\to M'_1}{\lambdaFix{M_1}\to\lambdaFix{M'_1}}(\text{E-Fix})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{}{\lambdaFix{(\lambdaAbs{x}{\sigma}{M})}\to\replaceBy{M}{x}{\lambdaFix{\lambdaAbs{x}{\sigma}{M}}}}(\text{E-FixBeta})
+\end{equation*}
+
+\newpage
+\section{Inferencia de tipos}
+
+Queremos modificar el lenguaje de cálculo lambda para que las expresiones no necesiten las notaciones de tipos explicitas. Para esto debemos definir términos sin información de tipos en los que la información faltante pueda ser \textbf{inferida} de manera sencilla. Esto es, debemos convertir dichos términos en términos bien tipados del cálculo lambda sin ningún problema.
+
+Este nuevo lenguaje, nos evitará la sobrecarga de tener que declarar y manipular todos los tipos al momento de escribir un programa. Sin embargo, debemos tener en cuenta que, durante la compilación de los mismos, hay que hacer la inferencia de tipos, es decir, el compilador se deberá encargar de pasar el lenguaje que definamos a uno lambda tipado antes de poder compilar el programa.
+
+\subsubsection*{Términos}
+El lenguaje sin tipos tendrá todos los términos del lenguaje $\lambda$ con el que estuvimos trabajando hasta ahora, con la diferencia de que si en ellos había una notación de tipo, entonces la obviamos:
+
+\begin{equation*}
+	\begin{split}
+		M~::=~&x \\
+		|~~~&true~|~false~|~\lambdaIf{M}{P}{Q} \\
+		|~~~&0~|~succ(0)~|~isZero(M) \\
+		|~~~& \lambdaAbsI{x}{M}~|~M~N~|~\lambdaFix{M}
+	\end{split}
+\end{equation*}
+
+Ahora, si bien la mayoría de los términos son iguales a los términos originales, necesitariamos alguna forma de convertir los términos del lambda cálculo a términos no tipados y viceversa. Para el primer caso, definimos la función $\Erase$ que dado un término del lambda cálculo, \textbf{elimina} las anotaciones de tipos de las abstracciones que contenga. Por ejemplos: 
+
+$$\Erase(\lambdaAbs{x}{Nat}{\lambdaAbs{f}{Nat\to Nat}{f~x}}) = \lambdaAbsI{x}{\lambdaAbsI{f}{f~x}}$$
+
+\paragraph{Chequeos de tipo}
+Realizar el chequeo de tipo es determinar, para un término estándar (del lenguaje $\lambda$ tipado) $M$, si existe $\Gamma$ y $\sigma$ tales que $\judgeType{\Gamma}{M}{\sigma}$ es derivable. Osea que nos indica si $M$ es un término tipable o no.
+
+Este chequeo  es facil de realizar, ya que solo hay que seguir la estructura sintáctica de $M$ para reconstruir una derivación de juicio. 
+
+\subsubsection*{Definición de inferencia}
+En cambio, con la inferencia de tipos, dado un término $U$ sin notaciones de tipo, se trata hallar un término estándar (con anotaciones de tipos) $M$ tal que:
+\begin{enumerate}
+	\item $\judgeType{\Gamma}{M}{\sigma}$ para algún $\Gamma$ y $\sigma$, y
+	\item $\Erase(M) = U$
+\end{enumerate}
+
+Lo que estamos diciendo es que queremos encontrar una expresión bien tipada $M$ del lenguaje lambda que sea equivalente a $U$. Si encontramos este $M$, $U$ será de tipo $\sigma$, sino $U$ será una expresión no tipable en nuestro lenguaje.
+
+
+\subsubsection{Variables de tipo}
+Supongamos que tenemos la expresión $U = \lambdaAbsI{x}{x}$. En este caso, si queremos tipar $U$, nos damos cuenta que puede ser la función identidad de cualquier tipo. Como cualquiera de estas expresiones es igual de válida necesitamos escribir esto en nuestra solución, para eso usamos las \textbf{variables de tipo}.
+
+Una \textbf{variables de tipo} s es una variable que representa una expresión de tipo arbitraria e indica que no importa por que expresión de tipo la remplacemos, tendremos una solución válida. Esto nos permitirá escribir que la expresión $M$ resultante de inferir los tipos de $U$ será $M=\lambdaAbs{x}{\textbf{s}}{x}$ donde \textbf{s} puede ser cualquier tipo de nuestro lenguaje.
+
+Debemos agregar esta nueva expresión a las expresiones  de tipo del cálculo lambda:
+
+$$\sigma~::=~\text{s}~|~Nat~|~Bool~|~\sigma\to\tau$$
+
+
+\subsection{Sustitución de tipos}
+Una función $S$ de sustitución es una función que mapea variables de tipo en expresiones de tipo y puede ser aplicada a expresiones de tipos ($S\sigma$), términos ($SM$) y contextos de tipado ($S\Gamma$).
+
+Describimos $S$ usando la notación $\{\sigma_1/t_1,\dots,\sigma_n/t_n\}$ indicando que la variable $t_i$ debe ser remplazada por $\sigma_1$. Además, definimos el \textbf{conjunto soporte} de $S$ al conjunto $\{t_1,\dots,t_n\}$ como el conjunto que representa las variables que afecta $S$.
+
+Por ejemplo, si $S = \{  Bool/t \}$, entonces $S(\lambdaAbs{x}{\text{t}}{x}) = \lambdaAbs{x}{ Bool}{x}$ y el tipo soporte de $S$ es $\{t\}$.
+
+La sustitución cuyo soporte es $\emptyset$, es la \textbf{sustitución identidad}.
+
+
+\hspace*{5mm}
+Si tenemos dos juicios de tipado $\judgeType{\Gamma}{M}{\sigma}$ y $\judgeType{\Gamma'}{M'}{\sigma'}$ tales que $\judgeType{\Gamma'}{M'}{\sigma'}$ es el resultado de aplicar alguna función de sustitución $S$ a $\judgeType{\Gamma}{M}{\sigma}$, entonces decimos que $\judgeType{\Gamma'}{M'}{\sigma'}$ es instancia de $\judgeType{\Gamma}{M}{\sigma}$
+
+\paragraph{Composición de sustituciones} La composición de sustituciones de $S$ y $T$, denotada $S\circ T$, es la sustitución que se comporta como sigue:
+
+$$(S\circ T)(\sigma) = S(T\sigma)$$
+
+\paragraph{Preorden de sustituciones} Una sustitución $S$ es \textbf{más general} que $T$ si existe una sustitución $U$ tal que $T = U\circ S$, es decir, si $T$ es una instancia de $S$.
+
+
+\subsubsection{Unificación}
+El algoritmo de inferencia que vamos a proponer analiza un término (sin notaciones de tipos) a partir de sus subtérminos. Una vez obtenida la información para cada uno de los subtérminos debe determinar si la información de cada uno de ellos es consistente (\textbf{consistencia})y, si lo es, sintetizar la información del término original a partir de esta (\textbf{Síntesis}).
+
+Para realizar la síntesis debemos \textbf{compatibilizar} la información de tipos de cada subtérmino, por cada variable $x$ del término tenemos que tomar los tipos que le asigno cada súbtermino y unificarlos. Es decir, debemos encontrar una sustitución $S$ que nos permita remplazar los tipos que dió cada subexpresión por un tipo único. Veamos un ejemplo:
+
+Sea $M = x~y + x~(y+1)$, del primer súbtermino $x~y$ ténemos que $x :: \text{s}\to \text{t}$ e $y :: \text{s}$, del subtérmino $x~(y+1)$ tenemos que $x::Nat\to \text{u}$ e $y :: Nat$. Ahora, $x$ e $y$ pueden tener un solo tipo en $M$, por lo que necesitamos una sustitución que nos permita unificar $\text{s}\to \text{t}$ con $Nat\to \text{u}$ y $s$ con $Nat$. En este caso podemos definir $S = \{Nat/\text{s},~\text{u}/\text{t}\}$, concluyendo que $x :: Nat\to\text{t}$ e $y:Nat$.
+
+\paragraph{Ecuación de unificación} Es una expresión de la forma $\sigma_1 \equalDot \sigma_2$ cuya solución es una sustitución tal que $S\sigma_1 = S\sigma_2$. Por lo general tendremos un conjunto de ecuaciones de unificación y la solución a dicho conjunto será la sustitución que unifica todas las expresiones.
+
+En el ejemplo anterior, las ecuaciones de unificación hubiesen sido $\{\text{s}\to\text{t}\equalDot Nat\to\text{u},~\text{s}\equalDot Nat\}$
+
+Diremos que una sustitución $S$ es un \textbf{unificador más general (MGU)} de $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$, si es solución de ese conjunto y es más general que cualquier otra de sus soluciones.
+
+
+
+\paragraph{Teorema} Si $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$ tiene solución, entonces existe un MGU y además es único salvo renombre de variables.
+
+\subsubsection{Algoritmo de unificación de Martelli-Montanari}
+
+Dado un conjunto de ecuaciones de unifiación $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$, vamos a presentar un algoritmo no-deterministico que consiste en \textbf{reglas de simplificación} que reescriben conjuntos de pares de tipos a unificar (\textit{goals}).
+
+Las secuencias que terminan en un \textit{goal} vacío son \textbf{exitosas}, el resto, son \textbf{fallidas}. Si una secuencia es exitosa, entonces los pasos en los que realizamos sustituciones serán soluciones parciales al problema y la composición de todas ellas será el MGU.
+
+\subsubsection{Reglas de reducción}
+
+\begin{enumerate}
+	\item \textbf{Descomposición}
+	
+	$\{\sigma_1\to\sigma_2 \equalDot\tau_1\to\tau_2\}\cup G\mapsto \{\sigma_1\equalDot\tau_1,~\sigma_2 \equalDot\tau_2\}\cup G$
+	\item \textbf{Eliminación de par trivial}
+	
+	$\{Nat \equalDot Nat\}\cup G\mapsto G$
+	
+	$\{ Bool \equalDot Bool\}\cup G\mapsto G$
+	
+	$\{\text{s} \equalDot\text{s}\}\cup G\mapsto G$
+	\item \textbf{Swap} Si $\sigma$ no es una variable,
+	
+	$\{\sigma \equalDot\text{s}\}\cup G\mapsto \{\text{s}\equalDot\sigma\}\cup G$
+	
+	\item \textbf{Eliminación de variable} Si $s\notin FV(\sigma)$
+	
+	$\{\text{s}\equalDot\sigma\}\cup G\mapsto_{\sigma/s} G[\sigma/s]$
+	
+	\item \textbf{Falla}
+	
+	$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$, con $(\sigma,\tau)\in T\cup T^{-1}$ y $T =\{( Bool,Nat), (Nat, \sigma_1\to\sigma_2), ( Bool, \sigma_1\to\sigma_2\}$. Acá, la notación $T^{-1}$ se refiere al conjunto con cada tupla de $T$ invertida.
+	
+	\item \textbf{Occur Check} Si $s\neq\sigma$ y $s\in FV(\sigma)$
+	
+	$\{\text{s}\equalDot\sigma\}\cup G\mapsto \red{\texttt{falla}}$
+\end{enumerate}
+
+\subsubsection{Propiedades del algoritmo}
+El algoritmo de Martinelli-Montanari siempre termina. Sea $G$ un conjunto de pares, entonces:
+\begin{itemize}
+	\item Si $G$ tiene un unificador, el algoritmo termina exitosamente y retorna un MGU.
+	\item Si $G$ no tiene un unificador, el algoritmo termina con \red{\texttt{falla}}.
+\end{itemize}
+
+\subsubsection{Ejemplo de aplicación}
+\begin{equation*}
+	\begin{split}
+		&\{(Nat\to r)\to(r\to u) \equalDot t\to(s\to s)\to t\}
+		\mapsto^1 \{Nat\to r\equalDot t,~r\to u\equalDot (s\to s)\to t\} \\
+		&\mapsto^3 \{t\equalDot Nat\to r,~r\to u\equalDot (s\to s)\to t\} 
+		\mapsto^4_{Nat\to r/t} \{r\to u\equalDot (s\to s)\to (Nat\to r)\} \\
+		&\mapsto^1 \{r\equalDot(s\to s),~u\equalDot Nat\to r\} 
+		\mapsto^4_{s\to s/r} \{u\equalDot Nat\to (s\to s)\}
+		\mapsto^4_{Nat\to(s\to s)/u} \emptyset \\
+	\end{split}
+\end{equation*}
+
+Entonces, el MGU es 
+
+$\{Nat\to(s\to s)/u\}\circ\{s\to s/r\}\circ\{Nat\to r/t\} = \{Nat\to(s\to s)/u,~s\to s/r,~Nat\to (s\to s)/t\}$
+
+\subsection{Función de inferencia \texorpdfstring{$\mathbb{W}$}{W}}
+Vamos a definir una función $\mathbb{W}$ que dada una expresión $U$ sin notación de tipos, nos devolverá un juicio de tipado con una expresión tipada $M$ que corresponde a $U$. Esta función, la ejecutaremos de manera recursiva sobre las sub-expresiones de $U$ y sustituirá, si es posible, los tipos de cada una de ellas para que tengan ``sentido'' en $U$.
+
+
+
+
+\subsubsection{Propiedades deseables de \texorpdfstring{$\WFunc$}{W}}
+Dado un término $U$, $\WFunc(U)$ nos devolverá, si tiene éxito, una terna de tres elementos que serán un contexto de tipado $\Gamma$ una expresión $M$ y un $\sigma$ (notamos $\WFunc(U) = \judgeType{\Gamma}{M}{\sigma}$).
+
+Queremos que $\WFunc$ sea \textbf{correcto} y \textbf{completo}.
+
+\paragraph{Correctitud} $\WFunc(U) = \judgeType{\Gamma}{M}{\sigma}$ implica que $\Erase(M) = U$ y $\judgeType{\Gamma}{M}{\sigma}$ es derivable. Osea que $M$ es una expresión de tipo $\sigma$ en un contexto $\Gamma$ tal que si le borramos las notaciones de tipo, se convierte en $U$.
+
+\paragraph{Completitud} Si $\judgeType{\Gamma}{M}{\sigma}$ es derivable y $\Erase(M) = U$, entonces:
+$\WFunc(U)$ tiene éxito y produce un juicio $\judgeType{\Gamma'}{M'}{\sigma'}$ que es instancia del mismo. En otras palabras, si $U$ se puede obtener a partir de una expresión $M$, entonces $\WFunc$ deberá devolver el juicio de tipado que corresponde a $M$ o uno más general (esto es con variables de tipos, si resulta que $U$ podría ser de otros tipos).
+
+\subsubsection{Algoritmo de inferencia}
+El objetivo es definir $\WFunc$ por recursión sobre la estructura de $U$, por lo que definirla, primero, para las construcciones más simples y luego para las expresiones compuetas. Además, el algoritmo se valdrá del algoritmo de unificación para combinar los resultados de los pasos recursivos y, así, obtener un tipado consistente.
+
+\subsubsection{Constantes y variables}
+\begin{equation*}
+	\begin{split}
+		\WFunc(\red{true}) &\equalDef \judgeType{\emptyset}{true}{Bool} \\
+		\WFunc(\red{false}) &\equalDef \judgeType{\emptyset}{false}{Bool} \\
+		\WFunc(\red{x}) &\equalDef \judgeType{\{x:s\}}{x}{s}, \text{ \textit{s} variable fresca } \\
+		\WFunc(\red{0}) &\equalDef \judgeType{\emptyset}{0}{Nat} \\
+	\end{split}
+\end{equation*}
+
+\subsubsection{Caso \textit{succ}}
+$\WFunc(\red{succ(U)}) \equalDef \judgeType{S\Gamma}{S~succ(M)}{Nat}$
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U) = \judgeType{\Gamma}{M}{\tau}$
+		\item $S = MGU\{\tau\equalDot Nat\}$
+	\end{itemize}
+\end{centrado}
+
+\subsubsection{Caso \textit{pred}}
+$\WFunc(\red{pred(U)}) \equalDef \judgeType{S\Gamma}{S~pred(M)}{Nat}$
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U) = \judgeType{\Gamma}{M}{\tau}$
+		\item $S = MGU\{\tau\equalDot Nat\}$
+	\end{itemize}
+\end{centrado}
+
+\subsubsection{Caso \textit{isZero}}
+$\WFunc(\red{isZero(U)}) \equalDef \judgeType{S\Gamma}{S~isZero(M)}{Bool}$
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U) = \judgeType{\Gamma}{M}{\tau}$
+		\item $S = MGU\{\tau\equalDot Nat\}$
+	\end{itemize}
+\end{centrado}
+
+\subsubsection{Caso \textit{ifThenElse}}
+$\WFunc(\red{\lambdaIf{U}{V}{W}}) \equalDef \judgeType{S\Gamma_1\cup S\Gamma_2\cup S\Gamma_3}{S~(\lambdaIf{M}{P}{Q})}{S\sigma}$
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U) = \judgeType{\Gamma_1}{M}{\rho}$
+		\item $\WFunc(V) = \judgeType{\Gamma_2}{P}{\sigma}$
+		\item $\WFunc(W) = \judgeType{\Gamma_3}{Q}{\tau}$
+		\item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{\sigma\equalDot\tau\,~\rho\equalDot Bool\}$
+	\end{itemize}
+\end{centrado}
+
+\subsubsection{Caso aplicación}
+$\WFunc(\red{U~V}) \equalDef \judgeType{S\Gamma_1\cup S\Gamma_2}{S~(M~N)}{St}$
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U) = \judgeType{\Gamma_1}{M}{\tau}$
+		\item $\WFunc(V) = \judgeType{\Gamma_2}{N}{\rho}$
+		\item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{\tau\equalDot\rho\to t\}$ con $t$ variable fresca
+	\end{itemize}
+\end{centrado}
+
+\subsubsection{Caso abstracción}
+$$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma \backslash\{x:\tau\}}{\lambdaAbs{x}{\tau}{M}}{\tau\to\rho}$$
+
+
+Sea $\WFunc(U) = \judgeType{\Gamma}{M}{\rho}$, si $\Gamma$ tiene información de tipos para $x$, es decir $x:\tau\in\Gamma$ para algún $\tau$, entonces:
+
+$$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma \backslash\{x:\tau\}}{\lambdaAbs{x}{\tau}{M}}{\tau\to\rho}$$
+
+Si $\Gamma$ no tiene información de tipos para $x$ ($x\notin \text{Dom}(\Gamma)$), entonces elegimos una variable fresca $s$ y
+
+$$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma}{\lambdaAbs{x}{s}{M}}{s\to\rho}$$
+
+\subsubsection{Caso \textit{fix}}
+$\WFunc(\red{\lambdaFix{(U)}}) \equalDef \judgeType{S\Gamma}{S~\lambdaFix{(M)}}{St}$
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U) = \judgeType{\Gamma_1}{M}{\tau}$
+		\item $S = MGU\{\tau\equalDot t\to t\}$ con $t$ variable fresca
+	\end{itemize}
+\end{centrado}
+
+\subsubsection{Complejidad del algoritmo}
+Tanto la unificación como la inferencia para cálculo lambda se puede realizar en tiempo lineal. Sin embargo, el tipo principal asociado a un término sin anotaciones puede ser \red{exponencial} en el tamaño del término.
+
+\subsubsection{Extensión del algoritmo a nuevos tipos}
+Para extender el algoritmo a otros tipos debemos agregar los casos correspondientes al nuevo tipo teniendo en cuenta que los llamados recursivos devuelven un contexto, un término y un tipo sobre los que no podemos asumir nada.
+Si la nueva regla tiene tipos iguales o contextos repetidos, debemos unificarlos. Y si la regla liga alguna variable, entonces vamos a poder dividir en dos casos: 
+Si alguno de los contextos recursivos tiene información sobre esa variable, entonces sacamos su tipo del contexto que la contenga, sino le asignamos una variable fresca de tipo. Si la regla tiene restricciones adicionales, se incorporan como posibles fallas. Veamos un ejemplo para la extensión de listas (definida en el ejercicio 17 de la práctica 2).
+
+\subsubsection{Extensión del algoritmo para listas}
+$\WFunc([]) = \judgeType{\emptyset}{\List{t}}{t}$ con $t$ variable fresca.
+
+$\WFunc(U_1::U_2) = \judgeType{S\Gamma_1\cup S\Gamma_2}{S(M_1::M_2)}{S[\sigma_1]}$
+
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U_i) = \judgeType{\Gamma_i}{M_i}{\sigma_i}$
+		\item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{[\sigma_1]\equalDot\sigma_2\} $
+	\end{itemize}
+\end{centrado}
+
+
+$\WFunc(\lambdaListCase{U}{U_2}{U_3}) =$
+
+\quad$\judgeType{S\Gamma_1\cup S\Gamma_2\cup S\Gamma_3\backslash\{h,t\}}{S(\lambdaListCase{M_1}{M_2}{M_3})}{S\sigma_2}$
+
+\begin{centrado}
+	\begin{itemize}
+		\item $\WFunc(U_i) = \judgeType{\Gamma_i}{M_i}{\sigma_i}$ con $i = 1,2,3$
+		\item $S = MGU\{\sigma_1\equalDot \sigma_2~|~x:\sigma_1\in\Gamma_i~\land~x:\sigma_2\in\Gamma_j,~i\neq j\}\cup\{\sigma_1\equalDot [t_1],~t_1\equalDot \tau_h,~\tau_t\equalDot \sigma_1,~\sigma_2\equalDot\sigma_3\} $ con 
+		\[ \tau_h = \begin{cases} 
+		\sigma_h & \text{si } h:\sigma_h\in\Gamma_3 \\
+		t_2 & \text{sino} \\
+		\end{cases} \hspace*{5mm}\text{ y }\hspace*{5mm}
+		\tau_t = \begin{cases} 
+		\sigma_t & \text{si } t:\sigma_t\in\Gamma_3 \\
+		t_2 & \text{sino} \\
+		\end{cases}
+		\]
+	\end{itemize}
+\end{centrado}
+
+\newpage
+\section{Subtipado}
 \appendix
-\input{apendice_haskell}
+\newpage
+\part{Apéndices}
+
+\section{Programación funcional en Haskell}
+\paragraph{Tipos elementales}
+\begin{centrado}
+	\begin{minted}{haskell}
+		1               -- Int          Enteros
+		'a'             -- Char         Caracteres
+		1.2             -- Float        Números de punto flotante
+		True            -- Bool         Booleanos
+		[1,2,3]         -- [Int]        Listas
+		(1, True)       -- (Int, Bool)  Tuplas, pares
+		length          -- [a] -> Int   Funciones
+		length [1,2,3]  -- Int          Expresiones
+		\x -> x         -- a -> a       Funciones anónimas
+	\end{minted}
+\end{centrado}
+
+\paragraph{Guardas}
+\begin{centrado}
+	\begin{minted}{haskell}
+		signo n | n >= 0    = True
+		| otherwise = False
+	\end{minted}
+\end{centrado}
+
+\paragraph{Pattern Matching}
+\begin{centrado}
+	\begin{minted}{haskell}
+		longitud [] = 0
+		longitud (x:xs) = 1 + (longitud xs)
+	\end{minted}
+\end{centrado}
+
+\paragraph{Polimorfismo paramétrico}
+\begin{centrado}
+	\begin{minted}{haskell}
+		todosIguales :: Eq a => [a] -> Bool
+		todosIguales [] = True
+		todosIguales [x] = True
+		todosIguales (x:y:xs) = x == y && todosIguales(y:xs)
+	\end{minted}
+\end{centrado}
+
+\paragraph{Clases de tipo}
+\begin{centrado}
+	\begin{minted}{haskell}
+		Eq a    -- Tipos con comparación de igualdad
+		Num a   -- Tipos que se comportan como los números
+		Ord a   -- Tipos orden
+		Show a  -- Tipos que pueden ser representados como strings
+	\end{minted}
+\end{centrado}
+
+\paragraph{Definición de listas}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		[1,2,3,4,5]                 -- Por extensión
+		[1 .. 4]                    -- Secuencias aritméticas
+		[ x | x <- [1..], esPar x ] -- Por compresión
+		
+		-- Las listas pueden ser infinitas, solo hay que tener cuidado cuando las usamos. Ejemplo de lista infinita:
+		
+		infinitosUnos :: [Int]
+		infinitosUnos = 1 : infinitosUnos
+		
+		puntosDelCuadrante :: [(Int, Int)]
+		puntosDelCuadrante = [ (x, s-x) | s <- [0..], x <-[0..s] ]
+	\end{minted}
+\end{centrado}
+
+\paragraph{Funciones de alto orden}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		mejorSegun :: (a -> a -> Bool) -> [a] -> a
+		mejorSegun _ [x] = x
+		mejorSegun f (x : xs) | f x (mejorSegun f xs) = x
+		| otherwise = mejorSegun f xs
+	\end{minted}
+\end{centrado}
+
+\subsection{Otros tipos útiles}
+\paragraph{Formula}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		data Formula = Proposicion String | No Formula 
+		| Y Formula Formula
+		| O Formula Formula
+		| Imp Formula Formula
+		
+		foldFormula :: (String -> a) -> (Formula -> a) -> 
+		(Formula -> Formula -> a) -> (Formula -> Formula -> a) 
+		-> (Formula -> Formula -> a) -> Formula -> a
+		foldFormula fp fn fy fo fImp form = case form of :
+		Proposicion s -> fp s
+		No sf -> fn (rec sf)
+		Y sf1 sf2 -> fy (rec sf1) (rec sf2)
+		O sf1 sf2 -> fo (rec sf1) (rec sf2)
+		Impl sf1 sf2 -> fImpl (rec sf1) (rec sf2)
+		where rec = foldForm fp fn fy fo fImp
+	\end{minted}
+\end{centrado}
+
+\paragraph{Rosetree}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+		data Rosetree = Rose a [Rosetree]
+		-- Hay varias formas de definir el fold para esta estructura
+		foldRose :: (a -> [b] -> b) -> Rosetree a -> b
+		foldRose f ( Rose x l ) = f x ( map ( foldRose f ) l )
+		
+		foldRose2 :: ( a -> c -> b) -> ( b -> c -> c ) -> c 
+		-> Rosetree a -> b
+		foldRose2 g f z (Rose x l) = 
+		g x ( foldr f z ( map ( foldRose g f z ) l ) )
+		
+	\end{minted}
+\end{centrado}
+
 
 \newpage
-\input{apendice_extensiones_lambda}
+\section{Extensiones del lenguaje \texorpdfstring{$\lambda^b$}{lambda b}}
 
+
+
+\subsection{Registros \texorpdfstring{$\lambda^{...r}$}{lambda ...r}}
+
+\paragraph{Tipos}
+$$\sigma, \tau ~::=~...~|~\{l_i : \sigma_i ~^{i\in 1..n}\}$$
+
+El tipo $\{l_i : \sigma_i^{i\in 1..n}\}$ representan las estructuras con $n$ atributos tipados, por ejemplo: $\{nombre : String,edad:Nat\}$
+\paragraph{Términos}
+$$ M~::=~ \dots~|~\{l_i = M_i ~^{i\in 1..n}\}~|~M.l $$
+
+Los términos significan:
+\begin{itemize}
+	\item El registro $\{l_i = M_i ~^{i\in 1..n}\}$ evalua $\{l_i = V_i ~^{i\in 1..n}\}$  donde $V_i$ es el s al que evalúa $M_i$ para $i\in 1..n$.
+	\item $M.l$: Proyecta el valor de la etiqueta $l$ del registro $M$
+\end{itemize}
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M_i}{\sigma_i} \text{ para cada } i \in 1..n}{\judgeType{\Gamma}{\{l_i = M_i ~^{i\in 1..n}\}}{\{l_i : \sigma_i ~^{i\in 1..n}\}}}(\text{T-RCD})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{\{l_i = M_i ~^{i\in 1..n}\}}{\{l_i : \sigma_i ~^{i\in 1..n}\}}\hspace*{5mm} j \in 1..n}
+	{\judgeType{\Gamma}{M.l_j}{\sigma_j}}(\text{T-Proj})
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~\{l_i = V_i ~^{i\in 1..n}\}$$
+
+\paragraph{Axiomas y reglas de evaluación}
+
+\begin{equation*}
+	\frac{j\in 1..n}{\{l_i = \lambdaValue{V_i} ~^{i\in 1..n}\}.l_j \to \lambdaValue{V_j}}(\text{E-ProjRcd})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M \to M'}{M.l \to M'.l}(\text{E-Proj})
+\end{equation*}
+
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_j\to M_j'}{\{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M_j, l_i = M_i ~^{i\in j+1..n}\} \to \{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M'_j, l_i = M_i ~^{i\in j+1..n}\}}(\text{E-RCD})
+\end{equation*}
+\vspace*{5mm}
+\subsection{Declaraciones Locales (\texorpdfstring{$\lambda^{...let}$}{lambda ...let})}\label{extension_lambda:let}
+
+Con esta extensión, agregamos al lenguaje el término $\lambdaLet{x}{\sigma}{M}{N}$, que evalúa $M$ a un valor, liga $x$ a $V$ y, luego, evalúa $N$. Este término solo mejora la legibilidad de los programas que ya podemos definir con el lenguaje hasta ahora definido.
+
+\paragraph{Términos}
+$$ M~::=~ \dots~|~\lambdaLet{x}{\sigma}{M}{N} $$
+
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{\sigma_1}\hspace*{5mm}\judgeType{\Gamma,x:\sigma_1}{N}{\sigma_2}}{\judgeType{\Gamma}{\lambdaLet{x}{\sigma_1}{M}{N}}{\sigma_2}}(\text{T-Let})
+\end{equation*}
+
+\paragraph{Axiomas y reglas de evaluación}
+
+\begin{equation*}
+	\frac{M_1\to M_1'}{\lambdaLet{x}{\sigma}{M_1}{M_2}\to \lambdaLet{x}{\sigma}{M'_1}{M_2}}(\text{E-Let})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{}{\lambdaLet{x}{\sigma}{\lambdaValue{V_1}}{M_2}\to \replaceBy{M_2}{x}{\lambdaValue{V_1}}}(\text{E-LetV})
+\end{equation*}
+
+\subsubsection{Construcción \textit{let} recursivo (Letrec)}
+Una construcción alternativa para definir funciones recursivas es 
+$$letrec~f:\sigma\to\sigma = \lambdaAbs{x}{\sigma}{M~in~N}$$
+
+Y $letRec$ se puede definir  en base a $let$ y $fix$ (definido en \ref{lambda_calculo:recursion}) de la siguiente forma:
+
+$$\lambdaLet{f}{\sigma\to\sigma}{(\lambdaFix{\lambdaAbs{f}{\sigma\to\sigma}{\lambdaAbs{x}{\sigma}{M}}})}{N}$$
+
+\subsection{Tuplas}
+
+\paragraph{Tipos}
+$$\sigma,\tau~::= \dots~|~\sigma\times\tau$$
+
+\paragraph{Términos}
+$$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}}{\judgeType{\Gamma}{<M,N>}{\sigma\times\tau}}(\text{T-Tupla})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_1(M)}{\sigma}}(\text{T-}\pi_1)\hspace*{1cm}\frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_2(M)}{\tau}}(\text{T-}\pi_2)
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~<V,V>$$
+
+\paragraph{Axiomas y reglas de evaluación}
+\begin{equation*}
+	\frac{M\to M'}{<M,N>\to<M',N>}(\text{E-Tuplas})\hspace*{1cm}\frac{N\to N'}{<\lambdaValue{V},N>\to<\lambdaValue{V},N'>}(\text{E-Tuplas1})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\pi_1(M)\to\pi_1(M')}(\text{E-}\pi_1)\hspace*{1cm}\frac{}{\pi_1(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_1}}(\text{E-}\pi'_1)
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\pi_2(M)\to\pi_2(M')}(\text{E-}\pi_2)\hspace*{1cm}\frac{}{\pi_2(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_2}}(\text{E-}\pi'_2)
+\end{equation*}
+
+\subsection{Árboles binarios}
+
+\paragraph{Tipos}
+$$\sigma,\tau~::= \dots~|~AB_\sigma$$
+
+\paragraph{Términos}
+$$M,~N~::=~\dots~|~\text{Nil}_\sigma~|~\text{Bin}(M, N, O)~|~\text{raiz}(M)~|~\text{der}(M)~|~\text{izq}(M)~|~\text{esNil}(M)$$
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\begin{gathered}
+		\frac{}{\judgeType{\Gamma}{\text{Nil}_\sigma}{AB_\sigma}}(\text{T-Nil})\hspace*{1cm}
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{O}{AB_\sigma}}{\judgeType{\Gamma}{\text{Bin}(M, N, O)}{AB_\sigma}}(\text{T-Bin}) \\
+		\vspace*{5mm}\\
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{raiz}(M)}{\sigma}}(\text{T-raiz})\hspace*{1cm}
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{der}(M)}{AB_\sigma}}(\text{T-der})
+		\vspace*{5mm} \\
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{izq}(M)}{AB_\sigma}}(\text{T-izq})
+		\hspace*{1cm}
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{isNil}(M)}{Bool}}(\text{T-isNil})
+	\end{gathered}
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)$$
+
+\paragraph{Axiomas y reglas de evaluación}
+\begin{equation*}
+	\frac{M\to M'}{\text{Bin}(M,N,O)\to \text{Bin}(M',N,O)}(\text{E-Bin1})\hspace*{1cm}\frac{N\to N'}{\text{Bin}(V,N,O)\to \text{Bin}(V,N',O)}(\text{E-Bin2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{O\to O'}{\text{Bin}(V_1,V_2,O)\to \text{Bin}(V_1,V_2,O')}(\text{E-Bin3})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\text{raiz}(M)\to\text{raiz}(M')}(\text{E-Raiz1})\hspace*{1cm}\frac{}{\text{raiz}(\text{Bin}(V_1,V_2,V_3))\to V_2}(\text{E-Bin3})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\text{der}(M)\to\text{der}(M')}(\text{E-Der1})\hspace*{1cm}\frac{}{\text{der}(\text{Bin}(V_1,V_2,V_3))\to V_3}(\text{E-Der2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\text{izq}(M)\to\text{izq}(M')}(\text{E-Izq1})\hspace*{1cm}\frac{}{\text{izq}(\text{Bin}(V_1,V_2,V_3))\to V_1}(\text{E-Izq2})
+\end{equation*}
+\hspace*{5mm}
+\begin{equation*}
+	\frac{}{\text{isNil}(M)\to\text{izq}(M')}(\text{E-isNil1})\hspace*{1cm}\frac{}{\text{isNil}(\text{Bin}(V_1,V_2,V_3))\to false}(\text{E-isNilBin})
+\end{equation*}
+\hspace*{5mm}
+\begin{equation*}
+	\frac{}{\text{isNil}(\text{Bin}(V_1,V_2,V_3))\to true}(\text{E-isNilNil})
+\end{equation*}
 \end{document}
