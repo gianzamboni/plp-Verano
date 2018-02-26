@@ -20,8 +20,8 @@
 \begin{equation*}
 \begin{split}
 &S(\judgeType{\{x:t\to Bool\}}{\lambdaAbs{x}{t_1\to Bool}{x}}{Nat\to t_2}) \\
-&= \judgeType{S\{x:t\to Bool\}}{S(\lambdaAbs{x}{t_1\to Bool}{x})}{S(Nat\to t_2)} \\
-&= \judgeType{\{x:Bool\to Bool\}}{\lambdaAbs{x}{t_2\to t_3\to Bool}{x}}{Nat\to t_2}
+= &\judgeType{S\{x:t\to Bool\}}{S(\lambdaAbs{x}{t_1\to Bool}{x})}{S(Nat\to t_2)} \\
+= &\judgeType{\{x:Bool\to Bool\}}{\lambdaAbs{x}{t_2\to t_3\to Bool}{x}}{Nat\to t_2}
 \end{split}
 \end{equation*}
 
@@ -203,12 +203,14 @@ $S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = 
 \paragraph{(1)} $\WFunc(x) \equalDef \judgeType{\{x:t_1\}}{x}{t_1}$
 
 \paragraph{(2)} $\WFunc(x) \equalDef \judgeType{\{x:t_2\}}{x}{t_2}$
+\end{multicols}
 
+\begin{multicols}{2}
 \paragraph{(3)} $\WFunc(x) \equalDef \judgeType{\{x:t_3\}}{x}{t_3}$
 
 \paragraph{(4)} $\WFunc(x) \equalDef \judgeType{\{x:t_4\}}{x}{t_4}$
-
 \end{multicols}
+
 
 \paragraph{(5)} $\WFunc(isZero(x)) \equalDef \judgeType{S\{x:t_1\}}{S(isZero(x))}{Bool} = \judgeType{\{x:Nat\}}{isZero(x)}{Bool}$ 
 \begin{centrado}
@@ -254,7 +256,6 @@ $S = MGU(\{Nat \equalDot t_5,~Nat \equalDot Bool, t_5 \equalDot Bool,~\red{Nat \
 \end{forest}
 \end{center}
 
-\vspace*{5mm}
 \begin{multicols}{2}
 \paragraph{(1)} $\WFunc(0) \equalDef \judgeType{\emptyset}{0}{Nat}$
 
@@ -312,7 +313,6 @@ $S = MGU(\{Nat \equalDot t_5,~Nat \equalDot Bool, t_5 \equalDot Bool,~\red{Nat \
 \end{forest}
 \end{center}
 
-\vspace*{5mm}
 \begin{multicols}{2}
 \paragraph{(1)} $\WFunc(true) \equalDef \judgeType{\emptyset}{true}{Bool}$
 
@@ -391,16 +391,12 @@ S &= MGU(\{Bool\equalDot Bool,~Nat \equalDot Nat\}) \goesTo{2}{\times 2} \emptys
 \end{forest}
 \end{center}
 
-\vspace*{5mm}
 \begin{multicols}{2}
 \paragraph{(1)} $\WFunc(true) \equalDef \judgeType{\emptyset}{true}{Bool}$
 
 \paragraph{(2)} $\WFunc(f) \equalDef \judgeType{\{f:t_1\}}{f}{t_1}$
-
-\paragraph{(3)} $\WFunc(0) \equalDef \judgeType{\emptyset}{0}{Nat}$
-
 \end{multicols}
-
+\paragraph{(3)} $\WFunc(0) \equalDef \judgeType{\emptyset}{0}{Nat}$
 
 \paragraph{(4)} $\WFunc(f~0) \equalDef \judgeType{S\{f:t_1\}}{Sf~S0}{St_2} = \judgeType{\{f:Nat\to t_2\}}{f~0}{t_2}$
 
@@ -460,15 +456,13 @@ S &= MGU(\{Bool\equalDot Bool,~Nat\to t_2 \equalDot Bool \to t_4\}) \goesTo{1}{}
 \end{forest}
 \end{center}
 
-\vspace*{5mm}
 \begin{multicols}{2}
 \paragraph{(1)} $\WFunc(z) \equalDef \judgeType{\{z:t_1\}}{z}{t_1}$
 
 \paragraph{(2)} $\WFunc(y) \equalDef \judgeType{\{y:t_2\}}{y}{t_2}$
+\end{multicols}
 
 \paragraph{(3)} $\WFunc(x) \equalDef \judgeType{\{x:t_3\}}{x}{t_3}$
-
-\end{multicols}
 
 
 \paragraph{(4)} $\WFunc(succ(x)) \equalDef \judgeType{S\{x:t_3\}}{Ssucc(x)}{Nat} = \judgeType{\{x:Nat\}}{succ(x)}{Nat}$
@@ -508,5 +502,315 @@ S &= MGU(\{t_1 \equalDot Bool,~Nat \equalDot t_3\}) = \{Bool/t_1,~Nat/t_3\}
 \WFunc&(\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}}}) \\
 &\equalDef \judgeType{\emptyset}{\lambdaAbs{x}{Nat}{\lambdaAbs{y}{Nat}{\lambdaAbs{z}{Bool}{\lambdaIf{z}{y}{succ(x)}}}}}{Nat}
 \end{align*}
+
+\subsubsection*{VIII)}
+
+\begin{center}
+
+\begin{forest} tikzQtree,
+[$\lambdaFix{\lambdaAbsI{x}{pred(x)}}$ \blue{(5)},
+    [fix \blue{(1)}]
+    [$\lambdaAbsI{x}{pred(x)}$ \blue{(4)},
+        [$pred(x)$ \blue{(3)},
+            [$x$ \blue{(2)}]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(\lambdaFix{}) \equalDef \judgeType{\phi}{\text{fix}_{t_1}}{(t_1\to t_1)\to t_1}$
+
+\paragraph{(2)} $\WFunc(x) \equalDef \judgeType{\{x:t_2\}}{x}{t_2}$
+
+\end{multicols}
+
+
+\paragraph{(3)} $\WFunc(pred(x)) \equalDef \judgeType{S\{x:t_2\}}{Ssucc(x)}{Nat} = \judgeType{\{x:Nat\}}{succ(x)}{Nat}$
+
+\vspace*{5mm}
+$S = MGU(\{t_2\equalDot Nat\}) \goesTo{4}{Nat/t_2}  \emptyset \Rightarrow S=\{Nat/t_2\}$
+
+\paragraph{(4)} 
+$\WFunc(\lambdaAbsI{x}{pred(x)})
+\equalDef \judgeType{\emptyset}{\lambdaAbs{x}{Nat}{pred(x)}}{Nat\to Nat}$
+
+\paragraph{(5)}$
+\WFunc(\lambdaFix{\lambdaAbsI{x}{pred(x)}})
+\equalDef \judgeType{\emptyset}{S\text{fix}_{t_1}~\lambdaAbs{x}{Nat}{pred(x)}}{St_3} = \judgeType{\emptyset}{\text{fix}_{Nat}~\lambdaAbs{x}{Nat}{pred(x)}}{Nat}
+$
+
+\begin{align*}
+\vspace*{5mm}
+&S = MGU(\{(t_1\to t_1)\to t_1 \equalDot (Nat\to Nat)\to t_3\}) \goesTo{1}{}  \{(t_1\to t_1)\equalDot (Nat\to Nat),~t_1 \equalDot  t_3\} \\
+&\goesTo{1}{}  \{t_1\equalDot Nat,~ t_1\equalDot Nat,~t_1 \equalDot  t_3\}  
+\goesTo{4}{Nat/t_1}  \{Nat \equalDot Nat,~Nat \equalDot  t_3\} \goesTo{2}{}  \{Nat \equalDot  t_3\} \goesTo{4}{Nat/t_3}  \emptyset \\
+&\Rightarrow S=\{Nat/t_1,~Nat/t_3\}
+\end{align*}
+
+\subsection{Ejercicio 6}
+
+\paragraph{I)}
+\begin{center}
+
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaAbsI{z}{(z~x)~y~z}}}$,
+    [$\lambdaAbsI{y}{\lambdaAbsI{z}{(z~x)~y~z}}$,
+        [$\lambdaAbsI{z}{(z~x)~y~z}$,
+            [$(z~x)~y~z$ \blue{(7)},
+                [$(z~x)~y$ \blue{(5)},
+                    [$z~x$ \blue{(3)},
+                        [$z$ \blue{(1)}]
+                        [$x$ \blue{(2)}]
+                    ]
+                    [$y$ \blue{(4)} ]
+                ]
+                [$z$ \blue{(6)}]
+            ]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(z) \equalDef \judgeType{\{z:t_1\}}{z}{t_1}$
+
+\paragraph{(2)} $\WFunc(x) \equalDef \judgeType{\{x:t_2\}}{x}{t_2}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(z~x) \equalDef \judgeType{S\{z:t_1, x:t_2\}}{S(z~x)}{St_3} = \judgeType{\{z:t_2\to t_3, x:t_2\}}{z~x}{t_3}$
+
+\vspace*{5mm}
+$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+
+
+\paragraph{(4)} $\WFunc(y) \equalDef \judgeType{\{y:t_4\}}{y}{t_4}$
+
+\paragraph{(5)}
+\begin{align*}
+\WFunc((z~x)~y) &\equalDef \judgeType{S\{z:t_2\to t_3, x:t_2\}\cup S\{ y: t_4\}}{S((z~x)~y)}{St_5} \\ &= \judgeType{\{z:t_2\to t_4\to t_5,~x:t_2,~y: t_4\}}{(z~x)~y}{t_5}
+\end{align*}
+\begin{align*}
+S &= MGU(\{t_3 \equalDot t_4\to t_5\}) = \{t_4\to t_5/t_3\}
+\end{align*}
+
+\paragraph{(6)} $\WFunc(z) \equalDef \judgeType{\{z:t_6\}}{z}{t_6}$
+
+\paragraph{(7)}
+\begin{align*}
+\WFunc((z~x)~y) &\equalDef \judgeType{S\{z:t_2\to t_4\to t_5,~x:t_2,~y: t_4\}\cup S\{ z: t_6\}}{S((z~x)~y)}{St_7}
+\end{align*}
+\begin{align*}
+S &= MGU(\{t_6 \equalDot t_2\to t_4\to t_5,~t_5\equalDot t_6\to t_7\}) \goesTo{4}{t_2\to t_4\to t_5/t_6} \{\red{t_5}\equalDot (t_2\to t_4\to \red{t_5})\to t_7\} \goesTo{6}{} \falla
+\end{align*}
+
+\paragraph{II)}
+\begin{center}
+
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{x~(w~(\lambdaAbsI{y}{w~y}))}$,
+    [$x$]
+    [$w~(\lambdaAbsI{y}{w~y})$ \blue{(6)}
+        [$w$ \blue{(5)}]
+        [$\lambdaAbsI{y}{w~y}$ \blue{(4)},
+            [$w~y$ \blue{(3)},
+                [$w$ \blue{(1)}]
+                [$y$ \blue{(2)}]
+            ]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(w) \equalDef \judgeType{\{w:t_1\}}{w}{t_1}$
+
+\paragraph{(2)} $\WFunc(y) \equalDef \judgeType{\{y:t_2\}}{y}{t_2}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(w~y) \equalDef \judgeType{S\{w:t_1\}\cup S\{ y:t_2\}}{S(w~y)}{St_3} = \judgeType{\{w:t_2\to t_3, y:t_2\}}{w~y}{t_3}$
+
+\vspace*{5mm}
+$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+
+\paragraph{(4)} $\WFunc(\lambdaAbsI{y}{w~y}) \equalDef \judgeType{\{w:t_2\to t_3\}}{\lambdaAbs{y}{t_2}{w~y}}{t_2\to t_3}$
+
+\paragraph{(5)} $\WFunc(w) \equalDef \judgeType{\{w:t_4\}}{w}{t_4}$
+
+\paragraph{(6)} $\WFunc(w~(\lambdaAbsI{y}{w~y})) \equalDef \judgeType{S\{w:t_4\}\cup S\{w:t_2\to t_3\}}{Sw~S(\lambdaAbs{y}{t_2}{w~y})}{St_5}$
+
+\begin{align*}
+&S = MGU\{t_4 \equalDot t_2\to t_3,~ t_4 \equalDot (t_2\to t_3)\to t_5\} \goesTo{4}{t_2\to t_3/t_4} \{t_2\to t_3 \equalDot (t_2\to t_3)\to t_5\} \\
+&\goesTo{1}{} \{\red{t_2} \equalDot \red{t_2}\to t_3,~ t_3\equalDot t_5\} \goesTo{6}{} \falla
+\end{align*}
+
+
+\paragraph{III)}
+\begin{center}
+
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{\lambdaAbsI{y}{x~y}}$ \blue{(5)},
+    [$\lambdaAbsI{y}{x~y}$ \blue{(4)},
+        [$x~y$ \blue{(3)},
+            [$x$ \blue{(1)}]
+            [$y$ \blue{(2)}]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(x) \equalDef \judgeType{\{x:t_1\}}{x}{t_1}$
+
+\paragraph{(2)} $\WFunc(y) \equalDef \judgeType{\{y:t_2\}}{y}{t_2}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(x~y) \equalDef \judgeType{S\{x:t_1\}\cup S\{ y:t_2\}}{S(x~y)}{St_3} = \judgeType{\{x:t_2\to t_3, y:t_2\}}{x~y}{t_3}$
+
+\vspace*{5mm}
+$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+
+\paragraph{(4)} $\WFunc(\lambdaAbsI{y}{x~y}) \equalDef \judgeType{\{x:t_2\to t_3\}}{\lambdaAbs{y}{t_2}{x~y}}{t_2\to t_3}$
+
+\paragraph{(5)} $\WFunc(\lambdaAbsI{x}{\lambdaAbsI{y}{x~y}}) \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_2\to t_3}{\lambdaAbs{y}{t_2}{x~y}}}{(t_2\to t_3)\to t_2\to t_3}$
+
+\paragraph{IV)}
+\begin{center}
+
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{\lambdaAbsI{y}{y~x}}$ \blue{(5)},
+    [$\lambdaAbsI{y}{y~x}$ \blue{(4)},
+        [$y~x$ \blue{(3)},
+            [$y$ \blue{(1)}]
+            [$x$ \blue{(2)}]
+        ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{(1)} $\WFunc(y) \equalDef \judgeType{\{y:t_1\}}{y}{t_1}$
+
+\paragraph{(2)} $\WFunc(x) \equalDef \judgeType{\{x:t_2\}}{x}{t_2}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(y~x) \equalDef \judgeType{S\{y:t_1\}\cup S\{x:t_2\}}{S(y~x)}{St_3} = \judgeType{\{y:t_2\to t_3, x:t_2\}}{y~x}{t_3}$
+
+\vspace*{5mm}
+$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+
+\paragraph{(4)} $\WFunc(\lambdaAbsI{y}{y~x}) \equalDef \judgeType{\{x:t_2, \}}{\lambdaAbs{y}{t_2\to t_3}{x~y}}{(t_2\to t_3)\to t_3}$
+
+\paragraph{(5)} $\WFunc(\lambdaAbsI{x}{\lambdaAbsI{y}{y~x}}) \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_2}{\lambdaAbs{y}{t_2\to t_3}{x~y}}}{t_2\to(t_2\to t_3) \to t_3}$
+
+\setlength{\columnsep}{-2cm}
+\paragraph{V)}
+\begin{multicols}{2}
+\begin{center}
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{(\lambdaAbsI{x}{x})}$ \blue{(3)},
+    [$\lambdaAbsI{x}{x}$ \blue{(2)},
+        [$x$ \blue{(1)} ]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+
+\paragraph{(1)} $\WFunc(x) \equalDef \judgeType{\{x:t_1\}}{x}{t_1}$
+
+\paragraph{(2)} $\WFunc(\lambdaAbsI{x}{x}) \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_1}{x}}{t_1\to t_1}$
+
+\paragraph{(3)} $\WFunc(\lambdaAbsI{x}{\lambdaAbsI{x}{x}}) \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_2}({\lambdaAbs{x}{t_1}{x})}}{t_2\to t_1\to t_1}$
+
+\end{multicols}
+
+\paragraph{VI)}
+\begin{multicols}{2}
+\begin{center}
+\begin{forest} tikzQtree,
+[$\lambdaAbsI{x}{(\lambdaAbsI{y}{y})~x}$ \blue{(5)},
+    [$(\lambdaAbsI{y}{y})~x$ \blue{(4)},
+        [$\lambdaAbsI{y}{y}$ \blue{(2)},
+            [$y$ \blue{(1)}]
+        ]
+        [$x$ \blue{(3)}]
+    ]
+]
+\end{forest}
+\end{center}
+
+\vspace*{5mm}
+
+\paragraph{(1)} $\WFunc(y) \equalDef \judgeType{\{y:t_1\}}{y}{t_1}$
+
+\paragraph{(2)} $\WFunc(\lambdaAbsI{y}{y}) \equalDef \judgeType{\emptyset}{\lambdaAbs{y}{t_1}{y}}{t_1\to t_1}$
+
+\paragraph{(3)} $\WFunc(x) \equalDef \judgeType{\{x:t_2\}}{x}{t_2}$
+
+\end{multicols}
+
+\paragraph{(4)} $\WFunc((\lambdaAbsI{y}{y})~x) \equalDef \judgeType{S\{x:t_2\}}{S((\lambdaAbs{y}{t_1}{y})~x)}{St_3} =
+\judgeType{\{x:t_1\}}{(\lambdaAbs{y}{t_1}{y})~x}{t_1} 
+$
+
+\vspace*{5mm}
+$S = MGU(\{t_1\to t_1\equalDot t_2\to t_3\}) \goesTo{1}{} \{t_1\equalDot t_2,~\to t_1\equalDot t_3\} \goesTo{4}{t_1/t_2} \{t_1\equalDot t_3\}\} \goesTo{4}{t_1/t_3} \emptyset$
+
+$\Rightarrow S = \{t_1/t_2,~t_1/t_3\}$
+
+\paragraph{(5)} $\WFunc(\lambdaAbsI{x}{(\lambdaAbsI{y}{y})~x} \equalDef \judgeType{\emptyset}{\lambdaAbs{x}{t_1}{(\lambdaAbs{y}{t_1}{y})~x}}{t_1\to t_1}$
+
+\paragraph{VII)}
+\begin{center}
+\begin{forest} tikzQtree,
+[$(\lambdaAbsI{z}{\lambdaAbsI{x}{x~(z~(\lambdaAbsI{y}{z}))}})~true$,
+    [$\lambdaAbsI{z}{\lambdaAbsI{x}{x~(z~(\lambdaAbsI{y}{z}))}}$,
+        [$\lambdaAbsI{x}{x~(z~(\lambdaAbsI{y}{z}))}$,
+            [$x~(z~(\lambdaAbsI{y}{z}))$,
+                [$x$]
+                [$z~(\lambdaAbsI{y}{z})$ \blue{(4)},
+                    [$z$ \blue({3})]
+                    [$\lambdaAbsI{y}{z}$ \blue{(2)},
+                        [$z$ \blue{(1)}]
+                    ]
+                ]
+            ]
+        ]
+    ]
+    [true]
+]
+\end{forest}
+\end{center}
+
+\begin{multicols}{2}
+
+\paragraph{(1)} $\WFunc(z) \equalDef \judgeType{\{z:t_1\}}{z}{t_1}$
+
+\paragraph{(2)} $\WFunc(\lambdaAbsI{y}{z}) \equalDef \judgeType{\{z:t_1\}}{\lambdaAbs{y}{t_2}{z}}{t_2\to t_1}$
+
+\end{multicols}
+
+\paragraph{(3)} $\WFunc(z) \equalDef \judgeType{\{z:t_3\}}{x}{t_3}$
+
+\paragraph{(4)} $\WFunc(z~(\lambdaAbsI{y}{z})) \equalDef \judgeType{S\{z:t_3\}\cup S\{z:t_1\}}{S(z~(\lambdaAbs{y}{t_2}{z}))}{St_4}$
+
+\vspace*{5mm}
+$S = MGU(\{t_3\equalDot t_1,~t_3\equalDot (t_2\to t_1)\to t_4\}) \goesTo{4}{t_3/t_1} \{\red{t_3}\equalDot (t_2\to \red{t_3})\to t_4\} \goesTo{6}{} \falla$
 
 \end{document}

@@ -1,0 +1,303 @@
+\part{Apéndices}
+
+\section{Programación funcional en Haskell}
+\paragraph{Tipos elementales}
+\begin{centrado}
+	\begin{minted}{haskell}
+1               -- Int          Enteros
+'a'             -- Char         Caracteres
+1.2             -- Float        Números de punto flotante
+True            -- Bool         Booleanos
+[1,2,3]         -- [Int]        Listas
+(1, True)       -- (Int, Bool)  Tuplas, pares
+length          -- [a] -> Int   Funciones
+length [1,2,3]  -- Int          Expresiones
+\x -> x         -- a -> a       Funciones anónimas
+	\end{minted}
+\end{centrado}
+
+\paragraph{Guardas}
+\begin{centrado}
+	\begin{minted}{haskell}
+signo n | n >= 0    = True
+		| otherwise = False
+	\end{minted}
+\end{centrado}
+
+\paragraph{Pattern Matching}
+\begin{centrado}
+	\begin{minted}{haskell}
+longitud [] = 0
+longitud (x:xs) = 1 + (longitud xs)
+	\end{minted}
+\end{centrado}
+
+\paragraph{Polimorfismo paramétrico}
+\begin{centrado}
+	\begin{minted}{haskell}
+todosIguales :: Eq a => [a] -> Bool
+todosIguales [] = True
+todosIguales [x] = True
+todosIguales (x:y:xs) = x == y && todosIguales(y:xs)
+	\end{minted}
+\end{centrado}
+
+\paragraph{Clases de tipo}
+\begin{centrado}
+	\begin{minted}{haskell}
+Eq a    -- Tipos con comparación de igualdad
+Num a   -- Tipos que se comportan como los números
+Ord a   -- Tipos orden
+Show a  -- Tipos que pueden ser representados como strings
+	\end{minted}
+\end{centrado}
+
+\paragraph{Definición de listas}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+[1,2,3,4,5]                 -- Por extensión
+[1 .. 4]                    -- Secuencias aritméticas
+[ x | x <- [1..], esPar x ] -- Por compresión
+		
+cuando las usamos. Ejemplo de lista infinita:
+		
+infinitosUnos :: [Int]
+infinitosUnos = 1 : infinitosUnos
+		
+puntosDelCuadrante :: [(Int, Int)]
+puntosDelCuadrante = [ (x, s-x) | s <- [0..], x <-[0..s] ]
+	\end{minted}
+\end{centrado}
+
+\paragraph{Funciones de alto orden}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+mejorSegun :: (a -> a -> Bool) -> [a] -> a
+mejorSegun _ [x] = x
+mejorSegun f (x : xs) | f x (mejorSegun f xs) = x
+		| otherwise = mejorSegun f xs
+	\end{minted}
+\end{centrado}
+
+\subsection{Otros tipos útiles}
+\paragraph{Formula}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+data Formula = Proposicion String | No Formula 
+		| Y Formula Formula
+		| O Formula Formula
+		| Imp Formula Formula
+		
+foldFormula :: (String -> a) -> (Formula -> a) -> 
+(Formula -> Formula -> a) -> (Formula -> Formula -> a) 
+-> (Formula -> Formula -> a) -> Formula -> a
+foldFormula fp fn fy fo fImp form = case form of :
+		Proposicion s -> fp s
+		No sf -> fn (rec sf)
+		Y sf1 sf2 -> fy (rec sf1) (rec sf2)
+		O sf1 sf2 -> fo (rec sf1) (rec sf2)
+		Impl sf1 sf2 -> fImpl (rec sf1) (rec sf2)
+		where rec = foldForm fp fn fy fo fImp
+	\end{minted}
+\end{centrado}
+
+\paragraph{Rosetree}
+\begin{centrado}
+	\begin{minted}[breaklines]{haskell}
+data Rosetree = Rose a [Rosetree]
+-- Hay varias formas de definir el fold para esta estructura
+foldRose :: (a -> [b] -> b) -> Rosetree a -> b
+foldRose f ( Rose x l ) = f x ( map ( foldRose f ) l )
+		
+foldRose2 :: ( a -> c -> b) -> ( b -> c -> c ) -> c 
+-> Rosetree a -> b
+foldRose2 g f z (Rose x l) = 
+g x ( foldr f z ( map ( foldRose g f z ) l ) )
+		
+	\end{minted}
+\end{centrado}
+
+
+\newpage
+\section{Extensiones del lenguaje \texorpdfstring{$\lambda^b$}{lambda b}}
+
+
+
+\subsection{Registros \texorpdfstring{$\lambda^{...r}$}{lambda ...r}}
+
+\paragraph{Tipos}
+$$\sigma, \tau ~::=~...~|~\{l_i : \sigma_i ~^{i\in 1..n}\}$$
+
+El tipo $\{l_i : \sigma_i^{i\in 1..n}\}$ representan las estructuras con $n$ atributos tipados, por ejemplo: $\{nombre : String,edad:Nat\}$
+\paragraph{Términos}
+$$ M~::=~ \dots~|~\{l_i = M_i ~^{i\in 1..n}\}~|~M.l $$
+
+Los términos significan:
+\begin{itemize}
+	\item El registro $\{l_i = M_i ~^{i\in 1..n}\}$ evalua $\{l_i = V_i ~^{i\in 1..n}\}$  donde $V_i$ es el s al que evalúa $M_i$ para $i\in 1..n$.
+	\item $M.l$: Proyecta el valor de la etiqueta $l$ del registro $M$
+\end{itemize}
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M_i}{\sigma_i} \text{ para cada } i \in 1..n}{\judgeType{\Gamma}{\{l_i = M_i ~^{i\in 1..n}\}}{\{l_i : \sigma_i ~^{i\in 1..n}\}}}(\text{T-RCD})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{\{l_i = M_i ~^{i\in 1..n}\}}{\{l_i : \sigma_i ~^{i\in 1..n}\}}\hspace*{5mm} j \in 1..n}
+	{\judgeType{\Gamma}{M.l_j}{\sigma_j}}(\text{T-Proj})
+\end{equation*}
+
+\paragraph{Axiomas y reglas de subtipado}
+%\begin{equation*}
+%	\frac{}{\{l_i : \sigma_i~|~i\in 1..n+k\} <: \{l_i : \sigma_i~|~i\in 1..n\}}(\text{S-RcdWidth})
+%\end{equation*}
+%
+%\vspace*{5mm}
+%\begin{equation*}
+%	\frac{\sigma_i <: \tau_i\hspace*{5mm} i\in I = \{1..n\}}{\{l_i : \sigma_i\}_{i\in I} <: \{l_i : \tau_i\}_{i\in I}}(\text{S-RcdDepth})
+%\end{equation*}
+
+\begin{equation*}
+	\frac{\{l_i| i\in 1..n\}\subseteq\{k_j|j\in 1..m\} \hspace*{5mm} k_j = l_i\Rightarrow \sigma_j <: \tau_i}{\{k_j:\sigma_j|j\in 1..m\} <: \{l_i:\sigma_i| i\in 1..n\}}(\text{S-Rcd})
+\end{equation*}
+
+\vspace*{5mm}
+Esta regla nos dice que un registro $N$ es subtipo de otro registro $M$, si el conjunto de etiquetas de $M$ está contenido en el conjunto de etiquetas de $N$ y, además, si los tipos de cada una de esas etiquetas, en $M$, es más general que en $N$.
+
+Una de las consecuancias de esta regla es que  $\sigma <\{\}$ para todo tipo registro $\sigma$. Esto es porque $\{\}$ no tiene etiquetas, osea que su conjunto de etiquetas es el conjunto $\emptyset$ que está contenido en todos los conjuntos.
+\paragraph{Valores}
+$$V~::=~\dots~|~\{l_i = V_i ~^{i\in 1..n}\}$$
+
+
+\paragraph{Axiomas y reglas de evaluación}
+
+\begin{equation*}
+	\frac{j\in 1..n}{\{l_i = \lambdaValue{V_i} ~^{i\in 1..n}\}.l_j \to \lambdaValue{V_j}}(\text{E-ProjRcd})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M \to M'}{M.l \to M'.l}(\text{E-Proj})
+\end{equation*}
+
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M_j\to M_j'}{\{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M_j, l_i = M_i ~^{i\in j+1..n}\} \to \{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M'_j, l_i = M_i ~^{i\in j+1..n}\}}(\text{E-RCD})
+\end{equation*}
+\vspace*{5mm}
+\subsection{Declaraciones Locales (\texorpdfstring{$\lambda^{...let}$}{lambda ...let})}\label{extension_lambda:let}
+
+Con esta extensión, agregamos al lenguaje el término $\lambdaLet{x}{\sigma}{M}{N}$, que evalúa $M$ a un valor, liga $x$ a $V$ y, luego, evalúa $N$. Este término solo mejora la legibilidad de los programas que ya podemos definir con el lenguaje hasta ahora definido.
+
+\paragraph{Términos}
+$$ M~::=~ \dots~|~\lambdaLet{x}{\sigma}{M}{N} $$
+
+
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{\sigma_1}\hspace*{5mm}\judgeType{\Gamma,x:\sigma_1}{N}{\sigma_2}}{\judgeType{\Gamma}{\lambdaLet{x}{\sigma_1}{M}{N}}{\sigma_2}}(\text{T-Let})
+\end{equation*}
+
+\paragraph{Axiomas y reglas de evaluación}
+
+\begin{equation*}
+	\frac{M_1\to M_1'}{\lambdaLet{x}{\sigma}{M_1}{M_2}\to \lambdaLet{x}{\sigma}{M'_1}{M_2}}(\text{E-Let})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{}{\lambdaLet{x}{\sigma}{\lambdaValue{V_1}}{M_2}\to \replaceBy{M_2}{x}{\lambdaValue{V_1}}}(\text{E-LetV})
+\end{equation*}
+
+\subsubsection{Construcción \textit{let} recursivo (Letrec)}
+Una construcción alternativa para definir funciones recursivas es 
+$$letrec~f:\sigma\to\sigma = \lambdaAbs{x}{\sigma}{M~in~N}$$
+
+Y $letRec$ se puede definir  en base a $let$ y $fix$ (definido en \ref{lambda_calculo:recursion}) de la siguiente forma:
+
+$$\lambdaLet{f}{\sigma\to\sigma}{(\lambdaFix{\lambdaAbs{f}{\sigma\to\sigma}{\lambdaAbs{x}{\sigma}{M}}})}{N}$$
+
+\subsection{Tuplas}
+
+\paragraph{Tipos}
+$$\sigma,\tau~::= \dots~|~\sigma\times\tau$$
+
+\paragraph{Términos}
+$$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}}{\judgeType{\Gamma}{<M,N>}{\sigma\times\tau}}(\text{T-Tupla})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_1(M)}{\sigma}}(\text{T-}\pi_1)\hspace*{1cm}\frac{\judgeType{\Gamma}{M}{\sigma\times\tau}}{\judgeType{\Gamma}{\pi_2(M)}{\tau}}(\text{T-}\pi_2)
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~<V,V>$$
+
+\paragraph{Axiomas y reglas de evaluación}
+\begin{equation*}
+	\frac{M\to M'}{<M,N>\to<M',N>}(\text{E-Tuplas})\hspace*{1cm}\frac{N\to N'}{<\lambdaValue{V},N>\to<\lambdaValue{V},N'>}(\text{E-Tuplas1})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\pi_1(M)\to\pi_1(M')}(\text{E-}\pi_1)\hspace*{1cm}\frac{}{\pi_1(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_1}}(\text{E-}\pi'_1)
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\pi_2(M)\to\pi_2(M')}(\text{E-}\pi_2)\hspace*{1cm}\frac{}{\pi_2(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_2}}(\text{E-}\pi'_2)
+\end{equation*}
+
+\subsection{Árboles binarios}
+
+\paragraph{Tipos}
+$$\sigma,\tau~::= \dots~|~AB_\sigma$$
+
+\paragraph{Términos}
+$$M,~N~::=~\dots~|~\text{Nil}_\sigma~|~\text{Bin}(M, N, O)~|~\text{raiz}(M)~|~\text{der}(M)~|~\text{izq}(M)~|~\text{esNil}(M)$$
+\paragraph{Axiomas y reglas de tipado}
+\begin{equation*}
+	\begin{gathered}
+		\frac{}{\judgeType{\Gamma}{\text{Nil}_\sigma}{AB_\sigma}}(\text{T-Nil})\hspace*{1cm}
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{O}{AB_\sigma}}{\judgeType{\Gamma}{\text{Bin}(M, N, O)}{AB_\sigma}}(\text{T-Bin}) \\
+		\vspace*{5mm}\\
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{raiz}(M)}{\sigma}}(\text{T-raiz})\hspace*{1cm}
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{der}(M)}{AB_\sigma}}(\text{T-der})
+		\vspace*{5mm} \\
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{izq}(M)}{AB_\sigma}}(\text{T-izq})
+		\hspace*{1cm}
+		\frac{\judgeType{\Gamma}{M}{AB_\sigma}}{\judgeType{\Gamma}{\text{isNil}(M)}{Bool}}(\text{T-isNil})
+	\end{gathered}
+\end{equation*}
+
+\paragraph{Valores}
+$$V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)$$
+
+\paragraph{Axiomas y reglas de evaluación}
+\begin{equation*}
+	\frac{M\to M'}{\text{Bin}(M,N,O)\to \text{Bin}(M',N,O)}(\text{E-Bin1})\hspace*{1cm}\frac{N\to N'}{\text{Bin}(V,N,O)\to \text{Bin}(V,N',O)}(\text{E-Bin2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{O\to O'}{\text{Bin}(V_1,V_2,O)\to \text{Bin}(V_1,V_2,O')}(\text{E-Bin3})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\text{raiz}(M)\to\text{raiz}(M')}(\text{E-Raiz1})\hspace*{1cm}\frac{}{\text{raiz}(\text{Bin}(V_1,V_2,V_3))\to V_2}(\text{E-Bin3})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\text{der}(M)\to\text{der}(M')}(\text{E-Der1})\hspace*{1cm}\frac{}{\text{der}(\text{Bin}(V_1,V_2,V_3))\to V_3}(\text{E-Der2})
+\end{equation*}
+\vspace*{5mm}
+\begin{equation*}
+	\frac{M\to M'}{\text{izq}(M)\to\text{izq}(M')}(\text{E-Izq1})\hspace*{1cm}\frac{}{\text{izq}(\text{Bin}(V_1,V_2,V_3))\to V_1}(\text{E-Izq2})
+\end{equation*}
+\hspace*{5mm}
+\begin{equation*}
+	\frac{}{\text{isNil}(M)\to\text{izq}(M')}(\text{E-isNil1})\hspace*{1cm}\frac{}{\text{isNil}(\text{Bin}(V_1,V_2,V_3))\to false}(\text{E-isNilBin})
+\end{equation*}
+\hspace*{5mm}
+\begin{equation*}
+	\frac{}{\text{isNil}(\text{Bin}(V_1,V_2,V_3))\to true}(\text{E-isNilNil})
+\end{equation*}

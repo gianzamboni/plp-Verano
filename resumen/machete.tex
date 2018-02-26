@@ -9,33 +9,51 @@
 
 \author{Zamboni, Gianfranco}
 
-\section*{Funciones de haskell}
+\section{Funciones de haskell}
 \begin{centrado}
 	\begin{minted}{haskell}
 foldr, foldl :: Foldable t => (a -> b -> b) -> b -> t a -> b
 foldr1, foldl1 :: Foldable t => (a -> a -> a) -> t a -> a
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 map :: (a -> b) -> [a] -> [b]
 zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 (++) :: [a] -> [a] -> [a]
 (!!) :: [a] -> Int -> a
 head, last :: [a] -> a
 init, tail :: [a] -> [a]
 length :: Foldable t => t a -> Int
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 reverse :: [a] -> [a]
 concat :: Foldable t => t [a] -> [a]
 union :: Eq a => [a] -> [a] -> [a]
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 all, any :: Foldable t => (a -> Bool) -> t a -> Bool
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 null :: Foldable t => t a -> Bool -- Es vacio
 elem :: (Eq a, Foldable t) => a -> t a -> Bool
     
 nub :: Eq a => [a] -> [a] -- Elimina duplicados
 sort :: Ord a => [a] -> [a] -- Ordena la lista
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 concatMap :: Foldable t => (a -> [b]) -> t a -> [b]
 find :: (a -> Bool) -> [a] -> Maybe a
 filter :: (a -> Bool) -> [a] -> [a]
@@ -44,16 +62,25 @@ span :: (a -> Bool) -> [a] -> ([a], [a])
 replicate :: Int -> a -> [a]
 take, drop :: Int -> [a] -> [a]
 takeWhile, dropWhile :: (a -> Bool) -> [a] -> [a]
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 and, or :: Foldable t => t Bool -> Bool
 maximum, minimum :: (Ord a, Foldable t) => t a -> a
 sum :: (Num a, Foldable t) => t a -> a
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 max, min :: Ord a => a -> a -> a
 rem :: Integral a => a -> a -> a
 ord :: Char -> Int
 chr :: Int -> Char
-
+	\end{minted}
+\end{centrado} 
+\begin{centrado}
+	\begin{minted}{haskell}
 fromJust :: Maybe a -> a
 isNothing :: Maybe a -> Bool
 lookup :: Eq a => a -> [(a, b)] -> Maybe b
@@ -594,4 +621,7 @@ $\WFunc(\red{\lambdaFix{(U)}}) \equalDef \judgeType{S\Gamma}{S~\lambdaFix{(M)}}{
 \item $S = MGU\{\tau\equalDot t\to t\}$ con $t$ variable fresca
 \end{itemize}
 \end{centrado}
+
+\newpage
+
 \end{document}

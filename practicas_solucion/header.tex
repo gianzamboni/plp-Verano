@@ -27,12 +27,92 @@ pdfcreator={pdflatex}]{hyperref}
 \usepackage{forest}
 \usepackage{multicol}
 
-\setlength{\columnsep}{1cm}
+\setlength{\columnsep}{5mm}
 
 \ifthenelse{\paperwidth < \paperheight}{\input{page.layout}}{\input{landscape.page.layout}}
 
+\newenvironment{centrado}
+    {
+     \begin{center}
+     \begin{minipage}{0.8\textwidth}
+ }    
+    {
+     \end{minipage}
+     \end{center}
+    }
+
+\newcommand{\rel}{\ensuremath{\mathcal{R}}}
+
+\newcommand{\equalDef}{\overset{def}{=}}
+\newcommand{\equalDot}{\overset{\cdot}{=}}
+\newcommand{\alphaEq}[1]{\underset{#1}{\overset{\alpha-eq}{\leadsto}}}
+
+\newcommand{\goesTo}[2]{\underset{#2}{\overset{#1}{\leadsto}}}
+\newcommand{\reduceTo}[1]{\underset{#1}{\to}}
+
+
+\DeclareMathOperator{\Erase}{Erase}
+\DeclareMathOperator{\Nat}{Nat}
+\DeclareMathOperator{\Bool}{Bool}
+\DeclareMathOperator{\Union}{Union}
+
+\newcommand{\WFunc}{\mathbb{W}}
+
+\newcommand{\List}[1]{[~]_{#1}}
+
+\newcommand{\lambdaAbs}[3]{\lambda #1: #2 \text{.} #3}
+\newcommand{\lambdaAssign}[2]{#1~:=~#2}
+\newcommand{\lambdaApp}[2]{#1~#2}
+\newcommand{\lambdaIf}[3]{\text{if } #1 \text{ then } #2 \text{ else } #3}
+\newcommand{\lambdaTrue}{true}
+\newcommand{\lambdaFalse}{false}
+\newcommand{\lambdaLet}[4]{\text{let}~#1:#2 = #3~in~#4}
+\newcommand{\lambdaRef}[1]{\text{ref}~#1}
+\newcommand{\lambdaVar}[1]{#1}
+\newcommand{\lambdaValue}[1]{{\color{red}#1}}
+\newcommand{\lambdaFix}[1]{\text{fix } #1}
+
+
+\newcommand{\lambdaAbsI}[2]{\lambda #1\text{.} #2}
+
+\newcommand{\lambdaLetrec}[3]{\text{letrec } #1 = #2 \text{ in }~#3}
+
+\newcommand{\lambdaListCase}[3]{\text{case } #1 \text{ of } \{[~]\leadsto#2~|~h::t\leadsto#3\}}
+\newcommand{\lambdaListFold}[3]{\text{foldr } #1 \text{ base }\leadsto#2;~\text{rec}(h, r)\leadsto#3}
+
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\green}[1]{{\color{green!40!black}#1}}
+
+\newcommand{\falla}{\red{\texttt{falla}}}
+
+\newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
+\newcommand{\multiReplaceBy}[2]{#1\{#2\}}
+
+\newcommand{\judgeType}[3]{#1\triangleright #2 : #3}
 
 
 
+\newcommand{\xmark}{\ding{55}}%
 
-\input{comandos}
+\newenvironment{scprooftree}
+{\leavevmode\hbox\bgroup}
+{\DisplayProof\egroup}
+
+\tikzset{
+    every tree node/.style={align=center},
+}
+
+\forestset{tikzQtree/.style={
+        for tree={node options=every tree node/.try}, text centered},
+        begin draw/.code={\begin{tikzpicture}[baseline=(current bounding box.center)]},
+        }
+
+
+%\newenvironment{scforestset}[1]%
+%{\gdef\scalefactor{#1}\proofSkipAmount \leavevmode\hbox\bgroup}%
+%    {\scalebox{\scalefactor}{\DisplayProof}\egroup\proofSkipAmount }
+
+%\renewcommand{\appendixtocname}{Apéndices}
+%\renewcommand{\appendixpagename}{Apéndices}
+

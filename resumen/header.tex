@@ -1,33 +1,103 @@
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
 
-
+ 
 \usepackage[pdftex,
 pdfauthor={Gianfranco Zamboni},
 pdftitle={Paradigmas de Lenguajes de Programación},
 pdfsubject={},
-pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Programación, Imperativo, Funcional, Cálculo Lambda, Programación Orientada a Objetos, Objetos, Programación Lógica, Recursion, Tipado, Sintaxis, Semantica},
+pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Programación, Imperativo, Funcional, Cálculo Lambda, Programación Orientada a Objetos, Objetos, Programación Lógica, Recursion, Tipado, Sintaxis, Subtipado, Semantica, Programacion orientada a objetos},
 pdfproducer={Latex with hyperref},
-pdfcreator={pdflatex}]{hyperref}
+pdfcreator={pdflatex},
+pdfencoding = auto]{hyperref}
 
+\usepackage{a4wide}
 \usepackage{amsmath}
-\usepackage{ amssymb }
-\usepackage{bussproofs}
-
-\usepackage[spanish]{babel}
-
-
-\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
-\usepackage{graphicx}
-\usepackage{xcolor}
-
-\usepackage{lscape}
-\usepackage{minted}
-\usepackage{a4wide} % márgenes un poco más anchos que lo usual
-\usepackage[titletoc,toc,page]{appendix}
-\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
 \usepackage{forest}
+\usepackage{tikz}
+\usepackage{minted}
 \usepackage{multicol}
 
-\setcounter{tocdepth}{1}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ - #1}}
+\fancyhead[LO]{Sección \rightmark }  
+\fancyhead[RO]{\small{Paradigmas de Lenguajes de Programación}}
+\fancyfoot[CO]{\thepage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\setlength{\headsep}{1cm}
+\setlength{\headheight}{13.07225pt}
 
-\input{comandos.tex}
-\input{page.layout}
+\renewcommand{\baselinestretch}{1.2}  % line 
+
+\setcounter{tocdepth}{2}% Allow only \chapter in ToC
+
+
+\newenvironment{centrado}
+    {
+     \begin{center}
+     \begin{minipage}{0.8\textwidth}
+ }    
+    {
+     \end{minipage}
+     \end{center}
+    }
+
+\newcommand{\rel}{\ensuremath{\mathcal{R}}}
+
+\newcommand{\equalDef}{\overset{def}{=}}
+\newcommand{\equalDot}{\overset{\cdot}{=}}
+
+\newcommand{\lambdaAbs}[3]{\lambda #1: #2 . #3}
+\newcommand{\lambdaAssign}[2]{#1~:=~#2}
+\newcommand{\lambdaApp}[2]{#1~#2}
+\newcommand{\lambdaIf}[3]{if~ #1~ then~ #2~ else~ #3}
+\newcommand{\lambdaTrue}{true}
+\newcommand{\lambdaFalse}{false}
+\newcommand{\lambdaLet}[4]{let~#1:#2 = #3~in~#4}
+\newcommand{\lambdaRef}[1]{ref~#1}
+\newcommand{\lambdaVar}[1]{#1}
+\newcommand{\lambdaValue}[1]{\color{red}#1\color{black}}
+\newcommand{\lambdaFix}[1]{fix~#1}
+
+\newcommand{\lambdaAbsI}[2]{\lambda #1. #2}
+\newcommand{\lambdaLetI}[3]{let~#1 = #2~in~#3}
+
+
+
+\newcommand{\blue}[1]{\color{blue}#1\color{black}}
+\newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
+
+\newcommand{\judgeType}[3]{#1\triangleright #2 : #3}
+\newcommand{\judgeTypeS}[3]{#1\mapsto #2 : #3}
+
+
+\newenvironment{scprooftree}[1]%
+{\gdef\scalefactor{#1}\begin{center}\proofSkipAmount \leavevmode}%
+    {\scalebox{\scalefactor}{\DisplayProof}\proofSkipAmount \end{center} }
+
+
+\tikzset{
+    every leaf node/.style={text=red, align=center},
+    every tree node/.style={text=blue, align=center},
+}
+
+\forestset{tikzQtree/.style={for tree={if n children=0{
+                node options=every leaf node/.try}{node options=every tree node/.try}, text centered}}}
+                
+                
+\DeclareMathOperator{\Erase}{Erase}
+
+\newcommand{\List}[1]{[~]_{#1}}
+\newcommand{\lambdaListCase}[3]{\text{case } #1 \text{ of } \{[~]\leadsto#2~|~h::t\leadsto#3\}}
+
+\newcommand{\WFunc}{\mathbb{W}}
+
+\newcommand{\red}[1]{{\color{red}#1}}%\renewcommand{\appendixtocname}{Apéndices}
+\newcommand{\green}[1]{{\color{green!40!black}#1}}%\renewcommand{\appendixpagename}{Apéndices}
+
+
+
