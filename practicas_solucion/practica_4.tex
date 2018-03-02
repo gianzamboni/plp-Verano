@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass[10pt,a4paper,landscape]{article}
 \input{header}
 
 \setcounter{section}{4}
@@ -91,6 +91,183 @@ El primer caso es el punto \textbf{1)}, el segundo es el punto \textbf{2)}.
 
 \subsection{\blue{Ejercicio 5}}
 
-\section*{Subtipado en el contexto de tipado}
-\end{document}
+subtipos de Bool: {Bool} -> finitos
+subtipos de Nat: {Bool} {Nat} -> finitos
+subtipos de a->b: {supertipos de a}x{subtipos de b}, con a y b en {nat,bool,funciones}
 
+\section*{Subtipado en el contexto de tipado}
+
+\subsection{Ejercicio 6}
+\hspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+        
+        \AxiomC{$y:Nat \in \{x:Bool,y:Nat\}$}
+        \RightLabel{T-Var}
+        \UnaryInfC{$\judgeTypeS{\{x:Bool,y:Nat\}}{y}{Nat}$}       
+        \RightLabel{T-Succ}       \UnaryInfC{$\judgeTypeS{\{x:Bool,y:Nat\}}{succ(y)}{Nat}$}
+        \RightLabel{T-Abs}
+        \UnaryInfC{$\judgeTypeS{\{x:Bool\}}{\lambdaAbs{y}{Nat}{succ(y)}}{Nat \rightarrow Nat}$}
+
+
+        \AxiomC{$x:Bool \in \{x:Bool\}$}
+        \RightLabel{T-Var}
+        \UnaryInfC{$\judgeTypeS{\{x:Bool\}}{x:Bool}{}$}
+
+        \AxiomC{}
+        \RightLabel{S-BoolNat}
+        \UnaryInfC{$Bool <: Nat$}
+        
+        \RightLabel{T-Subs}
+        \BinaryInfC{$\judgeTypeS{\{x:Bool\}}{x:nat}{Nat}$} 
+        \RightLabel{T-App}
+        \BinaryInfC{$\judgeTypeS{\{x:Bool\}}{\lambdaAbs{y}{Nat}{succ(y)} x}{Nat}$}
+        
+        \RightLabel{T-Abs}
+        \UnaryInfC{$\judgeTypeS{\{\}}{\lambdaAbs{x}{Bool}{\lambdaAbs{y}{Nat}{succ(y)} x}}{Bool \rightarrow Nat}$}
+       
+\end{scprooftree}
+\end{center}
+\newpage
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+        \AxiomC{Demo a)}
+        \AxiomC{Demo b)}
+
+        \RightLabel{T-App}
+        \BinaryInfC{$\judgeTypeS{\{\}}{(\lambdaAbs{r}{\{l1:Bool,l2:Float\}}{if$ $r.l1$ $then$ $r.l2$ $else$ $5,5})$  $\{l1:True,l2:-8,l3:9,0\}}{Float}$}
+\end{scprooftree}    
+\end{center}
+
+
+\par{Demo a):}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+        \AxiomC{$\judgeTypeS{\Gamma}{5,5}{Float}$}
+
+        \AxiomC{$r.l2:Float \in \Gamma$}
+        \RightLabel{T-Var}        \UnaryInfC{$\judgeTypeS{\Gamma}{r.l2}{Float}$}
+        
+        \AxiomC{$r.l1:Bool \in \Gamma$}
+        \RightLabel{T-Var}        \UnaryInfC{$\judgeTypeS{\Gamma}{r.l1}{Bool}$}
+        
+        \RightLabel{T-If} \TrinaryInfC{$\judgeTypeS{\Gamma = r:\{l1:Bool,l2:Float\}}{if$ $r.l1$ $then$ $r.l2$ $else$ $5,5}{Float}$}
+        \RightLabel{T-Abs}
+        \UnaryInfC{$\judgeTypeS{\{\}}{\lambdaAbs{r}{\{l1:Bool,l2:Float\}}{if$ $r.l1$ $then$ $r.l2$ $else$ $5,5}}{\{l1:Bool,l2:Float\} \rightarrow Float}$}
+\end{scprooftree}    
+\end{center}
+
+\par{Demo b):}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+        \AxiomC{}
+        \RightLabel{S-RCDWidth}       \UnaryInfC{$\{l1:Bool,l2:Int,l3:Float\}$ $<:$ $\{l1:Bool,l2:Float\} $}
+
+
+        \AxiomC{$\judgeTypeS{\{\}}{9,0:Float}{}$}
+        \AxiomC{$\judgeTypeS{\{\}}{-8:Int}{}$}
+        \AxiomC{$\judgeTypeS{\{\}}{True:Bool}{}$}
+        \RightLabel{T-RCD}
+        \TrinaryInfC{$\judgeTypeS{\{\}}{\{l1:True,l2:-8,l3:9,0\}}{\{l1:Bool,l2:Int,l3:Float\}} $}
+
+        \RightLabel{T-Subs}
+        \BinaryInfC{$\{l1:True,l2:-8,l3:9,0\}$ : $\{l1:Bool,l2:Int,l3:Float\}$}
+\end{scprooftree}    
+\end{center}
+
+\newpage
+\subsection{Ejercicio 7}
+
+Inserte su explicacion formal aquí $:)$
+
+Por lo tanto, el término xx no es tipable en el cálculo $\lambda$ clásico.
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{$x:\sigma \rightarrow \tau \in \Gamma$}
+    \UnaryInfC{$\judgeType{\Gamma}{x}{\sigma \rightarrow \tau}$}
+    
+    \AxiomC{$x:\theta \in \Gamma$}
+    \UnaryInfC{$\judgeType{\Gamma}{x}{\theta}$}
+
+    \AxiomC{$\theta <: \sigma$}
+
+    \RightLabel{T-App}
+    \TrinaryInfC{$\judgeTypeS{\Gamma}{x$ $x}{\tau}$}
+\end{scprooftree}    
+\end{center}
+
+Si $\theta=\sigma \rightarrow \tau$ y $\sigma=Top$ entonces vale $\theta <: Top$, es decir, $Top \rightarrow \tau <: Top$.
+       
+\subsection{Ejercicio 8}
+\par{a)}
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+    \AxiomC{$U<:V$}
+    \AxiomC{$S<:T$}
+    \RightLabel{S-Arrow'}    
+    \BinaryInfC{$T \rightarrow V <: S \rightarrow U$}
+\end{scprooftree}    
+\end{center}
+
+Sea $M=(\lambdaAbs{x}{Int}{\lambdaIfThenElse{x>2}{2,5}{0,3}}: Int->Bool$, por la regla S-Arrow', podríamos tipar el término: M true, ya que podríamos ingresarle a M un elemento de un subtipo de Int.
+Pero esto no tenrdía sentido, ya que no se podría evaluar: true>2.
+
+Demostración:
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{$\judgeType{\Gamma}{0,3}{Float}$}
+    \AxiomC{$\judgeType{\Gamma}{2,5}{Float}$}
+    \AxiomC{$\judgeType{\Gamma}{x>2}{Bool}$}
+    \RightLabel{T-if}
+    \TrinaryInfC{$\judgeType{\Gamma=\{x:Int\}}{if$ $(x>2)$ $then$ $2,5$ $else$ $0,3}{Float}$}
+    \RightLabel{T-abs}    \UnaryInfC{$\judgeType{\{\}}{\lambdaAbs{x}{Int}{\lambdaIfThenElse{x>2}{2,5}{0,3}}}{Int \rightarrow Float}$}
+    
+    \AxiomC{$\judgeType{\{\}}{True}{Bool}$}
+    \AxiomC{$Bool<:Int$}
+    \RightLabel{T-Subs}
+    \BinaryInfC{$\judgeType{\{\}}{True}{Int}$}
+    
+    \RightLabel{T-app}
+    \BinaryInfC{$\judgeType{\{\}}{(\lambdaAbs{x}{Int}{\lambdaIfThenElse{x>2}{2,5}{0,3}$ $True}}{Float}$}
+\end{scprooftree}    
+\end{center}
+
+\par{b)}
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+    \AxiomC{$U<:V$}
+    \AxiomC{$S<:T$}
+    \RightLabel{S-Arrow''}
+    \BinaryInfC{$S \rightarrow U <: T \rightarrow V$}
+\end{scprooftree}    
+\end{center}
+
+\subsection{Ejercicio 9}
+\subsection{Ejercicio 10}
+\subsection{Ejercicio 11}
+\subsection{Ejercicio 12}
+\subsection{Ejercicio 13}
+\subsection{\blue{Ejercicio 14}}
+\end{document}
