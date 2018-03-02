@@ -1,0 +1,96 @@
+\documentclass[10pt,a4paper]{article}
+\input{header}
+
+\setcounter{section}{4}
+
+
+\begin{document}
+\title{PLP - Práctica 4: Subtipado}
+
+\date{\today}
+
+\author{Zamboni, Gianfranco}
+
+\maketitle
+\setcounter{page}{1}
+
+\section*{Reglas de subtipado}
+\subsection{Ejercicio 1}
+\paragraph{1)}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+       
+       \AxiomC{$\{y\}\subseteq\{x,y,z\}$}
+
+       \AxiomC{$y:Nat = y:Nat$}
+       
+       \RightLabel{S-Rcd}
+       \BinaryInfC{$\{x: Nat,~y:Nat,~z:Nat\} <: \{y:Nat\}$}
+    \end{scprooftree}
+\end{center}
+
+Esta demostración no es única porque existe la regla $S-Trans$ que nos permite probar la transitividad de los tipos, si hubiesemos decidido usarla para primero conseguir un supertipo $\{x:Nat,y:Nat\}$ del primer término y luego probar que ese supertipo es subtipo de $\{y:Nat\}$ entonces también hubiese sido una demostración válida.
+
+\paragraph{2)}
+
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+       
+       \AxiomC{$\emptyset\subseteq\{x,y,z\}$}
+       \RightLabel{S-Rcd}
+       \UnaryInfC{$\{x: Nat,~y:Nat\} <: \{\}$}
+    \end{scprooftree}
+\end{center}
+
+\hspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+            \AxiomC{$\{x\}\subseteq\{x,y\}$}
+            \AxiomC{$x:Nat = x:Nat$}
+           \RightLabel{S-Rcd}
+           \BinaryInfC{$\{x: Nat,~y:Nat\} <: \{x:Nat\}$}
+           
+               \AxiomC{$\emptyset\subseteq\{x,y,z\}$}
+           \RightLabel{S-Rcd}            
+           \UnaryInfC{$\{x:Nat\} <: \{\}$}
+
+       \RightLabel{S-Trans}
+       \BinaryInfC{$\{x: Nat,~y:Nat\} <: \{\}$}
+    \end{scprooftree}
+\end{center}
+
+\subsection{Ejercicio 2}
+\paragraph{1)} Los registros tienen subtipos infinitos porque dado el tipo de un registro $\omega = \{l_i:\sigma_i\}_{i\in 1..n}$, entonces cualquier tipo de la forma $\omega' = \{l_i:\tau_i\}_{i\in 1..k}$ con $k \geq n$ tal que  $\tau_i <: \sigma_i^{i\in 1..n}$ es subtipo del tipo de $\omega$.
+
+$Top$ tiene como subtipo a los registros y los registros tienen infinitos subtipos, entonces $Top$ tiene infinitos subtipos.
+
+Por S-Arrow, los subtipos de una función $\sigma\to\tau$ son los tipos de la forma $\sigma' \to \tau'$ tal que $\sigma <: \sigma'$ y $\tau' <: \tau$. En particular si $\tau$ es de tipo registro, entonces $\tau$ tiene infinitos subtipos, por lo que $\sigma\to\tau$ tambien los tiene (son las funciones que devuelven registros). 
+
+\paragraph{2)} $Top$ no tiene supertipos.
+
+Los registros tiene una cantidad finita de supertipos, siendo el máximo registro $\{\} <: Top$
+
+Otra vez, hay casos en que las funciones tienen infinitos supertipos y es cuando toman como parámetro a un registro. Esto es porque la regla S-Arrow es contravariante respecto del tipo del párametro de la función, es decir, para que un tipo $\sigma\to\tau$ sea supertipo de $\sigma'\to\tau$ tiene que valer que $\sigma <: \sigma'$. Y si $sigma'$ es un registro, entonces tiene infinitos subtipos.
+
+\subsection{Ejercicio 3}
+\paragraph{1)} $S = Top$
+\paragraph{2)} Si solo consideramos los tipos básicos $Bool,~Nat,~Int,~Float$, entonces $S=Bool$, pero cuando empezamos a considerar registros o listas u otros tipos, entonces, los ``mínimos'' de cada tipo no están relacionados de ninguna forma, incluso, en el caso de los registros, ese mínimo nisiquiera existe.
+\paragraph{3)} Por S-Arrow, tenemos que $S_1\to S_2 <: T_1\to T_2$ si $T_1 <: S_1$ y $T_2 <: S_2$. 
+
+El primer caso es el punto \textbf{1)}, el segundo es el punto \textbf{2)}.
+\paragraph{4)} Es similar al anterior pero con los casos invertidos.
+
+\subsection{Ejercicio 4}
+\paragraph{1)} $T<:S~\underset{\text{S-Trans}}{\iff} ~ T<:T~\land~T<:S \underset{\text{S-Arrow}}{\iff} S\to T <: T\to T$
+\paragraph{2)} Si $S = Bool$ y $T = Top$, entonces $\{x:Bool, y:Top\}$ tiene $26$ supertipos y el tipo $Bool\to Top$ solo tiene como supertipo a $Top$, porque $Bool$ no tiene subtipos y $Top$ no tiene supertipos.
+\paragraph{3)} Si $S = Top$ y $T = Top$, entonces $\{x:Top, y:Top\}$ tiene como supertipos a $\{x:Top\}$, $\{y:Top\}$, $\{\}$ y a $Top$ y el tipo $Top\to Top$ tiene infinitos por el ejercicio 2.
+
+\subsection{\blue{Ejercicio 5}}
+
+\section*{Subtipado en el contexto de tipado}
+\end{document}
+
