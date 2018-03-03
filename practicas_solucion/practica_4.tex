@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper,landscape]{article}
+\documentclass[10pt,a4paper, landscape]{article}
 \input{header}
 
 \setcounter{section}{4}
@@ -17,6 +17,7 @@
 \section*{Reglas de subtipado}
 \subsection{Ejercicio 1}
 \paragraph{1)}
+%\begin{multicols}{2}
 \begin{center}
    \begin{scprooftree}
        \def\extraVskip{5pt}
@@ -30,10 +31,16 @@
     \end{scprooftree}
 \end{center}
 
+%\vfill\null
+%\columnbreak
+\vspace*{5mm}
 Esta demostración no es única porque existe la regla $S-Trans$ que nos permite probar la transitividad de los tipos, si hubiesemos decidido usarla para primero conseguir un supertipo $\{x:Nat,y:Nat\}$ del primer término y luego probar que ese supertipo es subtipo de $\{y:Nat\}$ entonces también hubiese sido una demostración válida.
 
+%\end{multicols}
+%\hspace*{1cm}
+%\setlength{\columnsep}{-1cm}
 \paragraph{2)}
-
+%\begin{multicols}{2}
 \begin{center}
    \begin{scprooftree}
        \def\extraVskip{5pt}
@@ -44,7 +51,7 @@ Esta demostración no es única porque existe la regla $S-Trans$ que nos permite
     \end{scprooftree}
 \end{center}
 
-\hspace*{5mm}
+\vspace*{5mm}
 \begin{center}
    \begin{scprooftree}
        \def\extraVskip{5pt}
@@ -63,7 +70,10 @@ Esta demostración no es única porque existe la regla $S-Trans$ que nos permite
     \end{scprooftree}
 \end{center}
 
+%\end{multicols}
+%\setlength{\columnsep}{5mm}
 \subsection{Ejercicio 2}
+
 \paragraph{1)} Los registros tienen subtipos infinitos porque dado el tipo de un registro $\omega = \{l_i:\sigma_i\}_{i\in 1..n}$, entonces cualquier tipo de la forma $\omega' = \{l_i:\tau_i\}_{i\in 1..k}$ con $k \geq n$ tal que  $\tau_i <: \sigma_i^{i\in 1..n}$ es subtipo del tipo de $\omega$.
 
 $Top$ tiene como subtipo a los registros y los registros tienen infinitos subtipos, entonces $Top$ tiene infinitos subtipos.
@@ -98,8 +108,34 @@ subtipos de a->b: {supertipos de a}x{subtipos de b}, con a y b en {nat,bool,func
 \section*{Subtipado en el contexto de tipado}
 
 \subsection{Ejercicio 6}
-\hspace*{5mm}
+\paragraph{a)}
 \begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+        
+        \AxiomC{}
+        \RightLabel{(1)}
+        \UnaryInfC{$\judgeTypeS{\Gamma}{\lambdaAbs{y}{Nat}{succ(y)}}{Nat \rightarrow Nat}$}
+
+
+        \AxiomC{$x:Bool \in \Gamma$}
+        \RightLabel{T-Var}
+        \UnaryInfC{$\judgeTypeS{\Gamma}{x}{Bool}$} 
+        \RightLabel{T-App}
+        
+        \AxiomC{}
+        \RightLabel{S-BoolNat}
+        \UnaryInfC{$Bool <: Nat$}
+        \TrinaryInfC{$\judgeTypeS{\Gamma = \{x:Bool\}}{(\lambdaAbs{y}{Nat}{succ(y))}~x}{Nat}$}
+        
+        \RightLabel{T-Abs}
+        \UnaryInfC{$\judgeTypeS{\{\}}{\lambdaAbs{x}{Bool}{(\lambdaAbs{y}{Nat}{succ(y)})~ x}}{Bool \rightarrow Nat}$}
+       
+\end{scprooftree}
+\end{center}
+\vspace*{5mm}
+\begin{center}
+\textbf{(1)}\hspace*{5mm}
    \begin{scprooftree}
        \def\extraVskip{5pt}
         
@@ -109,28 +145,10 @@ subtipos de a->b: {supertipos de a}x{subtipos de b}, con a y b en {nat,bool,func
         \RightLabel{T-Succ}       \UnaryInfC{$\judgeTypeS{\{x:Bool,y:Nat\}}{succ(y)}{Nat}$}
         \RightLabel{T-Abs}
         \UnaryInfC{$\judgeTypeS{\{x:Bool\}}{\lambdaAbs{y}{Nat}{succ(y)}}{Nat \rightarrow Nat}$}
-
-
-        \AxiomC{$x:Bool \in \{x:Bool\}$}
-        \RightLabel{T-Var}
-        \UnaryInfC{$\judgeTypeS{\{x:Bool\}}{x:Bool}{}$}
-
-        \AxiomC{}
-        \RightLabel{S-BoolNat}
-        \UnaryInfC{$Bool <: Nat$}
-        
-        \RightLabel{T-Subs}
-        \BinaryInfC{$\judgeTypeS{\{x:Bool\}}{x:nat}{Nat}$} 
-        \RightLabel{T-App}
-        \BinaryInfC{$\judgeTypeS{\{x:Bool\}}{\lambdaAbs{y}{Nat}{succ(y)} x}{Nat}$}
-        
-        \RightLabel{T-Abs}
-        \UnaryInfC{$\judgeTypeS{\{\}}{\lambdaAbs{x}{Bool}{\lambdaAbs{y}{Nat}{succ(y)} x}}{Bool \rightarrow Nat}$}
-       
 \end{scprooftree}
 \end{center}
-\newpage
 
+\paragraph{b)}
 \vspace*{5mm}
 \begin{center}
    \begin{scprooftree}
@@ -139,7 +157,7 @@ subtipos de a->b: {supertipos de a}x{subtipos de b}, con a y b en {nat,bool,func
         \AxiomC{Demo b)}
 
         \RightLabel{T-App}
-        \BinaryInfC{$\judgeTypeS{\{\}}{(\lambdaAbs{r}{\{l1:Bool,l2:Float\}}{if$ $r.l1$ $then$ $r.l2$ $else$ $5,5})$  $\{l1:True,l2:-8,l3:9,0\}}{Float}$}
+        \BinaryInfC{$\judgeTypeS{\{\}}{(\lambdaAbs{r}{\{l_1:Bool,~l_2:Float\}}{\lambdaIf{r.l_1}{r.l_2}{5,5}})$  $\{l_1=\texttt{true},~l_2=-8,~l_3=9,0\}}{Float}$}
 \end{scprooftree}    
 \end{center}
 
@@ -226,7 +244,7 @@ Si $\theta=\sigma \rightarrow \tau$ y $\sigma=Top$ entonces vale $\theta <: Top$
 \end{scprooftree}    
 \end{center}
 
-Sea $M=(\lambdaAbs{x}{Int}{\lambdaIfThenElse{x>2}{2,5}{0,3}}: Int->Bool$, por la regla S-Arrow', podríamos tipar el término: M true, ya que podríamos ingresarle a M un elemento de un subtipo de Int.
+Sea $M=(\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}}: Int->Bool$, por la regla S-Arrow', podríamos tipar el término: M true, ya que podríamos ingresarle a M un elemento de un subtipo de Int.
 Pero esto no tenrdía sentido, ya que no se podría evaluar: true>2.
 
 Demostración:
@@ -240,7 +258,7 @@ Demostración:
     \AxiomC{$\judgeType{\Gamma}{x>2}{Bool}$}
     \RightLabel{T-if}
     \TrinaryInfC{$\judgeType{\Gamma=\{x:Int\}}{if$ $(x>2)$ $then$ $2,5$ $else$ $0,3}{Float}$}
-    \RightLabel{T-abs}    \UnaryInfC{$\judgeType{\{\}}{\lambdaAbs{x}{Int}{\lambdaIfThenElse{x>2}{2,5}{0,3}}}{Int \rightarrow Float}$}
+    \RightLabel{T-abs}    \UnaryInfC{$\judgeType{\{\}}{\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}}}{Int \rightarrow Float}$}
     
     \AxiomC{$\judgeType{\{\}}{True}{Bool}$}
     \AxiomC{$Bool<:Int$}
@@ -248,7 +266,7 @@ Demostración:
     \BinaryInfC{$\judgeType{\{\}}{True}{Int}$}
     
     \RightLabel{T-app}
-    \BinaryInfC{$\judgeType{\{\}}{(\lambdaAbs{x}{Int}{\lambdaIfThenElse{x>2}{2,5}{0,3}$ $True}}{Float}$}
+    \BinaryInfC{$\judgeType{\{\}}{(\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}$ $True}}{Float}$}
 \end{scprooftree}    
 \end{center}
 

@@ -12,7 +12,70 @@ El estado de un objeto es \textbf{privado} y solamente puede ser consultado o mo
 
 \paragraph{Method dispatch} Es el método mediante el cuál, un proceso, estable la asociación entre el mensaje y el método a ejecutar. Es decir, cuando un objeto recibe un mensaje, el \textbf{method dispatch} se encarga de hallar la \textbf{declaración del método} que se pretende ejecutar. Este método puede ser \textbf{estático} (realizado en tiempo de compilación) o \textbf{dinámico} (realizado en tiempo de ejecución).
 
-\subsubsection{Corrientes de organización}
+\paragraph{Corrientes de organización}
 Por lo general,tratamos de agrupar los objetos en conjuntos compuestos por objetos que se comportan de manera similar para conseguir programas más concisos. Esto se puede hacer de dos formas: Mediante clasifiación o mediante prototipado.
 
-\paragraph{Clasificación} Se usan \textbf{clases} que modelan \textbf{conceptos abstractos} del dominio del problema a resolver y definen el comportamiento y la forma de un conjunto de objetos (sus \textbf{instancias}).
+\subsection{Clasificación}
+Se usan \textbf{clases} que modelan \textbf{conceptos abstractos} del dominio del problema a resolver y definen el comportamiento y la forma de un conjunto de objetos (sus \textbf{instancias}). Todo \textbf{objeto} es una instancia de una clase.
+
+\paragraph{Componentes de una clase}
+Todas las clases tienen un \textbf{nombre} que usado para referenciarse a la misma. Dentro de ellas se definen las variables de instancias (colaboradores internos) de los objetos) y los métodos que saben responder esas instancias (sus nombres, sus parámetros y su cuerpo).
+
+\subsubsection{Self/This}
+Todas las clases tienen definida una pseudovariable que, durante la evaluación de un método, referencia al receptor del mensaje que activó dicha evaluación. No puede ser modificada por medio de una asignación y se liga automáticamente al receptor cuando comienza la evaluación del método.
+
+\begin{minted}{smalltalk}
+!classDefinition: #Node 
+	instanceVariableNames: 'leftchild, rightchild'
+	...
+sum: 
+	^ (self leftchild) sum + (self rightchild) ! !
+	
+!classDefinition: #Leaf 
+	instanceVariableNames: 'value'
+	...
+sum: 
+	^self value ! !
+
+\end{minted}
+
+Vemos que los métodos acceden a sus variables de instancia, enviándose a si mismos el mensaje asociado a cada una de ellas. En muchos lenguajes, para facilitar la escritura de un programa, la mención de \texttt{self} se hace implícitamente.
+
+\subsubsection{Jerarquía de clases}
+Cuando escribimos un programa en este paradigma, es común que creemos nuevas clases que extiendan a las ya existentes con nuevas variables de instancia o clase o que modifiquen el comportameiento de unos o varios métodos.
+
+Para evitar tener que escribir toda una clase de cero, hacemos que la clase que estamos creando \textbf{herede} los atributos y los métodos de la clase pre-existente (la \textbf{super-clase}) que queremos extender. De esta forma, la nueva clase tendrá todo lo que tenía la super-clase y, además, las modificaciones que nosotros querramos agregarle.
+
+La herencia define una relación transitiva por lo que si una clase $A$ tiene como super-tipo a otra clase $B$, entonces el super-tipo $C$ de $B$, entonces $C$ tambien es supertipo de $A$. Llamaremos \textbf{ancestros} a todos los supertipos de $A$ y \textbf{descendientes} a todos los tipos que tienen a $A$ como ancestro.
+
+\subsubsection{Tipos de herencia}
+Hay dos tipos de herencia: \textbf{simple} y \textbf{múltiple}. La herencia simple permite que una clase tenga una única clase padre y la única clase que no tiene padre es la clase \texttt{Object} que es la clase de la que heredan todas las demás. Mientras que la herencia múltiple deja que una clase tenga varios padres.
+
+La mayoría de los lenguajes orientados a objetos utilizan la primera ya que la herencia múltiple complica el proceso de method dispath (que asocia los mensajes de un objeto con sus respectivos métodos). Para ver por qué pasa esto, supongamos que tenemos dos clases $A$ y $B$ incomparables y una clase $C$ que es subclase de $A$ y $B$. Si $A$ y $B$ definen (o heredan) dos métodos diferentes para un mismo mensaje $m$, entonces cuando enviemos dicho mensaje a $C$ deberíamos saber cual de los dos elegir.
+
+Hay dos soluciones posibles a este problema:
+\begin{itemize}
+\item Podemos establecer un \textbf{orden de búsqueda} sobre las superclases de un clase estableciendo, de esta forma, un nivel de prioridad sobre algunas de ellas.
+\item O obligar al programado a \textbf{redefinir} el método en $C$ si $C$ hereda dos métodos distintos para el mismo mensaje.
+\end{itemize}
+
+\subsubsection{Method Dispatch}
+
+Como dijimos, el \textbf{method Dispatch} es el método mediante el cual asociamos un mensaje a su método correspondiente en el objeto. Por lo general, este método se realiza de manera dinámica, es decir se realizan durante tiempo de ejecución dependiendo del contexto sin embargo, hay situaciones en las que realizar este proceso de manera estática es necesario. 
+
+Un ejemplo de esto, es cuando el lenguaje nos permite hacer uso de \texttt{super}, una pseudovariable que \textbf{referencia al objeto que recibe el mensaje} y \textbf{cambia} su proceso de activación al momento de recibir un mensaje.
+Cuando usamos una expresión de la forma \texttt{super msg} en el cuerpo de un método $m$, el \textbf{method lookup} (la búsqueda del método realizada por el method dispath), comienze a realizarse desde el padre de la \textbf{clase anfitriona} de m.
+
+Algunos lenguajes, además, nos permiten pasarle como parámetro una clase a partir de la que empezar de la siguiente forma: \texttt{super[A] msg}, siempre y cuando $A$ sea un ancestro de la clase anfitriona del método.
+
+\subsection{Prototipado}
+Lo lenguajes basados en prototipado de objetos se caracterizan por la ausencia de clases. Proveen constructores para la creación de objetos particulares y la herramientas necesarias para crear procedimientos que generen objetos.
+
+En este tipo de paradigma, creamos instancias concretas que se interpretan como representantes canónicos de instancias (llamados \textbf{prototipos}) y, a partir de ellos, generamos otras intancias (\textbf{clones}) que pueden ser modificados sin afectar al prototipo.
+
+Cuando hacemos esto hacemos lo que se llama una \textbf{shallow copy}, es decir copiamos cada atributo de un objeto $A$ en otro $B$. Es decir, si en $A$ tenemos una referencia a $C$, entonces en $B$ tendremos una referencia a $C$, no copiaremos $C$ a ningún otro objeto.
+
+\subsubsection{Cálculo de objetos no tipado \texorpdfstring{($\varsigma$ cálculo)}{}}
+
+
+
