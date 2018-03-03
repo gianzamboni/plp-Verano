@@ -81,10 +81,8 @@ $\lambdaAbs{x}{ Nat}{succ((\lambdaAbs{x}{ Nat}{\blue{x}})~\lambdaValue{x})}$
     \end{forest}
 \end{center}
 
-\end{multicols}
-\vspace*{\fill}
-
-\newpage
+\vfill\null
+\columnbreak
 \subsection{Ejercicio 4}
 Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables libres
 \paragraph{a)}
@@ -106,6 +104,8 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
     ]  
     ]
 \end{forest}
+
+\end{multicols}
 
 \paragraph{b)} En esta expresión aparece $(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{x~z~(y~z)}}})~u$, la marco con una \xmark~ cuando aparece.
 
@@ -240,6 +240,7 @@ En la siguiente demostración $\Gamma =\{x: Nat,~y: Bool\}$
 
 \vspace*{5mm}
 \paragraph{4)} En la próxima demostración $\Gamma = \{x :  Bool \to  Nat, y :  Bool\}$ 
+\vspace*{5mm}
 \begin{center}
 \begin{scprooftree}
     \def\extraVskip{5pt}
@@ -355,9 +356,8 @@ Entonces, $\sigma =  Nat$ y $\tau =  Bool$
 El árbol de la segunda abstracción nos dice que $\sigma =  Bool\to  Nat$. Por lo que la primera abstracción seria la función identidad de funciones del tipo $ Bool\to  Nat$.
 \end{multicols}
 
+\newpage
 \paragraph{3)} $\Gamma = \{y:\tau\}$
-
-\vspace*{5mm}
 \begin{center}
     \begin{scprooftree}
    \def\extraVskip{5pt}
@@ -374,7 +374,6 @@ El árbol de la segunda abstracción nos dice que $\sigma =  Bool\to  Nat$. Por 
 \TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{(\lambdaAbs{x}{\sigma}{x})}{y}{succ(0)}}{\sigma}$}
     \end{scprooftree}
 \end{center}
-
 
 \vspace*{5mm}
 Entonces, la expresión no es tipable.
@@ -399,14 +398,15 @@ Entonces, la expresión no es tipable.
 \BinaryInfC{$\judgeType{\Gamma}{x~y}{\tau}$}
     \end{scprooftree}
 
-En este caso, $\sigma = \sigma_1\to\tau$ para cualquier $\tau$ y cualquier $\sigma_1$. Sin embargo, el juicio de tipado no es derivable ya que el sistema de tipado no nos permite asegurar nada sobre el tipo de $y$.
 \vspace*{5mm}
+En este caso, $\sigma = \sigma_1\to\tau$ para cualquier $\tau$ y cualquier $\sigma_1$. Sin embargo, el juicio de tipado no es derivable ya que el sistema de tipado no nos permite asegurar nada sobre el tipo de $y$.
+
 Acá no podemos hacer juicio de tipado porque no podemos asegurar que $y$ sea de tipo $\sigma_1$
 
 \paragraph*{5)}$\Gamma = \{x:\sigma, y:\tau\}$
 
 \vspace*{5mm}
-    \begin{scprooftree}
+\begin{scprooftree}
    \def\extraVskip{5pt}
         
            \AxiomC{$x: \sigma_1\to\tau\in\Gamma \Rightarrow \sigma = \sigma_1\to\tau$}
@@ -425,6 +425,9 @@ Acá no podemos hacer juicio de tipado porque no podemos asegurar que $y$ sea de
 \vspace*{5mm}
 Entonces $\sigma = \tau\to\tau$ para cualquier tipo $\tau$
 
+\vfill\null
+\columnbreak
+    
 \paragraph{6)} $\Gamma = \{x:\sigma\}$
 
 \vspace*{5mm}
@@ -468,6 +471,8 @@ Entonces $\sigma =  Bool\to\tau$ para cualquier tipo $\tau$
 
 Tenemos que $x$ debe ser de tipo $\sigma$ y $ Bool\to\sigma$ al mismo tiempo, por lo que no es posible dar un tipo a esta expresión
 
+
+\end{multicols}
 \paragraph{8)} $\Gamma = \{x:\sigma\}$
 
 \vspace*{5mm}
@@ -491,13 +496,12 @@ Tenemos que $x$ debe ser de tipo $\sigma$ y $ Bool\to\sigma$ al mismo tiempo, po
 
 Tenemos que $x$ debe ser de tipo $\sigma$ y $ Bool\to\sigma$ al mismo tiempo, por lo que no es posible dar un tipo a esta expresión
 
-\end{multicols}
 
 \subsection{Ejercicio 8}
 
 La expresión más simple que se me ocurre es $true~false$.
 
-\newpage
+
 \subsection{Ejercicio 9}
 El juicio de tipado puede ser $\judgeType{\Gamma}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to\sigma}$
 
@@ -532,6 +536,7 @@ Con T-Abs2:
 No hay nada que nos asegure que $x:\sigma$ pertenece a $\Gamma$
 \end{multicols}
 
+\newpage
 \section*{\centering Semántica}
 \subsection{Ejercicio 10}
 \paragraph{1)} $\replaceBy{(\lambdaAbs{y}{\sigma}{x~(\lambdaAbs{x}{\tau}{x})})}{x}{(\lambdaAbs{y}{\rho}{x~y})}
@@ -563,7 +568,6 @@ $succ(succ(0))$ &  \\
 \end{tabular}
 \end{center}
 
-\newpage
 \subsection{Ejercicio 12}
 Los programas en \red{rojo} son los que dan error y los programas en \blue{azul} los que son valores, el resto no están en forma normal.
 \begin{center}
@@ -579,8 +583,6 @@ $\lambdaLetrec{f}{\lambdaAbs{x}{ Nat}{succ(f~x)}}{f~0}$ & \\
 \end{tabular}
 \end{center}
 
-
-\vspace*{5mm}
 \begin{multicols}{2}
 \subsection{Ejercicio 13}
 \textbf{1) }Cuando definimos $\to$, lo hacemos como una función deterministica que dada una expresión, siempre hay una única que regla que aplica para dar un paso en la reducción. Por lo que una expresión siempre reduce a la misma expresión, en un paso.
@@ -608,7 +610,6 @@ $$\frac{}{\lambdaAbs{x}{\sigma}{F}~V\to \replaceBy{F}{x}{V}}(\text{E-Abs/}\beta)
 
 
 \newpage
-
 \subsection{Ejercicio 16}
 \begin{multicols}{2}
 Para poder utilizar la reducción \textit{call-by-name} debemos eliminar la regla E-App/$v$ que nos dice que debemos reducir la expresión usada como parámetro hasta obtener un valor y remplazar E-App2/$\beta$ por:
@@ -837,7 +838,7 @@ $$\frac{}{(\mu x_1:\sigma_1,\dots,x_n:\sigma_n.M)~\#_i~V \to \mu x_1:\sigma_1,\d
 \subsection{Ejercicio 20}
 Acá usamos la extensión con registros vista en la teórica.
 
-$M~:=~\dots~|~unionReg(M,M)$
+$$M~:=~\dots~|~unionReg(M,M)$$
 
 Los valores no cambian.
 
@@ -870,6 +871,7 @@ $\textbf{Or} \equalDef \lambdaAbs{x}{Bool}{\lambdaAbs{y}{Bool}{\lambdaIf{x}{true
 $\textbf{Xor} \equalDef \lambdaAbs{x}{Bool}{\textbf{Or}~(\textbf{And}~x~(\textbf{Not}~y))~(\textbf{And}~(\textbf{Not}~x)~y)}$
 \end{multicols}
 
+\newpage
 \subsection*{Ejercicio 22}
 \paragraph{1)}
 
@@ -880,7 +882,6 @@ $$\frac{\judgeType{\Gamma}{M_i}{\sigma_i\to\tau}\hspace*{5mm}i\in1..n\hspace*{5m
 $$\frac{\judgeType{\Gamma}{N}{\sigma_i}\hspace*{5mm}\judgeType{\Gamma}{M}{Union(\sigma_1,\dots,\sigma_n)_\tau}\hspace*{5mm}\text{para algún }  i\in1..n }{\judgeType{\Gamma}{M~N}{\tau}}(T-UnionApp)$$
 \end{multicols}
 
-\newpage
 \paragraph{2)} $\Gamma = \{y: Nat\}$
 
 \vspace*{5mm}
@@ -937,6 +938,7 @@ $$\frac{M_j\to M_j'}{[(V_i^{i\in 1..j-1}, M_j, M_i^{i\in j+1..n})]\to[(V_i^{i\in
 $$\frac{\forall~\Gamma~\hspace*{5mm}\judgeType{\Gamma}{V_i}{\sigma_i\to\tau}\hspace*{5mm}\judgeType{\Gamma}{V}{\sigma_i}\hspace*{5mm}\text{para algún }i\in 1..n}{[(V_i^{i\in 1..n})]~V\to V_i~V}(\text{E-AppUnion})$$
 \end{multicols}
 
+\newpage
 \subsection{Ejercicio 23}
 Usamos la extensión del ejercicio \ref{p2:e17}
 
@@ -1013,7 +1015,6 @@ $$\frac{\judgeType{\Gamma}{M}{\text{det}(\sigma)\to\tau}~\hspace*{5mm}\judgeType
 \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\text{det}(Bool)}{\lambdaIf{y}{continuar(x)}{false}}}{\text{det}( Bool)\to Bool}$}
 \end{scprooftree}
 
-\newpage
 \paragraph{3)} $V~::=~...~|~detener(M)$
 
 \begin{multicols}{2}
