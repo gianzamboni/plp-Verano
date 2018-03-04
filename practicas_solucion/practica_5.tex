@@ -84,27 +84,35 @@
     \end{lstlisting}
 \subsubsection{Modificando receptor:}
     \begin{lstlisting}
-    c1i.sumar = function (complejo) {
-    	this.r += complejo.r;
-    	this.i += complejo.i;
+    function c1i(r,i){
+    	this.r = r;
+    	this.i = i;
+    	this.sumar = function (complejo) {
+    		this.r += complejo.r;
+    		this.i += complejo.i;
+    	}
     }
     \end{lstlisting}
 \subsubsection{Sin modificar receptor:}
     \begin{lstlisting}
-    c1i.sumar2 = function (complejo) {
-    	return (new c1i(this.r + complejo.r, this.i + complejo.i));
+    function c1i(r,i){
+    	this.r = r;
+    	this.i = i;
+    	this.sumar = function (complejo) {
+            return (new c1i(this.r + complejo.r, this.i + complejo.i));
+    	}
     }
     \end{lstlisting}
 \subsubsection{Sumar.Sumar:}
-    El resultado era indefinido, entonces:
     \begin{lstlisting}
-    c1i.prototype.sumar2 = function (complejo){
-    	return (new c1i(this.r + complejo.r, this.i + complejo.i));
-    }
+        var c1 = new c1i(1,1);
+        var c2 = c1.sumar(c1);
+        c2.sumar(c2).mostrar();
     \end{lstlisting}
+    Da bien.
 \subsubsection{Restar:}
     \begin{lstlisting}
-    var c = c1i.sumar2(c1i);
+    var c = c1i.sumar(c1i);
     c.protptype.restar = function(complejo){
     	return new c1i(this.r - complejo.r,this.i - complejo.i);	
     }
@@ -120,7 +128,7 @@
     	}
     }
     \end{lstlisting}
-    C tiene definida la operación mostrar por herencia.
+    c tiene definida la operación mostrar por herencia.
 \subsection{Ejercicio 2: a,b y c.}
     \begin{lstlisting}
     function t(a,b) {
