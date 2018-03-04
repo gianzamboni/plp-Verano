@@ -1,0 +1,29 @@
+Por si sirve =>
+
+//Objeto Singleton:
+var objeto_vacio={};
+//no tiene prototype y por lo tanto sus instancias no tienen __proto__ 
+objeto_vacio.estado = 1;
+console.log(objeto_vacio.estado);
+
+//Objeto creado a travez de una funcion
+function nroComplejo(r,i){
+	this.r = r;
+	this.i = i;
+}
+//se puede crear un objeto c a partir de esa funcion con new
+var c = new nroComplejo(1,2);
+
+//los nros complejos, o sea, todos los objetos que se creen a partir de la funcion heredaran los metodos de instancia (r e i) y los de clase (los metodos definidos en el prototype)
+nroComplejo.prototype.estado =  0;
+console.log(c.estado);
+
+//cada instancia c tiene un atributo __proto__, que por default es el mismo que el prototype de todos los numeros complejos.
+c.__proto__.estado =  1; 
+console.log(c.estado);
+
+//si cambiamos el campo estado del prototype, ya sea: c.__proto__ Ó nroComplejo.prototype, por default todas las instancias de numeros complejos veran esa modificación. lo comprobé acá=>
+var d = new nroComplejo(3,4);
+console.log(d.estado);
+
+//Esta bien??
