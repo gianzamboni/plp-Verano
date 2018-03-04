@@ -1,0 +1,275 @@
+\documentclass[10pt,a4paper]{article}
+\input{header}
+
+\setcounter{section}{5}
+
+%-----------------------------------------------
+%-----------------------------------------------
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\quotes}[1]{``#1''}
+
+
+\usepackage{graphicx}
+\usepackage{wrapfig}
+
+\usepackage{tikz}
+\usetikzlibrary{graphs}
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{lightgray}{rgb}{.9,.9,.9}
+\definecolor{white}{rgb}{1,1,1}
+\definecolor{darkgray}{rgb}{.4,.4,.4}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{white},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+%-----------------------------------------------
+%-----------------------------------------------
+
+\begin{document}
+\title{PLP - Práctica 5: Programación Orientada a Objetos}
+
+\date{\today}
+
+\author{Zamboni, Gianfranco}
+
+\maketitle
+\setcounter{page}{1}
+
+\section*{\centering Programación en JS}
+\subsection{Ejercicio 1}
+\subsubsection{Objeto:}
+    \begin{lstlisting}
+    function c1i(r,i){
+    	this.r = r;
+    	this.i = i;
+    }
+    \end{lstlisting}
+\subsubsection{Modificando receptor:}
+    \begin{lstlisting}
+    c1i.sumar = function (complejo) {
+    	this.r += complejo.r;
+    	this.i += complejo.i;
+    }
+    \end{lstlisting}
+\subsubsection{Sin modificar receptor:}
+    \begin{lstlisting}
+    c1i.sumar2 = function (complejo) {
+    	return (new c1i(this.r + complejo.r, this.i + complejo.i));
+    }
+    \end{lstlisting}
+\subsubsection{Sumar.Sumar:}
+    El resultado era indefinido, entonces:
+    \begin{lstlisting}
+    c1i.prototype.sumar2 = function (complejo){
+    	return (new c1i(this.r + complejo.r, this.i + complejo.i));
+    }
+    \end{lstlisting}
+\subsubsection{Restar:}
+    \begin{lstlisting}
+    var c = c1i.sumar2(c1i);
+    c.protptype.restar = function(complejo){
+    	return new c1i(this.r - complejo.r,this.i - complejo.i);	
+    }
+    \end{lstlisting}
+    c1i.restar(c): C1i no tiene definida la operación restar.
+\subsubsection{Mostrar:}
+    \begin{lstlisting}
+    c1i.prototype.mostrar = function () {
+    	if(this.i != 1){
+    		console.log(this.r+" "+this.i+"i");
+    	}else{
+    		console.log(this.r+" "+"i");
+    	}
+    }
+    \end{lstlisting}
+    C tiene definida la operación mostrar por herencia.
+\subsection{Ejercicio 2: a,b y c.}
+    \begin{lstlisting}
+    function t(a,b) {
+    	this.ite = a;
+    	this.mostrar = "Verdadero";
+    	this.not = "Falso";
+    	this.and = function(val){ 
+    		if (this.ite == val.ite){
+    			return "Verdadero";	
+    		}else{
+    			return "Falso";
+    		}};
+    }
+    function f(a,b) {
+    	this.ite = b;
+    	this.mostrar = "Falso";
+    	this.not = "Verdadero";
+    	this.and = function(val) {
+    		return "Falso";
+    	}
+    }
+    \end{lstlisting}
+    % console.log((new t(t,f)).mostrar);
+    % console.log((new f(t,f)).mostrar);
+    % var unTrue = new t(t,f);
+    % var unFalse = new f(t,f);
+    % console.log(unTrue.and(unTrue));
+    % console.log(unTrue.and(unFalse));
+    % console.log(unFalse.and(unTrue));
+    % console.log(unFalse.and(unFalse));
+\subsection{Ejercicio 3: a y b.}
+    \begin{lstlisting}
+    var cero = {};
+    cero.esCero = true;
+    cero.succ = function(){ 
+    	return new sucesor(this);
+    };
+    cero.toNumber = 0;
+    function sucesor(objeto) {
+    	this.esCero = false;
+    	this.succ = function(){ 
+    		return new sucesor(this);
+    	};
+    	this.pred = objeto;
+    	this.toNumber = objeto.toNumber+1;
+    };
+    \end{lstlisting}
+    % var uno = new sucesor(cero);
+    % var dos = new sucesor(uno);
+    % console.log(cero);
+    % console.log(uno.pred.esCero);
+    % console.log(dos.pred.esCero);
+    % console.log(dos.toNumber);
+\subsubsection{///C}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsection{Ejercicio 4}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsection{Ejercicio 5}
+\subsection{Ejercicio 6}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsection{Ejercicio 7}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+
+\section*{\centering Cálculo de Objetos}
+
+\subsection{Ejercicio 8}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsection{Ejercicio 9}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsection{Ejercicio 10}
+\subsection{Ejercicio 11}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsection{Ejercicio 12}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsection{Ejercicio 13}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
+
+\end{document}
