@@ -219,10 +219,10 @@ Por lo tanto, el término xx no es tipable en el cálculo $\lambda$ clásico.
        \def\extraVskip{5pt}
 
     \AxiomC{$x:\sigma \rightarrow \tau \in \Gamma$}
-    \UnaryInfC{$\judgeType{\Gamma}{x}{\sigma \rightarrow \tau}$}
+    \UnaryInfC{$\judgeTypeS{\Gamma}{x}{\sigma \rightarrow \tau}$}
     
     \AxiomC{$x:\theta \in \Gamma$}
-    \UnaryInfC{$\judgeType{\Gamma}{x}{\theta}$}
+    \UnaryInfC{$\judgeTypeS{\Gamma}{x}{\theta}$}
 
     \AxiomC{$\theta <: \sigma$}
 
@@ -255,20 +255,20 @@ Demostración:
    \begin{scprooftree}
        \def\extraVskip{5pt}
 
-    \AxiomC{$\judgeType{\Gamma}{0,3}{Float}$}
-    \AxiomC{$\judgeType{\Gamma}{2,5}{Float}$}
-    \AxiomC{$\judgeType{\Gamma}{x>2}{Bool}$}
+    \AxiomC{$\judgeTypeS{\Gamma}{0,3}{Float}$}
+    \AxiomC{$\judgeTypeS{\Gamma}{2,5}{Float}$}
+    \AxiomC{$\judgeTypeS{\Gamma}{x>2}{Bool}$}
     \RightLabel{T-if}
-    \TrinaryInfC{$\judgeType{\Gamma=\{x:Int\}}{if$ $(x>2)$ $then$ $2,5$ $else$ $0,3}{Float}$}
-    \RightLabel{T-abs}    \UnaryInfC{$\judgeType{\{\}}{\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}}}{Int \rightarrow Float}$}
+    \TrinaryInfC{$\judgeTypeS{\Gamma=\{x:Int\}}{if$ $(x>2)$ $then$ $2,5$ $else$ $0,3}{Float}$}
+    \RightLabel{T-abs}    \UnaryInfC{$\judgeTypeS{\{\}}{\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}}}{Int \rightarrow Float}$}
     
-    \AxiomC{$\judgeType{\{\}}{True}{Bool}$}
+    \AxiomC{$\judgeTypeS{\{\}}{True}{Bool}$}
     \AxiomC{$Bool<:Int$}
     \RightLabel{T-Subs}
-    \BinaryInfC{$\judgeType{\{\}}{True}{Int}$}
+    \BinaryInfC{$\judgeTypeS{\{\}}{True}{Int}$}
     
     \RightLabel{T-app}
-    \BinaryInfC{$\judgeType{\{\}}{(\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}$ $True}}{Float}$}
+    \BinaryInfC{$\judgeTypeS{\{\}}{(\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}$ $True}}{Float}$}
 \end{scprooftree}    
 \end{center}
 
@@ -287,7 +287,268 @@ Demostración:
 \subsection{Ejercicio 9}
 \subsection{Ejercicio 10}
 \subsection{Ejercicio 11}
-\subsection{Ejercicio 12}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+    \AxiomC{}
+    \RightLabel{S-Curry}
+    \UnaryInfC{$A \rightarrow B \rightarrow C$ $<:$ $<A x B> \rightarrow C$}
+\end{scprooftree}    
+\end{center}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+    \AxiomC{}
+    \RightLabel{S-Uncurry}
+    \UnaryInfC{$<A x B> \rightarrow C$ $<:$ $A \rightarrow B \rightarrow C$}
+\end{scprooftree}    
+\end{center}
+
+*asoc = asociación de términos
+\blue{*ver paréntesis}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{$A<:A'$}
+    \RightLabel{S-RcdDepth}
+    \UnaryInfC{$\{x:A,y:A'\}$ $<:$ $\{x:A'\}$}
+    
+    
+    \AxiomC{$B<:B'$}
+    
+    \AxiomC{}
+    \RightLabel{S-Refl}
+    \UnaryInfC{$C<:C$}
+    
+
+
+    \RightLabel{S-Func}
+    \BinaryInfC{$(B' \rightarrow C)$ $<:$ $(B \rightarrow C)$}
+
+
+
+    \RightLabel{S-Func}
+    \BinaryInfC{$\{x:A'\} \rightarrow (B' \rightarrow C)$ $<:$ $\{x:A,y:A'\} \rightarrow (B \rightarrow C)$}
+    \RightLabel{Asoc.}
+    \UnaryInfC{$\{x:A'\} \rightarrow (B' \rightarrow C)$ $<:$ $(\{x:A,y:A'\} \rightarrow B) \rightarrow C$}
+    
+    \AxiomC{}
+    \RightLabel{S-Curry}
+    \UnaryInfC{$(\{x:A,y:A'\} \rightarrow B) \rightarrow C$ $<:$ $(\{x:A,y:A'\}xB) \rightarrow C$}
+    
+    
+    \RightLabel{T-Trans}
+    \BinaryInfC{$\{x:A'\} \rightarrow (B' \rightarrow C)$ $<:$ $(\{x:A,y:A'\}xB) \rightarrow C$}
+\end{scprooftree}    
+\end{center}
+
+\subsection{\blue{Ejercicio 12}}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{}
+    \RightLabel{T-Clara}
+    \UnaryInfC{$\judgeTypeS{\{\}}{Clarabelle}{Vaca}$}
+    
+    \AxiomC{}
+    \RightLabel{T-Clara}
+    \UnaryInfC{$\judgeTypeS{\{\}}{Clarabelle}{Vaca}$}
+    
+
+    \AxiomC{$Vaca <: AlimentoPara(Vaca) => **$}
+    
+    \RightLabel{T-Subs}
+    \BinaryInfC{$\judgeTypeS{\{\}}{Clarabelle}{AlimentoPara(Vaca)}$}
+
+
+    \RightLabel{T-Comer}
+    \BinaryInfC{$\judgeTypeS{\{\}}{Comer(Clarabelle,Clarabelle)}{Vaca}$}
+
+\end{scprooftree}    
+\end{center}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{}
+    \RightLabel{S-VacaLeon}
+    \UnaryInfC{$Vaca <: AlimentoPara(Leon)$}
+    
+    \AxiomC{$Leon<:Vaca$}
+    
+    \RightLabel{S-Alim}
+    \UnaryInfC{$AlimentoPara(Leon)<:AlimentoPara(Vaca)$}
+    
+    \RightLabel{S-Trans}
+    \BinaryInfC{$Vaca <: AlimentoPara(Vaca) <= **$}
+\end{scprooftree}    
+\end{center}
+
 \subsection{Ejercicio 13}
+$\sigma := ...|X_{1}(\sigma)|X_{2}(\sigma)$
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{$\judgeTypeS{\Gamma}{M}{<\sigma,\tau>)}$}
+    \RightLabel{S-$Tuple_{1}$}
+    \UnaryInfC{$\judgeTypeS{\Gamma}{M}{x_{1}(\sigma)}$}
+    \RightLabel{T-$Proj_{1}$}
+    \UnaryInfC{$\judgeTypeS{\Gamma}{\pi_{1}(M)}{\sigma}$}
+
+\end{scprooftree}    
+\end{center}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{$\judgeTypeS{\Gamma}{M}{<\sigma,\tau>)}$}
+    \RightLabel{S-$Tuple_{2}$}
+    \UnaryInfC{$\judgeTypeS{\Gamma}{M}{x_{2}(\tau)}$}
+    \RightLabel{T-$Proj_{2}$}
+    \UnaryInfC{$\judgeTypeS{\Gamma}{\pi_{2}(M)}{\tau}$}
+
+\end{scprooftree}    
+\end{center}
+
+Reglas de subtipado para tuplas y proyección:
+\vspace*{5mm}
+\begin{center}
+  \begin{scprooftree}
+      \def\extraVskip{5pt}
+    \AxiomC{$\sigma <: \tau$}
+    \RightLabel{S-$Proy_{i}$}
+    \UnaryInfC{$x_{i}(\sigma)<:x_{i}(\tau)$}
+  \end{scprooftree}    
+\end{center}
+
+\vspace*{5mm}
+\begin{center}
+  \begin{scprooftree}
+      \def\extraVskip{5pt}
+    \AxiomC{$\sigma <: \sigma'$}
+    \AxiomC{$\tau <: \tau'$}
+    \RightLabel{S-Tuple}
+    \BinaryInfC{$<\sigma,\tau>$ $<:$ $<\sigma',\tau'>$}
+  \end{scprooftree}    
+\end{center}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+
+    \AxiomC{}
+    \RightLabel{T-Var}
+    \UnaryInfC{$y:x_{2}(Int)$}
+    
+    \AxiomC{$Int<:Float$}
+    \RightLabel{S-Proy$_{2}$}
+    \UnaryInfC{$x_{2}(Int) <: x_{2}(Float)$}
+
+    \RightLabel{T-Subs}
+    \BinaryInfC{$\judgeTypeS{ \{p:<Nat , Nat>\} , y:x_{2}(Int)}{y}{x_{2}(Float)}$}
+    \RightLabel{T-Proy$_{2}$}
+    \UnaryInfC{$\judgeTypeS{ \{p:<Nat , Nat>\} , y:x_{2}(Int)}{\pi_{2}(y)}{Float}$}
+    \RightLabel{T-Abs,S-Tuple$_{2}$}
+    \UnaryInfC{$\judgeTypeS{ \{p:<Nat , Nat>\} }{ (\lambdaAbs{y}{x_{2}(Int).\pi_{2}(y)}{})}{<Int , Int> \rightarrow Float}$}
+    
+    
+    \AxiomC{$p:<Nat , Nat> \in \Gamma$}
+    \RightLabel{T-Var}
+    \UnaryInfC{$\judgeTypeS{ \{p:<Nat , Nat>\} }{p}{<Nat , Nat>}$}
+
+    \AxiomC{$Nat<:Int$}
+    \AxiomC{$Nat<:Int$}
+    \RightLabel{S-Tuple}
+    \BinaryInfC{$<Nat , Nat>$ $<:$ $<Int , Int>$}
+    \RightLabel{T-Subs}
+    \BinaryInfC{$\judgeTypeS{ \{p:<Nat , Nat>\} }{p}{<Int , Int>}$}
+    
+
+    
+    \RightLabel{T-App}
+    \BinaryInfC{$\judgeTypeS{ \{p:<Nat , Nat>\} }{ (\lambdaAbs{y}{x_{2}(Int).\pi_{2}(y)}{})p }{Float}$}
+   
+   \end{scprooftree}    
+\end{center}
+
 \subsection{\blue{Ejercicio 14}}
+
+\vspace*{5mm}
+\begin{center}
+   \begin{scprooftree}
+       \def\extraVskip{5pt}
+        \AxiomC{$\sigma <: \tau$}
+        \RightLabel{S-Det}
+        \UnaryInfC{$det(\sigma)<:det(\tau)$}
+   \end{scprooftree}    
+\end{center}
+
+% Opc1:
+% \vspace*{5mm}
+% \begin{center}
+%   \begin{scprooftree}
+%       \def\extraVskip{5pt}
+%         \AxiomC{$\sigma <: \tau$}
+%         \UnaryInfC{$continuar(\sigma)<:continuar(\tau)$}
+%   \end{scprooftree}    
+% \end{center}
+
+% Opc2:
+% \vspace*{5mm}
+% \begin{center}
+%   \begin{scprooftree}
+%       \def\extraVskip{5pt}
+%         \AxiomC{$\tau <: \sigma$}
+%         \UnaryInfC{$continuar(\sigma)<:continuar(\tau)$}
+%   \end{scprooftree}    
+% \end{center}
+
+\vspace*{5mm}
+\begin{center}
+  \begin{scprooftree}
+      \def\extraVskip{5pt}
+    
+    \AxiomC{}
+    \RightLabel{\blue{****}}
+    \UnaryInfC{$\judgeTypeS{x:det(Nat)}{0}{det(Int)}$}
+    
+    \AxiomC{$x:det(Nat) \in \{x:det(Nat)\}$}
+    \RightLabel{T-Var}
+    \UnaryInfC{$\judgeTypeS{x:det(Nat)}{x}{det(Nat)}$}
+    \AxiomC{$Nat<:Int$}
+    \RightLabel{S-Det}
+    \UnaryInfC{$det(Nat)<:det(Int)$}
+    \BinaryInfC{$\judgeTypeS{x:det(Nat)}{x}{det(Int)}$}
+    
+    \AxiomC{}
+    \RightLabel{T-True}
+    \UnaryInfC{$\judgeTypeS{x:det(Nat)}{True}{Bool}$}
+    
+    
+    \TrinaryInfC{$\judgeTypeS{x:det(Nat)}{$if True then x else 0$}{det(Int)}$}
+    \RightLabel{T-Abs}
+    \UnaryInfC{$\judgeTypeS{\{\}}{\lambdaAbs{x}{det(Nat)}{$if True then x else 0$}}{Nat \rightarrow det(Int)}$}
+    
+    \end{scprooftree}    
+\end{center}
+
+
 \end{document}
