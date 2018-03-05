@@ -20,6 +20,7 @@ pdfencoding = auto]{hyperref}
 \usepackage{minted}
 \usepackage{multicol}
 \usepackage{mathabx}
+\usepackage{bussproofs}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -78,10 +79,12 @@ pdfencoding = auto]{hyperref}
 
 \newcommand{\OOAtributo}[3]{#1 = \varsigma(#2)#3}
 \newcommand{\OORedefinicion}[3]{#1 \leftleftharpoons \varsigma(#2)#3}
-\newenvironment{scprooftree}[1]%
-{\gdef\scalefactor{#1}\begin{center}\proofSkipAmount \leavevmode}%
-    {\scalebox{\scalefactor}{\DisplayProof}\proofSkipAmount \end{center} }
+\newcommand{\OOReduccion}[2]{#1 \longrightarrow #2}
+\newcommand{\OORep}[1]{\green{[[}#1\green{]]}}
 
+\newenvironment{scprooftree}
+{\leavevmode\hbox\bgroup}
+{\DisplayProof\egroup}
 
 \tikzset{
     every leaf node/.style={text=red, align=center},
@@ -100,7 +103,7 @@ pdfencoding = auto]{hyperref}
 \newcommand{\WFunc}{\mathbb{W}}
 
 \newcommand{\red}[1]{{\color{red}#1}}%\renewcommand{\appendixtocname}{Apéndices}
-\newcommand{\green}[1]{{\color{green!40!black}#1}}%\renewcommand{\appendixpagename}{Apéndices}
+\newcommand{\green}[1]{{\color{green!60!black}#1}}%\renewcommand{\appendixpagename}{Apéndices}
 
 
 

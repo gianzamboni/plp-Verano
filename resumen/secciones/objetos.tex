@@ -68,6 +68,7 @@ Cuando usamos una expresión de la forma \texttt{super msg} en el cuerpo de un m
 
 Algunos lenguajes, además, nos permiten pasarle como parámetro una clase a partir de la que empezar de la siguiente forma: \texttt{super[A] msg}, siempre y cuando $A$ sea un ancestro de la clase anfitriona del método.
 
+\newpage
 \section{Prototipado}
 Lo lenguajes basados en prototipado de objetos se caracterizan por la ausencia de clases. Proveen constructores para la creación de objetos particulares y la herramientas necesarias para crear procedimientos que generen objetos.
 
@@ -150,3 +151,95 @@ Todos los objetos son considerados valores.
 $$V~::=~[\OOAtributo{l_i}{x_i}{b_i}^{1\in 1..n}]$$
 
 A diferencía del cálculo $\lambda$, usaremos el método de reducción \textbf{big-step} para evaluar expresiones, que en un solo paso nos permite saber el valor que representa.
+
+$$\frac{}{v\longrightarrow v}[\text{Obj}]$$
+\vspace*{5mm}
+$$\frac{a\longrightarrow v'\hspace*{5mm} v'\equiv [\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}]\hspace*{5mm} b_j\{x_j\leftarrow v'\}\longrightarrow v\hspace*{5mm} j\in1..n}{a.l_j\longrightarrow v}[\text{Sel}]$$
+
+\vspace*{5mm}
+$$\frac{a\longrightarrow [\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}]\hspace*{5mm} j\in1..n}{\OORedefinicion{a.l_j}{x}{b}\longrightarrow [\OOAtributo{l_j}{x}{b},~\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n-\{j\}}]}[\text{Upd}]$$
+
+
+La regla Obj nos dice que un objeto no reducen.
+
+Sel nos indica que el resultado de enviar un mensaje es el valor que obtenemos al remplazar el párametro del método por el mismo objeto (esto es la ligación a \texttt{self}).
+
+Upd es el comportamiento de la redifinición, que devuelve un objeto con los mismos atributos que $a$ pero remplazando el $j-$ésimo atributo por la nueva definición.
+
+
+\paragraph{Ejemplo de reducción}
+
+\begin{center}
+	\begin{scprooftree}
+		\def\extraVskip{5pt}
+		\AxiomC{$\OOReduccion{o}{o}$}
+			
+			\AxiomC{$\OOReduccion{o}{o}$}
+			
+				\AxiomC{}
+			\RightLabel{[Obj]}
+			\UnaryInfC{$\OOReduccion{[~]\{x\leftarrow o\}}{[~]}$}
+			\RightLabel{[Sel]}
+		\BinaryInfC{$\OOReduccion{(x.a)\{x\leftarrow o\}}{[~]}$}
+		
+		\RightLabel{[Sel]}
+		\BinaryInfC{$\OOReduccion{[a=[~],~\OOAtributo{b}{x}{x.a}].b}{[~]}$}
+	\end{scprooftree}
+\end{center}
+
+\paragraph{Indefinición} Similar al cálculo lambda, podemos definir expresiones que se indefinen pero, en este caso, no es necesario que introduzcamos ninguna estructura nueva. Simplemente podemos $[\OOAtributo{a}{x}{x.a}].a$ y con esto ya alcanza.
+
+\paragraph{Codificación de funciones (Cálculoa $\lambda$)}
+Las expresiones son objetos con un atributo $val$ que nos indica su valor, las funciones, además tiene el atributo $arg$ que representa al argumento de la función. El argumento de una función permanecerá indefinido hasta que aparezca en una aplicación.
+\begin{align*}
+\OORep{x} &\equalDef x\\
+\OORep{M~N} &\equalDef \OORep{M}.arg :=~\OORep{N}\\
+\OORep{\lambdaAbsI{x}{M}} &\equalDef 
+[\OOAtributo{val}{y}{\OORep{M}\{x\leftarrow y.arg\}},~\OOAtributo{arg}{y}{y.arg}]\\
+\end{align*}
+
+Cuando querramos representar un método que espera parámetros, usaremos la definición de función para escribirlo: $\varsigma(x)\OORep {\lambdaAbsI{x}{M}}$. Y podemos hacer abuso de notacion y escribir $\lambda(X)M$ y $M(N)$, en vez de $\OORep{M~N}$.
+
+\subsubsection{Traits}
+Un trait es una colección de métodos que parametrizan cierto comportamientos. Estos objetos no especifican variables de estado ni acceden a su estado.
+
+El trait y sus métodos por si solo no son utilizables, ya que el trait no provee los estados necesarios para evaluarlos correctamente. Solo lo usaremos para definir métodos que pueden ser evaluados por varios objetos con el objetivo de no tener que repetir siempre las mismas definiciones.
+
+Los vamos a representar como una colección de \textbf{pre-metodos} (que no usan el parámetro \text{self}). Por lo que un trait tendrá la forma:
+$$\texttt{t} = [l_i = \lambdaAbsI{y_i}{b_i}^{i\in 1..n}]$$
+
+Y, además, definimos $new$ como un constructor de objetos que crea un objeto con las mismas etiquetas que el trait y que asocia a cada una de ellas un método que invoca al método del trait con el primer parámetro ligado a \texttt{self}:
+
+$$new \equalDef \lambdaAbsI{z}{[\OOAtributo{l_i}{s}{z.l_i(s)^{i\in 1..n}}]}$$
+
+Veamos un ejemplo, definimos el trait \texttt{CompT}:
+
+\begin{align*}
+	\texttt{CompT}\equalDef [~& \\ &\OOAtributo{eq}{t}{\lambda(x)\lambda(y)\lambdaIf{(x.comp(y)) == 0}{\texttt{true}}{\texttt{false}}},~\\
+	&\OOAtributo{leq}{t}{\lambda(x)\lambda(y)\lambdaIf{(x.comp(y)) < 0}{\texttt{true}}{\texttt{false}}} \\
+	]~&
+\end{align*}
+
+Entonces $new~\texttt{CompT}$ reduce a:
+\begin{align*}
+new~\texttt{CompT}\longrightarrow [~& \\ &\OOAtributo{eq}{x}{\lambda(y)\lambdaIf{(x.comp(y)) == 0}{\texttt{true}}{\texttt{false}}},~\\
+&\OOAtributo{leq}{x}{\lambda(y)\lambdaIf{(x.comp(y)) < 0}{\texttt{true}}{\texttt{false}}} \\
+]~&
+\end{align*}
+
+\paragraph{Clase} Cuando un trait provee un método $new$, diremos que es un \textbf{trait completo} o \textbf{clase}.
+
+\begin{align*}
+\texttt{C}\equalDef [~& \\ &\OOAtributo{new}{z}{[\OOAtributo{l_i}{s}{z.l_i(s)^{i\in 1..n}}]}~\\
+&\OOAtributo{leq}{t}{\lambda(x)\lambda(y)\lambdaIf{(x.comp(y)) < 0}{\texttt{true}}{\texttt{false}}} \\
+]~&
+\end{align*}
+
+\paragraph{Herencia} Cuando queremos que una clase ``herede'', lo que hacemos es crear un nuevo trait que redefina todos los atributos del trait original y le agregamos los atributos que deseamos para extenderlo. Además, modificamos el constructor $new$ para que tome en cuenta los nuevos atributos.
+
+\paragraph{Otras consideraciones del lenguaje}
+El lenguaje que definimos se parece mucho al funcional. En la versión imperativa, donde se mantiene un store con referencias a objetos, se ofrece la función \texttt{Clone}$(a)$ que crea un nuevo objeto con las mismas etiquetas de $a$ y cada componente comparte los métodos con las componentes de $a$.
+
+Además, el lenguaje no nos deja agregar o eliminar dinámicamente métodos en un objeto. No nos deja extraer los métodos de los objetos.
+
+Hay otras versiones de este cálculo que incluyen sistemas de tipado.
