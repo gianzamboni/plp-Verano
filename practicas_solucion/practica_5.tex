@@ -206,17 +206,6 @@
 
 \subsubsection{}
     \begin{lstlisting}
-    var Punto = {};
-    Punto.neww=function (x,y) {
-    	var p = Punto;
-    	p.x=x;
-    	p.y=y;
-    	return p;
-    }
-    Punto.mostrar=function () {
-    	return (this.x+" "+this.y);
-    }
-    
     var PuntoColoreado = Punto;
     PuntoColoreado.color = "rojo";
     
@@ -229,18 +218,6 @@
     \end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
-    var Punto = {};
-    Punto.neww=function (x,y) {
-      var p = Punto;
-      p.x=x;
-      p.y=y;
-      return p;
-    }
-    Punto.mostrar=function () {
-      return (this.x+" "+this.y);
-    }
-    var PuntoColoreado = Punto;
-    PuntoColoreado.color = "rojo";
     PuntoColoreado.cons = function (x,y,color) {
       var nuevo = this.neww(x,y);
       nuevo.color = color;
@@ -256,25 +233,6 @@
     \end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
-    var Punto = {};
-    Punto.neww=function (x,y) {
-      var p = Punto;
-      p.x=x;
-      p.y=y;
-      return p;
-    }
-    Punto.mostrar=function () {
-      return (this.x+" "+this.y);
-    }
-
-    var PuntoColoreado = Punto;
-    PuntoColoreado.color = "rojo";
-    PuntoColoreado.cons = function (x,y,color) {
-      var nuevo = this.neww(x,y);
-      nuevo.color = color;
-      return nuevo;
-    }
-
     var p1 = Punto.neww(1 ,2);
     var pc1 = PuntoColoreado.neww(1 ,2);
     Punto.mover = "me muevo";
@@ -355,19 +313,78 @@
 \subsection{Ejercicio 6}
 \subsubsection{}
     \begin{lstlisting}
+    function C1(){};
+C1.prototype.g = " Hola ";
+
+function C2 () {};
+C2.prototype.g = " Mundo ";
+
+let a = new C1();
+C1.prototype = C2.prototype;
+let b = new C1();
+
+console.log(a.g);
+console.log(b.g);
     \end{lstlisting}
-\subsubsection{}
+
+Hola Mundo
+Esto es porque a partir de la asignacion de prototipos, lo que cambia es la forma de generar nuevas instancias de C1, pero no las anteriores.
+
     \begin{lstlisting}
+let c = new C1();
+C1.prototype.g = C2.prototype.g;
+let d = new C1();
+
+console.log(c.g);
+console.log(d.g);
     \end{lstlisting}
+Mundo Mundo
+En cambio, aqui se modifica un método del prototipo de C1, por lo tanto, aun las instancias ya creadas verán la modificacion.
 \subsection{Ejercicio 7}
 \subsubsection{}
     \begin{lstlisting}
+    var o = {a:1, b: function (x){ return x+a }};
+    var o1 = Object.create(o);
+    o1.c = true ;
+    var a = new Array ;
+    var b = new Array ;
+    for (k in o1) {
+    	a.push(k); 
+    	b.push(o1[k]);
+    }
+    
+    console.log(a);
+    console.log(b);
+\end{lstlisting}
+Resultado:
+$a:["c", "a", "b"]$
+$b:[true, 1, ƒ]$
+Que proviene de la iteracion de todos los métodos de o1;
+\subsubsection{}
+    \begin{lstlisting}
+    function extender (ob, ob2) {
+    	var encontrado = false;
+    	for (k in ob){
+    		encontrado=false;
+    		for (j in ob2){
+    			if(j==k){
+    				encontrado=true;
+    			}
+    		}
+    		if (!encontrado) {
+    			ob2[k]=ob[k];
+    		};
+    	} 
+    }
+    var ob = {a:10,b:20};
+    var ob2 = {c:30,d:10,a:2};
+    extender(ob,ob2)
+    console.log(ob);
+    console.log(ob2);
     \end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
+    delete A.presentar;
     \end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
