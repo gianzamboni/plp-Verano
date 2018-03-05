@@ -19,6 +19,7 @@ pdfencoding = auto]{hyperref}
 \usepackage{tikz}
 \usepackage{minted}
 \usepackage{multicol}
+\usepackage{mathabx}
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -75,6 +76,8 @@ pdfencoding = auto]{hyperref}
 \newcommand{\judgeTypeS}[3]{#1\mapsto #2 : #3}
 
 
+\newcommand{\OOAtributo}[3]{#1 = \varsigma(#2)#3}
+\newcommand{\OORedefinicion}[3]{#1 \leftleftharpoons \varsigma(#2)#3}
 \newenvironment{scprooftree}[1]%
 {\gdef\scalefactor{#1}\begin{center}\proofSkipAmount \leavevmode}%
     {\scalebox{\scalefactor}{\DisplayProof}\proofSkipAmount \end{center} }
