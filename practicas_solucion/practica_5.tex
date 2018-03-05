@@ -289,6 +289,69 @@
     Se pude observar que todos los objetos se pueden mover, porque los puntos coloreados tienen una referencia a los puntos, por lo tanto si se agrga una funcionalidad al punto, tanbién se agregará al punto coloreado.
     
 \subsection{Ejercicio 5}
+\subsubsection{}
+    \begin{lstlisting}
+        function Punto(x,y) {
+          this.x=x;
+          this.y=y;
+        }
+        Punto.prototype.mostrar=function () {
+          return (this.x+" "+this.y);
+        }
+
+        var p = new Punto(1 ,2);
+        console.log(p.mostrar());
+        Punto.prototype.mostrar=function (){ return "unPunto"};
+        console.log(p.mostrar());
+    \end{lstlisting}    
+\subsubsection{}
+    \begin{lstlisting}
+    function Punto (x,y) {
+    	this.x=x;
+    	this.y=y;
+    }
+    Punto.prototype.mostrar=function () {
+    	return (this.x+" "+this.y);
+    }
+    
+    var PuntoColoreado = Punto;
+    PuntoColoreado.prototype.color = "rojo";
+
+    var o = new PuntoColoreado(1,2);
+    console.log(o.mostrar());
+    Punto.prototype.mostrar = function (){ return "UnPunto"};
+    console.log(o.mostrar());
+    PuntoColoreado.prototype.mostrar = function (){ return "UnPuntoColoreado"};
+    console.log(o.mostrar());
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    function Punto (x,y) {
+    	this.x=x;
+    	this.y=y;
+    }
+    Punto.prototype.mostrar=function () {
+    	return (this.x+" "+this.y);
+    }
+    
+    var PuntoColoreado = Punto;
+    PuntoColoreado.prototype.color = "rojo";
+    PuntoColoreado.cons = function (x,y,color) {
+      var nuevo = new Punto(x,y);
+      nuevo.color = color;
+      return nuevo;
+    }
+
+    var o = new PuntoColoreado(1,2);
+    console.log(o.mostrar());
+    Punto.prototype.mostrar = function (){ return "UnPunto"};
+    console.log(o.mostrar());
+    PuntoColoreado.prototype.mostrar = function (){ return "UnPuntoColoreado"};
+    console.log(o.mostrar());
+    \end{lstlisting}
+\subsubsection{}
+    \begin{lstlisting}
+    \end{lstlisting}
 \subsection{Ejercicio 6}
 \subsubsection{}
     \begin{lstlisting}
