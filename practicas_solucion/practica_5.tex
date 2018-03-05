@@ -229,6 +229,30 @@
     \end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
+    var Punto = {};
+    Punto.neww=function (x,y) {
+      var p = Punto;
+      p.x=x;
+      p.y=y;
+      return p;
+    }
+    Punto.mostrar=function () {
+      return (this.x+" "+this.y);
+    }
+    var PuntoColoreado = Punto;
+    PuntoColoreado.color = "rojo";
+    PuntoColoreado.cons = function (x,y,color) {
+      var nuevo = this.neww(x,y);
+      nuevo.color = color;
+      return nuevo;
+    }
+
+    var o = PuntoColoreado.cons(2,7,"rojo");
+    console.log(o.mostrar());
+    Punto.mostrar = function (){ return "UnPunto"};
+    console.log(o.mostrar());
+    PuntoColoreado.mostrar = function (){ return "UnPuntoColoreado"};
+    console.log(o.mostrar());
     \end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
