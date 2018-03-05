@@ -394,36 +394,93 @@ Que proviene de la iteracion de todos los métodos de o1;
 
 \subsection{Ejercicio 8}
 \subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
+Representan al mismo objeto porque responden a los mismos mensajes. la unica variacion que se observa es el renombre del parametro this entre x,z,v.
 \subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
+Representan a distintos objetos porque responden a los distintos mensajes.
 \subsection{Ejercicio 9}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
+$o =_{def} [arg = \varsigma(x)x; val = \varsigma(x)x.arg].$
+\subsubsection{o.val}
+\vspace*{5mm}
+	\begin{center}
+		\begin{scprooftree}
+		    
+		    \AxiomC{}
+		    \RightLabel{[Obj]}
+		    \UnaryInfC{$o \rightarrow o$}
+		    
+		    \AxiomC{}
+		    \RightLabel{[Obj]}
+		    \UnaryInfC{$o \rightarrow o$}
+
+		    \AxiomC{}
+		    \RightLabel{[Obj]}
+		    \UnaryInfC{$(x)\{x \leftarrow o\} \rightarrow o$}
+		    
+		    \RightLabel{[Sel]}
+		    \BinaryInfC{$(x.arg)\{x \leftarrow o\} \rightarrow o$}
+		    
+		    \RightLabel{[Sel]}
+            \BinaryInfC{$o.val \rightarrow o$}
+		\end{scprooftree}    
+	\end{center}
+\subsubsection{\blue{o.val.arg}}
+\vspace*{5mm}
+	\begin{center}
+		\begin{scprooftree}
+		
+		    \AxiomC{}
+		    \RightLabel{[Obj]}
+		    \UnaryInfC{$o \rightarrow o$}
+		    \RightLabel{[Obj]}
+		    \UnaryInfC{$o.val \rightarrow o$}
+    		    \AxiomC{}
+    		    \RightLabel{[Obj]}
+    		    \UnaryInfC{$o \rightarrow o$}
+    		    \RightLabel{[Obj]}
+    		    \UnaryInfC{$o.val \rightarrow o$}
+            		\AxiomC{}
+        		    \RightLabel{[Obj]}
+        		    \UnaryInfC{$o \rightarrow o$}
+        
+        		    \AxiomC{}
+        		    \RightLabel{[Obj]}
+        		    \UnaryInfC{$(x)\{x \leftarrow o\} \rightarrow o$}
+        	    \RightLabel{[Sel]}
+    		    \BinaryInfC{$(x.arg)\{x \leftarrow o\} \rightarrow o$}
+		    \RightLabel{[Sel]}
+		    \BinaryInfC{$(x)\{x \leftarrow o.val\} \rightarrow o$}
+		    \RightLabel{[Sel]}
+        \BinaryInfC{$o.val.arg \rightarrow o$}
+		\end{scprooftree}    
+	\end{center}
+
+\subsubsection{$(o.arg \Leftarrow \Sigma(z)0).val$}
 \subsection{Ejercicio 10}
 \subsection{Ejercicio 11}
+\subsubsection{Objetos true y false:}
+$
+true = [not: \varsigma(x)false,if: \varsigma(x)\lambda(y)\lambda(z)y,ifnot: \varsigma(x)\lambda(y)\lambda(z)z]
+$ \\
+$
+false = [not: \varsigma(x)true,if: \varsigma(x)\lambda(y)\lambda(z)z,ifnot: \varsigma(x)\lambda(y)\lambda(z)y]
+$
 \subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
+$
+true = [not: \varsigma(x)false,if: \varsigma(x)\lambda(y)\lambda(z)y]
+$ \\
+$
+false = [not: \varsigma(x)true,if: \varsigma(x)\lambda(y)\lambda(z)z]
+$
 \subsection{Ejercicio 12}
 \subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
+$
+origen = [x: \varsigma(p)0, y: \varsigma(p)0,mv: \varsigma(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z]
+$
+\subsubsection{Una clase es un trait (completo) que además provee un
+método new. Clase Punto:}
+$
+punto =_{def} [new=\varsigma(z)[ l_{i} = \varsigma{s}z.l_{i}(s) i\in(1..n)],$  $x: \varsigma(p)0,$  $y: \varsigma(p)0,$  $mv: \varsigma(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z]
+$
 \subsubsection{}
     \begin{lstlisting}
     \end{lstlisting}
