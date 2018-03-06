@@ -274,7 +274,8 @@
 \subsubsection{}
 	\begin{lstlisting}
 	function PuntoColoreado (x,y) {
-		Punto.call(this);
+        	this.x=x;
+        	this.y=y;
 		this.color = "rojo";
 	}
 	PuntoColoreado.prototype = Object.create(Punto.prototype); 
