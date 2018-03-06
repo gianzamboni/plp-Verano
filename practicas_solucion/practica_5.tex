@@ -189,17 +189,17 @@
 \subsubsection{}
     \begin{lstlisting}
     var Punto = {};
-    Punto.new=function (x,y) {
+    Punto.neww=function (x,y) {
     	var p = {};
-    	p.mostrar = function () {
-	    	return 
-    	}
     	p.x=x;
     	p.y=y;
+    	p.mostrar = function () {
+	    	return Punto.mostrar(p);
+    	}
     	return p;
     }
-    Punto.mostrar=function () {
-    	return (this.x+" "+this.y);
+    Punto.mostrar=function (o) {
+    	return (o.x+" "+o.y);
     }
     var p = Punto.neww(1 ,2);
     console.log(p.mostrar());
@@ -209,15 +209,21 @@
 
 \subsubsection{}
     \begin{lstlisting}
-    var PuntoColoreado = Punto;
-    PuntoColoreado.color = "rojo";
+    var PuntoColoreado = {};
+    PuntoColoreado.neww = function (x,y){
+    	var p = Punto.neww(x,y);
+    	p.color = "rojo";
+    	p.mostrar = function(){ return PuntoColoreado.mostrar(p)};
+    	return p;
+    };
+    PuntoColoreado.mostrar = function(o){ return Punto.mostrar(o);};
     
     var o = PuntoColoreado.neww(1,2);
-    console.log(o.mostrar());
-    Punto.mostrar = function (){ return "UnPunto"};
-    console.log(o.mostrar());
-    PuntoColoreado.mostrar = function (){ return "UnPuntoColoreado"};
-    console.log(o.mostrar());
+	console.log(o.mostrar(o));
+    Punto.mostrar = function (o){ return "UnPunto"};
+    console.log(o.mostrar(o));
+    PuntoColoreado.mostrar = function (o){ return "UnPuntoColoreado"};
+    console.log(o.mostrar(o));
     \end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
