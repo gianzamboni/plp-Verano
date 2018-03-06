@@ -303,6 +303,27 @@ $$V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)$$
 \end{equation*}
 
 \newpage
-\section{Objetos útiles}
+\section{Javascript}
+\paragraph{Declaración de variables}
+\begin{centrado}
+	\begin{minted}{javascript}
+	// Declaración de variables
+	let miVar = 1;
+	var suVar = 2;
+	
+	// Declaración de constante, no pueden ser modificadas.
+	const miConstante = 3; 
+	\end{minted}
+\end{centrado}
 
-%
+Y es \textbf{case-sensitive}, es decir \texttt{unavariable} y \texttt{unaVariable} no son las mismas variables.
+
+\paragraph{Tipos primitivos}
+
+\begin{itemize}
+	\item \texttt{number}: Los números, no hay distinción entre enteros y punto flotantes. Contiene a las constantes \texttt{-Infinity},\texttt{+Infinity}, \texttt{NaN}.
+	\item \texttt{boolean}: Los literales \texttt{true} y \texttt{false} con las operaciones \texttt{\&\&}, \texttt{!} y \texttt{||}.
+	\item \texttt{string}: Secuencias de cero o más carácteres entre comillas simples o dobles.
+	\item \texttt{null}: Un único valor \texttt{null} (nada, valor desconocido).
+	\item \texttt{undefined}: Un único valor \texttt{undefined} (el valor no está definido).
+\end{itemize}

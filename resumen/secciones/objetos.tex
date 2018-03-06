@@ -235,7 +235,36 @@ new~\texttt{CompT}\longrightarrow [~& \\ &\OOAtributo{eq}{x}{\lambda(y)\lambdaIf
 ]~&
 \end{align*}
 
-\paragraph{Herencia} Cuando queremos que una clase ``herede'', lo que hacemos es crear un nuevo trait que redefina todos los atributos del trait original y le agregamos los atributos que deseamos para extenderlo. Además, modificamos el constructor $new$ para que tome en cuenta los nuevos atributos.
+\paragraph{Herencia} Cuando queremos que una clase ``herede'', lo que hacemos es crear un nuevo trait que contenga todas las etiquetas del trait original y asocie cada una de esas etiquetas al método correspondiente del trait original y le agregamos los atributos que deseamos para extenderlo. Además, modificamos el constructor $new$ para que tome en cuenta los nuevos atributos.
+
+Por ejemplo, la clase contador:
+
+\vspace*{5mm}
+\begin{tabular}{ll}
+$\texttt{Contador}\equalDef [$ &
+$new = \varsigma(z)[\OOAtributo{inc}{s}{z.inc(s)},~v = 0,~ \OOAtributo{get}{s}{z.get(s)} ],$ \\
+ & $inc = \lambda(s) s.v := s.v + 1,$ \\
+ & $get = \lambda(s) s.v$ \\
+  & $]$ \\
+\end{tabular}
+
+Y su sublcase \texttt{ContadorR}:
+
+\vspace*{5mm}
+\begin{tabular}{ll}
+$\texttt{ContadorR}\equalDef [$ &
+$new = \varsigma(z)[$
+\\ & $\quad\OOAtributo{inc}{s}{z.inc(s)},$ \\ 
+ & $\quad v = 0,$ \\
+ & $\quad \OOAtributo{get}{s}{z.get(s)},$ \\
+ & $\quad \OOAtributo{reset}{\lambda(s)}{z.reset(s)} $ \\
+ & $ ],$ \\
+& $inc = \texttt{Contador}.inc$ \\
+& $get = \texttt{Contador}.get$ \\
+& $reset = \lambda(s) s.v := 0,$ \\
+& $]$ \\
+\end{tabular}
+
 
 \paragraph{Otras consideraciones del lenguaje}
 El lenguaje que definimos se parece mucho al funcional. En la versión imperativa, donde se mantiene un store con referencias a objetos, se ofrece la función \texttt{Clone}$(a)$ que crea un nuevo objeto con las mismas etiquetas de $a$ y cada componente comparte los métodos con las componentes de $a$.

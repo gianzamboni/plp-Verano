@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\left( \documentclass[10pt,a4paper]{article}
 \input{header}
 
 \setcounter{section}{5}
@@ -189,8 +189,11 @@
 \subsubsection{}
     \begin{lstlisting}
     var Punto = {};
-    Punto.neww=function (x,y) {
-    	var p = Punto;
+    Punto.new=function (x,y) {
+    	var p = {};
+    	p.mostrar = function () {
+	    	return 
+    	}
     	p.x=x;
     	p.y=y;
     	return p;
