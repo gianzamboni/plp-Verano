@@ -272,25 +272,20 @@
         console.log(p.mostrar());
     \end{lstlisting}    
 \subsubsection{}
-    \begin{lstlisting}
-    function Punto (x,y) {
-    	this.x=x;
-    	this.y=y;
-    }
-    Punto.prototype.mostrar=function () {
-    	return (this.x+" "+this.y);
-    }
-    
-    var PuntoColoreado = Punto;
-    PuntoColoreado.prototype.color = "rojo";
+	\begin{lstlisting}
+	function PuntoColoreado (x,y) {
+		Punto.call(this);
+		this.color = "rojo";
+	}
+	PuntoColoreado.prototype = Object.create(Punto.prototype); 
 
-    var o = new PuntoColoreado(1,2);
-    console.log(o.mostrar());
-    Punto.prototype.mostrar = function (){ return "UnPunto"};
-    console.log(o.mostrar());
-    PuntoColoreado.prototype.mostrar = function (){ return "UnPuntoColoreado"};
-    console.log(o.mostrar());
-    \end{lstlisting}
+	var o = new PuntoColoreado(1,2);
+	console.log(o.mostrar());
+	Punto.prototype.mostrar = function (){ return "UnPunto"};
+	console.log(o.mostrar());
+	PuntoColoreado.prototype.mostrar = function (){ return "UnPuntoColoreado"};
+	console.log(o.mostrar());
+	\end{lstlisting}
 \subsubsection{}
     \begin{lstlisting}
     function Punto (x,y) {
