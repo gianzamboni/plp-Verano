@@ -72,8 +72,9 @@
 	\setlength{\columnsep}{1cm}
 	
 	\newpage
-	\subsection{Ejercicio 2}
+
 	\begin{multicols}{2}
+	\subsection{Ejercicio 2}
 		\paragraph{1)} Los registros tienen subtipos infinitos porque dado el tipo de un registro $\omega = \{l_i:\sigma_i\}_{i\in 1..n}$, entonces cualquier tipo de la forma $\omega' = \{l_i:\tau_i\}_{i\in 1..k}$ con $k \geq n$ tal que  $\tau_i <: \sigma_i^{i\in 1..n}$ es subtipo del tipo de $\omega$.
 		
 		$Top$ tiene como subtipo a los registros y los registros tienen infinitos subtipos, entonces $Top$ tiene infinitos subtipos.
@@ -96,20 +97,31 @@
 		
 		El primer caso es el punto \textbf{1)}, el segundo es el punto \textbf{2)}.
 		\paragraph{4)} Es similar al anterior pero con los casos invertidos.
-		
+		\vfill\null
+\end{multicols}
+
+\newpage
+\begin{multicols}{2}
 		\subsection{Ejercicio 4}
 		\paragraph{1)} $T<:S~\underset{\text{S-Trans}}{\iff} ~ T<:T~\land~T<:S \underset{\text{S-Arrow}}{\iff} S\to T <: T\to T$
 		\paragraph{2)} Si $S = Bool$ y $T = Top$, entonces $\{x:Bool, y:Top\}$ tiene $26$ supertipos y el tipo $Bool\to Top$ solo tiene como supertipo a $Top$, porque $Bool$ no tiene subtipos y $Top$ no tiene supertipos.
 		\paragraph{3)} Si $S = Top$ y $T = Top$, entonces $\{x:Top, y:Top\}$ tiene como supertipos a $\{x:Top\}$, $\{y:Top\}$, $\{\}$ y a $Top$ y el tipo $Top\to Top$ tiene infinitos por el ejercicio 2.
+		\vfill\null
+		\columnbreak
 		
-		\subsection{\blue{Ejercicio 5}}
-		
-		%subtipos de Bool: {Bool} -> finitos
-		%subtipos de Nat: {Bool} {Nat} -> finitos
-		%subtipos de a->b: {supertipos de a}x{subtipos de b}, con a y b en {nat,bool,funciones}
-		
-	\end{multicols}
-	
+\subsection{Ejercicio 5}
+Podemos pensar la demostración por inducción, los casos bases serían las relaciones entre los dos tipos básicos y las funciones que tienen como parámetro y argumento alguna combinación de estos tipos.
+
+Primero, $Bool <: Nat$ y no hay más tipos que puedan ser subtipo de $Bool$, ni supertipo de $Nat$, por lo que esta relación es finita.
+
+Las funciones ``base'' pueden ser de tipo $Bool\to Bool$, $Bool\to Nat$, $Nat\to Nat$ ó $Nat\to Bool$. Y las relaciones de subtipado quedan como siguen:
+\begin{align*}
+Nat\to Bool <: Bool\to Bool <: Bool\to Nat \\
+Nat\to Bool <: Nat\to Nat <: Bool\to Nat \\
+\end{align*}
+
+Luego están los tipos de funciones ``recursivos'' que tienen la forma $\sigma\to\tau$ con $\sigma$ y $\tau$ cualquier tipo posible. Por inducción, podemos decir que $\sigma$ y $\tau$ tienen finitos subtipos y finitos supertipos, por lo que la cantidad de supertipos $\#supertipos(\sigma\to\tau) = \#supertipos(\sigma)\times\#subtipos(\tau)$ y la cantidad de subtipos $\#subtipos(\sigma\to\tau) = \#subtipos(\sigma)\times\#supertipos(\tau)$ es finita.
+\end{multicols}
 	
 	
 	\newpage
@@ -266,78 +278,91 @@
 	
 	\newpage
 	\setlength{\columnsep}{5mm}
+\subsection{Ejercicio 8}
 	\begin{multicols}{2}
-		\subsection{\blue{Ejercicio 8}}
-		\paragraph{a)} Si valiese S-Arrow', la expresión $M = (\lambdaAbs{x}{Int}{x})~0.5$ es de tipo $Int$, ya que $(\lambdaAbs{x}{Int}{x}): Int\to Int$ y puede ser remplazada por su expresión equivalente $\lambdaAbs{x}{Float}{x}): Float\to Float$ porque $Float \to Float <: Int \to Int$ según S-Arrow'.
-		Sin embargo, si evaluamos $M=(\lambdaAbs{x}{Float}{x})~0.5$ tenemos que $M = 0.5$ que no es un entero.
+
+\paragraph{a)} Si valiese S-Arrow', la expresión $M = succ((\lambdaAbs{x}{Float}{x})~0.5)$ es de tipo $Int$, pero si evaluamos $M$, entonces tenemos que $M\to succ(0.5)$, lo que no tiene sentido, por que $succ$ solo está definido para enteros.
+
+\paragraph{b)} 	Si la regla fuese covariante tanto en el argumento como en el resultado, entonces en la expresión $M=(\lambdaAbs{x}{Int}{succ(x)})~0.5 : Int$, sin embargo si realizamos la aplicación nos queda que $M = succ(0.5)$, por lo que tenemos el mismo error que en \textbf{a)}.
+\end{multicols}
+\vspace*{5mm}	
 		
-		%\begin{center}
-		%	\begin{scprooftree}
-		%		\def\extraVskip{5pt}
-		%		\AxiomC{$U<:V$}
-		%		\AxiomC{$S<:T$}
-		%		\RightLabel{S-Arrow'}    
-		%		\BinaryInfC{$T \rightarrow V <: S \rightarrow U$}
-		%	\end{scprooftree}    
-		%\end{center}
+		\begin{center}\textbf{b)}
+			\begin{scprooftree}
+				\def\extraVskip{5pt}
 		
-		\paragraph{b)} 	Si la regla fuese covariante tanto en el argumento como en el resultado, entonces en la expresión $M=(\lambdaAbs{x}{Float}{x})~0.5 : Float$ podemos remplazar $\lambdaAbs{x}{Float}{x}:Float\to Float$ por $\lambdaAbs{x}{Int}{x}:Int\to Int$ sin generar ningún error. Pero si intentamos evaluar $M = (\lambdaAbs{x}{Int}{x})~0.5$ no podremos hacerlo porque la abstracción esta esperando un entero y $0.5$ no lo es.
+		                        \AxiomC{$x:Float\in\{x:Float\}$}
+		                        \RightLabel{T-Var}
+		                        \UnaryInfC{$\judgeTypeS{\{x:Int\}}{x}{Int}$}
+		                    \RightLabel{T-Succ}
+		                    \UnaryInfC{$\judgeTypeS{\{x:Int\}}{succ(x)}{Int}$}
+
+		                \RightLabel{T-Abs}
+		                \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{Int}{succ(x)}}{Int\to Int}$}
 		
-		%\subsection{Ejercicio 8}
-		%\par{a)}
-		%\vspace*{5mm}
-		%\begin{center}
-		%	\begin{scprooftree}
-		%		\def\extraVskip{5pt}
-		%		\AxiomC{$U<:V$}
-		%		\AxiomC{$S<:T$}
-		%		\RightLabel{S-Arrow'}    
-		%		\BinaryInfC{$T \rightarrow V <: S \rightarrow U$}
-		%	\end{scprooftree}    
-		%\end{center}
-		%
-		%Sea $M=(\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}}: Int->Bool$, por la regla S-Arrow', podríamos tipar el término: M true, ya que podríamos ingresarle a M un elemento de un subtipo de Int.
-		%Pero esto no tenrdía sentido, ya que no se podría evaluar: true>2.
-		%
-		%Demostración:
-		%\vspace*{5mm}
-		%\begin{center}
-		%	\begin{scprooftree}
-		%		\def\extraVskip{5pt}
-		%		
-		%		\AxiomC{$\judgeType{\Gamma}{0,3}{Float}$}
-		%		\AxiomC{$\judgeType{\Gamma}{2,5}{Float}$}
-		%		\AxiomC{$\judgeType{\Gamma}{x>2}{Bool}$}
-		%		\RightLabel{T-if}
-		%		\TrinaryInfC{$\judgeType{\Gamma=\{x:Int\}}{if$ $(x>2)$ $then$ $2,5$ $else$ $0,3}{Float}$}
-		%		\RightLabel{T-abs}    \UnaryInfC{$\judgeType{\{\}}{\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}}}{Int \rightarrow Float}$}
-		%		
-		%		\AxiomC{$\judgeType{\{\}}{True}{Bool}$}
-		%		\AxiomC{$Bool<:Int$}
-		%		\RightLabel{T-Subs}
-		%		\BinaryInfC{$\judgeType{\{\}}{True}{Int}$}
-		%		
-		%		\RightLabel{T-app}
-		%		\BinaryInfC{$\judgeType{\{\}}{(\lambdaAbs{x}{Int}{\lambdaIf{x>2}{2,5}{0,3}$ $True}}{Float}$}
-		%	\end{scprooftree}    
-		%\end{center}
-		%
-		%\par{b)}
-		%\vspace*{5mm}
-		%\begin{center}
-		%	\begin{scprooftree}
-		%		\def\extraVskip{5pt}
-		%		\AxiomC{$U<:V$}
-		%		\AxiomC{$S<:T$}
-		%		\RightLabel{S-Arrow''}
-		%		\BinaryInfC{$S \rightarrow U <: T \rightarrow V$}
-		%	\end{scprooftree}    
-		%\end{center}
+                        		\AxiomC{}
+                    		\RightLabel{S-Refl}
+		                    \UnaryInfC{$Float <: Float$}
+		                    
+    		                    \AxiomC{}
+		                    \RightLabel{S-IntFloat}
+		                    \UnaryInfC{$Int <: Float$}
+		                \RightLabel{S-Arrow'}
+		                \BinaryInfC{$Float\to Float <: Float\to Int$}
+		             \RightLabel{T-Sub}
+		           \BinaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{Float}{x}}{Float\to Int}$}
+		           
+		           \AxiomC{$\judgeTypeS{\emptyset}{0.5}{Float}$}
+		           
+		            \AxiomC{}
+		           \RightLabel{S-Refl}
+		           \UnaryInfC{$Float <: Float$}
+		           
+		        \RightLabel{T-App}
+				\TrinaryInfC{$\judgeTypeS{\emptyset}{(\lambdaAbs{x}{Float}{x})~0.5)}{Int}$}
+		\RightLabel{S-Succ}    
+		\UnaryInfC{$\judgeTypeS{\emptyset}{succ((\lambdaAbs{x}{Float}{x})~0.5)}{Int}$}
+		    \end{scprooftree}    
+		\end{center}
 		
-		\vfill\null
-		\columnbreak
-		\subsection{Ejercicio 9}
-		\paragraph{a)} Si la regla de referencias es covariante, entonces $\tau <: \sigma$, si intentamos subtipar una referencia $M:Ref~\sigma$ con $Ref~\tau$, entonces:
+\vspace*{5mm}	
+		
+		\begin{center}\textbf{a)}
+			\begin{scprooftree}
+				\def\extraVskip{5pt}
+		
+		                        \AxiomC{$x:Float\in\{x:Float\}$}
+		                    \RightLabel{T-Var}
+		                    \UnaryInfC{$\judgeTypeS{\{x:Float\}}{x}{Float}$}
+		                \RightLabel{T-Abs}
+		                \UnaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{Float}{x}}{Float\to Float}$}
+		
+                        		\AxiomC{}
+                    		\RightLabel{S-IntFloat}
+		                    \UnaryInfC{$Int <: Float$}
+		                    
+    		                    \AxiomC{}
+		                    \RightLabel{S-IntFloat}
+		                    \UnaryInfC{$Int <: Float$}
+		                \RightLabel{S-Arrow''}
+		                \BinaryInfC{$Int\to Int <: Float\to Int$}
+		             \RightLabel{T-Sub}
+		           \BinaryInfC{$\judgeType{\emptyset}{\lambdaAbs{x}{Int}{succ(x)}}{Float\to Int}$}
+		           
+		           \AxiomC{$\judgeTypeS{\emptyset}{0.5}{Float}$}
+		           
+		            \AxiomC{}
+		           \RightLabel{S-Refl}
+		           \UnaryInfC{$Float <: Float$}
+		           
+		        \RightLabel{T-App}
+				\TrinaryInfC{$\judgeTypeS{\emptyset}{(\lambdaAbs{x}{Int}{succ(x)})~0.5)}{Int}$}
+		    \end{scprooftree}    
+		\end{center}		
+
+\subsection{Ejercicio 9}
+\begin{multicols}{2}
+	\paragraph{a)} Si la regla de referencias es covariante, entonces $\tau <: \sigma$, si intentamos subtipar una referencia $M:Ref~\sigma$ con $Ref~\tau$, entonces:
 		\begin{align*}
 		&\lambdaLetI{r}{\text{ref}~3}{r := 2.1}; \\
 		&!r
@@ -346,6 +371,8 @@
 		
 		Ahora, cuando derreferenciemos $r$ obtendremos $2.1$ que es un $Float$, no un $Int$ por lo que el programa falla.
 		
+		\vfill\null
+		\columnbreak
 		\paragraph{b)} Si la regla es contravariante, entonces en el programa:
 		\begin{align*}
 		\lambdaLetI{r}{\text{ref}~2.1}{!r}
@@ -353,7 +380,7 @@
 		
 		Definimos a $r$ como una referencia de $Float$, sin embargo, como $r$ es subtipable a $Ref~Int$, podemos usar la derreferenciación de enteros para derreferenciarla, lo que provocaría el error en el programa.
 		
-	\end{multicols}
+\end{multicols}
 
 	\newpage
 	\subsection{Ejercicio 10}
@@ -477,17 +504,29 @@
 	\end{scprooftree}    
 \end{center}
 
-\paragraph{\blue{3)}} Nada
+\vspace*{5mm}
+\begin{multicols}{2}
+\paragraph{3)} Con las nuevas reglas, entonces tenemos que $M = ((\lambdaAbs{x}{<Nat\times Nat>}{\pi_2(x)})~5)~1)$ es una expresión tipable, esto es porque por S-Curry, podemos tipar $(\lambdaAbs{x}{<\Nat\times\Nat>}{\pi_2(x)}$ como una función de tipo $Nat \to Nat \to Nat$. Sin embargo, cuando vamos a la función, vemos que necesitamos proyectar la segunda coordenada de una tupla, por lo que no tiene sentido pasarle como parámetro un entero a esa función.
+\vfill\null
+\columnbreak
+.
+\end{multicols}
 
-\subsection{\blue{Ejercicio 12}}
+\newpage
+\subsection{Ejercicio 12}
 \paragraph{1)}
 \begin{center}
    \begin{scprooftree}
 	       \def\extraVskip{5pt}
 	
-	    \AxiomC{}
-	    \RightLabel{T-Clara}
-	    \UnaryInfC{$\judgeTypeS{\emptyset}{Clarabelle}{Vaca}$}
+            	\AxiomC{}
+        	\RightLabel{T-Clara}
+    	    \UnaryInfC{$\judgeTypeS{\emptyset}{Clarabelle}{Vaca}$}
+                \AxiomC{}
+            \RightLabel{S-Vaca}
+    	    \UnaryInfC{$Vaca <: Animal$}
+	    \RightLabel{T-Sub}
+	    \BinaryInfC{$\judgeTypeS{\emptyset}{Clarabelle}{Animal}$}
 	    
 	    \AxiomC{}
 	    \RightLabel{T-Clara}
@@ -495,14 +534,14 @@
 	    
 	
 		\AxiomC{\textbf{(a)}}
-	    \UnaryInfC{$Vaca <: AlimentoPara(Vaca)$}
+	    \UnaryInfC{$Vaca <: AlimentoPara(Animal)$}
 	    
 	    \RightLabel{T-Subs}
-	    \BinaryInfC{$\judgeTypeS{\emptyset}{Clarabelle}{AlimentoPara(Vaca)}$}
+	    \BinaryInfC{$\judgeTypeS{\emptyset}{Clarabelle}{AlimentoPara(Animal)}$}
 	
 	
 	    \RightLabel{T-Comer}
-	    \BinaryInfC{$\judgeTypeS{\emptyset}{Comer(Clarabelle,Clarabelle)}{Vaca}$}
+	    \BinaryInfC{$\judgeTypeS{\emptyset}{\text{comer}(Clarabelle,Clarabelle)}{Animal}$}
 	
 	\end{scprooftree}    
 \end{center}
@@ -515,15 +554,29 @@
 	    \RightLabel{S-VacaLeon}
 	    \UnaryInfC{$Vaca <: AlimentoPara(Leon)$}
 	    
-	    \AxiomC{$Leon<:Vaca$}
+
+            \AxiomC{}
+        \RightLabel{S-Leon}
+	    \UnaryInfC{$Leon<:Animal$}
 	    
 	    \RightLabel{S-Alim}
-	    \UnaryInfC{$AlimentoPara(Leon)<:AlimentoPara(Vaca)$}
+	    \UnaryInfC{$AlimentoPara(Leon)<:AlimentoPara(Animal)$}
 	    
 	    \RightLabel{S-Trans}
-	    \BinaryInfC{$Vaca <: AlimentoPara(Vaca)$}
+	    \BinaryInfC{$Vaca <: AlimentoPara(Animal)$}
 	\end{scprooftree}    
 \end{center}
+
+\begin{multicols}{2}
+\paragraph{2.} 
+\begin{align*}
+\frac{\sigma <: \tau\hspace*{5mm}\tau <: \sigma}{AlimentoPara(\tau) <: AlimentoPara(\tau)}\text{S-Align}
+\end{align*}
+
+\vfill\null
+\columnbreak
+Esto quiere decir que $AlimentoPara(\sigma)$ es subtipo de $AlimentoPara(\tau)$ si $\tau$ y $\sigma$ son equivalente. Si la regla, la hacemos covariante, entonces tenemos el problema del ejercicio anterior, y si es contravariante, entonces podriamos darle de comer pasto a un león.
+\end{multicols}
 
 \newpage
 \subsection{Ejercicio 13}
@@ -599,64 +652,67 @@ Además, no tendría sentido la inversa, ya que si quisieramos remplazar una tup
 \end{center}
 
 \newpage
-\subsection{\blue{Ejercicio 14}}
+\subsection{Ejercicio 14}
+\begin{multicols}{2}
+\paragraph{a)}
+\begin{align*}
+\frac{\sigma <: \tau}{\texttt{det}(\sigma) <: \texttt{det}(\tau)}(\text{S-Det})\hspace*{1cm}\frac{\sigma <: \tau}{\sigma <: det(\tau)}(\text{S-Det1}) \\
+\end{align*}
 
+\vfill\null
+\columnbreak
+
+Las reglas son covariantes, porque si queremos detener un $Int$, entonces con el detener de tipo entero deberemos poder detener $Bool$s y $Nat$s. Además, si tenemos un $\texttt{det}(Nat)$ entonces querremos querer poder tratarlo como a un $Nat$, en muchos casos, por lo que tenemos la segunda regla.
+\end{multicols}
 \vspace*{5mm}
-\begin{center}
-	   \begin{scprooftree}
-		       \def\extraVskip{5pt}
-		        \AxiomC{$\sigma <: \tau$}
-		        \RightLabel{S-Det}
-		        \UnaryInfC{$det(\sigma)<:det(\tau)$}
-		   \end{scprooftree}    
-	\end{center}
-
-% Opc1:
-% \vspace*{5mm}
-% \begin{center}
-%   \begin{scprooftree}
-%       \def\extraVskip{5pt}
-%         \AxiomC{$\sigma <: \tau$}
-%         \UnaryInfC{$continuar(\sigma)<:continuar(\tau)$}
-%   \end{scprooftree}    
-% \end{center}
-
-% Opc2:
-% \vspace*{5mm}
-% \begin{center}
-%   \begin{scprooftree}
-%       \def\extraVskip{5pt}
-%         \AxiomC{$\tau <: \sigma$}
-%         \UnaryInfC{$continuar(\sigma)<:continuar(\tau)$}
-%   \end{scprooftree}    
-% \end{center}
-
-\vspace*{5mm}
+\paragraph{b)}
 \begin{center}
 	  \begin{scprooftree}
 		      \def\extraVskip{5pt}
 		    
-		    \AxiomC{}
-		    \RightLabel{\blue{****}}
-		    \UnaryInfC{$\judgeTypeS{x:det(Nat)}{0}{det(Int)}$}
+    		    \AxiomC{\textbf{(1)}}
+    		 \UnaryInfC{$\judgeTypeS{\emptyset}{\lambdaAbs{x}{det(Nat)}{\lambdaIf{True}{x}{0}}}{\texttt{det}(Nat) \rightarrow \texttt{det}(Nat)}$}
+            
+
+                    \AxiomC{}
+                \RightLabel{S-Det1}
+    		    \UnaryInfC{$Nat <: \texttt{det}(Nat)$}
+    		    
+                    \AxiomC{}
+        		\RightLabel{S-Det}
+                \UnaryInfC{$\texttt{det}(Nat) <: \texttt{det}(Int)$}
+		    \RightLabel{S-Arrow}
+		    \BinaryInfC{$\texttt{det}(Nat)\to \texttt{det}(Nat) <: Nat\to \texttt{det}(Int)$}
+		    \RightLabel{T-sub}
+		    \BinaryInfC{$\judgeTypeS{\emptyset}{\lambdaAbs{x}{det(Nat)}{\lambdaIf{True}{x}{0}}}{Nat \rightarrow \texttt{det}(Int)}$}
 		    
-		    \AxiomC{$x:det(Nat) \in \{x:det(Nat)\}$}
-		    \RightLabel{T-Var}
-		    \UnaryInfC{$\judgeTypeS{x:det(Nat)}{x}{det(Nat)}$}
-		    \AxiomC{$Nat<:Int$}
-		    \RightLabel{S-Det}
-		    \UnaryInfC{$det(Nat)<:det(Int)$}
-		    \BinaryInfC{$\judgeTypeS{x:det(Nat)}{x}{det(Int)}$}
-		    
+		    \end{scprooftree}    
+	\end{center}
+\vspace*{5mm}
+\begin{center}\textbf{(1)}
+	  \begin{scprooftree}
+		      \def\extraVskip{5pt}
+
 		    \AxiomC{}
 		    \RightLabel{T-True}
-		    \UnaryInfC{$\judgeTypeS{x:det(Nat)}{True}{Bool}$}
+		    \UnaryInfC{$\judgeTypeS{\Gamma}{True}{Bool}$}
+		    
+
+		    \AxiomC{$x:\texttt{det}(Nat) \in \Gamma$}
+		    \RightLabel{T-Var}
+		    \UnaryInfC{$\judgeTypeS{\Gamma}{x}{\texttt{det}(Nat)}$}
+
+
+    		    \AxiomC{$\judgeTypeS{\Gamma}{0}{Nat}$}
+
+       		    \AxiomC{$ Nat <: \texttt{det}(Nat)$}
+		    \RightLabel{T-Sub}
+		    \BinaryInfC{$\judgeTypeS{\Gamma}{0}{det(Nat)}$}
 		    
 		    
-		    \TrinaryInfC{$\judgeTypeS{x:det(Nat)}{$if True then x else 0$}{det(Int)}$}
-		    \RightLabel{T-Abs}
-		    \UnaryInfC{$\judgeTypeS{\{\}}{\lambdaAbs{x}{det(Nat)}{$if True then x else 0$}}{Nat \rightarrow det(Int)}$}
 		    
+		    
+		    \TrinaryInfC{$\judgeTypeS{\Gamma = \{x:det(Nat)\}}{\lambdaIf{True}{x}{0}}{\texttt{det}(Int)}$}
 		    \end{scprooftree}    
 	\end{center}
 
