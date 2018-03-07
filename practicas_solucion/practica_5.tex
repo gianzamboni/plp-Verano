@@ -1,247 +1,225 @@
-\left( \documentclass[10pt,a4paper]{article}
+\documentclass[10pt,a4paper]{article}
 \input{header}
 
 \setcounter{section}{5}
 
-%-----------------------------------------------
-%-----------------------------------------------
-\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
-\usepackage[spanish]{babel} % para que comandos como \today den el resultado en castellano
-\usepackage{amsmath}
-\usepackage{listings}
-\usepackage{color}
-\usepackage{algorithm}
-\usepackage{algpseudocode}
-\usepackage{mathtools}
-\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
-\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
-\newcommand{\quotes}[1]{``#1''}
-
-
-\usepackage{graphicx}
-\usepackage{wrapfig}
-
-\usepackage{tikz}
-\usetikzlibrary{graphs}
-
-\usepackage{listings}
-\usepackage{color}
-\definecolor{lightgray}{rgb}{.9,.9,.9}
-\definecolor{white}{rgb}{1,1,1}
-\definecolor{darkgray}{rgb}{.4,.4,.4}
-\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
-
-\lstdefinelanguage{JavaScript}{
-  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break},
-  keywordstyle=\color{blue}\bfseries,
-  ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{darkgray}\bfseries,
-  identifierstyle=\color{black},
-  sensitive=false,
-  comment=[l]{//},
-  morecomment=[s]{/*}{*/},
-  commentstyle=\color{purple}\ttfamily,
-  stringstyle=\color{red}\ttfamily,
-  morestring=[b]',
-  morestring=[b]"
-}
-
-\lstset{
-   language=JavaScript,
-   backgroundcolor=\color{white},
-   extendedchars=true,
-   basicstyle=\footnotesize\ttfamily,
-   showstringspaces=false,
-   showspaces=false,
-   numberstyle=\footnotesize,
-   numbersep=9pt,
-   tabsize=2,
-   breaklines=true,
-   showtabs=false,
-   captionpos=b
-}
-%-----------------------------------------------
-%-----------------------------------------------
-
 \begin{document}
 \title{PLP - Práctica 5: Programación Orientada a Objetos}
-
+%
 \date{\today}
-
+%
 \author{Zamboni, Gianfranco}
-
+%
 \maketitle
 \setcounter{page}{1}
-
-\section*{\centering Programación en JS}
+%
+\section*{Programación en JS}
 \subsection{Ejercicio 1}
-\subsubsection{Objeto:}
-    \begin{lstlisting}
-    function c1i(r,i){
-    	this.r = r;
-    	this.i = i;
+\paragraph{a)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+c1i = {
+    r: 1,
+    i: 1
+}
+\end{minted}
+\end{centrado}
+\paragraph{b)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+c1i.sumar = function(complejo){
+    this.r += complejo.r
+    this.i += complejo.i
+}
+\end{minted}
+\end{centrado}
+\paragraph{c)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+c1i.sumar = function(complejo){
+    return {
+        r: this.r + complejo.r
+        i: this.i + complejo.i
     }
-    \end{lstlisting}
-\subsubsection{Modificando receptor:}
-    \begin{lstlisting}
-    function c1i(r,i){
-    	this.r = r;
-    	this.i = i;
-    	this.sumar = function (complejo) {
-    		this.r += complejo.r;
-    		this.i += complejo.i;
-    	}
+}
+\end{minted}
+\end{centrado}
+
+\paragraph{d)} Asi como están implementadas, funciona.
+\paragraph{e)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+let c = c1i.sumar(c1i)
+
+c1i.sumar = function(complejo){
+    return {
+        r: this.r - complejo.r
+        i: this.i - complejo.i
     }
-    \end{lstlisting}
-\subsubsection{Sin modificar receptor:}
-    \begin{lstlisting}
-    function c1i(r,i){
-    	this.r = r;
-    	this.i = i;
-    	this.sumar = function (complejo) {
-            return (new c1i(this.r + complejo.r, this.i + complejo.i));
-    	}
+}
+\end{minted}
+\end{centrado}
+\texttt{c1i} no tiene definida la función restar, por lo que \texttt{c1i.restar(\_)} nos dará un error.
+
+\paragraph{f)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+c1i.mostrar = function () {
+    if(this.i != 1){
+        console.log(this.r+" "+this.i+"i");
+    }else{
+        console.log(this.r+" "+"i");
     }
-    \end{lstlisting}
-\subsubsection{Sumar.Sumar:}
-    \begin{lstlisting}
-        var c1 = new c1i(1,1);
-        var c2 = c1.sumar(c1);
-        c2.sumar(c2).mostrar();
-    \end{lstlisting}
-    Da bien.
-\subsubsection{Restar:}
-    \begin{lstlisting}
-    var c = c1i.sumar(c1i);
-    c.protptype.restar = function(complejo){
-    	return new c1i(this.r - complejo.r,this.i - complejo.i);	
-    }
-    \end{lstlisting}
-    c1i.restar(c): C1i no tiene definida la operación restar.
-\subsubsection{Mostrar:}
-    \begin{lstlisting}
-    c1i.prototype.mostrar = function () {
-    	if(this.i != 1){
-    		console.log(this.r+" "+this.i+"i");
-    	}else{
-    		console.log(this.r+" "+"i");
-    	}
-    }
-    \end{lstlisting}
-    c tiene definida la operación mostrar por herencia.
-\subsection{Ejercicio 2: a,b y c.}
-    \begin{lstlisting}
-    function t(a,b) {
-    	this.ite = a;
-    	this.mostrar = "Verdadero";
-    	this.not = "Falso";
-    	this.and = function(val){ 
-    		if (this.ite == val.ite){
-    			return "Verdadero";	
-    		}else{
-    			return "Falso";
-    		}};
-    }
-    function f(a,b) {
-    	this.ite = b;
-    	this.mostrar = "Falso";
-    	this.not = "Verdadero";
-    	this.and = function(val) {
-    		return "Falso";
-    	}
-    }
-    \end{lstlisting}
-    % console.log((new t(t,f)).mostrar);
-    % console.log((new f(t,f)).mostrar);
-    % var unTrue = new t(t,f);
-    % var unFalse = new f(t,f);
-    % console.log(unTrue.and(unTrue));
-    % console.log(unTrue.and(unFalse));
-    % console.log(unFalse.and(unTrue));
-    % console.log(unFalse.and(unFalse));
-\subsection{Ejercicio 3: a y b.}
-    \begin{lstlisting}
-    var cero = {};
-    cero.esCero = true;
-    cero.succ = function(){ 
-    	return new sucesor(this);
-    };
-    cero.toNumber = 0;
-    function sucesor(objeto) {
-    	this.esCero = false;
-    	this.succ = function(){ 
-    		return new sucesor(this);
-    	};
-    	this.pred = objeto;
-    	this.toNumber = objeto.toNumber+1;
-    };
-    \end{lstlisting}
-    % var uno = new sucesor(cero);
-    % var dos = new sucesor(uno);
-    % console.log(cero);
-    % console.log(uno.pred.esCero);
-    % console.log(dos.pred.esCero);
-    % console.log(dos.toNumber);
-\subsubsection{///C}
-    \begin{lstlisting}
-    \end{lstlisting}
+}
+\end{minted}
+\end{centrado}
+En este caso, \texttt{c} no podrá mostrar sus elementos, ya que cuando lo creamos \texttt{c1i} como un nuevo objeto que no está relacionado con \texttt{c}.
+
+\subsection{Ejercicio 2}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+// a)
+let t = {}
+let f = {}
+
+t.ite = function(a,b) {
+    return a;
+}
+
+f.ite = function(a,b) {
+    return b;
+}
+
+// b)
+t.mostrar = function() {
+    return "Verdadero";
+}
+
+f.mostrar = function(){
+    return "Falso";
+}
+
+// c)
+t.not = function(){
+    return f;
+}
+
+f.not = function(){
+    return t;
+}
+
+t.and = function(otroValor) {
+    return otroValor;
+}
+
+f.and = function(element) {
+    return this;
+}
+
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 3}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+// a)
+let Cero = {};
+
+Cero.esCero = function(){
+    return true;
+};
+
+Cero.succ = function(){
+    return new Sucesor(this);
+}
+
+
+function Sucesor(pred){
+    this.predecesor = pred;
+};
+
+Sucesor.prototype.__proto__ = Cero;   
+
+Sucesor.prototype.pred = function(){
+    return this.predecesor;
+}
+
+// b)
+Cero.toNumber = function(){
+    return 0;
+}
+
+Sucesor.prototype.toNumber = function(){
+    return this.pred().toNumber() + 1;
+}
+
+// c)
+Cero.for = function(f){}
+
+Sucesor.prototype.for = function(f){
+    this.pred().for(f);
+    f.eval(this);
+}
+\end{minted}
+\end{centrado}
+
+\newpage
 \subsection{Ejercicio 4}
-\subsubsection{}
-    \begin{lstlisting}
-    var Punto = {};
-    Punto.neww=function (x,y) {
-    	var p = {};
-    	p.x=x;
-    	p.y=y;
-    	p.mostrar = function () {
-	    	return Punto.mostrar(p);
-    	}
-    	return p;
+\paragraph{a)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+var Punto = {};
+Punto.new = function(x,y) {
+    var p = {};
+    p.x=x;
+    p.y=y;
+    p.mostrar = function () {
+        return Punto.mostrar(this);
     }
-    Punto.mostrar=function (o) {
-    	return (o.x+" "+o.y);
-    }
-    var p = Punto.neww(1 ,2);
-    console.log(p.mostrar());
-    Punto.mostrar=function (){ return "unPunto"};
-    console.log(p.mostrar());
-    \end{lstlisting}
+    return p;
+}
 
-\subsubsection{}
-    \begin{lstlisting}
-    var PuntoColoreado = {};
-    PuntoColoreado.neww = function (x,y){
-    	var p = Punto.neww(x,y);
-    	p.color = "rojo";
-    	p.mostrar = function(){ return PuntoColoreado.mostrar(p)};
-    	return p;
+Punto.mostrar = function(o) {
+    return `Punto(${o.x},${o.y})`    
+}
+
+\end{minted}
+\end{centrado}
+\paragraph{b)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+var PuntoColoreado = {};
+PuntoColoreado.new = function(x,y){
+    var p = Punto.new(x,y);
+    p.color = "rojo";
+    p.mostrar = function(){ 
+        return PuntoColoreado.mostrar(this);
     };
-    PuntoColoreado.mostrar = function(o){ return Punto.mostrar(o);};
-    
-    var o = PuntoColoreado.neww(1,2);
-	console.log(o.mostrar(o));
-    Punto.mostrar = function (o){ return "UnPunto"};
-    console.log(o.mostrar(o));
-    PuntoColoreado.mostrar = function (o){ return "UnPuntoColoreado"};
-    console.log(o.mostrar(o));
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    PuntoColoreado.cons = function (x,y,color) {
-      var nuevo = this.neww(x,y);
-      nuevo.color = color;
-      return nuevo;
-    }
+    return p;
+};
 
-    var o = PuntoColoreado.cons(2,7,"rojo");
-    console.log(o.mostrar());
-    Punto.mostrar = function (){ return "UnPunto"};
-    console.log(o.mostrar());
-    PuntoColoreado.mostrar = function (){ return "UnPuntoColoreado"};
-    console.log(o.mostrar());
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
+PuntoColoreado.mostrar = function(o) { 
+    return Punto.mostrar(o);
+};
+\end{minted}
+\end{centrado}
+
+\paragraph{c)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+var PuntoColoreado = {};
+PuntoColoreado.cons = function (x,y,color) {
+    var nuevo = this.new(x,y);
+    nuevo.color = color;
+    return nuevo;
+}
+\end{minted}
+\end{centrado}
+
+\paragraph{d)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+\begin{lstlisting}
     var p1 = Punto.neww(1 ,2);
     var pc1 = PuntoColoreado.neww(1 ,2);
     Punto.mover = "me muevo";
@@ -252,149 +230,90 @@
     console.log(pc1.mover);
     console.log(p2.mover);
     console.log(pc2.mover);
-    \end{lstlisting}
-    Se pude observar que todos los objetos se pueden mover, porque los puntos coloreados tienen una referencia a los puntos, por lo tanto si se agrga una funcionalidad al punto, tanbién se agregará al punto coloreado.
-    
+
+   // Se pude observar que todos los objetos se pueden mover, porque los puntos coloreados tienen una referencia a los puntos, por lo tanto si se agrga una funcionalidad al punto, tanbién se agregará al punto coloreado.
+\end{minted}
+\end{centrado}
+  
 \subsection{Ejercicio 5}
-\subsubsection{}
-    \begin{lstlisting}
-        function Punto(x,y) {
-          this.x=x;
-          this.y=y;
-        }
-        Punto.prototype.mostrar=function () {
-          return (this.x+" "+this.y);
-        }
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+function Punto(x, y){
+    this.x = x;
+    this.y = y;
+}
 
-        var p = new Punto(1 ,2);
-        console.log(p.mostrar());
-        Punto.prototype.mostrar=function (){ return "unPunto"};
-        console.log(p.mostrar());
-    \end{lstlisting}    
-\subsubsection{}
-	\begin{lstlisting}
-	function PuntoColoreado (x,y) {
-        	this.x=x;
-        	this.y=y;
-		this.color = "rojo";
-	}
-	PuntoColoreado.prototype = Object.create(Punto.prototype); 
+Punto.prototype.mostrar = function(){
+    return `Punto(${this.x},${this.y})`
+}
 
-	var o = new PuntoColoreado(1,2);
-	console.log(o.mostrar());
-	Punto.prototype.mostrar = function (){ return "UnPunto"};
-	console.log(o.mostrar());
-	PuntoColoreado.prototype.mostrar = function (){ return "UnPuntoColoreado"};
-	console.log(o.mostrar());
-	\end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    function PuntoColoreado(x,y,color) {
-        this.x=x;
-        this.y=y;
-        this.color = color;
-    }
-    // Ó
-    PuntoColoreado.prototype.cons = function (x,y,color) {
-        this.x=x;
-        this.y=y;
-        this.color = "rojo";
-    }
-    \end{lstlisting}
-\subsubsection{}
-    	\begin{lstlisting}
-        var p1 = new Punto(1 ,2);
-        var pc1 = new PuntoColoreado(1 ,2);
-        Punto.prototype.mover = "me muevo";
-        var p2 = new Punto(1 ,2);
-        var pc2 = new PuntoColoreado(1 ,2);
+function PuntoColoreado(x,y, color) {
+    this.x = x
+    this.y = y
+    this.color = color
+}
+PuntoColoreado.prototype.__proto__ = Punto.prototype
 
-        console.log(p1.mover);
-        console.log(pc1.mover);
-        console.log(p2.mover);
-        console.log(pc2.mover);
-	\end{lstlisting}
+Punto.prototype.moverX = function(x){
+    this.x += x
+}
+\end{minted}
+\end{centrado}
+
 \subsection{Ejercicio 6}
-\subsubsection{}
-    \begin{lstlisting}
-    function C1(){};
-C1.prototype.g = " Hola ";
+\paragraph{a)} En el primer caso, una vez creado el objeto a, el prototipo de este objeto ya queda fijo. Cuando realizamos la asignación \mintinline{javascript}{C1.prototype = C2.prototype;}, la variable \texttt{C1.prototype} deje de referenciar al objeto prototipo de \texttt{a} y referencie al objeto que referencia \texttt{C2.prototype}. Provocando, esto, que el constructor \mintinline{javascript}{C1()} lo asigne como prototipo de \texttt{b}.
 
-function C2 () {};
-C2.prototype.g = " Mundo ";
+Entonces \texttt{a} sigue teniendo el mismo prototipo y \texttt{b} tiene como prototipo a \texttt{C2} por lo que los resultados de evaluar sus atributos son:
 
-let a = new C1();
-C1.prototype = C2.prototype;
-let b = new C1();
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+a.g // 'Hola'
+b.g // 'Mundo'
+\end{minted}
+\end{centrado}
 
-console.log(a.g);
-console.log(b.g);
-    \end{lstlisting}
+\paragraph{b)} En el segundo caso, estamos modificando el atributo \texttt{g} del objeto que es referenciado por \texttt{C1.prototype}. La asignación \mintinline{javascript}{C1.prototype.g = C2.prototype.g;} remplaza la función \texttt{g} original de \texttt{C1.prototype} por la función \texttt{g} de \texttt{C2.prototype}.
+Entonces, las soluciones quedan:
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+a.g // 'Mundo'
+b.g // 'Mundo'
+\end{minted}
+\end{centrado}
 
-Hola Mundo
-Esto es porque a partir de la asignacion de prototipos, lo que cambia es la forma de generar nuevas instancias de C1, pero no las anteriores.
-
-    \begin{lstlisting}
-let c = new C1();
-C1.prototype.g = C2.prototype.g;
-let d = new C1();
-
-console.log(c.g);
-console.log(d.g);
-    \end{lstlisting}
-Mundo Mundo
-En cambio, aqui se modifica un método del prototipo de C1, por lo tanto, aun las instancias ya creadas verán la modificacion.
 \subsection{Ejercicio 7}
-\subsubsection{}
-    \begin{lstlisting}
-    var o = {a:1, b: function (x){ return x+a }};
-    var o1 = Object.create(o);
-    o1.c = true ;
-    var a = new Array ;
-    var b = new Array ;
-    for (k in o1) {
-    	a.push(k); 
-    	b.push(o1[k]);
-    }
-    
-    console.log(a);
-    console.log(b);
-\end{lstlisting}
-Resultado:
-$a:["c", "a", "b"]$
-$b:[true, 1, ƒ]$
-Que proviene de la iteracion de todos los métodos de o1;
-\subsubsection{}
-    \begin{lstlisting}
-    function extender (ob, ob2) {
-    	var encontrado = false;
-    	for (k in ob){
-    		encontrado=false;
-    		for (j in ob2){
-    			if(j==k){
-    				encontrado=true;
-    			}
-    		}
-    		if (!encontrado) {
-    			ob2[k]=ob[k];
-    		};
-    	} 
-    }
-    var ob = {a:10,b:20};
-    var ob2 = {c:30,d:10,a:2};
-    extender(ob,ob2)
-    console.log(ob);
-    console.log(ob2);
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    delete A.presentar;
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
+\paragraph{a)} \texttt{a} será un array con todas las claves de \texttt{o1} y \texttt{b} será el array con todos sus valores en el mismo orden, es decir, si en \texttt{a[0]} se encuentra la clave \mintinline{javascript}{'a'}, entonces en \texttt{b[0}] se encuentra el valor \mintinline{javascript}{1}.
 
-\section*{\centering Cálculo de Objetos}
+\paragraph{b)}
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+function extender(o1, o2) {
+    for(let key in o1) {
+        if(o2[key] == undefined){
+            o2[key] = o1[key];
+        }
+    }
+}
+\end{minted}
+\end{centrado}
+
+\paragraph{c)} Hay que hacer dos modificaciones: Definir en \texttt{B} el método y eliminarlo de A.
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+B.presentar = A.presentar
+delete A.presentar
+\end{minted}
+\end{centrado}
+
+\paragraph{d)} Es lo mismo que en el anterior, pero usando \texttt{prototype}.
+\begin{centrado}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+B7d.prototype.presentar = A7d.prototype.presentar
+delete A7d.prototype.presentar
+\end{minted}
+\end{centrado}
+
+\section*{Cálculo de Objetos}
 
 \subsection{Ejercicio 8}
 \subsubsection{}
@@ -485,30 +404,4 @@ método new. Clase Punto:}
 $
 punto =_{def} [new=\varsigma(z)[ l_{i} = \varsigma{s}z.l_{i}(s) i\in(1..n)],$  $x: \varsigma(p)0,$  $y: \varsigma(p)0,$  $mv: \varsigma(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z]
 $
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsection{Ejercicio 13}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-\subsubsection{}
-    \begin{lstlisting}
-    \end{lstlisting}
-
 \end{document}
