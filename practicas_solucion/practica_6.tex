@@ -1,0 +1,97 @@
+\documentclass[10pt,a4paper]{article}
+\input{header}
+
+\setcounter{section}{6}
+
+
+\begin{document}
+  \title{PLP - Práctica 6: Resolución en Lógica}
+
+  \date{\today}
+
+  \author{Zamboni, Gianfranco}
+
+  \maketitle
+  \setcounter{page}{1}
+
+  \section*{\Resolución en Lógica Proposicional}
+  \subsection{Ejercicio 1}
+    \subsubsection{FNC:}
+    $-p v p$
+    \subsubsection{FNC:}
+    $-p v -q v p$
+    \subsubsection{FNC:}
+    $(-p v p)^(-q v p)$
+    \subsubsection{FNC:}
+    $(-p v p)^(p v -p)$
+    \subsubsection{FNC:}
+    $(q v -p v -q)^(p v -p v -q)$
+    \subsubsection{FNC:}
+    $(p v p)^(p v r)^(q v p)^(q v r)$
+    \subsubsection{FNC:}
+    $(r v -p)^(-q v r)$
+    \subsubsection{FNC:}
+    $-p v -q v r$
+  \subsection{Ejercicio 2}
+    \subsubsection{$-p v p es una tautologia  <=> \{\{p\} \{-p\}\} es insatisfacible$}
+    $\{\{p\} \{-p\}\}$
+    $\{p\}-(p)u\{-p\}-(-p)=\{\}$
+    $\{\{p\} \{-p\} \{\}\} => es insatisfacible$
+
+    \subsubsection{$-p v -q v p es una tautologia <=> \{\{p\} \{q\} \{-p\}\} es insatisfacible$}
+    $\{\{p\} \{q\} \{-p\}\}$
+    $\{p\}-(p)u\{-p\}-(-p)=\{\}$
+    $\{\{p\} \{q\} \{-p\} \{\}\} => es insatisfacible$
+
+    \subsubsection{$(-p v p)^(-q v p) es una tautologia <=> \{\{p, q\} \{p, -p\} \{-p, q\} \{-p, -p\}\} es insatisfacible$}
+    $\{\{p, q\} \{p, -p\} \{-p, q\} \{-p, -p\}\}$
+    $\{p, q\}-(p)u\{-p, q\}-(-p)=\{q\}$
+    $\{\{p, q\} \{p, -p\} \{-p, q\} \{-p, -p\} \{q\}\}$
+    No se puede generar el conjunto vacío
+
+    \subsubsection{$(-p v p)^(p v -p) es una tautologia <=> \{\{p, -p\} \{p, p\} \{-p, -p\} \{-p, p\}\} es insatisfacible$}
+    $\{\{p, -p\} \{p, p\} \{-p, -p\} \{-p, p\}\}$
+    $\{p, -p\}-(p,-p)u\{-p, p\}-(p,-p)=\{\}$
+    $\{\{p, -p\} \{p, p\} \{-p, -p\} \{-p, p\} \{\}\} => es insatisfacible$
+
+    \subsubsection{$(q v -p v -q)^(p v -p v -q) es una tautologia <=> \{\{-q, -p\} \{-q, p\} \{-q, q\} \{p, -p\} \{p, p\} \{p, q\} \{q, -p\} \{q, p\} \{q, q\}\} es$ insatisfacible$}
+    $\{\{-q, -p\} \{-q, p\} \{-q, q\} \{p, -p\} \{p, p\} \{p, q\} \{q, -p\} \{q, p\} \{q, q\}\}$
+    $\{-q, -p\}-(-q, -p)u\{p, q\}-(p, q)=\{\}$
+    $\{\{-q, -p\} \{-q, p\} \{-q, q\} \{p, -p\} \{p, p\} \{p, q\} \{q, -p\} \{q, p\} \{q, q\} \{\}\} => es insatisfacible$
+
+    \subsubsection{$(p v p)^(p v r)^(q v p)^(q v r) es una tautologia <=> \{\{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\}\} es insatisfacible$}
+    $\{\{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\}\}$
+    No se puede generar el conjunto vacío
+
+    \subsubsection{$(r v -p)^(-q v r) es una tautologia <=> \{\{-r, q\} \{p, q\} \{-r, -r\} \{p, -r\}\} es insatisfacible$}
+    $\{\{-r, q\} \{p, q\} \{-r, -r\} \{p, -r\}\}$
+    No se puede generar el conjunto vacío
+
+    \subsubsection{$-p v -q v r es una tautologia <=> \{\{p\} \{q\} \{-r\}\} es insatisfacible$}
+    $\{\{p\} \{q\} \{-r\}\}$
+    No se puede generar el conjunto vacío
+  \subsection{Ejercicio 3}
+  \section*{\Unificacóon en Lógica de Primer Orden}
+  \subsection{Ejercicio 4}
+  \subsection{Ejercicio 5}
+  \section*{\Resolución en Lógica de Primer Orden}
+  \subsection{Ejercicio 5}
+  \subsection{Ejercicio 6}
+  \subsection{Ejercicio 7}
+  \subsection{Ejercicio 8}
+  \subsection{Ejercicio 9}
+  \subsection{Ejercicio 10}
+  \subsection{Ejercicio 11}
+  \subsection{Ejercicio 12}
+  \subsection{Ejercicio 13}
+  \subsection{Ejercicio 14}
+  \subsection{Ejercicio 15}
+  \subsection{Ejercicio 16}
+  \subsection{Ejercicio 17}
+  \subsection{Ejercicio 18}
+  \subsection{Ejercicio 19}
+  \subsection{Ejercicio 20}
+  \subsection{Ejercicio 21}
+  \subsection{Ejercicio 22}
+
+\end{document}
