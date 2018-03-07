@@ -1,5 +1,6 @@
 \part{Apéndices}
 
+
 \section{Programación funcional en Haskell}
 \paragraph{Tipos elementales}
 \begin{centrado}
@@ -318,7 +319,7 @@ $$V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)$$
 
 Y es \textbf{case-sensitive}, es decir \texttt{unavariable} y \texttt{unaVariable} no son las mismas variables.
 
-\paragraph{Tipos primitivos}
+\paragraph{Tipos}
 
 \begin{itemize}
 	\item \texttt{number}: Los números, no hay distinción entre enteros y punto flotantes. Contiene a las constantes \texttt{-Infinity},\texttt{+Infinity}, \texttt{NaN}.
@@ -327,3 +328,205 @@ Y es \textbf{case-sensitive}, es decir \texttt{unavariable} y \texttt{unaVariabl
 	\item \texttt{null}: Un único valor \texttt{null} (nada, valor desconocido).
 	\item \texttt{undefined}: Un único valor \texttt{undefined} (el valor no está definido).
 \end{itemize}
+
+Podemos usar \mintinline{javascript}{typeof} para saber el nombre del tipo de la expresión.
+
+\begin{itemize}
+\item \texttt{Arrays:} \mintinline{javascript}{[], [1,2,true], new Array()}
+
+\mintinline{javascript}{-[-] , push(-) , pop() , shift() , unshift(_)}
+\end{itemize}
+
+\paragraph{Tipado}
+El tipado se hace de manera \textbf{dinámica} (en tiempo de ejecución) y \textbf{débil} (se pueden comparar cosas que no son del mismo tipo porque hay conversión automática).
+
+Por ejemplo:
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+let a = 1  // a = 1
+a += '1'
+// a = '11' (El entero, se convierte automaticamente en un string)
+\end{minted}
+
+\end{centrado}
+
+\begin{multicols}{2}
+\begin{minted}{javascript}
+1 == '1' // true
+1 === '1' // false
+0 == false // true
+0 === false // false
+1 == true // true
+\end{minted}
+\vfill\null
+\columnbreak
+\begin{minted}{javascript}
+false == '' // true
+false === 'false' // false
+null == undefined // true
+null === undefined // false
+\end{minted}
+\end{multicols}
+
+\newpage
+\paragraph{Flujos de control}
+\begin{centrado}
+\begin{minted}{javascript}
+if (cond) { ... } else { ... }
+
+while (cond) {
+    //cuerpo
+}
+
+do {
+    //cuerpo
+} while (cond);
+\end{minted}
+
+\end{centrado}
+
+\paragraph{Definición de funciones}
+\begin{centrado}
+\begin{minted}{javascript}
+function nombre(arg1, ..., argn){
+    //cuerpo
+}
+
+let nombre = function(arg1, ..., argn){
+    //cuerpo
+}
+
+let nombre = (arg1, ..., argn) => {
+    //cuerpo
+}
+\end{minted}
+
+\end{centrado}
+
+\paragraph{Objetos}
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+let o = {
+    a : 1,
+    b : function(n) {
+        return this.a + n // this hace referencia a o
+    }
+}
+
+o.a // 1 Proyeccion del atributo a
+
+o['a'] // 1 (Proyeccion del atributo a)
+
+o.b(1) // 2  (Proyeccion y ejecucion del metodo b)
+
+
+o.b = function() { return this.a } // Redefinimos o.b
+
+o.c = true // Agrega el atributo c a o.
+o['c'] = false // Redefinimos el atributo c de o.
+delete o.a // Elimina el atributo a de o.
+
+
+\end{minted}
+\end{centrado}
+
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+'c' in o // true (Checkea si c es una propiedad de o)
+'d' in o // false
+
+// Iteracion sobre todas las propiedades de o.
+for(let p in o){
+    ...
+}
+\end{minted}
+\end{centrado}
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+
+let p = o // Creamos una referencia a o.
+
+let f = o.b 
+// Extraemos el metodo b de f. Dejamos las variable this desligada.
+
+let o2 = { i: f, a: true} 
+// Crea el objeto o2, con la función f en su atributo i.
+
+o2.f() // true
+
+let o3 = Object.assign({}, o, o2) 
+// Copia las propiedade de o y o2 en o3. Hace un shallow copy, es decir si una atributo de o2 u o3 es una referencia, entonces en o, ese atributo va a ser una referencia al mismo objeto que en o2
+\end{minted}
+\end{centrado}
+
+\paragraph{Herencia}
+Todos los objetos tiene una propiedad privada llamada \mintinline{javascript}{[[Prototype]]} cuyo valor es \mintinline{javascript}{null} u otro objeto que es su \textbf{prototipo}. Esta propiedad induce una cadena de prototipado sin ciclos que finaliza con \mintinline{javascript}{null}.
+
+Cuando intentamos acceder a un método inexistente de un objeto, el mismo se busca en la cadena de prototipado del mismo hasta encontrar el primer objeto de la cadena que lo define. Si llegamos a \mintinline{javascript}{null} y el método no fue encontrado, entonces hay un error.
+
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+Object.setPrototypeOf(o, prot) // Hace que el prototipo de o sea prot.
+Object.getPrototypeOf(o) // Devuelve el objeto que es protipo de o.
+
+o.__proto__ // Otra forma de conseguir el prototipo de o.
+o.__proto__ = o1 // Otra forma de setear el prototipo de o
+\end{minted}
+\end{centrado}
+
+Cuando ejecutamos un método de la cadena de prototipado, el método evaluado liga \mintinline{javascript}{this} al objeto llamó al método, es decir, si tenemos:
+
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+let o1 = { a: 1}
+let o2 = { b: function(){
+         return this.a
+    }
+}
+
+o1.__proto__= o2
+
+o1.b();
+// Busca b en o1 y no lo encuentra, el proximo objeto en la cadena es o2, encuentra b y liga this = o1, luego ejecuta el método.
+\end{minted}
+\end{centrado}
+
+Para crear una copia de un objeto y asignarle a esa copia el objeto original como prototipo usamos \mintinline{javascript}{Object.create}.
+
+Además javascript provee el prototipo \mintinline{javascript}{Object.prototype} que es prototipo de todos los objetos y provee metodos básicos como \mintinline{javascript}{hasOwnProperty()} que indica si el objeto contiene una propiedad no heredada y \mintinline{javascript}{toString()} que devuelve un string que representa al receptor.
+
+\paragraph{Cadenas de prototipado}
+
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+let o1 = { ... }
+// o1 ---> Object.prototype ---> null
+
+let o2 = Object.create(o1)
+// o2 ---> o1 ---> Object.prototype ---> null
+
+let o = Object.create(null)
+// o ---> null
+\end{minted}
+\end{centrado}
+
+\paragraph{Constructores} Son funciones que generan objetos. Cuando declaramos un constructor \mintinline{javascript}{C}, javascript crea un objeto llamado \mintinline{javascript}{C.prototype} que se asigna como prototipo de todos los objetos creados con dicha función. Por ejemplo:
+
+\begin{centrado}
+\begin{minted}[breaklines]{javascript}
+    // Constructor Punto, tiene la siguiente cadena de prototipado:
+    // Punto --> Function.prototype --> Object.prototype --> null
+    function Punto(x,y){
+        this.x = x;
+        this.y = y;
+        this.mvx = function(d){
+            this.x += d;
+        }
+    }
+    
+    // Objeto creado con el constructo punto
+    o = new Punto(1,2)
+    // o = Object{ x: 1, x:2, mvx: mvx()} y su cadena de prototipado es:
+    // o --> Punto.prototype --> Object.prototype --> null
+\end{minted}
+\end{centrado}
