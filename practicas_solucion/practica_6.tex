@@ -29,40 +29,55 @@
     \end{enumerate}
     \subsubsection{\blue{FNClausal:}}
   \subsection{Ejercicio 2}
+  \subsubsection{}
     \begin{enumerate}
-    \item $-p \vee p $es una tautología$  \leftrightarrow \{\{p\} \{-p\}\} $es insatisfacible \\
-    $\{\{p\} \{-p\}\}$ \\
-    $\{p\}-(p)u\{-p\}-(-p)=\{\}$ \\
-    $\{\{p\} \{-p\} \{\}\} \Rightarrow $es insatisfacible
-    \item $-p \vee -q \vee p $es una tautología$ \leftrightarrow \{\{p\} \{q\} \{-p\}\} $es insatisfacible \\
-    $\{\{p\} \{q\} \{-p\}\}$ \\
-    $\{p\}-(p)u\{-p\}-(-p)=\{\}$ \\
-    $\{\{p\} \{q\} \{-p\} \{\}\} \Rightarrow $es insatisfacible
-    \item $(-p \vee p)\wedge(-q \vee p) $es una tautología$ \leftrightarrow \{\{p, q\} \{p, -p\} \{-p, q\} \{-p, -p\}\} $es insatisfacible \\
-    $\{\{p, q\} \{p, -p\} \{-p, q\} \{-p, -p\}\}$ \\
-    $\{p, q\}-(p)u\{-p, q\}-(-p)=\{q\}$ \\
-    $\{\{p, q\} \{p, -p\} \{-p, q\} \{-p, -p\} \{q\}\}$ \\
-    No se puede generar el conjunto vacío
-    \item $(-p \vee p)\wedge(p \vee -p) $es una tautología$ \leftrightarrow \{\{p, -p\} \{p, p\} \{-p, -p\} \{-p, p\}\} $es insatisfacible \\
-    $\{\{p, -p\} \{p, p\} \{-p, -p\} \{-p, p\}\}$ \\
-    $\{p, -p\}-(p,-p)u\{-p, p\}-(p,-p)=\{\}$ \\
-    $\{\{p, -p\} \{p, p\} \{-p, -p\} \{-p, p\} \{\}\} \Rightarrow $es insatisfacible
-    \item $(q \vee -p \vee -q)\wedge(p \vee -p \vee -q) $es una tautología$ \leftrightarrow \{\{-q, -p\} \{-q, p\} \{-q, q\} \{p, -p\} \{p, p\} \{p, q\} \{q, -p\} \{q, p\} \{q, q\}\} es$ insatisfacible
-    $\{\{-q, -p\} \{-q, p\} \{-q, q\} \{p, -p\} \{p, p\} \{p, q\} \{q, -p\} \{q, p\} \{q, q\}\}$ \\
-    $\{-q, -p\}-(-q, -p)u\{p, q\}-(p, q)=\{\}$ \\
-    $\{\{-q, -p\} \{-q, p\} \{-q, q\} \{p, -p\} \{p, p\} \{p, q\} \{q, -p\} \{q, p\} \{q, q\} \{\}\} \Rightarrow $es insatisfacible
-    \item $(p \vee p)\wedge(p \vee r)\wedge(q \vee p)\wedge(q \vee r) $es una tautología$ \leftrightarrow \{\{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\}\} $es insatisfacible \\
-    $\{\{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -p, -q, -q\} \{-p, -p, -q, -r\} \{-p, -p, -p, -q\} \{-p, -p, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\} \{-p, -r, -q, -q\} \{-p, -r, -q, -r\} \{-p, -r, -p, -q\} \{-p, -r, -p, -r\}\}$ \\
-    No se puede generar el conjunto vacío
-    \item $(r \vee -p)\wedge(-q \vee r) $es una tautología$ \leftrightarrow \{\{-r, q\} \{p, q\} \{-r, -r\} \{p, -r\}\} $es insatisfacible \\
-    $\{\{-r, q\} \{p, q\} \{-r, -r\} \{p, -r\}\}$ \\
-    No se puede generar el conjunto vacío
-    \item $-p \vee -q \vee r $es una tautología$ \leftrightarrow \{\{p\} \{q\} \{-r\}\} $es insatisfacible \\
-    $\{\{p\} \{q\} \{-r\}\}$ \\
-    No se puede generar el conjunto vacío
+        \item $(-p \vee p)$ es una tautología $  \Leftrightarrow \{\{p\},\{-p\}\} $ es insatisfacible \\
+        $S=\{\{p\},\{-p\}\}$ \\
+        $\{p\}-(p) \cup \{-p\}-(-p)=\{\}$ \\
+        $S=\{\{p\},\{-p\},\{\}\} \Rightarrow $ es insatisfacible
+        \item $((-p \vee -q) \vee p) $ es una tautología$ \Leftrightarrow \{\{p\},\{q\},\{-p\}\} $ es insatisfacible \\
+        $S=\{\{p\},\{q\},\{-p\}\}$ \\
+        $\{p\}-(p) \cup \{-p\}-(-p)=\{\}$ \\
+        $S=\{\{p\},\{q\},\{-p\},\{\}\} \Rightarrow $ es insatisfacible
+        \item $((-p \vee p)\wedge(-q \vee p))$ es una tautología $ \Leftrightarrow \{\{p, q\},\{p, -p\},\{-p, q\},\{-p, -p\}\} $ es insatisfacible \\
+        $S=\{\{p, q\},\{p, -p\},\{-p, q\},\{-p, -p\}\}$ \\
+        $\{p, q\}-(p) \cup \{-p, q\}-(-p)=\{q\}$ \\
+        $S=\{\{p, q\},\{p, -p\},\{-p, q\},\{-p, -p\},\{q\}\}$ \\
+        No podemos aplicar ningún paso de resolución a S es decir generar una cláusula nueva, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea v(p)=F,v(q)=V.
+        \item $((-p \vee p)\wedge(p \vee -p))$ es una tautología $ \Leftrightarrow \{\{p, -p\},\{p, p\},\{-p, -p\},\{-p, p\}\} $ es insatisfacible \\
+        $S=\{\{p, -p\},\{p, p\},\{-p, -p\},\{-p, p\}\}$ \\
+        $\{p, -p\}-(p,-p) \cup \{-p, p\}-(p,-p)=\{\}$ \\
+        $S=\{\{p, -p\},\{p, p\},\{-p, -p\},\{-p, p\},\{\}\} \Rightarrow $ es insatisfacible
+        \item $((q \vee -p \vee -q)\wedge(p \vee -p \vee -q))$ es una tautología $ \Leftrightarrow \{\{-q, -p\},\{-q, p\},\{-q, q\},\{p, -p\},\{p, p\},\{p, q\},\{q, -p\},\{q, p\},\{q, q\}\} es$ insatisfacible
+        $S=\{\{-q, -p\},\{-q, p\},\{-q, q\},\{p, -p\},\{p, p\},\{p, q\},\{q, -p\},\{q, p\},\{q, q\}\}$ \\
+        $\{-q, -p\}-(-q, -p) \cup \{p, q\}-(p, q)=\{\}$ \\
+        $S=\{\{-q, -p\},\{-q, p\},\{-q, q\},\{p, -p\},\{p, p\},\{p, q\},\{q, -p\},\{q, p\},\{q, q\},\{\}\} \Rightarrow $ es insatisfacible
+        \item $((p \vee p)\wedge(p \vee r)\wedge(q \vee p)\wedge(q \vee r))$ es una tautología $ \Leftrightarrow \{\{-p, -p, -q, -q\},\{-p, -p, -q, -r\},\{-p, -p, -p, -q\},\{-p, -p, -p, -r\},\{-p, -p, -q, -q\},\{-p, -p, -q, -r\},\{-p, -p, -p, -q\},\{-p, -p, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\},\{-p, -r, -p, -q\},\{-p, -r, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\},\{-p, -r, -p, -q\},\{-p, -r, -p, -r\}\} $ es insatisfacible \\
+        $S=\{\{-p, -p, -q, -q\},\{-p, -p, -q, -r\},\{-p, -p, -p, -q\},\{-p, -p, -p, -r\},\{-p, -p, -q, -q\},\{-p, -p, -q, -r\},\{-p, -p, -p, -q\},\{-p, -p, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\},\{-p, -r, -p, -q\},\{-p, -r, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\},\{-p, -r, -p, -q\},\{-p, -r, -p, -r\}\}$ \\
+        No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea v(p)=v(q)=v(r)=F.
+        \item $((r \vee -p)\wedge(-q \vee r))$ es una tautología $ \Leftrightarrow \{\{-r, q\},\{p, q\},\{-r, -r\},\{p, -r\}\} $ es insatisfacible \\
+        $S=\{\{-r, q\},\{p, q\},\{-r, -r\},\{p, -r\}\}$ \\
+        No se puede generar el conjunto vacío
+        \item $(-p \vee -q \vee r)$ es una tautología $ \Leftrightarrow \{\{p\},\{q\},\{-r\}\} $ es insatisfacible \\
+        $S=\{\{p\},\{q\},\{-r\}\}$ \\
+        No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea v(p)=v(q)=T,v(r)=F.
     \end{enumerate}
+\subsubsection{}
+$((-p \Rightarro w q) \wedge (p \Rightarro w q) \wedge (-p \Rightarrow -q)) \Rightarrow (p \wedge q)$ es una tautología $\Leftrightarrow$ \\
+$ \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\},\{-q, p, q, p\},\{-q, p, -p, q\},$ \\
+$\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\},\{-p, -q, -p, q\},\{-p, -q, q, q\} \{-q, -q, -p, p\},\{-q, -q, q, p\},$ \\
+$\{-q, -q, -p, q\},\{-q, -q, q, q\}\}$ es insatisfacible \\
+
+$S=\{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\}, \\ \{-q, p, q, p\},\{-q, p, -p, q\},\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\}, \\ \{-p, -q, -p, q\},\{-p, -q, q, q\} \{-q, -q, -p, p\},\{-q, -q, q, p\},\{-q, -q, -p, q\},\{-q, -q, q, q\}\}$ \\ \\
+$S1=\{-q, -q, q, p\}\{-q, p, q, p\}=\{-q, p, p, p\}$ \\
+$S2=\{-p, -q, -p, q\}\{-q, p, p, p\}=\{-q, p\}$ \\
+$S3=\{-q, p, -p, q\}\{-p, p, -p, q\}=\{q, -p\}$ \\
+$S4=\{-q, p\}\{q, -p\}=\{\} $ \\ \\
+$\Rightarrow$ \\
+$S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\}, \\ \{-q, p, q, p\},\{-q, p, -p, q\},\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\}, \\ \{-p, -q, -p, q\},\{-p, -q, q, q\},\{-q, -q, -p, p\},\{-q, -q, q, p\},\{-q, -q, -p, q\}, \\ \{-q, -q, q, q\}\},\{-q, p, p, p\},\{-q, p\},\{q, -p\},\{\}$ es insatisfacible
+
   \subsection{Ejercicio 3}
-  \section*{\ Unificacóon en Lógica de Primer Orden}
+  \section*{\ Unificación en Lógica de Primer Orden}
   \subsection{Ejercicio 4}
   \subsection{Ejercicio 5}
   \section*{\ Resolución en Lógica de Primer Orden}
