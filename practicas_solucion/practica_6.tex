@@ -130,19 +130,29 @@ $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, 
 \item 
 $\exists x. \exists y. (x<y)$ \\
 $\exists x. (x<f(x))$ \\
-$(f_{2}(c)<f(x))$
+$(f_{2}(c)<f(x))$ \\
+Forma clausal: $\{f_{2}(c)<f(x)\}$
 \item 
 $\forall x. \exists y. (x<y)$ \\
-$\forall x. (x<f(x))$
+$\forall x. (x<f(x))$ \\
+Forma clausal: $\{x<f(x)\}$
 \item 
 $\forall x. \neg(P(x) \wedge \forall y.(\neg P(y) \vee Q(y)))$ \\
-$\forall x. \forall y. \neg(P(x) \wedge (\neg P(y) \vee Q(y)))$
+$\forall x. \forall y. \neg(P(x) \wedge (\neg P(y) \vee Q(y)))$ \\
+$\forall x. \forall y. (\neg P(x) \vee \neg(\neg P(y) \vee Q(y)))$ \\
+$\forall x. \forall y. (\neg P(x) \vee (\neg \neg P(y) \wedge \neg Q(y)))$ \\
+$\forall x. \forall y. (\neg P(x) \vee (P(y) \wedge \neg Q(y)))$ \\
+$\forall x. \forall y. ( (\neg P(x) \vee P(y)) \wedge (\neg P(x) \vee \neg Q(y) ) )$ \\
+Forma clausal: $\{\neg P(x) \vee P(y), \neg P(x) \vee \neg Q(y) \}$
 \item 
 $\exists x. \forall y. (P(x,y) \wedge Q(x) \wedge \neg R(y))$ \\
-$\forall y. (P(f(c),y) \wedge Q(f(c) \wedge \neg R(y))$
+$\forall y. (P(f(c),y) \wedge Q(f(c)) \wedge \neg R(y))$ \\
+Forma clausal: $\{P(f(c),y), Q(f(c)), \neg R(y)\}$
 \item 
 $\forall x. (P(x) \wedge \exists y. (Q(y) \vee \forall z. \exists w. (P(z) \wedge \neg Q(w)))$ \\
-$\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee (P(z) \wedge \neg Q(f(z))))$
+$\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee (P(z) \wedge \neg Q(f(z))))$ \\
+$\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee P(z) ) \wedge (Q(f(c)) \vee \neg Q(f(z)) ) )$ \\
+Forma clausal: $\{ P(x) , Q(f(c)) \vee P(z) , Q(f(c)) \vee \neg Q(f(z)) \}$
 \end{enumerate}
   \subsection{Ejercicio 8}
   \subsection{Ejercicio 9}
