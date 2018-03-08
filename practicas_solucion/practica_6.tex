@@ -101,7 +101,19 @@ $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, 
     $Q(f(y),y) $ si $ y \doteq f(a) $ y $ x \doteq f(f(a))$
     \end{enumerate}
   \subsection{Ejercicio 5}
-  \section*{\ Resolución en Lógica de Primer Orden}
+    \begin{enumerate}
+    \item $f(x,x,y) \doteq f(a,b,z)$ $\sigma:{x/a}$ \\
+    $f(a,a,y) \doteq f(a,b,z)$ \\
+    como $a ! \doteq b \Rightarrow$ Falla 
+    \item $f(x) \doteq y$ si $\sigma:{y/f(x)}$
+    \item $f(g(c,y),x) \doteq f(z,g(z,a))$ $\sigma:{z/g(c,y)}$
+    $f(g(c,y),x) \doteq f(g(c,y),g(g(c,y),a))$ $\sigma_{2}:{x/g(g(c,y),a)}$
+    \item $f(a) \doteq g(y)$ si $g(y)=f(a)$
+    \item $f(x) \doteq x$ Falla porque $x \in FV(f(x))$
+    \item $g(x,y) \doteq g(f(y),f(x))$ $\sigma:{x/f(y)}$
+     $g(f(y),y) \doteq g(f(y),f(f(y)))$ Falla porque $y \in FV(f(f(y)))$
+    \end{enumerate}
+\section*{\ Resolución en Lógica de Primer Orden}
   \subsection{Ejercicio 5}
   \subsection{Ejercicio 6}
   \subsection{Ejercicio 7}
