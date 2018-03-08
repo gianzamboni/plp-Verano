@@ -126,6 +126,24 @@ $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, 
     $\forall x.  \exists y. (\neg P(x,y) \vee Q(x,y))$
     \end{enumerate}
   \subsection{Ejercicio 7}
+\begin{enumerate}
+\item 
+$\exists x. \exists y. (x<y)$ \\
+$\exists x. (x<f(x))$ \\
+$(f_{2}(c)<f(x))$
+\item 
+$\forall x. \exists y. (x<y)$ \\
+$\forall x. (x<f(x))$
+\item 
+$\forall x. \neg(P(x) \wedge \forall y.(\neg P(y) \vee Q(y)))$ \\
+$\forall x. \forall y. \neg(P(x) \wedge (\neg P(y) \vee Q(y)))$
+\item 
+$\exists x. \forall y. (P(x,y) \wedge Q(x) \wedge \neg R(y))$ \\
+$\forall y. (P(f(c),y) \wedge Q(f(c) \wedge \neg R(y))$
+\item 
+$\forall x. (P(x) \wedge \exists y. (Q(y) \vee \forall z. \exists w. (P(z) \wedge \neg Q(w)))$ \\
+$\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee (P(z) \wedge \neg Q(f(z))))$
+\end{enumerate}
   \subsection{Ejercicio 8}
   \subsection{Ejercicio 9}
   \subsection{Ejercicio 10}
