@@ -114,8 +114,17 @@ $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, 
      $g(f(y),y) \doteq g(f(y),f(f(y)))$ Falla porque $y \in FV(f(f(y)))$
     \end{enumerate}
 \section*{\ Resolución en Lógica de Primer Orden}
-  \subsection{Ejercicio 5}
   \subsection{Ejercicio 6}
+    \begin{enumerate}
+    \item $\forall x.  \forall y. ( \neg Q(x,y) \Rightarrow \neg P(x,y)$ \\
+    $\forall x.  \forall y. ( \neg \neg Q(x,y) \vee \neg P(x,y)$ \\
+    $\forall x.  \forall y. ( Q(x,y) \vee \neg P(x,y)$
+    \item $\forall x.  \forall y. ((P(x,y) \wedge Q(x,y)) \Rightarrow R(x,y))$ \\
+    $\forall x.  \forall y. (\neg (P(x,y) \wedge Q(x,y)) \vee R(x,y))$ \\
+    $\forall x.  \forall y. ((\neg P(x,y) \vee \neg Q(x,y)) \vee R(x,y))$
+    \item $\forall x.  \exists y. (P(x,y) \Rightarrow Q(x,y))$ \\
+    $\forall x.  \exists y. (\neg P(x,y) \vee Q(x,y))$
+    \end{enumerate}
   \subsection{Ejercicio 7}
   \subsection{Ejercicio 8}
   \subsection{Ejercicio 9}
