@@ -79,6 +79,27 @@ $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, 
   \subsection{Ejercicio 3}
   \section*{\ Unificación en Lógica de Primer Orden}
   \subsection{Ejercicio 4}
+    \begin{enumerate}
+    \item $P(f(x)) $ unifica con: \\
+    $P(f(a)) $ si $ x \doteq a$
+    \item $P(a) $ unifica con: \\
+    $P(x) $ si $ x \doteq a$ \\
+    $P(g(z)) $ si $ g(z) \doteq a$
+    \item $P(y) $ unifica con: \\
+    $P(x) $ si $ y \doteq x$ \\
+    $P(f(a)) $ si $ y \doteq f(a)$ \\
+    $P(g(z)) $ si $ y \doteq g(z)$
+    \item $Q(x,f(y)) $ unifica con: \\
+    $Q(f(y),x) $ si $ x \doteq f(y)$
+    \item $Q(x,f(z)) $ unifica con: \\
+    $Q(f(y),x) $ si $ x \doteq f(y) $ y $ z \doteq y$ \\
+    $Q(f(y),f(x)) $ si $ x \doteq f(y) $ y $ z \doteq f(y)$ \\
+    $Q(f(y),y) $ si $ y \doteq f(z) y x \doteq f(f(z))$
+    \item $Q(x,f(a)) $ unifica con: \\
+    $Q(f(y),x) $ si $ x \doteq f(a) $ y $ y \doteq a$ \\
+    $Q(f(y),f(x)) $ si $ x \doteq a $ y $ a \doteq f(y)$ \\
+    $Q(f(y),y) $ si $ y \doteq f(a) $ y $ x \doteq f(f(a))$
+    \end{enumerate}
   \subsection{Ejercicio 5}
   \section*{\ Resolución en Lógica de Primer Orden}
   \subsection{Ejercicio 5}
