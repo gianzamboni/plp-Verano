@@ -155,7 +155,107 @@ $\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee P(z) ) \wedge (Q(f(c)) \vee \n
 Forma clausal: $\{ P(x) , Q(f(c)) \vee P(z) , Q(f(c)) \vee \neg Q(f(z)) \}$
 \end{enumerate}
   \subsection{Ejercicio 8}
-  \subsection{Ejercicio 9}
+  \subsection{Ejercicio 9
+\begin{enumerate}
+\item
+$\exists x. \forall y. R(x,y) \Rightarrow \forall y. \exists x. R(x,y)$ \\
+$\neg \exists x. \forall y. R(x,y) \vee \forall y. \exists x. R(x,y)$ \\
+Negado: \\
+$\neg (\neg \exists x. \forall y. R(x,y) \vee \forall y. \exists x. R(x,y))$ \\
+$ \neg \neg \exists x. \forall y. R(x,y) \wedge \neg \forall y. \exists x. R(x,y) $ \\
+$ \exists x. \forall y. R(x,y) \wedge \neg \forall y. \exists x. R(x,y) $ \\
+$ \forall y. R(f(y),y) \wedge \exists y. \neg \exists x. R(x,y) $ \\
+$ \forall y. R(f(y),y) \wedge \exists y. \forall x. \neg R(x,y) $ \\
+$ \forall y. R(f(y),y) \wedge \forall x. \neg R(x,f(x)) $ \\
+$ \forall y. \forall x.  R(f(y),y) \wedge \neg R(x,f(x)) $ \\
+Forma clausal: $\{ R(f(y),y), \neg R(x,f(x)) \}$
+\item
+$\forall x. \exists y. R(x,y) \Rightarrow \exists y. \forall x. R(x,y)$ \\
+$\neg \forall x. \exists y. R(x,y) \vee \exists y. \forall x. R(x,y)$ \\
+Negado: \\
+$\neg (\neg \forall x. \exists y. R(x,y) \vee \exists y. \forall x. R(x,y))$ \\
+$\neg \neg \forall x. \exists y. R(x,y) \wedge \neg \exists y. \forall x. R(x,y)$ \\
+$\forall x. \exists y. R(x,y) \wedge \forall y. \neg \forall x. R(x,y)$ \\
+$\forall x. \exists y. R(x,y) \wedge \forall y. \exists x. \neg R(x,y)$ \\
+$\forall x. R(x,f(x)) \wedge \forall y. \neg R(f(y),y)$ \\
+Forma clausal: $\{  R(x,f(x)), \neg R(f(y),y) \}$
+\item
+$\exists x. [P(x) \Rightarrow \forall x. P(x)]$ \\
+$\exists x'. [\neg P(x') \vee \forall x. P(x)]$ \\
+Negado: \\
+$\neg (\exists x'. [\neg P(x') \vee \forall x. P(x)])$ \\
+$ \forall x'. \neg [\neg P(x') \vee \forall x. P(x)]$ \\
+$ \forall x'. [ \neg \neg P(x') \wedge \neg \forall x. P(x)]$ \\
+$ \forall x'. [ P(x') \wedge \exists x. \neg P(x)]$ \\
+$ \forall x'. [ P(x') \wedge \neg P(f(c))]$ \\
+Forma clausal: $\{ P(x'), \neg P(f(c))\}$
+\item
+$ \exists x. [P(x) \vee Q(x)] \Rightarrow [\exists P(x) \vee \exists Q(x)]$ \\
+$ \exists x. \neg [P(x) \vee Q(x)] \vee [\exists x. P(x) \vee \exists x. Q(x)]$ \\
+Negado: \\
+$ \neg (\exists x. \neg [P(x) \vee Q(x)] \vee [\exists x. P(x) \vee \exists x. Q(x)])$ \\
+$ \forall x. (\neg \neg [P(x) \vee Q(x)]) \vee \neg [\exists x. P(x) \vee \exists x. Q(x)]$ \\
+$ \forall x. [P(x) \vee Q(x)] \vee [\neg \exists x. P(x) \wedge \neg \exists x. Q(x)]$ \\
+$ \forall x. [P(x) \vee Q(x)] \vee [\forall x. \neg P(x) \wedge \forall x. \neg Q(x)]$ \\
+$ \forall x. \forall y. \forall z. [P(x) \vee Q(x)] \vee [\neg P(z) \wedge \neg Q(y)]$ \\
+$ \forall x. \forall y. \forall z. [(P(x) \vee Q(x) \vee \neg P(z)) \wedge (P(x) \vee Q(x) \vee \neg Q(y))]$ \\
+Forma clausal: $\{(P(x) \vee Q(x) \vee \neg P(z)), (P(x) \vee Q(x) \vee \neg Q(y))\}$
+\item
+$ \forall x. [P(x) \vee Q(x)] \Rightarrow [\forall P(x) \vee \forall Q(x)]$ \\
+$ \forall x. \neg [P(x) \vee Q(x)] \vee [\forall P(x) \vee \forall Q(x)]$ \\
+Negado: \\
+$ \neg \forall x. \neg [P(x) \vee Q(x)] \vee [\forall x. P(x) \vee \forall x. Q(x)]$ \\
+$ \exists x. \neg \neg [P(x) \vee Q(x)] \wedge \neg [\forall x. P(x) \vee \forall x. Q(x)]$ \\
+$ \exists x. [P(x) \vee Q(x)] \wedge [\neg \forall x. P(x) \wedge \neg \forall x. Q(x)]$ \\
+$ \exists x. [P(x) \vee Q(x)] \wedge [\exists x. \neg P(x) \wedge \exists x. \neg Q(x)]$ \\
+$ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$ \\
+$ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$ \\
+Forma clausal: $\{ P(f(c)) \vee Q(f(c)), \neg P(f(b)), \neg Q(f(a)) \}$
+\item
+$ [\exists x. P(x) \wedge \forall x. Q(x)] \Rightarrow \exists x. [P(x) \wedge Q(x)] $ \\
+$ \neg [\exists x. P(x) \wedge \forall x. Q(x)] \vee \exists x. [P(x) \wedge Q(x)] $ \\
+$ [\neg \exists x. P(x) \wedge \neg \forall x. Q(x)] \vee \exists x. [P(x) \wedge Q(x)] $ \\
+$ [\forall x. \neg P(x) \wedge \exists x. \neg Q(x)] \vee [P(f(a)) \wedge Q(f(a))] $ \\
+$ \forall x. [\neg P(x) \wedge \neg Q(f(b))] \vee [P(f(a)) \wedge Q(f(a))] $ \\
+$ \forall x. (\neg P(x) \vee P(f(a))) \wedge (\neg Q(f(b)) \vee P(f(a))) \wedge (\neg P(x)\vee Q(f(a))) \wedge (\neg Q(f(b)) \vee Q(f(a))) $ \\
+Forma clausal: $\{ (\neg P(x) \vee P(f(a))), (\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a))), (\neg Q(f(b)) \vee Q(f(a)))\}$
+\item
+$\forall x. \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+Negado: \\
+$\neg \forall x. \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+$\exists x. \neg \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+$\exists x. \forall y. \neg \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+$\exists x. \forall y. \exists z. \neg \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+$\exists x. \forall y. \exists z. \forall w. \neg [P(x,y) \vee \neg P(w,z)]$ \\
+$\exists x. \forall y. \exists z. \forall w. [\neg P(x,y) \wedge \neg \neg P(w,z)]$ \\
+$\forall y. \forall w. [\neg P(f(b),y) \wedge P(w,f(a))]$ \\
+Forma clausal: $\{ \neg P(f(b),y), P(w,f(a)) \}$
+\item
+$\forall x. \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+Negado: \\
+$\neg (\forall x. \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))])$ \\
+$\exists x. \neg \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+$\exists x. \exists y. \neg \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+$\exists x. \exists y. \exists z. \neg [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+$\exists x. \exists y. \exists z. [ \neg (\neg P(f(a)) \vee \neg P(y) \vee Q(y))] \vee \neg P(f(z)) \vee [\neg (\neg P(f(f(x))) \vee \neg Q(f(x)))]$ \\
+$\exists x. \exists y. \exists z. [ (\neg \neg P(f(a)) \wedge \neg \neg P(y) \wedge \neg Q(y))] \vee \neg P(f(z)) \vee [\neg \neg P(f(f(x))) \wedge \neg \neg Q(f(x))]$ \\
+$\exists x. \exists y. \exists z. [ (P(f(a)) \wedge P(y) \wedge \neg Q(y))] \vee \neg P(f(z)) \vee [P(f(f(x))) \wedge Q(f(x))]$ \\
+$\exists x. \exists y. \exists z. [ ( (P(f(a)) \vee \neg P(f(z)) ) \wedge ( P(y) \vee \neg P(f(z)) ) \wedge ( \neg Q(y)) \vee \neg P(f(z)) )]  \vee [P(f(f(x))) \wedge Q(f(x))]$ \\
+$\exists x. \exists y. \exists z. \\
+P(f(a)) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
+P(f(a)) \vee \neg P(f(z)) \vee Q(f(x))  \wedge \\
+P(y) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
+P(y) \vee \neg P(f(z)) \vee Q(f(x)) \wedge \\
+\neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
+\neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)) $ \\
+Forma clausal: $\{ \\
+P(f(a)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
+P(f(a)) \vee \neg P(f(z)) \vee Q(f(x)) , \\
+P(y) \vee \neg P(f(z)) \vee P(f(f(x)), \\
+P(y) \vee \neg P(f(z)) \vee Q(f(x)), \\
+\neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
+\neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)) \\
+\}$
   \subsection{Ejercicio 10}
   \subsection{Ejercicio 11}
   \subsection{Ejercicio 12}
