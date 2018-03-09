@@ -131,11 +131,11 @@ $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, 
 $\exists x. \exists y. (x<y)$ \\
 $\exists x. (x<f(x))$ \\
 $(f_{2}(c)<f(x))$ \\
-Forma clausal: $\{f_{2}(c)<f(x)\}$
+Forma clausal: $\{\{f_{2}(c)<f(x)\}\}$
 \item 
 $\forall x. \exists y. (x<y)$ \\
 $\forall x. (x<f(x))$ \\
-Forma clausal: $\{x<f(x)\}$
+Forma clausal: $\{\{x<f(x)\}\}$
 \item 
 $\forall x. \neg(P(x) \wedge \forall y.(\neg P(y) \vee Q(y)))$ \\
 $\forall x. \forall y. \neg(P(x) \wedge (\neg P(y) \vee Q(y)))$ \\
@@ -143,16 +143,16 @@ $\forall x. \forall y. (\neg P(x) \vee \neg(\neg P(y) \vee Q(y)))$ \\
 $\forall x. \forall y. (\neg P(x) \vee (\neg \neg P(y) \wedge \neg Q(y)))$ \\
 $\forall x. \forall y. (\neg P(x) \vee (P(y) \wedge \neg Q(y)))$ \\
 $\forall x. \forall y. ( (\neg P(x) \vee P(y)) \wedge (\neg P(x) \vee \neg Q(y) ) )$ \\
-Forma clausal: $\{\neg P(x) \vee P(y), \neg P(x) \vee \neg Q(y) \}$
+Forma clausal: $\{\{\neg P(x). P(y)\},\{\neg P(x), \neg Q(y)\}\}$
 \item 
 $\exists x. \forall y. (P(x,y) \wedge Q(x) \wedge \neg R(y))$ \\
 $\forall y. (P(f(c),y) \wedge Q(f(c)) \wedge \neg R(y))$ \\
-Forma clausal: $\{P(f(c),y), Q(f(c)), \neg R(y)\}$
+Forma clausal: $\{\{P(f(c),y), Q(f(c)), \neg R(y)\}\}$
 \item 
 $\forall x. (P(x) \wedge \exists y. (Q(y) \vee \forall z. \exists w. (P(z) \wedge \neg Q(w)))$ \\
 $\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee (P(z) \wedge \neg Q(f(z))))$ \\
 $\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee P(z) ) \wedge (Q(f(c)) \vee \neg Q(f(z)) ) )$ \\
-Forma clausal: $\{ P(x) , Q(f(c)) \vee P(z) , Q(f(c)) \vee \neg Q(f(z)) \}$
+Forma clausal: $\{\{ P(x)\} , \{Q(f(c)), P(z)\} , \{Q(f(c)), \neg Q(f(z))\} \}$
 \end{enumerate}
   \subsection{Ejercicio 8}
   \subsection{Ejercicio 9}
@@ -168,7 +168,7 @@ $ \forall y. R(f(y),y) \wedge \exists y. \neg \exists x. R(x,y) $ \\
 $ \forall y. R(f(y),y) \wedge \exists y. \forall x. \neg R(x,y) $ \\
 $ \forall y. R(f(y),y) \wedge \forall x. \neg R(x,f(x)) $ \\
 $ \forall y. \forall x.  R(f(y),y) \wedge \neg R(x,f(x)) $ \\
-Forma clausal: $S=\{ R(f(y),y), \neg R(x,f(x)) \}$ \\
+Forma clausal: $S=\{\{ R(f(y),y)\},\{ \neg R(x,f(x))\} \}$ \\
 Resolución: No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(f(y),y))=T$, $v(\neg R(x,f(x)))=F$.
 \item
 $\forall x. \exists y. R(x,y) \Rightarrow \exists y. \forall x. R(x,y)$ \\
@@ -179,7 +179,7 @@ $\neg \neg \forall x. \exists y. R(x,y) \wedge \neg \exists y. \forall x. R(x,y)
 $\forall x. \exists y. R(x,y) \wedge \forall y. \neg \forall x. R(x,y)$ \\
 $\forall x. \exists y. R(x,y) \wedge \forall y. \exists x. \neg R(x,y)$ \\
 $\forall x. R(x,f(x)) \wedge \forall y. \neg R(f(y),y)$ \\
-Forma clausal: $S=\{  R(x,f(x)), \neg R(f(y),y) \}$ \\
+Forma clausal: $S=\{ \{ R(x,f(x))\},\{ \neg R(f(y),y) \}\}$ \\
 Resolución: No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(x,f(x)))=T$, $v(\neg R(f(y),y))=F$.
 \item
 $\exists x. [P(x) \Rightarrow \forall x. P(x)]$ \\
@@ -190,11 +190,11 @@ $ \forall x'. \neg [\neg P(x') \vee \forall x. P(x)]$ \\
 $ \forall x'. [ \neg \neg P(x') \wedge \neg \forall x. P(x)]$ \\
 $ \forall x'. [ P(x') \wedge \exists x. \neg P(x)]$ \\
 $ \forall x'. [ P(x') \wedge \neg P(f(c))]$ \\
-Forma clausal: $S=\{ P(x'), \neg P(f(c))\}$ \\
+Forma clausal: $S=\{ \{ P(x') \} , \{ \neg P(f(c)) \} \}$ \\
 Resolución: \\
-$S=\{ P(x'), \neg P(f(c))\}$\\
+$S=\{ \{P(x')\}, \{\neg P(f(c))\}\}$\\
 Sea $\sigma(x' / f(c)) \Rightarrow \sigma(S)=\{ P(f(c)), \neg P(f(c))\} \Rightarrow \{\}$ \\
-$S=\{ P(x'), \neg P(f(c)), \{\} \} \Rightarrow $ S es insatisfacible
+$S=\{ \{P(x')\}, \{\neg P(f(c))\}, \{\} \} \Rightarrow $ S es insatisfacible
 \item
 $ \exists x. [P(x) \vee Q(x)] \Rightarrow [\exists P(x) \vee \exists Q(x)]$ \\
 $ \exists x. \neg [P(x) \vee Q(x)] \vee [\exists x. P(x) \vee \exists x. Q(x)]$ \\
@@ -205,7 +205,7 @@ $ \forall x. [P(x) \vee Q(x)] \vee [\neg \exists x. P(x) \wedge \neg \exists x. 
 $ \forall x. [P(x) \vee Q(x)] \vee [\forall x. \neg P(x) \wedge \forall x. \neg Q(x)]$ \\
 $ \forall x. \forall y. \forall z. [P(x) \vee Q(x)] \vee [\neg P(z) \wedge \neg Q(y)]$ \\
 $ \forall x. \forall y. \forall z. [(P(x) \vee Q(x) \vee \neg P(z)) \wedge (P(x) \vee Q(x) \vee \neg Q(y))]$ \\
-Forma clausal: $S=\{(P(x) \vee Q(x) \vee \neg P(z)), (P(x) \vee Q(x) \vee \neg Q(y))\}$ \\
+Forma clausal: $S=\{\{P(x), Q(x), \neg P(z)\}, \{P(x), Q(x), \neg Q(y)\}\}$ \\
 Resolución: $\blue{???}$
 \item
 $ \forall x. [P(x) \vee Q(x)] \Rightarrow [\forall P(x) \vee \forall Q(x)]$ \\
@@ -217,7 +217,7 @@ $ \exists x. [P(x) \vee Q(x)] \wedge [\neg \forall x. P(x) \wedge \neg \forall x
 $ \exists x. [P(x) \vee Q(x)] \wedge [\exists x. \neg P(x) \wedge \exists x. \neg Q(x)]$ \\
 $ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$ \\
 $ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$ \\
-Forma clausal: $\{ P(f(c)) \vee Q(f(c)), \neg P(f(b)), \neg Q(f(a)) \}$ \\
+Forma clausal: $\{ \{P(f(c)), Q(f(c))\}, \{\neg P(f(b)), \neg Q(f(a))\} \}$ \\
 Resolución:\\
 $S=\{P(f(c)) \vee Q(f(c))\},\{\neg P(f(b))\}$ $\sigma= c \doteq b$ resolvente = $\{Q(f(b))\}$ \\
 $S=\{ P(f(c)) \vee Q(f(c)), \neg P(f(b)), \neg Q(f(a)), Q(f(b)) \}$ \\
@@ -230,7 +230,7 @@ $ [\neg \exists x. P(x) \wedge \neg \forall x. Q(x)] \vee \exists x. [P(x) \wedg
 $ [\forall x. \neg P(x) \wedge \exists x. \neg Q(x)] \vee [P(f(a)) \wedge Q(f(a))] $ \\
 $ \forall x. [\neg P(x) \wedge \neg Q(f(b))] \vee [P(f(a)) \wedge Q(f(a))] $ \\
 $ \forall x. (\neg P(x) \vee P(f(a))) \wedge (\neg Q(f(b)) \vee P(f(a))) \wedge (\neg P(x)\vee Q(f(a))) \wedge (\neg Q(f(b)) \vee Q(f(a))) $ \\
-Forma clausal: $\{ (\neg P(x) \vee P(f(a))), (\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a))), (\neg Q(f(b)) \vee Q(f(a)))\}$
+Forma clausal: $\{ \{\neg P(x), P(f(a))\}, \{\neg Q(f(b)), P(f(a))\}, \{\neg P(x), Q(f(a))\}, \{\neg Q(f(b)), Q(f(a))\}\}$
 Resolución: \\
 $S=\{(\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a)))\}$ $\sigma=(f(a)) \doteq x \doteq f(b)))$ resolvente = $ \{\} $ \\
 $S=\{ (\neg P(x) \vee P(f(a))), (\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a))), (\neg Q(f(b)) \vee Q(f(a))), \{\}\}$ $\Rightarrow$ S es insatisfacible.
@@ -244,7 +244,7 @@ $\exists x. \forall y. \exists z. \neg \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
 $\exists x. \forall y. \exists z. \forall w. \neg [P(x,y) \vee \neg P(w,z)]$ \\
 $\exists x. \forall y. \exists z. \forall w. [\neg P(x,y) \wedge \neg \neg P(w,z)]$ \\
 $\forall y. \forall w. [\neg P(f(b),y) \wedge P(w,f(a))]$ \\
-Forma clausal: $\{ \neg P(f(b),y), P(w,f(a)) \}$
+Forma clausal: $\{\{ \neg P(f(b),y) \}, \{P(w,f(a)) \} \}$
 Resolución: \\
 $S=\{ \neg P(f(b),y), P(w,f(a)) \}$ $\sigma=(w \doteq f(b), y \doteq f(a))$ resolvente = $ \{\} $ \\
 $S=\{ \neg P(f(b),y), P(w,f(a)), \{\} \}$ $\Rightarrow$ S es insatisfacible.
@@ -267,12 +267,12 @@ P(y) \vee \neg P(f(z)) \vee Q(f(x)) \wedge \\
 \neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
 \neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)) $ \\
 Forma clausal: $\{ \\
-P(f(a)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
-P(f(a)) \vee \neg P(f(z)) \vee Q(f(x)) , \\
-P(y) \vee \neg P(f(z)) \vee P(f(f(x)), \\
-P(y) \vee \neg P(f(z)) \vee Q(f(x)), \\
-\neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
-\neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)) \\
+\{P(f(a)), \neg P(f(z)), P(f(f(x))\}, \\
+\{P(f(a)), \neg P(f(z)), Q(f(x)) \}, \\
+\{P(y), \neg P(f(z)), P(f(f(x))\}, \\
+\{P(y), \neg P(f(z)), Q(f(x))\}, \\
+\{\neg Q(y)), \neg P(f(z)), P(f(f(x))\}, \\
+\{\neg Q(y)), \neg P(f(z)), Q(f(x))\} \\
 \}$ \\
 Resolución: \\
 $\{P(y) \vee \neg P(f(z)) \vee Q(f(x)) \},\{\neg Q(y')) \vee \neg P(f(z')) \vee P(f(f(x'))\}$ \\
@@ -288,7 +288,26 @@ P(y) \vee \neg P(f(z)) \vee Q(f(x)), \\
 
 \end{enumerate}
 
+
+
   \subsection{Ejercicio 10}
+\subsubsection{Modus Ponens: $((P \rightarrow Q) \wedge P) \rightarrow Q$}
+$((P \rightarrow Q) \wedge P) \rightarrow Q$ \\
+$\neg ((P \rightarrow Q) \wedge P) \vee Q$ \\
+$\neg ((\neg P \vee Q) \wedge P) \vee Q$ \\
+$(\neg (\neg P \vee Q) \vee \neg P) \vee Q$ \\
+$((P \vee Q) \wedge (\neg Q \vee Q )) \vee (\neg P \vee Q)$ \\
+$((P \vee Q \vee \neg P \vee Q) \wedge (\neg Q \vee Q \vee \neg P \vee Q))$ \\
+Forma clausal: \\
+$\{\{P, Q, \neg P, Q\}\{\neg Q, Q, \neg P, Q\}\}$ \\
+
+\subsubsection{Modus Tollens: $((P \rightarrow Q) \wedge \neg Q) \rightarrow \neg P$}
+$((P \rightarrow Q) \wedge \neg Q) \rightarrow \neg P$ \\
+$(\neg (\neg P \vee Q) \wedge \neg Q) \vee \neg P$ \\
+$((\neg \neg P \wedge \neg Q) \vee \neg \neg Q) \vee \neg P$ \\
+Forma clausal: \\
+$\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
+
   \subsection{Ejercicio 11}
   \subsection{Ejercicio 12}
   \subsection{Ejercicio 13}
