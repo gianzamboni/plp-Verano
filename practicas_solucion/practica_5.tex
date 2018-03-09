@@ -15,26 +15,29 @@
 %
 \section*{Programación en JS}
 \subsection{Ejercicio 1}
+\begin{multicols}{2}
 \paragraph{a)}
-\begin{centrado}
+\begin{centrado2}
 \begin{minted}[breaklines, tabsize=2]{javascript}
 c1i = {
     r: 1,
     i: 1
 }
 \end{minted}
-\end{centrado}
+\end{centrado2}
 \paragraph{b)}
-\begin{centrado}
+\begin{centrado2}
 \begin{minted}[breaklines, tabsize=2]{javascript}
 c1i.sumar = function(complejo){
     this.r += complejo.r
     this.i += complejo.i
 }
 \end{minted}
-\end{centrado}
+\end{centrado2}
+\end{multicols}
+\begin{multicols}{2}
 \paragraph{c)}
-\begin{centrado}
+\begin{centrado2}
 \begin{minted}[breaklines, tabsize=2]{javascript}
 c1i.sumar = function(complejo){
     return {
@@ -43,11 +46,14 @@ c1i.sumar = function(complejo){
     }
 }
 \end{minted}
-\end{centrado}
+\end{centrado2}
 
 \paragraph{d)} Asi como están implementadas, funciona.
+\end{multicols}
+\begin{multicols}{2}
+
 \paragraph{e)}
-\begin{centrado}
+\begin{centrado2}
 \begin{minted}[breaklines, tabsize=2]{javascript}
 let c = c1i.sumar(c1i)
 
@@ -58,36 +64,38 @@ c1i.sumar = function(complejo){
     }
 }
 \end{minted}
-\end{centrado}
+\end{centrado2}
 \texttt{c1i} no tiene definida la función restar, por lo que \texttt{c1i.restar(\_)} nos dará un error.
-
+\vfill\null
+\columnbreak
 \paragraph{f)}
-\begin{centrado}
 \begin{minted}[breaklines, tabsize=2]{javascript}
 c1i.mostrar = function () {
     if(this.i != 1){
-        console.log(this.r+" "+this.i+"i");
+        console.log(
+            `${this.r} + ${this.i}i`);
     }else{
-        console.log(this.r+" "+"i");
+        console.log(`${this.r} + i");
     }
 }
 \end{minted}
-\end{centrado}
-En este caso, \texttt{c} no podrá mostrar sus elementos, ya que cuando lo creamos \texttt{c1i} como un nuevo objeto que no está relacionado con \texttt{c}.
 
+En este caso, \texttt{c} no podrá mostrar sus elementos, ya que cuando lo creamos lo hacemos como un objeto nuevo que no está relacionado con \texttt{c}.
+
+\end{multicols}
+
+\newpage
 \subsection{Ejercicio 2}
-\begin{centrado}
+
+\begin{multicols}{2}
+\begin{centrado2}
 \begin{minted}[breaklines, tabsize=2]{javascript}
+
 // a)
 let t = {}
-let f = {}
 
 t.ite = function(a,b) {
     return a;
-}
-
-f.ite = function(a,b) {
-    return b;
 }
 
 // b)
@@ -95,21 +103,35 @@ t.mostrar = function() {
     return "Verdadero";
 }
 
-f.mostrar = function(){
-    return "Falso";
-}
-
 // c)
 t.not = function(){
     return f;
 }
 
-f.not = function(){
-    return t;
-}
-
 t.and = function(otroValor) {
     return otroValor;
+}
+
+\end{minted}
+\end{centrado2}
+\begin{centrado2}
+\begin{minted}[breaklines, tabsize=2]{javascript}
+
+// a)
+let f = {}
+
+f.ite = function(a,b) {
+    return b;
+}
+
+// b)
+f.mostrar = function(){
+    return "Falso";
+}
+
+// c)
+f.not = function(){
+    return t;
 }
 
 f.and = function(element) {
@@ -117,7 +139,8 @@ f.and = function(element) {
 }
 
 \end{minted}
-\end{centrado}
+\end{centrado2}
+\end{multicols}
 
 \subsection{Ejercicio 3}
 \begin{centrado}
@@ -216,25 +239,25 @@ PuntoColoreado.cons = function (x,y,color) {
 \end{minted}
 \end{centrado}
 
-\paragraph{d)}
-\begin{centrado}
-\begin{minted}[breaklines, tabsize=2]{javascript}
-\begin{lstlisting}
-    var p1 = Punto.neww(1 ,2);
-    var pc1 = PuntoColoreado.neww(1 ,2);
-    Punto.mover = "me muevo";
-    var p2 = Punto.neww(1 ,2);
-    var pc2 = PuntoColoreado.neww(1 ,2);
-
-    console.log(p1.mover);
-    console.log(pc1.mover);
-    console.log(p2.mover);
-    console.log(pc2.mover);
-
-   // Se pude observar que todos los objetos se pueden mover, porque los puntos coloreados tienen una referencia a los puntos, por lo tanto si se agrga una funcionalidad al punto, tanbién se agregará al punto coloreado.
-\end{minted}
-\end{centrado}
-  
+\paragraph{\red{d)}}
+%\begin{centrado}
+%\begin{minted}[breaklines, tabsize=2]{javascript}
+%\begin{lstlisting}
+%    var p1 = Punto.neww(1 ,2);
+%    var pc1 = PuntoColoreado.neww(1 ,2);
+%    Punto.mover = "me muevo";
+%    var p2 = Punto.neww(1 ,2);
+%    var pc2 = PuntoColoreado.neww(1 ,2);
+%
+%    console.log(p1.mover);
+%    console.log(pc1.mover);
+%    console.log(p2.mover);
+%    console.log(pc2.mover);
+%
+%   // Se pude observar que todos los objetos se pueden mover, porque los puntos coloreados tienen una referencia a los puntos, por lo tanto si se agrga una funcionalidad al punto, tanbién se agregará al punto coloreado.
+%\end{minted}
+%\end{centrado}
+%  
 \subsection{Ejercicio 5}
 \begin{centrado}
 \begin{minted}[breaklines, tabsize=2]{javascript}
@@ -272,8 +295,9 @@ b.g // 'Mundo'
 \end{minted}
 \end{centrado}
 
-\paragraph{b)} En el segundo caso, estamos modificando el atributo \texttt{g} del objeto que es referenciado por \texttt{C1.prototype}. La asignación \mintinline{javascript}{C1.prototype.g = C2.prototype.g;} remplaza la función \texttt{g} original de \texttt{C1.prototype} por la función \texttt{g} de \texttt{C2.prototype}.
+\paragraph{b)} En el segundo caso, estamos modificando el atributo \texttt{g} del objeto que es referenciado por \\ \texttt{C1.prototype}. La asignación \mintinline{javascript}{C1.prototype.g = C2.prototype.g;} remplaza la función \texttt{g} original de \texttt{C1.prototype} por la función \texttt{g} de \texttt{C2.prototype}.
 Entonces, las soluciones quedan:
+
 \begin{centrado}
 \begin{minted}[breaklines]{javascript}
 a.g // 'Mundo'
@@ -316,92 +340,254 @@ delete A7d.prototype.presentar
 \section*{Cálculo de Objetos}
 
 \subsection{Ejercicio 8}
-\subsubsection{}
-Representan al mismo objeto porque responden a los mismos mensajes. la unica variacion que se observa es el renombre del parametro this entre x,z,v.
-\subsubsection{}
+\paragraph{a)} Ambos objetos tienen tienen los mismos atributos y los métodos asociados a cada tributo son equivalentes (son los mismos, salvo renombre de variables).
+\paragraph{b)} En este caso, los objetos tienen distintas etiquetas por lo que no pueden ser considerados iguales.
 Representan a distintos objetos porque responden a los distintos mensajes.
 \subsection{Ejercicio 9}
-$o =_{def} [arg = \varsigma(x)x; val = \varsigma(x)x.arg].$
-\subsubsection{o.val}
+\paragraph{a)}
 \vspace*{5mm}
 	\begin{center}
 		\begin{scprooftree}
+		    \def\extraVskip{5pt}
 		    
 		    \AxiomC{}
 		    \RightLabel{[Obj]}
-		    \UnaryInfC{$o \rightarrow o$}
+		    \UnaryInfC{$o \longTo o$}
 		    
 			    \AxiomC{}
 		    \RightLabel{[Obj]}
-		    \UnaryInfC{$o \rightarrow o$}
+		    \UnaryInfC{$o \longTo o$}
 
 			    \AxiomC{}
 		    \RightLabel{[Obj]}
-		    \UnaryInfC{$(x)\{x \leftarrow o\} \rightarrow o$}
+		    \UnaryInfC{$(x)\{x \leftarrow o\} \longTo o$}
 		    
 	    \RightLabel{[Sel]}
-	    \BinaryInfC{$(x.arg)\{x \leftarrow o\} \rightarrow o$}
+	    \BinaryInfC{$(x.arg)\{x \leftarrow o\} \longTo o$}
 		    
 \RightLabel{[Sel]}
-\BinaryInfC{$o.val \rightarrow o$}
+\BinaryInfC{$o.val \longTo o$}
 		\end{scprooftree}    
 	\end{center}
-\subsubsection{\blue{o.val.arg}}
+\paragraph{b)}
 \vspace*{5mm}
 	\begin{center}
 		\begin{scprooftree}
-		
-		    \AxiomC{}
-		    \RightLabel{[Obj]}
-		    \UnaryInfC{$o \rightarrow o$}
-		    \RightLabel{[Obj]}
-		    \UnaryInfC{$o.val \rightarrow o$}
+            \def\extraVskip{5pt}
+		    \AxiomC{Por 9.a)}
+		    \UnaryInfC{$o.val \longTo o$}
     		    \AxiomC{}
     		    \RightLabel{[Obj]}
-    		    \UnaryInfC{$o \rightarrow o$}
+    		    \UnaryInfC{$o \longTo o$}
     		    \RightLabel{[Obj]}
-    		    \UnaryInfC{$o.val \rightarrow o$}
+    		    \UnaryInfC{$o.val \longTo o$}
             		\AxiomC{}
         		    \RightLabel{[Obj]}
-        		    \UnaryInfC{$o \rightarrow o$}
+        		    \UnaryInfC{$o \longTo o$}
         
-        		    \AxiomC{}
-        		    \RightLabel{[Obj]}
-        		    \UnaryInfC{$(x)\{x \leftarrow o\} \rightarrow o$}
+
+        		    \AxiomC{$(x)\{x \leftarrow o\} \longTo o$}
         	    \RightLabel{[Sel]}
-    		    \BinaryInfC{$(x.arg)\{x \leftarrow o\} \rightarrow o$}
+    		    \BinaryInfC{$(x.arg)\{x \leftarrow o\} \longTo o$}
 		    \RightLabel{[Sel]}
-		    \BinaryInfC{$(x)\{x \leftarrow o.val\} \rightarrow o$}
+		    \BinaryInfC{$(x)\{x \leftarrow o\} \longTo o$}
 		    \RightLabel{[Sel]}
-        \BinaryInfC{$o.val.arg \rightarrow o$}
+        \BinaryInfC{$o.val.arg \longTo o$}
 		\end{scprooftree}    
 	\end{center}
 
-\subsubsection{$(o.arg \Leftarrow \Sigma(z)0).val$}
-\subsection{Ejercicio 10}
-\subsection{Ejercicio 11}
-\subsubsection{Objetos true y false:}
-$
-true = [not: \varsigma(x)false,if: \varsigma(x)\lambda(y)\lambda(z)y,ifnot: \varsigma(x)\lambda(y)\lambda(z)z]
-$ \\
-$
-false = [not: \varsigma(x)true,if: \varsigma(x)\lambda(y)\lambda(z)z,ifnot: \varsigma(x)\lambda(y)\lambda(z)y]
-$
-\subsubsection{}
-$
-true = [not: \varsigma(x)false,if: \varsigma(x)\lambda(y)\lambda(z)y]
-$ \\
-$
-false = [not: \varsigma(x)true,if: \varsigma(x)\lambda(y)\lambda(z)z]
-$
+\paragraph{c)}
+\vspace*{5mm}
+	\begin{center}\small
+		\begin{scprooftree}
+		\def\extraVskip{5pt}
+		\AxiomC{}
+    	\RightLabel{[Obj]}
+        \UnaryInfC{$\OOReduccion{o}{o}$}
+        \RightLabel{[Upd]}
+        \UnaryInfC{$\OOReduccion{\OORedefinicion{o.arg}{\OOMetodo{z}{0}}}{o'}$}
+        
+        \AxiomC{$o'\equiv [\OOAtributo{arg}{z}{0}, \OOAtributo{val}{x}{x.arg}]$}
+        
+            \AxiomC{$\OOReduccion{o'}{o'}$}
+            \AxiomC{$\OOReduccion{0\{x\leftarrow o'\}}{0}$}
+        \RightLabel{[Sel]}
+         \BinaryInfC{$\OOReduccion{x.arg\{x\leftarrow o'\}}{0}$}
+\RightLabel{[Sel]}
+\TrinaryInfC{$\OOReduccion{(\OORedefinicion{o.arg}{\OOMetodo{z}{0}}).val}{0}$}
+		\end{scprooftree}    
+	\end{center}
+
+\newpage
+\subsection{\red{Ejercicio 10}}
+\vspace*{5mm}
+	\begin{center}
+		\begin{scprooftree}
+		\def\extraVskip{5pt}
+
+        \AxiomC{(1)}
+    \UnaryInfC{$\OOReduccion{o.a}{o'}$}
+    \AxiomC{$o' \equiv [\OOAtributo{a}{y}{y := [~]}]$}
+    
+        \AxiomC{$\OOReduccion{o'}{o'}$}
+    \RightLabel{[Upd]}
+    \UnaryInfC{$\OOReduccion{(y.a :=[~])\{y\leftarrow o'\}}{[a = [~]~]}$}
+\RightLabel{[Sel]}
+\TrinaryInfC{$\OOReduccion{o.a.a}{[a = [~]~]}$}
+		\end{scprooftree}    
+	\end{center}
+	\vspace{5mm}
+	\begin{center}\textbf{(1)}
+		\begin{scprooftree}
+		\def\extraVskip{5pt}
+
+        \AxiomC{$\OOReduccion{o}{o}$}
+
+            \AxiomC{$\OOReduccion{o}{o}$}
+        \RightLabel{[Upd]}
+        \UnaryInfC{$(\OOReduccion{\OORedefinicion{x.a}{\OOMetodo{y}{(y := [~])})\{x\leftarrow o\}}}{[\OOAtributo{a}{y}{y := [~]}]}$}
+    \RightLabel{[Sel]}
+    \BinaryInfC{$\OOReduccion{o.a}{[\OOAtributo{a}{y}{y := [~]}]}$}
+		\end{scprooftree}    
+	\end{center}
+\subsection{\red{Ejercicio 11}}
+\paragraph{a)}
+\setlength{\columnsep}{-5cm}
+\begin{multicols}{2}
+\begin{align*}
+true = [~&not = false,  \\
+&if = \lambda(y)\lambda(z)y, \\
+&ifnot = \lambda(y)\lambda(z)f.if(y,z) \\
+]~& \\
+\end{align*}
+
+\begin{align*}
+false = [~&not = true,  \\
+&if = \lambda(y)\lambda(z)z, \\
+&ifnot = \lambda(y)\lambda(z)t.if(y,z) \\
+]~& \\
+\end{align*}
+\end{multicols}
+
+\paragraph{b)}
+\begin{multicols}{2}
+\begin{align*}
+true = [~&not = false,  \\
+&if = \lambda(y)\lambda(z)y, \\
+]~& \\
+\end{align*}
+
+\begin{align*}
+false = [~&not = true,  \\
+&if = \lambda(y)\lambda(z)z, \\
+]~& \\
+\end{align*}
+\end{multicols}
+\setlength{\columnsep}{5mm}
 \subsection{Ejercicio 12}
-\subsubsection{}
-$
-origen = [x: \varsigma(p)0, y: \varsigma(p)0,mv: \varsigma(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z]
-$
-\subsubsection{Una clase es un trait (completo) que además provee un
-método new. Clase Punto:}
-$
-punto =_{def} [new=\varsigma(z)[ l_{i} = \varsigma{s}z.l_{i}(s) i\in(1..n)],$  $x: \varsigma(p)0,$  $y: \varsigma(p)0,$  $mv: \varsigma(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z]
-$
-\end{document}
+\paragraph{a)}
+\begin{align*}
+origen \equalDef [~& x = 0, \\
+ & y = 0, \\
+ & \OOAtributo{mv}{p}{\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z}
+ ]~& \\
+\end{align*}
+\paragraph{b)}
+\begin{align*}
+Punto \equalDef [~& \OOAtributo{new}{z}{[~x=0,~y = 0,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]
+}, \\
+& \OOAtributo{mv}{c}{\lambda(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z} ] \\
+\end{align*}
+
+\paragraph{c)}
+	\vspace{5mm}
+	\begin{center}\small
+		\begin{scprooftree}
+		\def\extraVskip{5pt}
+
+        \AxiomC{$\OOReduccion{Punto}{Punto}$}
+
+        \AxiomC{$\OOReduccion{[~x=0,~y = 0,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]\{z\leftarrow Punto\}}{p}$}
+    \RightLabel{[Sel]}
+    \BinaryInfC{$\OOReduccion{Punto.new}{p}$}
+		\end{scprooftree}    
+	\end{center}
+	con $p \equalDef [~x=0,~y = 0,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) Punto.mv(p,x_1,x_2)}]$
+
+\paragraph{d)}
+\begin{align*}
+PuntoColoreado \equalDef [~& \OOAtributo{new}{z}{[~x=0,~y = 0,~color=\texttt{rojo}, \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]
+}, \\
+&  mv = Punto.mv ] \\
+\end{align*}
+
+\subsection{Ejercicio 13}
+\paragraph{a)}
+\begin{align*}
+plantaClass = [~& \OOAtributo{new}{c}{[altura = c.altura,~\OOAtributo{crecer}{t}c.crecer~t]}, \\
+&altura = 10,\\
+&\OOAtributo{crecer}{c}{\lambda(t)t.altura := (t.altura + 10)} \\
+]~&\\
+\end{align*}
+
+\paragraph{b)}
+	\vspace{5mm}
+	\begin{center}
+		\begin{scprooftree}
+		\def\extraVskip{5pt}
+
+            \AxiomC{(1)}
+        \UnaryInfC{$\OOReduccion{{plantaClass.new}}{p'}$}
+        \AxiomC{$\OOReduccion{(plantaClass.crecer~t)\{t\leftarrow p'\}}{p}$}
+    \RightLabel{[Sel]}
+    \BinaryInfC{$\OOReduccion{plantaClass.new.crecer}{[altura = 20,~\OOAtributo{crecer}{t}plantaClass.crecer~t]}$}
+		\end{scprooftree}    
+	\end{center}
+
+    con $p \equiv [altura = 20,~\OOAtributo{crecer}{t}plantaClass.crecer~t]$
+    
+	\vspace{5mm}
+	\begin{center}\textbf{(1)}\small
+		\begin{scprooftree}
+		\def\extraVskip{5pt}
+
+                \AxiomC{}
+            \RightLabel{[Obj]}
+            \UnaryInfC{$\OOReduccion{plantaClass}{plantaClass}$}
+            
+            \AxiomC{$\OOReduccion{[altura = c.altura,~\OOAtributo{crecer}{t}c.crecer~t]\{c\leftarrow plantaClass\}}{p'}$}
+        \RightLabel{[Sel]}
+        \BinaryInfC{$\OOReduccion{{plantaClass.new}}{p'}$}
+		\end{scprooftree}    
+	\end{center}
+con $p' \equiv [altura = plantaClass.altura,~\OOAtributo{crecer}{t}plantaClass.crecer~t]$
+
+\paragraph{c)}
+\begin{align*}
+broteClass = [~& \OOAtributo{new}{c}{[altura = c.altura,~\OOAtributo{crecer}{t}c.crecer~t]}, \\
+&altura = 1,\\
+&crecer = \lambda(t)plantaClass.crecer~t \\
+]~&\\
+\end{align*}
+
+\paragraph{d)}
+\begin{align*}
+malezaClass = [~& \OOAtributo{new}{c}{[altura = c.altura,~\OOAtributo{crecer}{t}c.crecer~t]}, \\
+&altura = plantaClass.altura,\\
+&crecer = \lambda(t)t.altura := (t.altura *2) \\
+]~&\\
+\end{align*}
+
+\paragraph{e)}
+\begin{align*}
+frutalClass = [~& \OOAtributo{new}{c}{[altura = c.altura,~cantFrutos = c.cantFrutos\OOAtributo{crecer}{t}c.crecer~t]}, \\
+&cantFrutos = 0, \\
+&altura = plantaClass.altura,\\
+&crecer = \lambda(t)((plantaClass.crecer t).cantFrutos := t.cantFrutos+1) \\
+]~&\\
+\end{align*}
+
+\paragraph{\red{f)}}
+\end{document} 
+
+

@@ -26,6 +26,7 @@ pdfcreator={pdflatex}]{hyperref}
 \usepackage{tikz}
 \usepackage{forest}
 \usepackage{multicol}
+\usepackage{mathabx}
 
 
 \usemintedstyle{borland}    
@@ -44,6 +45,15 @@ pdfcreator={pdflatex}]{hyperref}
      \end{center}
     }
 
+\newenvironment{centrado2}
+    {
+     \begin{center}
+     \begin{minipage}{0.4\textwidth}
+ }    
+    {
+     \end{minipage}
+     \end{center}
+    }
 \newcommand{\rel}{\ensuremath{\mathcal{R}}}
 
 \newcommand{\equalDef}{\overset{def}{=}}
@@ -53,6 +63,7 @@ pdfcreator={pdflatex}]{hyperref}
 \newcommand{\goesTo}[2]{\underset{#2}{\overset{#1}{\leadsto}}}
 \newcommand{\reduceTo}[1]{\underset{#1}{\to}}
 
+\newcommand{\longTo}{\longrightarrow}
 
 \DeclareMathOperator{\Erase}{Erase}
 \DeclareMathOperator{\Nat}{Nat}
@@ -97,6 +108,12 @@ pdfcreator={pdflatex}]{hyperref}
 \newcommand{\judgeTypeS}[3]{#1\mapsto #2 : #3}
 
 \newcommand{\xmark}{\ding{55}}%
+
+\newcommand{\OOAtributo}[3]{#1 = \varsigma(#2)#3}
+\newcommand{\OORedefinicion}[2]{#1 \leftleftharpoons #2}
+\newcommand{\OOReduccion}[2]{#1 \longrightarrow #2}
+\newcommand{\OOMetodo}[2]{\varsigma(#1)#2}
+\newcommand{\OORep}[1]{\green{[[}#1\green{]]}}
 
 \newenvironment{scprooftree}
 {\leavevmode\hbox\bgroup}
