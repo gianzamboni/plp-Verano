@@ -1,0 +1,204 @@
+
+\section{Prototipado}
+Lo lenguajes basados en prototipado de objetos se caracterizan por la ausencia de clases. Proveen constructores para la creación de objetos particulares y la herramientas necesarias para crear procedimientos que generen objetos.
+
+En este tipo de paradigma, creamos instancias concretas que se interpretan como representantes canónicos de instancias (llamados \textbf{prototipos}) y, a partir de ellos, generamos otras intancias (\textbf{clones}) que pueden ser modificados sin afectar al prototipo.
+
+Cuando hacemos esto hacemos lo que se llama una \textbf{shallow copy}, es decir copiamos cada atributo de un objeto $A$ en otro $B$. Es decir, si en $A$ tenemos una referencia a $C$, entonces en $B$ tendremos una referencia a $C$, no copiaremos $C$ a ningún otro objeto.
+
+\subsection{Cálculo de objetos no tipado \texorpdfstring{($\varsigma$ cálculo)}{}}
+Usaremos un lenguaje cuya única estructura computacional son los \textbf{Objetos}. Estos objetos son una colección de atributos nombrados (\textbf{registros}) que están asociados a métodos con una única variable ligada (que representa a \texttt{self}/\texttt{this}) y un cuerpo que produce un resultado.
+
+Todos los objetos proveen dos operaciones:
+
+\paragraph{Envío de mensajes:} Que nos permite invocar un método para que el objeto ejecute.
+
+\paragraph{Redefinición de un método:} Que nos permite reemplazar el cuerpo de un atributo por otro.
+
+\subsubsection{Sintaxis}
+\begin{tabular}{lllll}
+	$a,b$ &$::=$& &$x$ & Variables \\
+ 	      &     & $|$ &$[\OOAtributo{l_i}{x_i}{b_i}^{i\in1..n}]$ &  Objetos\\
+ 	      &     & $|$ &$a.l$ &  Selección/ Envío de mensajes \\
+ 	      &     & $|$ &$\OORedefinicion{a.l}{x}{b}$ &  Redefinición de un método.	       	       	      
+\end{tabular}
+
+\vspace*{5mm}
+El objeto $[~]$ es el objeto vacío y no proporciona ningún método.
+
+En este lenguajes, como todos los átributos son métodos, simulamos los colaboradores internos de un objeto con métodos que no utilizan el parámetro \texttt{self}. Por ejemplo:
+
+$$o \equalDef [\OOAtributo{l_1}{x_1}{[~]},~
+				\OOAtributo{l_2}{x_2}{x_2.l_1}]$$
+
+$o.l_1$ retorna un objeto vacío. Y $o.l_2$ envia el mensaje $l_1$ a \texttt{self} (representado por el parámetro $x_2$). 
+
+\paragraph{Notación} Cuando un objeto tenga un atributo de la forma $\OOAtributo{l}{x}{b}$ y $x$ no se usa en $b$ podemos escribir $l = b$ y a la reasignación $\OORedefinicion{o.l}{x}{b}$ como $o.l := b$.
+
+\paragraph{Variables libres}
+$\varsigma$ es un ligador de variables, cuando lo usamos en una expresión de la forma $\varsigma(x)b$ siempre liga la variable $x$ que se le pasa como párametro a \texttt{self}. Osea que cuando $x$ aparece en $b$ será remplazada por \texttt{self}.
+
+De manera análoga a $FV$ del cálculo $\lambda$ definimos fv para objetos y diremos que un término $a$ es \textbf{cerrado} si fv($a$) = $\emptyset$:
+
+\begin{center}
+\begin{tabular}{ll}
+	$\text{fv}(\varsigma(x)b)$ &$= \text{fv}(b)\backslash \{x\} $\\
+	$\text{fv}(x)$ &$= \{x\} $\\
+	$\text{fv}([\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}])$ &$=  \bigcup^{1\in 1..n} \text{fv}(\varsigma(x)b)$\\
+	$\text{fv}(a.l)$ &$= \text{fv}(a) $\\
+	$\text{fv}(\OORedefinicion{a.l}{x}{b})$ &$= \text{fv}(a.l)\cup \text{fv}(\varsigma(x)b) $\\
+\end{tabular}
+\end{center}
+\paragraph{Sustitución} La función de sustitución de variables libres para objetos está definida de la siguiente forma:
+
+\begin{center}
+\begin{tabular}{lll}
+	$x\{x \leftarrow c\}$ &$= c$ & \\
+	$y\{x \leftarrow c\}$ &$= y$ & si $x\neq y$\\
+	$([\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}])\{x \leftarrow c\}$ &$=  [l_i = (\varsigma(x_i)b_i)\{x \leftarrow c\}^{i\in 1..n}]$ & \\
+	$(a.l)\{x \leftarrow c\}$ &$= (a\{x \leftarrow c\}).l $ & \\
+	$(\OORedefinicion{a.l}{x}{b})\{x \leftarrow c\}$ &$= (a\{x \leftarrow c\}).l \leftleftharpoons (\varsigma(x)b)\{x \leftarrow c\} $ & \\
+	$(\varsigma(y)b)\{x \leftarrow c\}$ &$= (\varsigma(y')(b\{y \leftarrow y'\}\{x \leftarrow c\})) $ & si $y'\notin$fv$(\varsigma(y)b)\cup$fv$(c)\cup\{x\}$ \\
+\end{tabular}
+\end{center}
+
+Notemos que en el último caso, remplazamos $y$ por $y'$ por si $y = x$ asegurandonos, de esta manera, que no cambiamos el significado de la expresión.
+
+\paragraph{$\alpha$-converión} En objetos decimos que dos métodos son equivalentes, si tienen el mismo cuerpo salvo renombre de variables, es decir: $\varsigma(x)b$ y $\varsigma(y)(b\{x\leftarrow y\})$ con $y\notin~\text{fv}(b)$ son equivalentes.
+
+Además, dos objetos $o_1$ y $o_2$ son considerados equivalentes ($o_1 \equiv o_2$) si solo difieren en el orden se sus componentes. Si 
+
+\begin{align*}
+	o_1 \equalDef [l_1 = [~],~\OOAtributo{l_2}{x_2}{x_2.l_1}] \\
+	o_2 \equalDef [\OOAtributo{l_2}{x_3}{x_3.l_1}, l_1 = [~]]
+\end{align*}
+
+son equivalentes porque ambos objetos tiene los atributos $l_1$ y $l_2$ y $\varsigma(x_2) x_2.l_1 =_\alpha \varsigma(x_3) x_3.l_1$.
+
+
+\subsubsection{Semántica operacional}
+Todos los objetos son considerados valores.
+$$V~::=~[\OOAtributo{l_i}{x_i}{b_i}^{1\in 1..n}]$$
+
+A diferencía del cálculo $\lambda$, usaremos el método de reducción \textbf{big-step} para evaluar expresiones, que en un solo paso nos permite saber el valor que representa.
+
+$$\frac{}{v\longrightarrow v}[\text{Obj}]$$
+\vspace*{5mm}
+$$\frac{a\longrightarrow v'\hspace*{5mm} v'\equiv [\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}]\hspace*{5mm} b_j\{x_j\leftarrow v'\}\longrightarrow v\hspace*{5mm} j\in1..n}{a.l_j\longrightarrow v}[\text{Sel}]$$
+
+\vspace*{5mm}
+$$\frac{a\longrightarrow [\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}]\hspace*{5mm} j\in1..n}{\OORedefinicion{a.l_j}{x}{b}\longrightarrow [\OOAtributo{l_j}{x}{b},~\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n-\{j\}}]}[\text{Upd}]$$
+
+
+La regla Obj nos dice que un objeto no reducen.
+
+Sel nos indica que el resultado de enviar un mensaje es el valor que obtenemos al remplazar el párametro del método por el mismo objeto (esto es la ligación a \texttt{self}).
+
+Upd es el comportamiento de la redifinición, que devuelve un objeto con los mismos atributos que $a$ pero remplazando el $j-$ésimo atributo por la nueva definición.
+
+
+\paragraph{Ejemplo de reducción}
+
+\begin{center}
+	\begin{scprooftree}
+		\def\extraVskip{5pt}
+		\AxiomC{$\OOReduccion{o}{o}$}
+			
+			\AxiomC{$\OOReduccion{o}{o}$}
+			
+				\AxiomC{}
+			\RightLabel{[Obj]}
+			\UnaryInfC{$\OOReduccion{[~]\{x\leftarrow o\}}{[~]}$}
+			\RightLabel{[Sel]}
+		\BinaryInfC{$\OOReduccion{(x.a)\{x\leftarrow o\}}{[~]}$}
+		
+		\RightLabel{[Sel]}
+		\BinaryInfC{$\OOReduccion{[a=[~],~\OOAtributo{b}{x}{x.a}].b}{[~]}$}
+	\end{scprooftree}
+\end{center}
+
+\paragraph{Indefinición} Similar al cálculo lambda, podemos definir expresiones que se indefinen pero, en este caso, no es necesario que introduzcamos ninguna estructura nueva. Simplemente podemos $[\OOAtributo{a}{x}{x.a}].a$ y con esto ya alcanza.
+
+\paragraph{Codificación de funciones (Cálculoa $\lambda$)}
+Las expresiones son objetos con un atributo $val$ que nos indica su valor, las funciones, además tiene el atributo $arg$ que representa al argumento de la función. El argumento de una función permanecerá indefinido hasta que aparezca en una aplicación.
+\begin{align*}
+\OORep{x} &\equalDef x\\
+\OORep{M~N} &\equalDef \OORep{M}.arg :=~\OORep{N}\\
+\OORep{\lambdaAbsI{x}{M}} &\equalDef 
+[\OOAtributo{val}{y}{\OORep{M}\{x\leftarrow y.arg\}},~\OOAtributo{arg}{y}{y.arg}]\\
+\end{align*}
+
+Cuando querramos representar un método que espera parámetros, usaremos la definición de función para escribirlo: $\varsigma(x)\OORep {\lambdaAbsI{x}{M}}$. Y podemos hacer abuso de notacion y escribir $\lambda(X)M$ y $M(N)$, en vez de $\OORep{M~N}$.
+
+\subsubsection{Traits}
+Un trait es una colección de métodos que parametrizan cierto comportamientos. Estos objetos no especifican variables de estado ni acceden a su estado.
+
+El trait y sus métodos por si solo no son utilizables, ya que el trait no provee los estados necesarios para evaluarlos correctamente. Solo lo usaremos para definir métodos que pueden ser evaluados por varios objetos con el objetivo de no tener que repetir siempre las mismas definiciones.
+
+Los vamos a representar como una colección de \textbf{pre-metodos} (que no usan el parámetro \text{self}). Por lo que un trait tendrá la forma:
+$$\texttt{t} = [l_i = \lambdaAbsI{y_i}{b_i}^{i\in 1..n}]$$
+
+Y, además, definimos $new$ como un constructor de objetos que crea un objeto con las mismas etiquetas que el trait y que asocia a cada una de ellas un método que invoca al método del trait con el primer parámetro ligado a \texttt{self}:
+
+$$new \equalDef \lambdaAbsI{z}{[\OOAtributo{l_i}{s}{z.l_i(s)^{i\in 1..n}}]}$$
+
+Veamos un ejemplo, definimos el trait \texttt{CompT}:
+
+\begin{align*}
+	\texttt{CompT}\equalDef [~& \\ &\OOAtributo{eq}{t}{\lambda(x)\lambda(y)\lambdaIf{(x.comp(y)) == 0}{\texttt{true}}{\texttt{false}}},~\\
+	&\OOAtributo{leq}{t}{\lambda(x)\lambda(y)\lambdaIf{(x.comp(y)) < 0}{\texttt{true}}{\texttt{false}}} \\
+	]~&
+\end{align*}
+
+Entonces $new~\texttt{CompT}$ reduce a:
+\begin{align*}
+new~\texttt{CompT}\longrightarrow [~& \\ &\OOAtributo{eq}{x}{\lambda(y)\lambdaIf{(x.comp(y)) == 0}{\texttt{true}}{\texttt{false}}},~\\
+&\OOAtributo{leq}{x}{\lambda(y)\lambdaIf{(x.comp(y)) < 0}{\texttt{true}}{\texttt{false}}} \\
+]~&
+\end{align*}
+
+\paragraph{Clase} Cuando un trait provee un método $new$, diremos que es un \textbf{trait completo} o \textbf{clase}.
+
+\begin{align*}
+\texttt{C}\equalDef [~& \\ &\OOAtributo{new}{z}{[\OOAtributo{l_i}{s}{z.l_i(s)^{i\in 1..n}}]}~\\
+&\OOAtributo{leq}{t}{\lambda(x)\lambda(y)\lambdaIf{(x.comp(y)) < 0}{\texttt{true}}{\texttt{false}}} \\
+]~&
+\end{align*}
+
+\paragraph{Herencia} Cuando queremos que una clase ``herede'', lo que hacemos es crear un nuevo trait que contenga todas las etiquetas del trait original y asocie cada una de esas etiquetas al método correspondiente del trait original y le agregamos los atributos que deseamos para extenderlo. Además, modificamos el constructor $new$ para que tome en cuenta los nuevos atributos.
+
+Por ejemplo, la clase contador:
+
+\vspace*{5mm}
+\begin{tabular}{ll}
+$\texttt{Contador}\equalDef [$ &
+$new = \varsigma(z)[\OOAtributo{inc}{s}{z.inc(s)},~v = 0,~ \OOAtributo{get}{s}{z.get(s)} ],$ \\
+ & $inc = \lambda(s) s.v := s.v + 1,$ \\
+ & $get = \lambda(s) s.v$ \\
+  & $]$ \\
+\end{tabular}
+
+Y su sublcase \texttt{ContadorR}:
+
+\vspace*{5mm}
+\begin{tabular}{ll}
+$\texttt{ContadorR}\equalDef [$ &
+$new = \varsigma(z)[$
+\\ & $\quad\OOAtributo{inc}{s}{z.inc(s)},$ \\ 
+ & $\quad v = 0,$ \\
+ & $\quad \OOAtributo{get}{s}{z.get(s)},$ \\
+ & $\quad \OOAtributo{reset}{\lambda(s)}{z.reset(s)} $ \\
+ & $ ],$ \\
+& $inc = \texttt{Contador}.inc$ \\
+& $get = \texttt{Contador}.get$ \\
+& $reset = \lambda(s) s.v := 0,$ \\
+& $]$ \\
+\end{tabular}
+
+
+\paragraph{Otras consideraciones del lenguaje}
+El lenguaje que definimos se parece mucho al funcional. En la versión imperativa, donde se mantiene un store con referencias a objetos, se ofrece la función \texttt{Clone}$(a)$ que crea un nuevo objeto con las mismas etiquetas de $a$ y cada componente comparte los métodos con las componentes de $a$.
+
+Además, el lenguaje no nos deja agregar o eliminar dinámicamente métodos en un objeto. No nos deja extraer los métodos de los objetos.
+
+Hay otras versiones de este cálculo que incluyen sistemas de tipado.
