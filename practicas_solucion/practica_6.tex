@@ -407,6 +407,23 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
 	\end{enumerate}
 	Es resolución SLD porque usé clausulas de horn, resolución binaria y en cada paso de resolución usé la resolvente alterior. También usé el orden de resolución de prolog.
   \subsection{Ejercicio 21}
+Quiero probar: $\exists x.$ inteligente(X) $\wedge$ analfabeto(X) entonces lo niego: $\neg \exists x.$ inteligente(X) $\wedge$ analfabeto(X) = $\forall x. \neg ($inteligente(X) $\wedge$ analfabeto(X)) = $\forall x. \neg$ inteligente(X) $\vee \neg$ analfabeto(X) = $\{\neg$ inteligente(X), $\neg$ analfabeto(X)$\}$
+\begin{enumerate}
+\item $\{analfabeto(X1), \neg vivo(X1), \neg noSabeLeer(X1) \}$
+\item $\{noSabeLeer(X2), \neg mesa(X2)\}$
+\item $\{vivo(X3), \neg delfín(X3) \}$
+\item $\{noSabeLeer(X4), \neg delfín(X4)\}$
+\item $\{inteligente(flipper)\}$
+\item $\{delfín(flipper)\}$
+\item $\{inteligente(alan)\}$
+\item $\{\neg inteligente(X8), \neg analfabeto(X8)\}$
+\item 8y1. $\{X1 \leftarrow X8 \}$ resolvente: $\{\neg inteligente(X8), \neg vivo(X8), \neg noSabeLeer(X8) \}$
+\item 9y3. $\{X3 \leftarrow X8\}$ resolvente: $\{\neg delfín(X3),\neg inteligente(X8), \neg noSabeLeer(X8)\}$
+\item 10y4.$\{X4 \leftarrow X8\}$ resolvente: $\{\neg delfín(X3),\neg inteligente(X8), \neg delfín(X8)\}$
+\item 11y6.$\{X8 \leftarrow flipper\}$ resolvente: $\{\neg delfín(X3),\neg inteligente(X8)\}$
+\item 12y6.$\{X8 \leftarrow flipper\}$ resolvente: $\{\neg inteligente(X8)\}$
+\item 13y5.$\{X8 \leftarrow flipper\}$ resolvente: $\{\}$
+\end{enumerate}
   \subsection{Ejercicio 22}
 
 \end{document}
