@@ -356,6 +356,26 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
     \item Queda: del 2 y 3, $esContacto(d,d)$ y ahi se traba porque va a usar simepre la $resolvente_{i}$ con 2.
 \end{itemize}
   \subsection{Ejercicio 18}
+\begin{itemize}
+\item 1$.\{\neg Progenitor(x1,y1),Descenciente(y1,x1)\}$ 
+\item 2$.\{\neg Descenciente(x2,y2), \neg Descenciente(y2,z2), Descenciente(x2,z2)\}$ 
+\item 3$.\{\neg Abuelo(x3,y3), Progenitor(x3, medio(x3,y3))\}$ 
+\item 4$.\{\neg Abuelo(x4,y4), Progenitor(medio(x4,y4),y4)\}$ 
+\item Queremos ver que: $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
+\item $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
+\item $\forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+\item Lo niego: $\neg \forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+\item $\exists x. \neg \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+\item $\exists x. \exists y. \neg (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+\item $\exists x. \exists y. (\neg \neg Abuelo(x,y) \wedge \neg Descenciente(y,x))$ 
+\item $\exists x. \exists y. (Abuelo(x,y) \wedge \neg Descenciente(y,x))$ 
+\item 5$.\{Abuelo(x5,y5)\} $  
+\item 6$.\{\neg Descenciente(y6,x6)\} $ \\
+\item Resolución: 
+\item 7$. 5y3. \{x3 \leftarrow x6, y3 \leftarrow y6\}$ y la resolvente es: $\{Progenitor(x3, medio(x3,y3))\}$ 
+\item 8$. 7y1. \{x1 \leftarrow x3, y1 \leftarrow medio(x3,y3)\}$ y la resolvente es: $\{Descenciente( medio(x3,y3),x3)\}\}$ 
+\item 9.$ 8y6. \{y6 \leftarrow medio(x3,y3), x6 \leftarrow x3\}$ y la resolvente es: $\{\}$, por lo tanto probamos que $\forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ es unna tautología.
+\end{itemize}
   \subsection{Ejercicio 19}
   \subsection{Ejercicio 20}
   \subsection{Ejercicio 21}
