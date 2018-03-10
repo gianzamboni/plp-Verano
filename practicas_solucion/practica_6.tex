@@ -1,3 +1,11 @@
+%   \subsection{Ejercicio 3} <- enunciado
+%   \subsection{Ejercicio 8} <- teorico
+%   \subsection{Ejercicio 10} <- no da
+%   \subsection{Ejercicio 13}
+%   \subsection{Ejercicio 14}
+%   \subsection{Ejercicio 15}
+%   \subsection{Ejercicio 22} 
+
 \documentclass[10pt,a4paper]{article}
 \input{header}
 
@@ -14,8 +22,9 @@
   \maketitle
   \setcounter{page}{1}
 
-  \section*{\ Resolución en Lógica Proposicional}
-  \subsection{Ejercicio 1}
+
+\section*{\ Resolución en Lógica Proposicional}
+\subsection{Ejercicio 1}
     \subsubsection{FNC:}
     \begin{enumerate}
     \item $-p \vee p$
@@ -27,9 +36,19 @@
     \item $(r \vee -p) \wedge (-q \vee r)$
     \item $-p \vee -q \vee r$
     \end{enumerate}
-    \subsubsection{\blue{FNClausal:}}
-  \subsection{Ejercicio 2}
-  \subsubsection{}
+    \subsubsection{FNClausal:}
+    \begin{enumerate}
+    \item $\{-p, p\}$
+    \item $\{-p, -q, p\}$
+    \item $\{\{-p, p\},\{-q, p\}\}$
+    \item $\{\{-p, p\}, \{p, -p\}\}$
+    \item $\{\{q, -p, -q\}, \{p, -p, -q\}\}$
+    \item $\{\{p, p\}, \{p, r\}, \{q, p\}, \{q, r\}\}$
+    \item $\{\{r, -p\}, \{-q, r\}\}$
+    \item $\{-p, -q, r\}$
+    \end{enumerate}
+\subsection{Ejercicio 2}
+  \subsubsection{Resolución para la lógica proposicional:}
     \begin{enumerate}
         \item $(-p \vee p)$ es una tautología $  \Leftrightarrow \{\{p\},\{-p\}\} $ es insatisfacible \\
         $S=\{\{p\},\{-p\}\}$ \\
@@ -62,46 +81,59 @@
         $S=\{\{p\},\{q\},\{-r\}\}$ \\
         No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea v(p)=v(q)=T,v(r)=F.
     \end{enumerate}
-\subsubsection{}
-$((-p \Rightarrow q) \wedge (p \Rightarrow q) \wedge (-p \Rightarrow -q)) \Rightarrow (p \wedge q)$ es una tautología $\Leftrightarrow$ \\
+\subsubsection{Deducción:}
+\begin{itemize}
+    \item $((-p \Rightarrow q) \wedge (p \Rightarrow q) \wedge (-p \Rightarrow -q)) \Rightarrow (p \wedge q)$ es una tautología $\Leftrightarrow$ \\
 $ \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\},\{-q, p, q, p\},\{-q, p, -p, q\},$ \\
 $\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\},\{-p, -q, -p, q\},\{-p, -q, q, q\} \{-q, -q, -p, p\},\{-q, -q, q, p\},$ \\
-$\{-q, -q, -p, q\},\{-q, -q, q, q\}\}$ es insatisfacible \\
+$\{-q, -q, -p, q\},\{-q, -q, q, q\}\}$ es insatisfacible
+    \item $S=\{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\}, \\ \{-q, p, q, p\},\{-q, p, -p, q\},\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\}, \\ \{-p, -q, -p, q\},\{-p, -q, q, q\} \{-q, -q, -p, p\},\{-q, -q, q, p\},\{-q, -q, -p, q\},\{-q, -q, q, q\}\}$ 
+    \item $S1=\{-q, -q, q, p\}\{-q, p, q, p\}=\{-q, p, p, p\}$ 
+    \item $S2=\{-p, -q, -p, q\}\{-q, p, p, p\}=\{-q, p\}$ 
+    \item $S3=\{-q, p, -p, q\}\{-p, p, -p, q\}=\{q, -p\}$ 
+    \item $S4=\{-q, p\}\{q, -p\}=\{\} $ $\Rightarrow$ 
+    \item $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\}, \\ \{-q, p, q, p\},\{-q, p, -p, q\},\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\}, \\ \{-p, -q, -p, q\},\{-p, -q, q, q\},\{-q, -q, -p, p\},\{-q, -q, q, p\},\{-q, -q, -p, q\}, \\ \{-q, -q, q, q\}\},\{-q, p, p, p\},\{-q, p\},\{q, -p\},\{\}$ es insatisfacible
+\end{itemize}
 
-$S=\{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\}, \\ \{-q, p, q, p\},\{-q, p, -p, q\},\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\}, \\ \{-p, -q, -p, q\},\{-p, -q, q, q\} \{-q, -q, -p, p\},\{-q, -q, q, p\},\{-q, -q, -p, q\},\{-q, -q, q, q\}\}$ \\ \\
-$S1=\{-q, -q, q, p\}\{-q, p, q, p\}=\{-q, p, p, p\}$ \\
-$S2=\{-p, -q, -p, q\}\{-q, p, p, p\}=\{-q, p\}$ \\
-$S3=\{-q, p, -p, q\}\{-p, p, -p, q\}=\{q, -p\}$ \\
-$S4=\{-q, p\}\{q, -p\}=\{\} $ \\ \\
-$\Rightarrow$ \\
-$S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, -p, q\},\{-p, p, q, q\},\{-q, p, -p, p\}, \\ \{-q, p, q, p\},\{-q, p, -p, q\},\{-q, p, q, q\} \{-p, -q, -p, p\},\{-p, -q, q, p\}, \\ \{-p, -q, -p, q\},\{-p, -q, q, q\},\{-q, -q, -p, p\},\{-q, -q, q, p\},\{-q, -q, -p, q\}, \\ \{-q, -q, q, q\}\},\{-q, p, p, p\},\{-q, p\},\{q, -p\},\{\}$ es insatisfacible
+%   \subsection{Ejercicio 3}
 
-  \subsection{Ejercicio 3}
-  \section*{\ Unificación en Lógica de Primer Orden}
-  \subsection{Ejercicio 4}
+\section*{\ Unificación en Lógica de Primer Orden}
+\subsection{Ejercicio 4}
     \begin{enumerate}
-    \item $P(f(x)) $ unifica con: \\
-    $P(f(a)) $ si $ x \doteq a$
-    \item $P(a) $ unifica con: \\
-    $P(x) $ si $ x \doteq a$ \\
-    $P(g(z)) $ si $ g(z) \doteq a$
-    \item $P(y) $ unifica con: \\
-    $P(x) $ si $ y \doteq x$ \\
-    $P(f(a)) $ si $ y \doteq f(a)$ \\
-    $P(g(z)) $ si $ y \doteq g(z)$
-    \item $Q(x,f(y)) $ unifica con: \\
-    $Q(f(y),x) $ si $ x \doteq f(y)$
-    \item $Q(x,f(z)) $ unifica con: \\
-    $Q(f(y),x) $ si $ x \doteq f(y) $ y $ z \doteq y$ \\
-    $Q(f(y),f(x)) $ si $ x \doteq f(y) $ y $ z \doteq f(y)$ \\
-    $Q(f(y),y) $ si $ y \doteq f(z) y x \doteq f(f(z))$
-    \item $Q(x,f(a)) $ unifica con: \\
-    $Q(f(y),x) $ si $ x \doteq f(a) $ y $ y \doteq a$ \\
-    $Q(f(y),f(x)) $ si $ x \doteq a $ y $ a \doteq f(y)$ \\
-    $Q(f(y),y) $ si $ y \doteq f(a) $ y $ x \doteq f(f(a))$
+    \item $P(f(x)) $ unifica con:
+        \begin{enumerate}
+        \item $P(f(a)) $ si $ x \doteq a$
+        \end{enumerate}
+    \item $P(a) $ unifica con:
+        \begin{enumerate}
+            \item $P(x) $ si $ x \doteq a$
+            \item $P(g(z)) $ si $ g(z) \doteq a$
+        \end{enumerate}
+    \item $P(y) $ unifica con:
+        \begin{enumerate}
+            \item $P(x) $ si $ y \doteq x$
+            \item $P(f(a)) $ si $ y \doteq f(a)$
+            \item $P(g(z)) $ si $ y \doteq g(z)$
+        \end{enumerate}
+    \item $Q(x,f(y)) $ unifica con:
+        \begin{enumerate}
+            \item $Q(f(y),x) $ si $ x \doteq f(y)$
+        \end{enumerate}
+    \item $Q(x,f(z)) $ unifica con:
+        \begin{enumerate}
+            \item $Q(f(y),x) $ si $ x \doteq f(y) $ y $ z \doteq y$
+            \item $Q(f(y),f(x)) $ si $ x \doteq f(y) $ y $ z \doteq f(y)$
+            \item $Q(f(y),y) $ si $ y \doteq f(z) y x \doteq f(f(z))$
+        \end{enumerate}
+    \item $Q(x,f(a)) $ unifica con:
+        \begin{enumerate}
+            \item $Q(f(y),x) $ si $ x \doteq f(a) $ y $ y \doteq a$
+            \item $Q(f(y),f(x)) $ si $ x \doteq a $ y $ a \doteq f(y)$
+            \item $Q(f(y),y) $ si $ y \doteq f(a) $ y $ x \doteq f(f(a))$
+        \end{enumerate}
     \end{enumerate}
-  \subsection{Ejercicio 5}
-    \begin{enumerate}
+\subsection{Ejercicio 5 \blue{justificaciones del algoritmo W}}
+\begin{enumerate}
     \item $f(x,x,y) \doteq f(a,b,z)$ $\sigma:{x/a}$ \\
     $f(a,a,y) \doteq f(a,b,z)$ \\
     como $a ! \doteq b \Rightarrow$ Falla 
@@ -111,345 +143,368 @@ $S\cup S1 \cup S2 \cup S3 \cup S4 = \{\{-p, p, -p, p\},\{-p, p, q, p\},\{-p, p, 
     \item $f(a) \doteq g(y)$ si $g(y)=f(a)$
     \item $f(x) \doteq x$ Falla porque $x \in FV(f(x))$
     \item $g(x,y) \doteq g(f(y),f(x))$ $\sigma:{x/f(y)}$
-     $g(f(y),y) \doteq g(f(y),f(f(y)))$ Falla porque $y \in FV(f(f(y)))$
-    \end{enumerate}
+    $g(f(y),y) \doteq g(f(y),f(f(y)))$ Falla porque $y \in FV(f(f(y)))$
+\end{enumerate}
+
 \section*{\ Resolución en Lógica de Primer Orden}
-  \subsection{Ejercicio 6}
+\subsection{Ejercicio 6}
     \begin{enumerate}
-    \item $\forall x.  \forall y. ( \neg Q(x,y) \Rightarrow \neg P(x,y)$ \\
-    $\forall x.  \forall y. ( \neg \neg Q(x,y) \vee \neg P(x,y)$ \\
-    $\forall x.  \forall y. ( Q(x,y) \vee \neg P(x,y)$
-    \item $\forall x.  \forall y. ((P(x,y) \wedge Q(x,y)) \Rightarrow R(x,y))$ \\
-    $\forall x.  \forall y. (\neg (P(x,y) \wedge Q(x,y)) \vee R(x,y))$ \\
-    $\forall x.  \forall y. ((\neg P(x,y) \vee \neg Q(x,y)) \vee R(x,y))$
-    \item $\forall x.  \exists y. (P(x,y) \Rightarrow Q(x,y))$ \\
-    $\forall x.  \exists y. (\neg P(x,y) \vee Q(x,y))$
+        \item $\forall x.  \forall y. ( \neg Q(x,y) \Rightarrow \neg P(x,y)$ \\
+        $\forall x.  \forall y. ( \neg \neg Q(x,y) \vee \neg P(x,y)$ \\
+        $\forall x.  \forall y. ( Q(x,y) \vee \neg P(x,y)$
+        \item $\forall x.  \forall y. ((P(x,y) \wedge Q(x,y)) \Rightarrow R(x,y))$ \\
+        $\forall x.  \forall y. (\neg (P(x,y) \wedge Q(x,y)) \vee R(x,y))$ \\
+        $\forall x.  \forall y. ((\neg P(x,y) \vee \neg Q(x,y)) \vee R(x,y))$
+        \item $\forall x.  \exists y. (P(x,y) \Rightarrow Q(x,y))$ \\
+        $\forall x.  \exists y. (\neg P(x,y) \vee Q(x,y))$
     \end{enumerate}
-  \subsection{Ejercicio 7}
-\begin{enumerate}
-\item 
-$\exists x. \exists y. (x<y)$ \\
-$\exists x. (x<f(x))$ \\
-$(f_{2}(c)<f(x))$ \\
-Forma clausal: $\{\{f_{2}(c)<f(x)\}\}$
-\item 
-$\forall x. \exists y. (x<y)$ \\
-$\forall x. (x<f(x))$ \\
-Forma clausal: $\{\{x<f(x)\}\}$
-\item 
-$\forall x. \neg(P(x) \wedge \forall y.(\neg P(y) \vee Q(y)))$ \\
-$\forall x. \forall y. \neg(P(x) \wedge (\neg P(y) \vee Q(y)))$ \\
-$\forall x. \forall y. (\neg P(x) \vee \neg(\neg P(y) \vee Q(y)))$ \\
-$\forall x. \forall y. (\neg P(x) \vee (\neg \neg P(y) \wedge \neg Q(y)))$ \\
-$\forall x. \forall y. (\neg P(x) \vee (P(y) \wedge \neg Q(y)))$ \\
-$\forall x. \forall y. ( (\neg P(x) \vee P(y)) \wedge (\neg P(x) \vee \neg Q(y) ) )$ \\
-Forma clausal: $\{\{\neg P(x). P(y)\},\{\neg P(x), \neg Q(y)\}\}$
-\item 
-$\exists x. \forall y. (P(x,y) \wedge Q(x) \wedge \neg R(y))$ \\
-$\forall y. (P(f(c),y) \wedge Q(f(c)) \wedge \neg R(y))$ \\
-Forma clausal: $\{\{P(f(c),y), Q(f(c)), \neg R(y)\}\}$
-\item 
-$\forall x. (P(x) \wedge \exists y. (Q(y) \vee \forall z. \exists w. (P(z) \wedge \neg Q(w)))$ \\
-$\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee (P(z) \wedge \neg Q(f(z))))$ \\
-$\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee P(z) ) \wedge (Q(f(c)) \vee \neg Q(f(z)) ) )$ \\
-Forma clausal: $\{\{ P(x)\} , \{Q(f(c)), P(z)\} , \{Q(f(c)), \neg Q(f(z))\} \}$
-\end{enumerate}
-  \subsection{Ejercicio 8}
-  \subsection{Ejercicio 9}
-\begin{enumerate}
-\item
-$\exists x. \forall y. R(x,y) \Rightarrow \forall y. \exists x. R(x,y)$ \\
-$\neg \exists x. \forall y. R(x,y) \vee \forall y. \exists x. R(x,y)$ \\
-Negado: \\
-$\neg (\neg \exists x. \forall y. R(x,y) \vee \forall y. \exists x. R(x,y))$ \\
-$ \neg \neg \exists x. \forall y. R(x,y) \wedge \neg \forall y. \exists x. R(x,y) $ \\
-$ \exists x. \forall y. R(x,y) \wedge \neg \forall y. \exists x. R(x,y) $ \\
-$ \forall y. R(f(y),y) \wedge \exists y. \neg \exists x. R(x,y) $ \\
-$ \forall y. R(f(y),y) \wedge \exists y. \forall x. \neg R(x,y) $ \\
-$ \forall y. R(f(y),y) \wedge \forall x. \neg R(x,f(x)) $ \\
-$ \forall y. \forall x.  R(f(y),y) \wedge \neg R(x,f(x)) $ \\
-Forma clausal: $S=\{\{ R(f(y),y)\},\{ \neg R(x,f(x))\} \}$ \\
-Resolución: No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(f(y),y))=T$, $v(\neg R(x,f(x)))=F$.
-\item
-$\forall x. \exists y. R(x,y) \Rightarrow \exists y. \forall x. R(x,y)$ \\
-$\neg \forall x. \exists y. R(x,y) \vee \exists y. \forall x. R(x,y)$ \\
-Negado: \\
-$\neg (\neg \forall x. \exists y. R(x,y) \vee \exists y. \forall x. R(x,y))$ \\
-$\neg \neg \forall x. \exists y. R(x,y) \wedge \neg \exists y. \forall x. R(x,y)$ \\
-$\forall x. \exists y. R(x,y) \wedge \forall y. \neg \forall x. R(x,y)$ \\
-$\forall x. \exists y. R(x,y) \wedge \forall y. \exists x. \neg R(x,y)$ \\
-$\forall x. R(x,f(x)) \wedge \forall y. \neg R(f(y),y)$ \\
-Forma clausal: $S=\{ \{ R(x,f(x))\},\{ \neg R(f(y),y) \}\}$ \\
-Resolución: No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(x,f(x)))=T$, $v(\neg R(f(y),y))=F$.
-\item
-$\exists x. [P(x) \Rightarrow \forall x. P(x)]$ \\
-$\exists x'. [\neg P(x') \vee \forall x. P(x)]$ \\
-Negado: \\
-$\neg (\exists x'. [\neg P(x') \vee \forall x. P(x)])$ \\
-$ \forall x'. \neg [\neg P(x') \vee \forall x. P(x)]$ \\
-$ \forall x'. [ \neg \neg P(x') \wedge \neg \forall x. P(x)]$ \\
-$ \forall x'. [ P(x') \wedge \exists x. \neg P(x)]$ \\
-$ \forall x'. [ P(x') \wedge \neg P(f(c))]$ \\
-Forma clausal: $S=\{ \{ P(x') \} , \{ \neg P(f(c)) \} \}$ \\
-Resolución: \\
-$S=\{ \{P(x')\}, \{\neg P(f(c))\}\}$\\
-Sea $\sigma(x' / f(c)) \Rightarrow \sigma(S)=\{ P(f(c)), \neg P(f(c))\} \Rightarrow \{\}$ \\
-$S=\{ \{P(x')\}, \{\neg P(f(c))\}, \{\} \} \Rightarrow $ S es insatisfacible
-\item
-$ \exists x. [P(x) \vee Q(x)] \Rightarrow [\exists P(x) \vee \exists Q(x)]$ \\
-$ \exists x. \neg [P(x) \vee Q(x)] \vee [\exists x. P(x) \vee \exists x. Q(x)]$ \\
-Negado: \\
-$ \neg (\exists x. \neg [P(x) \vee Q(x)] \vee [\exists x. P(x) \vee \exists x. Q(x)])$ \\
-$ \forall x. (\neg \neg [P(x) \vee Q(x)]) \vee \neg [\exists x. P(x) \vee \exists x. Q(x)]$ \\
-$ \forall x. [P(x) \vee Q(x)] \vee [\neg \exists x. P(x) \wedge \neg \exists x. Q(x)]$ \\
-$ \forall x. [P(x) \vee Q(x)] \vee [\forall x. \neg P(x) \wedge \forall x. \neg Q(x)]$ \\
-$ \forall x. \forall y. \forall z. [P(x) \vee Q(x)] \vee [\neg P(z) \wedge \neg Q(y)]$ \\
-$ \forall x. \forall y. \forall z. [(P(x) \vee Q(x) \vee \neg P(z)) \wedge (P(x) \vee Q(x) \vee \neg Q(y))]$ \\
-Forma clausal: $S=\{\{P(x), Q(x), \neg P(z)\}, \{P(x), Q(x), \neg Q(y)\}\}$ \\
-Resolución: $\blue{???}$
-\item
-$ \forall x. [P(x) \vee Q(x)] \Rightarrow [\forall P(x) \vee \forall Q(x)]$ \\
-$ \forall x. \neg [P(x) \vee Q(x)] \vee [\forall P(x) \vee \forall Q(x)]$ \\
-Negado: \\
-$ \neg \forall x. \neg [P(x) \vee Q(x)] \vee [\forall x. P(x) \vee \forall x. Q(x)]$ \\
-$ \exists x. \neg \neg [P(x) \vee Q(x)] \wedge \neg [\forall x. P(x) \vee \forall x. Q(x)]$ \\
-$ \exists x. [P(x) \vee Q(x)] \wedge [\neg \forall x. P(x) \wedge \neg \forall x. Q(x)]$ \\
-$ \exists x. [P(x) \vee Q(x)] \wedge [\exists x. \neg P(x) \wedge \exists x. \neg Q(x)]$ \\
-$ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$ \\
-$ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$ \\
-Forma clausal: $\{ \{P(f(c)), Q(f(c))\}, \{\neg P(f(b)), \neg Q(f(a))\} \}$ \\
-Resolución:\\
-$S=\{P(f(c)) \vee Q(f(c))\},\{\neg P(f(b))\}$ $\sigma= c \doteq b$ resolvente = $\{Q(f(b))\}$ \\
-$S=\{ P(f(c)) \vee Q(f(c)), \neg P(f(b)), \neg Q(f(a)), Q(f(b)) \}$ \\
-$S=\{ \neg Q(f(a))\},\{Q(f(b)) \}$ $ \sigma= a \doteq b$ resolvente = $ \{\} $
-$S=\{ P(f(c)) \vee Q(f(c)), \neg P(f(b)), \neg Q(f(a)), Q(f(b)), \{\} \}$ $\Rightarrow$ S es insatisfacible.
-\item
-$ [\exists x. P(x) \wedge \forall x. Q(x)] \Rightarrow \exists x. [P(x) \wedge Q(x)] $ \\
-$ \neg [\exists x. P(x) \wedge \forall x. Q(x)] \vee \exists x. [P(x) \wedge Q(x)] $ \\
-$ [\neg \exists x. P(x) \wedge \neg \forall x. Q(x)] \vee \exists x. [P(x) \wedge Q(x)] $ \\
-$ [\forall x. \neg P(x) \wedge \exists x. \neg Q(x)] \vee [P(f(a)) \wedge Q(f(a))] $ \\
-$ \forall x. [\neg P(x) \wedge \neg Q(f(b))] \vee [P(f(a)) \wedge Q(f(a))] $ \\
-$ \forall x. (\neg P(x) \vee P(f(a))) \wedge (\neg Q(f(b)) \vee P(f(a))) \wedge (\neg P(x)\vee Q(f(a))) \wedge (\neg Q(f(b)) \vee Q(f(a))) $ \\
-Forma clausal: $\{ \{\neg P(x), P(f(a))\}, \{\neg Q(f(b)), P(f(a))\}, \{\neg P(x), Q(f(a))\}, \{\neg Q(f(b)), Q(f(a))\}\}$
-Resolución: \\
-$S=\{(\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a)))\}$ $\sigma=(f(a)) \doteq x \doteq f(b)))$ resolvente = $ \{\} $ \\
-$S=\{ (\neg P(x) \vee P(f(a))), (\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a))), (\neg Q(f(b)) \vee Q(f(a))), \{\}\}$ $\Rightarrow$ S es insatisfacible.
-\item
-$\forall x. \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
-Negado: \\
-$\neg \forall x. \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
-$\exists x. \neg \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
-$\exists x. \forall y. \neg \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
-$\exists x. \forall y. \exists z. \neg \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
-$\exists x. \forall y. \exists z. \forall w. \neg [P(x,y) \vee \neg P(w,z)]$ \\
-$\exists x. \forall y. \exists z. \forall w. [\neg P(x,y) \wedge \neg \neg P(w,z)]$ \\
-$\forall y. \forall w. [\neg P(f(b),y) \wedge P(w,f(a))]$ \\
-Forma clausal: $\{\{ \neg P(f(b),y) \}, \{P(w,f(a)) \} \}$
-Resolución: \\
-$S=\{ \neg P(f(b),y), P(w,f(a)) \}$ $\sigma=(w \doteq f(b), y \doteq f(a))$ resolvente = $ \{\} $ \\
-$S=\{ \neg P(f(b),y), P(w,f(a)), \{\} \}$ $\Rightarrow$ S es insatisfacible.
-\item
-$\forall x. \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
-Negado: \\
-$\neg (\forall x. \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))])$ \\
-$\exists x. \neg \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
-$\exists x. \exists y. \neg \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
-$\exists x. \exists y. \exists z. \neg [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
-$\exists x. \exists y. \exists z. [ \neg (\neg P(f(a)) \vee \neg P(y) \vee Q(y))] \vee \neg P(f(z)) \vee [\neg (\neg P(f(f(x))) \vee \neg Q(f(x)))]$ \\
-$\exists x. \exists y. \exists z. [ (\neg \neg P(f(a)) \wedge \neg \neg P(y) \wedge \neg Q(y))] \vee \neg P(f(z)) \vee [\neg \neg P(f(f(x))) \wedge \neg \neg Q(f(x))]$ \\
-$\exists x. \exists y. \exists z. [ (P(f(a)) \wedge P(y) \wedge \neg Q(y))] \vee \neg P(f(z)) \vee [P(f(f(x))) \wedge Q(f(x))]$ \\
-$\exists x. \exists y. \exists z. [ ( (P(f(a)) \vee \neg P(f(z)) ) \wedge ( P(y) \vee \neg P(f(z)) ) \wedge ( \neg Q(y)) \vee \neg P(f(z)) )]  \vee [P(f(f(x))) \wedge Q(f(x))]$ \\
-$\exists x. \exists y. \exists z. \\
-P(f(a)) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
-P(f(a)) \vee \neg P(f(z)) \vee Q(f(x))  \wedge \\
-P(y) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
-P(y) \vee \neg P(f(z)) \vee Q(f(x)) \wedge \\
-\neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
-\neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)) $ \\
-Forma clausal: $\{ \\
-\{P(f(a)), \neg P(f(z)), P(f(f(x))\}, \\
-\{P(f(a)), \neg P(f(z)), Q(f(x)) \}, \\
-\{P(y), \neg P(f(z)), P(f(f(x))\}, \\
-\{P(y), \neg P(f(z)), Q(f(x))\}, \\
-\{\neg Q(y)), \neg P(f(z)), P(f(f(x))\}, \\
-\{\neg Q(y)), \neg P(f(z)), Q(f(x))\} \\
-\}$ \\
-Resolución: \\
-$\{P(y) \vee \neg P(f(z)) \vee Q(f(x)) \},\{\neg Q(y')) \vee \neg P(f(z')) \vee P(f(f(x'))\}$ \\
-$\sigma=(y \doteq f(z'), f(z) \doteq f(f(x)), f(x) \doteq y')$ \\
-Resolvente: $\{\}$ \\
-$S=\{ P(f(a)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
-P(f(a)) \vee \neg P(f(z)) \vee Q(f(x)) , \\
-P(y) \vee \neg P(f(z)) \vee P(f(f(x)), \\
-P(y) \vee \neg P(f(z)) \vee Q(f(x)), \\
-\neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
-\neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)), \\
-\{\} $ $\}$ $\Rightarrow$ S es insatisfacible.
+\subsection{Ejercicio 7}
+    \begin{enumerate}
+        \item 
+        $\exists x. \exists y. (x<y)$ \\
+        $\exists x. (x<f(x))$ \\
+        $(f_{2}(c)<f(x))$ \\
+        Forma clausal: $\{\{f_{2}(c)<f(x)\}\}$
+        \item 
+        $\forall x. \exists y. (x<y)$ \\
+        $\forall x. (x<f(x))$ \\
+        Forma clausal: $\{\{x<f(x)\}\}$
+        \item 
+        $\forall x. \neg(P(x) \wedge \forall y.(\neg P(y) \vee Q(y)))$ \\
+        $\forall x. \forall y. \neg(P(x) \wedge (\neg P(y) \vee Q(y)))$ \\
+        $\forall x. \forall y. (\neg P(x) \vee \neg(\neg P(y) \vee Q(y)))$ \\
+        $\forall x. \forall y. (\neg P(x) \vee (\neg \neg P(y) \wedge \neg Q(y)))$ \\
+        $\forall x. \forall y. (\neg P(x) \vee (P(y) \wedge \neg Q(y)))$ \\
+        $\forall x. \forall y. ( (\neg P(x) \vee P(y)) \wedge (\neg P(x) \vee \neg Q(y) ) )$ \\
+        Forma clausal: $\{\{ \neg P(x). P(y)\},\{ \neg P(x), \neg Q(y)\}\}$
+        \item 
+        $\exists x. \forall y. (P(x,y) \wedge Q(x) \wedge \neg R(y))$ \\
+        $\forall y. (P(f(c),y) \wedge Q(f(c)) \wedge \neg R(y))$ \\
+        Forma clausal: $\{\{P(f(c),y), Q(f(c)), \neg R(y)\}\}$
+        \item 
+        $\forall x. (P(x) \wedge \exists y. (Q(y) \vee \forall z. \exists w. (P(z) \wedge \neg Q(w)))$ \\
+        $\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee (P(z) \wedge \neg Q(f(z))))$ \\
+        $\forall x. \forall z. (P(x) \wedge (Q(f(c)) \vee P(z) ) \wedge (Q(f(c)) \vee \neg Q(f(z)) ) )$ \\
+        Forma clausal: $\{\{ P(x)\} , \{Q(f(c)), P(z)\} , \{Q(f(c)), \neg Q(f(z))\} \}$
+    \end{enumerate}
+%   \subsection{Ejercicio 8}
+\subsection{Ejercicio 9}
+    \begin{enumerate}
+    \item
+    $\exists x. \forall y. R(x,y) \Rightarrow \forall y. \exists x. R(x,y)$  =  $\neg \exists x. \forall y. R(x,y) \vee \forall y. \exists x. R(x,y)$ \\
+    Negado: \\
+    $\neg (\neg \exists x. \forall y. R(x,y) \vee \forall y. \exists x. R(x,y))$  =  $ \neg \neg \exists x. \forall y. R(x,y) \wedge \neg \forall y. \exists x. R(x,y) $ \\
+    $ \exists x. \forall y. R(x,y) \wedge \neg \forall y. \exists x. R(x,y) $  =  $ \forall y. R(f(y),y) \wedge \exists y. \neg \exists x. R(x,y) $ \\
+    $ \forall y. R(f(y),y) \wedge \exists y. \forall x. \neg R(x,y) $  =  $ \forall y. R(f(y),y) \wedge \forall x. \neg R(x,f(x)) $ \\
+    $ \forall y. \forall x.  R(f(y),y) \wedge \neg R(x,f(x)) $ \\
+    Forma clausal: $S=\{\{ R(f(y),y)\},\{ \neg R(x,f(x))\} \}$ \\
+    Resolución: No podemos aplicar ningún paso de resolución a S \blue{porque las cláusulas no unifican}, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(f(y),y))=T$, $v(\neg R(x,f(x)))=F$.
+    \item
+    $\forall x. \exists y. R(x,y) \Rightarrow \exists y. \forall x. R(x,y)$  =  $\neg \forall x. \exists y. R(x,y) \vee \exists y. \forall x. R(x,y)$ \\
+    Negado: \\
+    $\neg (\neg \forall x. \exists y. R(x,y) \vee \exists y. \forall x. R(x,y))$  =  $\neg \neg \forall x. \exists y. R(x,y) \wedge \neg \exists y. \forall x. R(x,y)$ \\
+    $\forall x. \exists y. R(x,y) \wedge \forall y. \neg \forall x. R(x,y)$  =  $\forall x. \exists y. R(x,y) \wedge \forall y. \exists x. \neg R(x,y)$ \\
+    $\forall x. R(x,f(x)) \wedge \forall y. \neg R(f(y),y)$ \\
+    Forma clausal: $S=\{ \{ R(x,f(x))\},\{ \neg R(f(y),y) \}\}$ \\
+    Resolución: No podemos aplicar ningún paso de resolución a S  \blue{porque las cláusulas no unifican}, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(x,f(x)))=T$, $v(\neg R(f(y),y))=F$.
+    \item
+    $\exists x. [P(x) \Rightarrow \forall x. P(x)]$  =  $\exists x'. [\neg P(x') \vee \forall x. P(x)]$ \\
+    Negado: \\
+    $\neg (\exists x'. [\neg P(x') \vee \forall x. P(x)])$  =  $ \forall x'. \neg [\neg P(x') \vee \forall x. P(x)]$ \\
+    $ \forall x'. [ \neg \neg P(x') \wedge \neg \forall x. P(x)]$  =  $ \forall x'. [ P(x') \wedge \exists x. \neg P(x)]$ \\
+    $ \forall x'. [ P(x') \wedge \neg P(f(c))]$ \\
+    Forma clausal: $S=\{ \{ P(x') \} , \{ \neg P(f(c)) \} \}$ \\
+    Resolución: \\
+    $S=\{ \{P(x')\}, \{ \neg P(f(c))\}\}$\\
+    Sea $\sigma(x' / f(c)) \Rightarrow \sigma(S)=\{ P(f(c)), \neg P(f(c))\} \Rightarrow \{\}$ \\
+    $S=\{ \{P(x')\}, \{ \neg P(f(c))\}, \{\} \} \Rightarrow $ S es insatisfacible
+    \item
+    $ \exists x. [P(x) \vee Q(x)] \Rightarrow [\exists P(x) \vee \exists Q(x)]$  =  $ \exists x. \neg [P(x) \vee Q(x)] \vee [\exists x. P(x) \vee \exists x. Q(x)]$ \\
+    Negado: \\
+    $ \neg (\exists x. \neg [P(x) \vee Q(x)] \vee [\exists x. P(x) \vee \exists x. Q(x)])$  =  $ \forall x. (\neg \neg [P(x) \vee Q(x)]) \vee \neg [\exists x. P(x) \vee \exists x. Q(x)]$ \\
+    $ \forall x. [P(x) \vee Q(x)] \vee [\neg \exists x. P(x) \wedge \neg \exists x. Q(x)]$  =  $ \forall x. [P(x) \vee Q(x)] \vee [\forall x. \neg P(x) \wedge \forall x. \neg Q(x)]$ \\
+    $ \forall x. \forall y. \forall z. [P(x) \vee Q(x)] \vee [\neg P(z) \wedge \neg Q(y)]$ \\
+    $ \forall x. \forall y. \forall z. [(P(x) \vee Q(x) \vee \neg P(z)) \wedge (P(x) \vee Q(x) \vee \neg Q(y))]$ \\
+    Forma clausal: $S=\{\{P(x), Q(x), \neg P(z)\}, \{P(x), Q(x), \neg Q(y)\}\}$ \\
+    Resolución: $\blue{??? para mi no unifican}$
+    \item
+    $ \forall x. [P(x) \vee Q(x)] \Rightarrow [\forall P(x) \vee \forall Q(x)]$  =  $ \forall x. \neg [P(x) \vee Q(x)] \vee [\forall P(x) \vee \forall Q(x)]$ \\
+    Negado: \\
+    $ \neg \forall x. \neg [P(x) \vee Q(x)] \vee [\forall x. P(x) \vee \forall x. Q(x)]$  =  $ \exists x. \neg \neg [P(x) \vee Q(x)] \wedge \neg [\forall x. P(x) \vee \forall x. Q(x)]$ \\
+    $ \exists x. [P(x) \vee Q(x)] \wedge [\neg \forall x. P(x) \wedge \neg \forall x. Q(x)]$  =  $ \exists x. [P(x) \vee Q(x)] \wedge [\exists x. \neg P(x) \wedge \exists x. \neg Q(x)]$ \\
+    $ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$  =  $ [P(f(c)) \vee Q(f(c))] \wedge [\neg P(f(b)) \wedge \neg Q(f(a))]$ \\
+    Forma clausal: $\{ \{P(f(c)), Q(f(c))\}, \{ \neg P(f(b)), \neg Q(f(a))\} \}$ \\
+    Resolución:\\
+    $S=\{P(f(c)) \vee Q(f(c))\},\{ \neg P(f(b))\}$ $\sigma= c \doteq b$ resolvente = $\{Q(f(b))\}$ \\
+    $S=\{ P(f(c)) \vee Q(f(c)), \neg P(f(b)), \neg Q(f(a)), Q(f(b)) \}$ \\
+    $S=\{ \neg Q(f(a))\},\{Q(f(b)) \}$ $ \sigma= a \doteq b$ resolvente = $ \{\} $
+    $S=\{ P(f(c)) \vee Q(f(c)), \neg P(f(b)), \neg Q(f(a)), Q(f(b)), \{\} \}$ $\Rightarrow$ S es insatisfacible.
+    \item
+    $ [\exists x. P(x) \wedge \forall x. Q(x)] \Rightarrow \exists x. [P(x) \wedge Q(x)] $  =  $ \neg [\exists x. P(x) \wedge \forall x. Q(x)] \vee \exists x. [P(x) \wedge Q(x)] $ \\
+    $ [\neg \exists x. P(x) \wedge \neg \forall x. Q(x)] \vee \exists x. [P(x) \wedge Q(x)] $  =  $ [\forall x. \neg P(x) \wedge \exists x. \neg Q(x)] \vee [P(f(a)) \wedge Q(f(a))] $ \\
+    $ \forall x. [\neg P(x) \wedge \neg Q(f(b))] \vee [P(f(a)) \wedge Q(f(a))] $  =  $ \forall x. (\neg P(x) \vee P(f(a))) \wedge (\neg Q(f(b)) \vee P(f(a))) \wedge (\neg P(x)\vee Q(f(a))) \wedge (\neg Q(f(b)) \vee Q(f(a))) $ \\
+    Forma clausal: $\{ \{ \neg P(x), P(f(a))\}, \{ \neg Q(f(b)), P(f(a))\}, \{ \neg P(x), Q(f(a))\}, \{ \neg Q(f(b)), Q(f(a))\}\}$
+    Resolución: \\
+    $S=\{(\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a)))\}$ $\sigma=(f(a)) \doteq x \doteq f(b)))$ resolvente = $ \{\} $ \\
+    $S=\{ (\neg P(x) \vee P(f(a))), (\neg Q(f(b)) \vee P(f(a))), (\neg P(x)\vee Q(f(a))), (\neg Q(f(b)) \vee Q(f(a))), \{\}\}$ $\Rightarrow$ S es insatisfacible.
+    \item
+    $\forall x. \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+    Negado: \\
+    $\neg \forall x. \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$  =  $\exists x. \neg \exists y. \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+    $\exists x. \forall y. \neg \forall z. \exists w. [P(x,y) \vee \neg P(w,z)]$  =  $\exists x. \forall y. \exists z. \neg \exists w. [P(x,y) \vee \neg P(w,z)]$ \\
+    $\exists x. \forall y. \exists z. \forall w. \neg [P(x,y) \vee \neg P(w,z)]$  =  $\exists x. \forall y. \exists z. \forall w. [\neg P(x,y) \wedge \neg \neg P(w,z)]$ \\
+    $\forall y. \forall w. [\neg P(f(b),y) \wedge P(w,f(a))]$ \\
+    Forma clausal: $\{\{ \neg P(f(b),y) \}, \{P(w,f(a)) \} \}$
+    Resolución: \\
+    $S=\{ \neg P(f(b),y), P(w,f(a)) \}$ $\sigma=(w \doteq f(b), y \doteq f(a))$ resolvente = $ \{\} $ \\
+    $S=\{ \neg P(f(b),y), P(w,f(a)), \{\} \}$ $\Rightarrow$ S es insatisfacible.
+    \item
+    $\forall x. \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+    Negado: \\
+    $\neg (\forall x. \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))])$ \\
+    $\exists x. \neg \forall y. \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+    $\exists x. \exists y. \neg \forall z. [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+    $\exists x. \exists y. \exists z. \neg [\neg P(f(a)) \vee \neg P(y) \vee Q(y)] \wedge P(f(z)) \wedge [\neg P(f(f(x))) \vee \neg Q(f(x))]$ \\
+    $\exists x. \exists y. \exists z. [ \neg (\neg P(f(a)) \vee \neg P(y) \vee Q(y))] \vee \neg P(f(z)) \vee [\neg (\neg P(f(f(x))) \vee \neg Q(f(x)))]$ \\
+    $\exists x. \exists y. \exists z. [ (\neg \neg P(f(a)) \wedge \neg \neg P(y) \wedge \neg Q(y))] \vee \neg P(f(z)) \vee [\neg \neg P(f(f(x))) \wedge \neg \neg Q(f(x))]$ \\
+    $\exists x. \exists y. \exists z. [ (P(f(a)) \wedge P(y) \wedge \neg Q(y))] \vee \neg P(f(z)) \vee [P(f(f(x))) \wedge Q(f(x))]$ \\
+    $\exists x. \exists y. \exists z. [ ( (P(f(a)) \vee \neg P(f(z)) ) \wedge ( P(y) \vee \neg P(f(z)) ) \wedge ( \neg Q(y)) \vee \neg P(f(z)) )]  \vee [P(f(f(x))) \wedge Q(f(x))]$ \\
+    $\exists x. \exists y. \exists z. \\
+    P(f(a)) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
+    P(f(a)) \vee \neg P(f(z)) \vee Q(f(x))  \wedge \\
+    P(y) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
+    P(y) \vee \neg P(f(z)) \vee Q(f(x)) \wedge \\
+    \neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)) \wedge \\
+    \neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)) $ \\
+    Forma clausal: $\{ \\
+    \{P(f(a)), \neg P(f(z)), P(f(f(x))\}, \\
+    \{P(f(a)), \neg P(f(z)), Q(f(x)) \}, \\
+    \{P(y), \neg P(f(z)), P(f(f(x))\}, \\
+    \{P(y), \neg P(f(z)), Q(f(x))\}, \\
+    \{ \neg Q(y)), \neg P(f(z)), P(f(f(x))\}, \\
+    \{ \neg Q(y)), \neg P(f(z)), Q(f(x))\} \\
+    \}$ \\
+    Resolución: \\
+    $\{P(y) \vee \neg P(f(z)) \vee Q(f(x)) \},\{ \neg Q(y')) \vee \neg P(f(z')) \vee P(f(f(x'))\}$ \\
+    $\sigma=(y \doteq f(z'), f(z) \doteq f(f(x)), f(x) \doteq y')$ \\
+    Resolvente: $\{\}$ \\
+    $S=\{ P(f(a)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
+    P(f(a)) \vee \neg P(f(z)) \vee Q(f(x)) , \\
+    P(y) \vee \neg P(f(z)) \vee P(f(f(x)), \\
+    P(y) \vee \neg P(f(z)) \vee Q(f(x)), \\
+    \neg Q(y)) \vee \neg P(f(z)) \vee P(f(f(x)), \\
+    \neg Q(y)) \vee \neg P(f(z)) \vee Q(f(x)), \\
+    \{\} $ $\}$ $\Rightarrow$ S es insatisfacible.
 
 \end{enumerate}
 
 
 
-  \subsection{Ejercicio 10}
-\subsubsection{Modus Ponens: $((P \rightarrow Q) \wedge P) \rightarrow Q$}
-$((P \rightarrow Q) \wedge P) \rightarrow Q$ \\
-$\neg ((P \rightarrow Q) \wedge P) \vee Q$ \\
-$\neg ((\neg P \vee Q) \wedge P) \vee Q$ \\
-$(\neg (\neg P \vee Q) \vee \neg P) \vee Q$ \\
-$((P \vee Q) \wedge (\neg Q \vee Q )) \vee (\neg P \vee Q)$ \\
-$((P \vee Q \vee \neg P \vee Q) \wedge (\neg Q \vee Q \vee \neg P \vee Q))$ \\
-Forma clausal: \\
-$\{\{P, Q, \neg P, Q\}\{\neg Q, Q, \neg P, Q\}\}$ \\
+%   \subsection{Ejercicio 10}
+% \subsubsection{Modus Ponens: $((P \rightarrow Q) \wedge P) \rightarrow Q$}
+% $((P \rightarrow Q) \wedge P) \rightarrow Q$ \\
+% $\neg ((P \rightarrow Q) \wedge P) \vee Q$ \\
+% $\neg ((\neg P \vee Q) \wedge P) \vee Q$ \\
+% $(\neg (\neg P \vee Q) \vee \neg P) \vee Q$ \\
+% $((P \vee Q) \wedge (\neg Q \vee Q )) \vee (\neg P \vee Q)$ \\
+% $((P \vee Q \vee \neg P \vee Q) \wedge (\neg Q \vee Q \vee \neg P \vee Q))$ \\
+% Forma clausal: \\
+% $\{\{P, Q, \neg P, Q\}\{ \neg Q, Q, \neg P, Q\}\}$ \\
 
-\subsubsection{Modus Tollens: $((P \rightarrow Q) \wedge \neg Q) \rightarrow \neg P$}
-$((P \rightarrow Q) \wedge \neg Q) \rightarrow \neg P$ \\
-$(\neg (\neg P \vee Q) \wedge \neg Q) \vee \neg P$ \\
-$((\neg \neg P \wedge \neg Q) \vee \neg \neg Q) \vee \neg P$ \\
-Forma clausal: \\
-$\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
+% \subsubsection{Modus Tollens: $((P \rightarrow Q) \wedge \neg Q) \rightarrow \neg P$}
+% $((P \rightarrow Q) \wedge \neg Q) \rightarrow \neg P$ \\
+% $(\neg (\neg P \vee Q) \wedge \neg Q) \vee \neg P$ \\
+% $((\neg \neg P \wedge \neg Q) \vee \neg \neg Q) \vee \neg P$ \\
+% Forma clausal: \\
+% $\{\{P, Q, \neg P\}\{ \neg Q , Q, \neg P\}\} $
 
-  \subsection{Ejercicio 11}
-  \subsection{Ejercicio 12}
-Condiciones son necesarias para que una demostración por resolución sea SLD:
-\begin{itemieze}
-\item Realizarse de manera lineal (utilizando en cada paso el resolvente obtenido en el paso anterior).
-\item Utilizar únicamente cláusulas de Horn.
-\item Empezar por una cláusula objetivo (sin literales positivos).
-\item Empezar por una cláusula que provenga de la negación de lo que se quiere demostrar.
-\item Recorrer el espacio de búsqueda de arriba hacia abajo y de izquierda a derecha.
-\item Utilizar la regla de resolución binaria en lugar de la general.
-\end{itemieze}
+\subsection{Ejercicio 11}
 
-Innecesaria:
-\begin{itemieze}
-\item Utilizar cada cláusula a lo sumo una vez.
-\end{itemieze}
+    \begin{itemize}
+        \item $\{P(x), \neg P(x), Q(a)\}$
+        \item $\{P(x), \neg Q(y), \neg R(x,y) \}$
+        \item $\{\neg P(x,x,z), \neg Q(x,y), \neg Q(y,z) \}$
+        \item $\{M(1,2,x) \}$
+    \end{itemize}
+    \begin{enumerate}
+        \item 2,3y4.
+        \item 2=regla, 3=claúsula objetivo y 4=hecho.
+        \item Formulas de 1er Orden:
+            \begin{enumerate}
+                \item $\forall x. \forall y. (P(x) \vee \neg Q(y) \vee \neg R(x,y))$
+                \item $\forall x. \forall y. \forall z. (P(x,x,z) \vee \neg Q(x,y) \vee \neg Q(y,z))$
+                \item $\forall x. M(1,2,x)$
+            \end{enumerate}
+    \end{enumerate}
 
-  \subsection{Ejercicio 13}
-  \subsection{Ejercicio 14}
-	\begin{itemize}
-	    \item Cláusulas: \\
-		$1.{\neg suma(x1,y1,z1), suma(x1,suc(y1),suc(z1))}$ \\
-		$2.{suma(x2,cero,x2)}$ \\
-		$3.{\neg suma(x3,y3,z3), par(y3)}$
-	    \item Quiero probar: \\
-		${par(suc(suc(cero)))}$
-	    \item Entonces, la niego: \\
-		$4.{\neg par(suc(suc(cero)))}$
-	    \item Demostración: \\
-		$5.4y3. \sigma={y3 \leftarrow suc(suc(cero))}$ y la resolvente es: $ {\neg suma(x3,suc(suc(cero)),z3)}$ \\
-		$6.5y1. \sigma={x1 \leftarrow x3,suc(y1) \leftarrow suc(suc(cero)),z3 \leftarrow suc(z1))}$ y la resolvente es: ${\neg suma(x3,suc(cero),z1)}$ \\
-		$7.6y1. \sigma={x1' \leftarrow x3, suc(y1') \leftarrow suc(cero), suc(z1') \leftarrow z1}$ y la resolvente es: $ {\neg suma(x3,cero, z1)}$ \\
-		$8.7y2. \sigma={x2 \leftarrow z1, x3 \leftarrow x2} $ y la resolvente es: $ \{\}$
-	    \item Aplique resolución SLD, porque eran Cláusulas de horn, utilicé la resolucion binaria y en cada paso utilicé la última resolvente creada.
-	\end{itemize}
-  \subsection{Ejercicio 15}
-  \subsection{Ejercicio 16}
-	\begin{itemize}
-	    \item Para Identificar errores lo pruebo: $(\exists x. enBAr(x)) \Rightarrow \exists y. ( enBAr(y) \ wedge ( bebe(y) \Rightarrow \forall z. ( enBAr(z) \Rightarrow bebe(z) ) ) )$
-	    \item Eliminar implicaciones: $\neg (\exists x. enBAr(x)) \vee \exists y. ( enBAr(y) \ wedge (\neg bebe(y) \vee \forall z. ( \neg enBAr(z) \vee bebe(z) ) ) )$
-	    \item Forma normal negada: $(\forall x. \neg enBAr(x)) \vee \exists y. ( enBAr(y) \ wedge (\neg bebe(y) \vee \forall z. ( \neg enBAr(z) \vee bebe(z) ) ) )$
-	    \item Forma normal de skolem: $\forall z. \forall x. (\neg enBAr(x)) \vee ( enBAr(f(c)) \ wedge (\neg bebe(f(c)) \vee ( \neg enBAr(z) \vee bebe(z) ) ) )$
-	    \item Forma normal clausal: $\forall z. \forall x. ((\neg enBAr(x)) \vee enBAr(f(c))) \ wedge (\neg enBAr(x)) \vee \neg bebe(f(c)) \vee \neg enBAr(z) \vee bebe(z) ) )$ \\
-	    $\{\{\neg enBAr(x)), enBAr(f(c))\},\{\neg enBAr(x), \neg bebe(f(c)), \neg enBAr(z), bebe(z)\}\}$
-	\end{itemize}
-	\blue{1} la negacion del existencial \\
-	\blue{2} la separación en terminos de la forma clausal \\
-	\blue{3} cuando genera una resolvente a partir de dos cláusulas que son negaciones ($\neg enBar()$) \\
-	\blue{4} cuando define a una sustitución de una constante por una variable($\{k \rightarrow Z\}$) \\
-	\blue{5} se olvido de negar lo que queria probar.
-  \subsection{Ejercicio 17}
-\begin{itemize}
-    \item $\forall x. \exists y. esContacto(x,y)$ = $\{esContacto(x,y)\}$
-    \item $\forall x. \forall y. esContacto(x,y) \Rightarrow esContacto(y,x)$ = $\neg esContacto(x,y) \vee esContacto(y,x)$  = $\{\neg esContacto(x,y), esContacto(y,x)\}$ 
-    \item Queremos ver: $\forall x. esContacto(x,x)$ 
-    \item La negamos: $\neg \forall x. esContacto(x,x)$ = $\exists x. \neg esContacto(x,x)$ = $\neg esContacto(f(c),f(c))$
-    \item Rta: Es correcta. \\ 
-    \item Queremos ver: $\forall y. \exists x. esContacto(x,y)$ 
-    \item La negamos: $\neg \forall y. \exists x. esContacto(x,y)$ = $\exists y. \neg \exists x. esContacto(x,y)$ = $\exists y. \forall x. \neg esContacto(x,y)$ = $\forall x. \neg esContacto(x,f(c))$  
-    \item El punto 4) está mal. 
-    \item Queda: del 2 y 3, $esContacto(d,d)$ y ahi se traba porque va a usar simepre la $resolvente_{i}$ con 2.
-\end{itemize}
-  \subsection{Ejercicio 18}
-\begin{itemize}
-\item 1$.\{\neg Progenitor(x1,y1),Descenciente(y1,x1)\}$ 
-\item 2$.\{\neg Descenciente(x2,y2), \neg Descenciente(y2,z2), Descenciente(x2,z2)\}$ 
-\item 3$.\{\neg Abuelo(x3,y3), Progenitor(x3, medio(x3,y3))\}$ 
-\item 4$.\{\neg Abuelo(x4,y4), Progenitor(medio(x4,y4),y4)\}$ 
-\item Queremos ver que: $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
-\item $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
-\item $\forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
-\item Lo niego: $\neg \forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
-\item $\exists x. \neg \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
-\item $\exists x. \exists y. \neg (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
-\item $\exists x. \exists y. (\neg \neg Abuelo(x,y) \wedge \neg Descenciente(y,x))$ 
-\item $\exists x. \exists y. (Abuelo(x,y) \wedge \neg Descenciente(y,x))$ 
-\item 5$.\{Abuelo(x5,y5)\} $  
-\item 6$.\{\neg Descenciente(y6,x6)\} $ \\
-\item Resolución: 
-\item 7$. 5y3. \{x3 \leftarrow x6, y3 \leftarrow y6\}$ y la resolvente es: $\{Progenitor(x3, medio(x3,y3))\}$ 
-\item 8$. 7y1. \{x1 \leftarrow x3, y1 \leftarrow medio(x3,y3)\}$ y la resolvente es: $\{Descenciente( medio(x3,y3),x3)\}\}$ 
-\item 9.$ 8y6. \{y6 \leftarrow medio(x3,y3), x6 \leftarrow x3\}$ y la resolvente es: $\{\}$, por lo tanto probamos que $\forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ es unna tautología.
-\end{itemize}
-  \subsection{\blue{Ejercicio 19 COMPLETAR}}
-$\forall x. \neg R(x,x)$ = $\{\neg R(x,x)\}$ \\
-$\forall x. \forall y. (R(x,y) \Rightarrow R(y,x))$ = $\forall x. \forall y. (\neg R(x,y) \vee R(y,x))$ = $\{\neg R(x,y), R(y,x)\}$ \\
-$\forall x. \forall y. \forall z. ((R(x,y) \wedge R(y,z)) \Rightarrow R(x,z))$ = $\forall x. \forall y. \forall z. ( \neg (R(x,y) \wedge R(y,z)) \vee R(x,z))$ = $\forall x. \forall y. \forall z. ( (\neg R(x,y) \vee \neg R(y,z)) \vee R(x,z))$ = $\{\neg R(x,y), \neg R(y,z), R(x,z)\}$ \\
-QVQ\\
-$\forall x. \neg \exists y. R(x,y)$ = $\forall x. \forall y. \neg R(x,y)$ \\
-Lo niego: $\exists x. \neg \forall y. \neg R(x,y)$ = $\exists x. \exists y. \neg \neg R(x,y)$ = $R(f(c),f(d))$ = $\{R(f(c),f(d))\}$ \\
-Cláusulas: \\
-$\{\neg R(x,x)\}$ \\
-$\{\neg R(x,y), R(y,x)\}$ \\
-$\{\neg R(x,y), \neg R(y,z), R(x,z)\}$ \\
-$\{R(f(c),f(d))\}$
-  \subsection{Ejercicio 20}
-	A) \\
-	Definiciones:
-	\begin{itemieze}
-	\item natural(cero).
-	\item natural(suc(X)) $:-$ natural(X).
-	\item mayorOIgual(suc(X),Y) $:-$ mayorOIgual(X,Y).
-	\item mayorOIgual(X,X) $:-$ natural(X).
-	\end{itemieze}
+\subsection{Ejercicio 12}
+    Condiciones son necesarias para que una demostración por resolución sea SLD:
+    \begin{enumerate}
+        \item Realizarse de manera lineal (utilizando en cada paso el resolvente obtenido en el paso anterior).
+        \item Utilizar únicamente cláusulas de Horn.
+        \item Empezar por una cláusula objetivo (sin literales positivos).
+        \item Empezar por una cláusula que provenga de la negación de lo que se quiere demostrar.
+        \item Recorrer el espacio de búsqueda de arriba hacia abajo y de izquierda a derecha.
+        \item Utilizar la regla de resolución binaria en lugar de la general.
+    \end{enumerate}
+    Innecesaria:
+    \begin{enumerate}
+        \item Utilizar cada cláusula a lo sumo una vez.
+    \end{enumerate}
 
-	Que sucede con la consulta: mayorOIgual(suc(suc(N)), suc(cero))?
-	mayorOIgual(suc(suc(N)), suc(cero)) trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(suc(N),suc(cero)).
-	mayorOIgual(suc(N),suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(N,suc(cero)).
-	mayorOIgual(N,suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), pero no puede porque N no tiene estructura de suc(), por lo tanto intenta unificar con mayorOIgual(N,suc(cero)) y no puede porque no sabe si N es suc(cero), entonces se cuelga. 
-	B) \\
+\subsection{Ejercicio 13}
+    Cláusulas:
+    Queremos probar: $\exists x. I(x)$ = $\{I(f(e))\}$
+    \begin{enumerate}
+        \item $R(alan)$
+        \item $J(alan)$
+        \item $\forall Res(x1,PL(y1)) \Rightarrow I(x1)$ = $\forall x1. \forall y1. \neg Res(x1,PL(y1)) \vee I(x1)$ = $\{\neg Res(x1,PL(y1)), I(x1)\}$
+        \item $\forall x2. J(x2) \Rightarrow Res(x2,PR(y2))$ = $\forall x2. \neg J(x2) \vee Res(x2,PR(y2))$  = $\{\neg J(x2), Res(x2,PR(y2))\}$ 
+        \item $\forall x3. PR(x3) \Rightarrow PL(x3)$ = $\forall x3. \neg PR(x3) \vee PL(x3)$  = $\{\neg PR(x3), PL(x3)\}$
+        \item $\exists x4. PR(x4)$ = $\{PR(f(c))\}$
+        \item $\{I(f(e))\}$
+        \item 7y3. $\{x1 \leftarrow f(e)\}$ resolvente: $\{\neg Res(f(e),PL(y1))\}$
+        \item 8y4. $\{x2 \leftarrow f(e), y2 \leftarrow y1\}$ resolvente: $\{\neg J(x2)\}$ \blue{ACA ME FALTA PL(y1))=PR(y2)}
+        \item 9y2. $\{x2 \leftarrow alan\}$ resolvente: $\{\}$
+    \end{enumerate}
 
-	\begin{enumerate}
-	\item $\{natural(cero) \}$
-	\item $\{natural(suc(X2)), \neg natural(X2) \}$
-	\item $\{mayorOIgual(suc(X3),Y3), \neg mayorOIgual(X3,Y3) \}$
-	\item $\{mayorOIgual(X4,X4), \neg natural(X4) \}$
-	\item $\{\neg mayorOIgual(suc(suc(N5)),suc(cero))\}$
-	\item 5y3. $\{X3 \leftarrow suc(N5), Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{\neg mayorOIgual(suc(N5),suc(cero))\}$
-	\item 6y3. $\{X3 \leftarrow N5, Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{\neg mayorOIgual(N5,suc(cero))\}$
-	\item 7y4. $\{X4 \leftarrow suc(cero),N5 \leftarrow X5\}$ y la resolvente es $\{natural(suc(cero))\}$
-	\item 8y2. $\{X2 \leftarrow cero\}$ y la resolvente es $\{\neg natural(cero)\}$
-	\item 9y1. la resolvente es $\{\}$
-	\end{enumerate}
-	Es resolución SLD porque usé clausulas de horn, resolución binaria y en cada paso de resolución usé la resolvente alterior. También usé el orden de resolución de prolog.
-  \subsection{Ejercicio 21}
-Quiero probar: $\exists x.$ inteligente(X) $\wedge$ analfabeto(X) entonces lo niego: $\neg \exists x.$ inteligente(X) $\wedge$ analfabeto(X) = $\forall x. \neg ($inteligente(X) $\wedge$ analfabeto(X)) = $\forall x. \neg$ inteligente(X) $\vee \neg$ analfabeto(X) = $\{\neg$ inteligente(X), $\neg$ analfabeto(X)$\}$
-\begin{enumerate}
-\item $\{analfabeto(X1), \neg vivo(X1), \neg noSabeLeer(X1) \}$
-\item $\{noSabeLeer(X2), \neg mesa(X2)\}$
-\item $\{vivo(X3), \neg delfín(X3) \}$
-\item $\{noSabeLeer(X4), \neg delfín(X4)\}$
-\item $\{inteligente(flipper)\}$
-\item $\{delfín(flipper)\}$
-\item $\{inteligente(alan)\}$
-\item $\{\neg inteligente(X8), \neg analfabeto(X8)\}$
-\item 8y1. $\{X1 \leftarrow X8 \}$ resolvente: $\{\neg inteligente(X8), \neg vivo(X8), \neg noSabeLeer(X8) \}$
-\item 9y3. $\{X3 \leftarrow X8\}$ resolvente: $\{\neg delfín(X3),\neg inteligente(X8), \neg noSabeLeer(X8)\}$
-\item 10y4.$\{X4 \leftarrow X8\}$ resolvente: $\{\neg delfín(X3),\neg inteligente(X8), \neg delfín(X8)\}$
-\item 11y6.$\{X8 \leftarrow flipper\}$ resolvente: $\{\neg delfín(X3),\neg inteligente(X8)\}$
-\item 12y6.$\{X8 \leftarrow flipper\}$ resolvente: $\{\neg inteligente(X8)\}$
-\item 13y5.$\{X8 \leftarrow flipper\}$ resolvente: $\{\}$
-\end{enumerate}
-  \subsection{Ejercicio 22}
+% \subsection{Ejercicio 14 \blue{no se si está bien}}
+%     \begin{itemize}
+%         \item Cláusulas: \\
+%         $1.{\neg suma(x1,y1,z1), suma(x1,suc(y1),suc(z1))}$ \\
+%         $2.{suma(x2,cero,x2)}$ \\
+%         $3.{\neg suma(x3,y3,z3), par(y3)}$
+%         \item Quiero probar: \\
+%         ${par(suc(suc(cero)))}$
+%         \item Entonces, la niego: \\
+%         $4.{\neg par(suc(suc(cero)))}$
+%         \item Demostración: \\
+%         $5.4y3. \sigma={y3 \leftarrow suc(suc(cero))}$ y la resolvente es: $ {\neg suma(x3,suc(suc(cero)),z3)}$ \\
+%         $6.5y1. \sigma={x1 \leftarrow x3,suc(y1) \leftarrow suc(suc(cero)),z3 \leftarrow suc(z1))}$ y la resolvente es: ${\neg suma(x3,suc(cero),z1)}$ \\
+%         $7.6y1. \sigma={x1' \leftarrow x3, suc(y1') \leftarrow suc(cero), suc(z1') \leftarrow z1}$ y la resolvente es: $ {\neg suma(x3,cero, z1)}$ \\
+%         $8.7y2. \sigma={x2 \leftarrow z1, x3 \leftarrow x2} $ y la resolvente es: $ \{\}$
+%         \item Aplique resolución SLD, porque eran Cláusulas de horn, utilicé la resolucion binaria y en cada paso utilicé la última resolvente creada.
+%     \end{itemize}
+%   \subsection{Ejercicio 15}
+
+\subsection{Ejercicio 16}
+    \begin{itemize}
+        \item Para Identificar errores lo pruebo: $(\exists x. enBAr(x)) \Rightarrow \exists y. ( enBAr(y) \ wedge ( bebe(y) \Rightarrow \forall z. ( enBAr(z) \Rightarrow bebe(z) ) ) )$
+        \item Eliminar implicaciones: $\neg (\exists x. enBAr(x)) \vee \exists y. ( enBAr(y) \ wedge (\neg bebe(y) \vee \forall z. ( \neg enBAr(z) \vee bebe(z) ) ) )$
+        \item Forma normal negada: $(\forall x. \neg enBAr(x)) \vee \exists y. ( enBAr(y) \ wedge (\neg bebe(y) \vee \forall z. ( \neg enBAr(z) \vee bebe(z) ) ) )$
+        \item Forma normal de skolem: $\forall z. \forall x. (\neg enBAr(x)) \vee ( enBAr(f(c)) \ wedge (\neg bebe(f(c)) \vee ( \neg enBAr(z) \vee bebe(z) ) ) )$
+        \item Forma normal clausal: $\forall z. \forall x. ((\neg enBAr(x)) \vee enBAr(f(c))) \ wedge (\neg enBAr(x)) \vee \neg bebe(f(c)) \vee \neg enBAr(z) \vee bebe(z) ) )$ \\
+        $\{\{ \neg enBAr(x)), enBAr(f(c))\},\{ \neg enBAr(x), \neg bebe(f(c)), \neg enBAr(z), bebe(z)\}\}$
+    \end{itemize}
+    \blue{1} la negacion del existencial \\
+    \blue{2} la separación en terminos de la forma clausal \\
+    \blue{3} cuando genera una resolvente a partir de dos cláusulas que son negaciones ($\neg enBar()$) \\
+    \blue{4} cuando define a una sustitución de una constante por una variable($\{k \rightarrow Z\}$) \\
+    \blue{5} se olvido de negar lo que queria probar.
+
+\subsection{Ejercicio 17}
+    Cláusulas:
+    \begin{itemize}
+        \item $\forall x. \exists y. esContacto(x,y)$ = $\{esContacto(x,y)\}$
+        \item $\forall x. \forall y. esContacto(x,y) \Rightarrow esContacto(y,x)$ = $\neg esContacto(x,y) \vee esContacto(y,x)$  = $\{ \neg esContacto(x,y), esContacto(y,x)\}$
+    \end{itemize}
+    A) 
+    \begin{itemize}
+        \item Queremos ver: $\forall x. esContacto(x,x)$ 
+        \item La negamos: $\neg \forall x. esContacto(x,x)$ = $\exists x. \neg esContacto(x,x)$ = $\neg esContacto(f(c),f(c))$
+        \item Rta: Es correcta.
+    \end{itemize}
+    B) 
+    \begin{itemize}
+        \item Queremos ver: $\forall y. \exists x. esContacto(x,y)$ 
+        \item La negamos: $\neg \forall y. \exists x. esContacto(x,y)$ = $\exists y. \neg \exists x. esContacto(x,y)$ = $\exists y. \forall x. \neg esContacto(x,y)$ = $\forall x. \neg esContacto(x,f(c))$  
+        \item El punto 4) está mal. 
+        \item Queda: del 2 y 3, $esContacto(d,d)$ y ahi se traba porque va a usar simepre la $resolvente_{i}$ con 2.
+    \end{itemize}
+
+\subsection{Ejercicio 18}
+    \begin{itemize}
+        \item 1$.\{ \neg Progenitor(x1,y1),Descenciente(y1,x1)\}$ 
+        \item 2$.\{ \neg Descenciente(x2,y2), \neg Descenciente(y2,z2), Descenciente(x2,z2)\}$ 
+        \item 3$.\{ \neg Abuelo(x3,y3), Progenitor(x3, medio(x3,y3))\}$ 
+        \item 4$.\{ \neg Abuelo(x4,y4), Progenitor(medio(x4,y4),y4)\}$ 
+        \item Queremos ver que: $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
+        \item $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
+        \item $\forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+        \item Lo niego: $\neg \forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+        \item $\exists x. \neg \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+        \item $\exists x. \exists y. \neg (\neg Abuelo(x,y) \vee Descenciente(y,x))$ 
+        \item $\exists x. \exists y. (\neg \neg Abuelo(x,y) \wedge \neg Descenciente(y,x))$ 
+        \item $\exists x. \exists y. (Abuelo(x,y) \wedge \neg Descenciente(y,x))$ 
+        \item 5$.\{Abuelo(x5,y5)\} $  
+        \item 6$.\{ \neg Descenciente(y6,x6)\} $ \\
+        \item Resolución: 
+        \item 7$. 5y3. \{x3 \leftarrow x6, y3 \leftarrow y6\}$ y la resolvente es: $\{Progenitor(x3, medio(x3,y3))\}$ 
+        \item 8$. 7y1. \{x1 \leftarrow x3, y1 \leftarrow medio(x3,y3)\}$ y la resolvente es: $\{Descenciente( medio(x3,y3),x3)\}\}$ 
+        \item 9.$ 8y6. \{y6 \leftarrow medio(x3,y3), x6 \leftarrow x3\}$ y la resolvente es: $\{\}$, por lo tanto probamos que $\forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ es una tautología.
+    \end{itemize}
+
+% \subsection{\blue{Ejercicio 19 COMPLETAR}}
+% $\forall x. \neg R(x,x)$ = $\{ \neg R(x,x)\}$ \\
+% $\forall x. \forall y. (R(x,y) \Rightarrow R(y,x))$ = $\forall x. \forall y. (\neg R(x,y) \vee R(y,x))$ = $\{ \neg R(x,y), R(y,x)\}$ \\
+% $\forall x. \forall y. \forall z. ((R(x,y) \wedge R(y,z)) \Rightarrow R(x,z))$ = $\forall x. \forall y. \forall z. ( \neg (R(x,y) \wedge R(y,z)) \vee R(x,z))$ = $\forall x. \forall y. \forall z. ( (\neg R(x,y) \vee \neg R(y,z)) \vee R(x,z))$ = $\{ \neg R(x,y), \neg R(y,z), R(x,z)\}$ \\
+% QVQ\\
+% $\forall x. \neg \exists y. R(x,y)$ = $\forall x. \forall y. \neg R(x,y)$ \\
+% Lo niego: $\exists x. \neg \forall y. \neg R(x,y)$ = $\exists x. \exists y. \neg \neg R(x,y)$ = $R(f(c),f(d))$ = $\{R(f(c),f(d))\}$ \\
+% Cláusulas: \\
+% $\{ \neg R(x,x)\}$ \\
+% $\{ \neg R(x,y), R(y,x)\}$ \\
+% $\{ \neg R(x,y), \neg R(y,z), R(x,z)\}$ \\
+% $\{R(f(c),f(d))\}$
+
+\subsection{Ejercicio 20}
+     Definiciones:
+    \begin{itemize}
+        \item natural(cero).
+        \item natural(suc(X)) $:-$ natural(X).
+        \item mayorOIgual(suc(X),Y) $:-$ mayorOIgual(X,Y).
+        \item mayorOIgual(X,X) $:-$ natural(X).
+    \end{itemize}
+    A) Que sucede con la consulta: mayorOIgual(suc(suc(N)), suc(cero))?
+    \begin{itemize}
+        \item mayorOIgual(suc(suc(N)), suc(cero)) trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(suc(N),suc(cero)).
+        \item mayorOIgual(suc(N),suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(N,suc(cero)).
+        \item mayorOIgual(N,suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), pero no puede porque N no tiene estructura de suc(), por lo tanto intenta unificar con mayorOIgual(N,suc(cero)) y no puede porque no sabe si N es suc(cero), entonces se cuelga. 
+    \end{itemize}
+    B) Demostración:
+    \begin{enumerate}
+    \item $\{natural(cero) \}$
+    \item $\{natural(suc(X2)), \neg natural(X2) \}$
+    \item $\{mayorOIgual(suc(X3),Y3), \neg mayorOIgual(X3,Y3) \}$
+    \item $\{mayorOIgual(X4,X4), \neg natural(X4) \}$
+    \item $\{ \neg mayorOIgual(suc(suc(N5)),suc(cero))\}$
+    \item 5y3. $\{X3 \leftarrow suc(N5), Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{ \neg mayorOIgual(suc(N5),suc(cero))\}$
+    \item 6y3. $\{X3 \leftarrow N5, Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{ \neg mayorOIgual(N5,suc(cero))\}$
+    \item 7y4. $\{X4 \leftarrow suc(cero),N5 \leftarrow X5\}$ y la resolvente es $\{natural(suc(cero))\}$
+    \item 8y2. $\{X2 \leftarrow cero\}$ y la resolvente es $\{ \neg natural(cero)\}$
+    \item 9y1. la resolvente es $\{\}$
+    \end{enumerate}
+    C) Es resolución SLD porque usé cláusulas de horn, resolución binaria y en cada paso de resolución usé la resolvente alterior. También usé el orden de resolución de prolog.
+
+\subsection{Ejercicio 21}
+    Quiero probar: $\exists x.$ inteligente(X) $\wedge$ analfabeto(X). \\
+    Entonces lo niego: $\neg \exists x.$ inteligente(X) $\wedge$ analfabeto(X) = $\forall x. \neg ($inteligente(X) $\wedge$ analfabeto(X)) = $\forall x. \neg$ inteligente(X) $\vee \neg$ analfabeto(X) $=$ $\{ \neg$ inteligente(X), $\neg$ analfabeto(X)$\}$
+    \begin{enumerate}
+        \item $\{analfabeto(X1), \neg vivo(X1), \neg noSabeLeer(X1) \}$
+        \item $\{noSabeLeer(X2), \neg mesa(X2)\}$
+        \item $\{vivo(X3), \neg delfin(X3) \}$
+        \item $\{noSabeLeer(X4), \neg delfin(X4)\}$
+        \item $\{inteligente(flipper)\}$
+        \item $\{delfin(flipper)\}$
+        \item $\{inteligente(alan)\}$
+        \item $\{ \neg inteligente(X8), \neg analfabeto(X8)\}$
+        \item $8y1. \{X1 \leftarrow X8 \}$ resolvente: $\{ \neg inteligente(X8), \neg vivo(X8), \neg noSabeLeer(X8) \}$
+        \item $9y3. \{X3 \leftarrow X8\}$ resolvente: $\{ \neg delfin(X3),\neg inteligente(X8), \neg noSabeLeer(X8)\}$
+        \item $10y4.\{X4 \leftarrow X8\}$ resolvente: $\{ \neg delfin(X3),\neg inteligente(X8), \neg delfin(X8)\}$
+        \item $11y6.\{X8 \leftarrow flipper\}$ resolvente: $\{ \neg delfin(X3),\neg inteligente(X8)\}$
+        \item $12y6. \{X8 \leftarrow flipper\}$ resolvente: $\{ \neg inteligente(X8)\}$
+        \item $13y5. \{X8 \leftarrow flipper\}$ resolvente: $\{\}$
+    \end{enumerate}
+%   \subsection{Ejercicio 22}
 
 \end{document}
