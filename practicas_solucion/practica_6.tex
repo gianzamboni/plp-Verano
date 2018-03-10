@@ -310,6 +310,21 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
 
   \subsection{Ejercicio 11}
   \subsection{Ejercicio 12}
+Condiciones son necesarias para que una demostración por resolución sea SLD:
+\begin{itemieze}
+\item Realizarse de manera lineal (utilizando en cada paso el resolvente obtenido en el paso anterior).
+\item Utilizar únicamente cláusulas de Horn.
+\item Empezar por una cláusula objetivo (sin literales positivos).
+\item Empezar por una cláusula que provenga de la negación de lo que se quiere demostrar.
+\item Recorrer el espacio de búsqueda de arriba hacia abajo y de izquierda a derecha.
+\item Utilizar la regla de resolución binaria en lugar de la general.
+\end{itemieze}
+
+Innecesaria:
+\begin{itemieze}
+\item Utilizar cada cláusula a lo sumo una vez.
+\end{itemieze}
+
   \subsection{Ejercicio 13}
   \subsection{Ejercicio 14}
 	\begin{itemize}
