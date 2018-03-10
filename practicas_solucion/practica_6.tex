@@ -376,7 +376,18 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
 \item 8$. 7y1. \{x1 \leftarrow x3, y1 \leftarrow medio(x3,y3)\}$ y la resolvente es: $\{Descenciente( medio(x3,y3),x3)\}\}$ 
 \item 9.$ 8y6. \{y6 \leftarrow medio(x3,y3), x6 \leftarrow x3\}$ y la resolvente es: $\{\}$, por lo tanto probamos que $\forall x. \forall y. (\neg Abuelo(x,y) \vee Descenciente(y,x))$ es unna tautología.
 \end{itemize}
-  \subsection{Ejercicio 19}
+  \subsection{\blue{Ejercicio 19 COMPLETAR}}
+$\forall x. \neg R(x,x)$ = $\{\neg R(x,x)\}$ \\
+$\forall x. \forall y. (R(x,y) \Rightarrow R(y,x))$ = $\forall x. \forall y. (\neg R(x,y) \vee R(y,x))$ = $\{\neg R(x,y), R(y,x)\}$ \\
+$\forall x. \forall y. \forall z. ((R(x,y) \wedge R(y,z)) \Rightarrow R(x,z))$ = $\forall x. \forall y. \forall z. ( \neg (R(x,y) \wedge R(y,z)) \vee R(x,z))$ = $\forall x. \forall y. \forall z. ( (\neg R(x,y) \vee \neg R(y,z)) \vee R(x,z))$ = $\{\neg R(x,y), \neg R(y,z), R(x,z)\}$ \\
+QVQ\\
+$\forall x. \neg \exists y. R(x,y)$ = $\forall x. \forall y. \neg R(x,y)$ \\
+Lo niego: $\exists x. \neg \forall y. \neg R(x,y)$ = $\exists x. \exists y. \neg \neg R(x,y)$ = $R(f(c),f(d))$ = $\{R(f(c),f(d))\}$ \\
+Cláusulas: \\
+$\{\neg R(x,x)\}$ \\
+$\{\neg R(x,y), R(y,x)\}$ \\
+$\{\neg R(x,y), \neg R(y,z), R(x,z)\}$ \\
+$\{R(f(c),f(d))\}$
   \subsection{Ejercicio 20}
 	A) \\
 	Definiciones:
