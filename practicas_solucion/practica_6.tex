@@ -378,6 +378,34 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
 \end{itemize}
   \subsection{Ejercicio 19}
   \subsection{Ejercicio 20}
+	A) \\
+	Definiciones:
+	\begin{itemieze}
+	\item natural(cero).
+	\item natural(suc(X)) $:-$ natural(X).
+	\item mayorOIgual(suc(X),Y) $:-$ mayorOIgual(X,Y).
+	\item mayorOIgual(X,X) $:-$ natural(X).
+	\end{itemieze}
+
+	Que sucede con la consulta: mayorOIgual(suc(suc(N)), suc(cero))?
+	mayorOIgual(suc(suc(N)), suc(cero)) trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(suc(N),suc(cero)).
+	mayorOIgual(suc(N),suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(N,suc(cero)).
+	mayorOIgual(N,suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), pero no puede porque N no tiene estructura de suc(), por lo tanto intenta unificar con mayorOIgual(N,suc(cero)) y no puede porque no sabe si N es suc(cero), entonces se cuelga. 
+	B) \\
+
+	\begin{enumerate}
+	\item $\{natural(cero) \}$
+	\item $\{natural(suc(X2)), \neg natural(X2) \}$
+	\item $\{mayorOIgual(suc(X3),Y3), \neg mayorOIgual(X3,Y3) \}$
+	\item $\{mayorOIgual(X4,X4), \neg natural(X4) \}$
+	\item $\{\neg mayorOIgual(suc(suc(N5)),suc(cero))\}$
+	\item 5y3. $\{X3 \leftarrow suc(N5), Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{\neg mayorOIgual(suc(N5),suc(cero))\}$
+	\item 6y3. $\{X3 \leftarrow N5, Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{\neg mayorOIgual(N5,suc(cero))\}$
+	\item 7y4. $\{X4 \leftarrow suc(cero),N5 \leftarrow X5\}$ y la resolvente es $\{natural(suc(cero))\}$
+	\item 8y2. $\{X2 \leftarrow cero\}$ y la resolvente es $\{\neg natural(cero)\}$
+	\item 9y1. la resolvente es $\{\}$
+	\end{enumerate}
+	Es resolución SLD porque usé clausulas de horn, resolución binaria y en cada paso de resolución usé la resolvente alterior. También usé el orden de resolución de prolog.
   \subsection{Ejercicio 21}
   \subsection{Ejercicio 22}
 
