@@ -312,6 +312,20 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
   \subsection{Ejercicio 12}
   \subsection{Ejercicio 13}
   \subsection{Ejercicio 14}
+Cláusulas: \\
+	$1.{\neg suma(x1,y1,z1), suma(x1,suc(y1),suc(z1))}$ \\
+	$2.{suma(x2,cero,x2)}$ \\
+	$3.{\neg suma(x3,y3,z3), par(y3)}$ \\
+Quiero probar: \\
+	${par(suc(suc(cero)))}$ \\
+Entonces, la niego: \\
+	$4.{\neg par(suc(suc(cero)))}$ \\
+Demostración: \\
+	$5.4y3. \sigma={y3 \leftarrow suc(suc(cero))}$ y la resolvente es: $ {\neg suma(x3,suc(suc(cero)),z3)}$ \\
+	$6.5y1. \sigma={x1 \leftarrow x3,suc(y1) \leftarrow suc(suc(cero)),z3 \leftarrow suc(z1))}$ y la resolvente es: ${\neg suma(x3,suc(cero),z1)}$ \\
+	$7.6y1. \sigma={x1' \leftarrow x3, suc(y1') \leftarrow suc(cero), suc(z1') \leftarrow z1}$ y la resolvente es: $ {\neg suma(x3,cero, z1)}$ \\
+	$8.7y2. \sigma={x2 \leftarrow z1, x3 \leftarrow x2} $ y la resolvente es: $ \{\}$ \\
+Aplique resolución SLD, porque eran Cláusulas de horn, utilicé la resolucion binaria y en cada paso utilicé la última resolvente creada.
   \subsection{Ejercicio 15}
   \subsection{Ejercicio 16}
   \subsection{Ejercicio 17}
