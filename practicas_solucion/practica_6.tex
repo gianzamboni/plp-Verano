@@ -344,6 +344,17 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
 	\blue{4} cuando define a una sustitución de una constante por una variable($\{k \rightarrow Z\}$) \\
 	\blue{5} se olvido de negar lo que queria probar.
   \subsection{Ejercicio 17}
+\begin{itemize}
+    \item $\forall x. \exists y. esContacto(x,y)$ = $\{esContacto(x,y)\}$
+    \item $\forall x. \forall y. esContacto(x,y) \Rightarrow esContacto(y,x)$ = $\neg esContacto(x,y) \vee esContacto(y,x)$  = $\{\neg esContacto(x,y), esContacto(y,x)\}$ 
+    \item Queremos ver: $\forall x. esContacto(x,x)$ 
+    \item La negamos: $\neg \forall x. esContacto(x,x)$ = $\exists x. \neg esContacto(x,x)$ = $\neg esContacto(f(c),f(c))$
+    \item Rta: Es correcta. \\ 
+    \item Queremos ver: $\forall y. \exists x. esContacto(x,y)$ 
+    \item La negamos: $\neg \forall y. \exists x. esContacto(x,y)$ = $\exists y. \neg \exists x. esContacto(x,y)$ = $\exists y. \forall x. \neg esContacto(x,y)$ = $\forall x. \neg esContacto(x,f(c))$  
+    \item El punto 4) está mal. 
+    \item Queda: del 2 y 3, $esContacto(d,d)$ y ahi se traba porque va a usar simepre la $resolvente_{i}$ con 2.
+\end{itemize}
   \subsection{Ejercicio 18}
   \subsection{Ejercicio 19}
   \subsection{Ejercicio 20}
