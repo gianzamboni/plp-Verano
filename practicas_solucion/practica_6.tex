@@ -312,22 +312,37 @@ $\{\{P, Q, \neg P\}\{\neg Q , Q, \neg P\}\} $ \\
   \subsection{Ejercicio 12}
   \subsection{Ejercicio 13}
   \subsection{Ejercicio 14}
-Cláusulas: \\
-	$1.{\neg suma(x1,y1,z1), suma(x1,suc(y1),suc(z1))}$ \\
-	$2.{suma(x2,cero,x2)}$ \\
-	$3.{\neg suma(x3,y3,z3), par(y3)}$ \\
-Quiero probar: \\
-	${par(suc(suc(cero)))}$ \\
-Entonces, la niego: \\
-	$4.{\neg par(suc(suc(cero)))}$ \\
-Demostración: \\
-	$5.4y3. \sigma={y3 \leftarrow suc(suc(cero))}$ y la resolvente es: $ {\neg suma(x3,suc(suc(cero)),z3)}$ \\
-	$6.5y1. \sigma={x1 \leftarrow x3,suc(y1) \leftarrow suc(suc(cero)),z3 \leftarrow suc(z1))}$ y la resolvente es: ${\neg suma(x3,suc(cero),z1)}$ \\
-	$7.6y1. \sigma={x1' \leftarrow x3, suc(y1') \leftarrow suc(cero), suc(z1') \leftarrow z1}$ y la resolvente es: $ {\neg suma(x3,cero, z1)}$ \\
-	$8.7y2. \sigma={x2 \leftarrow z1, x3 \leftarrow x2} $ y la resolvente es: $ \{\}$ \\
-Aplique resolución SLD, porque eran Cláusulas de horn, utilicé la resolucion binaria y en cada paso utilicé la última resolvente creada.
+	\begin{itemize}
+	    \item Cláusulas: \\
+		$1.{\neg suma(x1,y1,z1), suma(x1,suc(y1),suc(z1))}$ \\
+		$2.{suma(x2,cero,x2)}$ \\
+		$3.{\neg suma(x3,y3,z3), par(y3)}$
+	    \item Quiero probar: \\
+		${par(suc(suc(cero)))}$
+	    \item Entonces, la niego: \\
+		$4.{\neg par(suc(suc(cero)))}$
+	    \item Demostración: \\
+		$5.4y3. \sigma={y3 \leftarrow suc(suc(cero))}$ y la resolvente es: $ {\neg suma(x3,suc(suc(cero)),z3)}$ \\
+		$6.5y1. \sigma={x1 \leftarrow x3,suc(y1) \leftarrow suc(suc(cero)),z3 \leftarrow suc(z1))}$ y la resolvente es: ${\neg suma(x3,suc(cero),z1)}$ \\
+		$7.6y1. \sigma={x1' \leftarrow x3, suc(y1') \leftarrow suc(cero), suc(z1') \leftarrow z1}$ y la resolvente es: $ {\neg suma(x3,cero, z1)}$ \\
+		$8.7y2. \sigma={x2 \leftarrow z1, x3 \leftarrow x2} $ y la resolvente es: $ \{\}$
+	    \item Aplique resolución SLD, porque eran Cláusulas de horn, utilicé la resolucion binaria y en cada paso utilicé la última resolvente creada.
+	\end{itemize}
   \subsection{Ejercicio 15}
   \subsection{Ejercicio 16}
+	\begin{itemize}
+	    \item Para Identificar errores lo pruebo: $(\exists x. enBAr(x)) \Rightarrow \exists y. ( enBAr(y) \ wedge ( bebe(y) \Rightarrow \forall z. ( enBAr(z) \Rightarrow bebe(z) ) ) )$
+	    \item Eliminar implicaciones: $\neg (\exists x. enBAr(x)) \vee \exists y. ( enBAr(y) \ wedge (\neg bebe(y) \vee \forall z. ( \neg enBAr(z) \vee bebe(z) ) ) )$
+	    \item Forma normal negada: $(\forall x. \neg enBAr(x)) \vee \exists y. ( enBAr(y) \ wedge (\neg bebe(y) \vee \forall z. ( \neg enBAr(z) \vee bebe(z) ) ) )$
+	    \item Forma normal de skolem: $\forall z. \forall x. (\neg enBAr(x)) \vee ( enBAr(f(c)) \ wedge (\neg bebe(f(c)) \vee ( \neg enBAr(z) \vee bebe(z) ) ) )$
+	    \item Forma normal clausal: $\forall z. \forall x. ((\neg enBAr(x)) \vee enBAr(f(c))) \ wedge (\neg enBAr(x)) \vee \neg bebe(f(c)) \vee \neg enBAr(z) \vee bebe(z) ) )$ \\
+	    $\{\{\neg enBAr(x)), enBAr(f(c))\},\{\neg enBAr(x), \neg bebe(f(c)), \neg enBAr(z), bebe(z)\}\}$
+	\end{itemize}
+	\blue{1} la negacion del existencial \\
+	\blue{2} la separación en terminos de la forma clausal \\
+	\blue{3} cuando genera una resolvente a partir de dos cláusulas que son negaciones ($\neg enBar()$) \\
+	\blue{4} cuando define a una sustitución de una constante por una variable($\{k \rightarrow Z\}$) \\
+	\blue{5} se olvido de negar lo que queria probar.
   \subsection{Ejercicio 17}
   \subsection{Ejercicio 18}
   \subsection{Ejercicio 19}
