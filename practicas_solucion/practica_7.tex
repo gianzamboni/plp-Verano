@@ -55,7 +55,16 @@ ancestro(X, Y) :- padre(X, Z), ancestro(Z, Y).
 \end{enumerate}
 
 \subsection{Ejercicio 2}
-
+Base de conocimiento:
+\begin{itemize}
+\item vecino(X, Y, [X|[Y|Ls]]).
+\item vecino(X, Y, [W|Ls]) :- vecino(X, Y, Ls).
+\end{itemize}
+Respuestas: vecino(5, Y, [5,6,5,3]).
+\begin{enumerate}
+\item Entra por la primera regla e instancia y = 6, luego entra por la segunda regla y saca el 5 y el 6, vuelve a usar la primera regla e instancia y = 3, y luego da false.
+\item Instancia en orden opuesto, ya que primero se resuelven las consultas mas profundas. y da Y=3, Y=6.
+\end{enumerate}
 
 \subsection{Ejercicio 3}
     Base de conocimiento:
