@@ -17,18 +17,22 @@
 
 
 \section*{\ El motor de búsqueda de prolog}
+
 \subsection{Ejercicio 1}
 Base de conocimiento:
-\begin{itemize}
-    \item padre(juan, carlos).
-    \item padre(juan, luis).
-    \item padre(carlos, daniel).
-    \item padre(carlos, diego).
-    \item padre(luis, pablo).
-    \item padre(luis, manuel).
-    \item padre(luis, ramiro).
-    \item abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
-\end{itemize}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item padre(juan, carlos).
+        \item padre(juan, luis).
+        \item padre(carlos, daniel).
+        \item padre(carlos, diego).
+	    	\columnbreak
+        \item padre(luis, pablo).
+        \item padre(luis, manuel).
+        \item padre(luis, ramiro).
+        \item abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
+    \end{itemize}
+\end{multicols}
 Respuestas:
 \begin{enumerate}
 \item abuelo(X, manuel): padre(X,Z), padre(Z,manuel) \\
@@ -38,41 +42,140 @@ hijo(X,Y) :- padre(Y,X). \\
 hermano(X,Y) :- padre(Z,X), padre(Z,Y). \\
 descendiente(X,Y) :- padre(Y,X). \\
 descendiente(X,Y) :- padre(X,Z), descendiente(Z,Y).
-\item \blue{arbol}
+\item \blue{árbol}
 \item abuelo(Juan,X).
 \item hermano(Pablo,X).
 \item Regla: \\
 ancestro(X, X). \\
 ancestro(X, Y) :- ancestro(Z, Y), padre(X, Z).
-\item el problema es que se genera una consulta que no termina, porque todo el tiempo el arbol se abre por ancestro().
+\item el problema es que se genera una consulta que no termina, porque todo el tiempo el árbol se abre por ancestro().
 \item Solucion: \\
 ancestro(X, X). \\
 ancestro(X, Y) :- padre(X, Z), ancestro(Z, Y).
 \end{enumerate}
+
 \subsection{Ejercicio 2}
+
+
 \subsection{Ejercicio 3}
+    Base de conocimiento:
+    \begin{itemize}
+        \item natural(0).
+        \item natural(suc(X)) :- natural(X).
+        \item menorOIgual(X, suc(Y)) :- menorOIgual(X, Y).
+        \item menorOIgual(X,X) :- natural(X).
+    \end{itemize}
+    
+    Respuestas:
+    \begin{enumerate}
+        \item menorOIgual(0,X1): prolog trata de unificar con la regla menorOIgual(X, suc(Y)) :- menorOIgual(X, Y), instancia a X1 como suc(Y) y consulta menorOIgual(0, Y), y así infinitas veces.
+        \item Prolog puede generar un ciclo infinito cuando no tiene bien definido el caso base, hay que chequearlo antes de el caso "recursivo".
+    \end{enumerate}
+    
+    Redefinición: cambiar el orden de las reglas.
+    \begin{itemize}
+        \item menorOIgual(X,X) :- natural(X).
+        \item menorOIgual(X, suc(Y)) :- menorOIgual(X, Y).
+    \end{itemize}
+
 \section*{\ Estructuras, instanciación y reversibilidad}
+
 \subsection{Ejercicio 4}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 5}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 6}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 7}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 8}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 9}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 10}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 11}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 12}
+\begin{itemize}
+\item
+\end{itemize}
 \section*{\ Generate and test}
+
 \subsection{Ejercicio 13}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 14}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 15}
+\begin{itemize}
+\item
+\end{itemize}
 \section*{\ Negación por falla}
+
 \subsection{Ejercicio 16}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 17}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 18}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 19}
+\begin{itemize}
+\item
+\end{itemize}
+
 
 \subsection{Ejercicio 20}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 21}
+\begin{itemize}
+\item
+\end{itemize}
+
 \subsection{Ejercicio 22}
+\begin{itemize}
+\item
+\end{itemize}
 
 \end{document}
