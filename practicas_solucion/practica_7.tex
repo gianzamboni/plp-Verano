@@ -1,0 +1,78 @@
+
+\documentclass[10pt,a4paper]{article}
+\input{header}
+
+\setcounter{section}{6}
+
+
+\begin{document}
+  \title{PLP - Práctica 7: Programación Lógica}
+
+  \date{\today}
+
+  \author{Zamboni, Gianfranco}
+
+  \maketitle
+  \setcounter{page}{1}
+
+
+\section*{\ El motor de búsqueda de prolog}
+\subsection{Ejercicio 1}
+Base de conocimiento:
+\begin{itemize}
+    \item padre(juan, carlos).
+    \item padre(juan, luis).
+    \item padre(carlos, daniel).
+    \item padre(carlos, diego).
+    \item padre(luis, pablo).
+    \item padre(luis, manuel).
+    \item padre(luis, ramiro).
+    \item abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
+\end{itemize}
+Respuestas:
+\begin{enumerate}
+\item abuelo(X, manuel): padre(X,Z), padre(Z,manuel) \\
+Juan
+\item Definición:
+hijo(X,Y) :- padre(Y,X). \\
+hermano(X,Y) :- padre(Z,X), padre(Z,Y). \\
+descendiente(X,Y) :- padre(Y,X). \\
+descendiente(X,Y) :- padre(X,Z), descendiente(Z,Y).
+\item \blue{arbol}
+\item abuelo(Juan,X).
+\item hermano(Pablo,X).
+\item Regla: \\
+ancestro(X, X). \\
+ancestro(X, Y) :- ancestro(Z, Y), padre(X, Z).
+\item el problema es que se genera una consulta que no termina, porque todo el tiempo el arbol se abre por ancestro().
+\item Solucion: \\
+ancestro(X, X). \\
+ancestro(X, Y) :- padre(X, Z), ancestro(Z, Y).
+\end{enumerate}
+\subsection{Ejercicio 2}
+\subsection{Ejercicio 3}
+\section*{\ Estructuras, instanciación y reversibilidad}
+\subsection{Ejercicio 4}
+\subsection{Ejercicio 5}
+\subsection{Ejercicio 6}
+\subsection{Ejercicio 7}
+\subsection{Ejercicio 8}
+\subsection{Ejercicio 9}
+\subsection{Ejercicio 10}
+\subsection{Ejercicio 11}
+\subsection{Ejercicio 12}
+\section*{\ Generate and test}
+\subsection{Ejercicio 13}
+\subsection{Ejercicio 14}
+\subsection{Ejercicio 15}
+\section*{\ Negación por falla}
+\subsection{Ejercicio 16}
+\subsection{Ejercicio 17}
+\subsection{Ejercicio 18}
+\subsection{Ejercicio 19}
+
+\subsection{Ejercicio 20}
+\subsection{Ejercicio 21}
+\subsection{Ejercicio 22}
+
+\end{document}
