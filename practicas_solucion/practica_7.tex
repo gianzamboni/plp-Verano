@@ -91,22 +91,64 @@ Respuestas: vecino(5, Y, [5,6,5,3]).
 
 \subsection{Ejercicio 4}
 \begin{itemize}
-\item
+%concatenar(?Lista1,?Lista2,?Lista3),
+\item concatenar([],L1,C):-C=L1.
+\item concatenar([E|T],L1,C):- concatenar(T,L1,C2),append([[E],C2],C).
 \end{itemize}
 
 \subsection{Ejercicio 5}
 \begin{itemize}
-\item
+
+%last(?L, ?U)
+\item last([],[]). \\
+last([E],E). \\
+last([E|T],E2):-last(T,E2).
+%reverse(+L, -L1)
+\item reverse([],[]). \\
+reverse([E|T],L):- reverse(T,L2),append([L2,[E]],L).
+%maxlista(+L, -M)
+\item maxlista([E],E). \\
+maxlista([E|T],E):-maxlista(T,M),E>=M. \\
+maxlista([E|T],M):-maxlista(T,M),E=<M.
+%maxlista(+L, -M)
+\item minlista([E],E). \\
+minlista([E|T],M):-minlista(T,M),E>=M. \\
+minlista([E|T],E):-minlista(T,M),E=<M.
+%prefijo(?P, +L)
+\item prefijo([], _). \\
+prefijo([E|T2], [E|T]):-prefijo(T2,T).
+%sufijo(?S, +L)
+\item sufijo(S, L):-reverse(S,S2),reverse(L,L2),prefijo(S2,L2).
+%sublista(?S, +L)
+\item sublistas(Sub,L) :- \\
+length(Sub,Largo), \\
+append(Aux,Der,L), \\
+append(Izq,Sub,Aux), \\
+Largo >= 1.
+%pertenece(?X, +L)
+\item pertenece(X, [X|_]). \\
+pertenece(X, [_|T]):-pertenece(X,T).
 \end{itemize}
 
 \subsection{Ejercicio 6}
-\begin{itemize}
-\item
-\end{itemize}
+aplanar([],[]). \\
+aplanar([[X1|T1]|T2], Y):- aplanar([X1|T1],Y1),aplanar(T2,Y2),!, append([Y1,Y2],Y). \\
+aplanar([X|T], Y):- aplanar(T,Y2),append([[X],Y2],Y).
 
 \subsection{Ejercicio 7}
 \begin{itemize}
-\item
+\item 
+%palindromo(+L, -L1)
+palindromo([], []). \\
+palindromo([X|T], P):- palindromo(T, P1), append([[X],P1,[X]],P).
+\item 
+%doble(?L, ?L1)
+doble([],[]). \\
+doble([X|T], L):- doble(T, L1), append([[X,X],L1],L).
+\item 
+%iesimo(?I, +L, -X)
+iesimo(1, [X|_], X). \\
+iesimo(N, [E|T], X):- length([E|T],L), L>=N, iesimo(N1, T, X), N1 is N-1.
 \end{itemize}
 
 \subsection{Ejercicio 8}
