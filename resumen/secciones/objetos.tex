@@ -5,12 +5,12 @@ En el parádigma orientado a objetos, todo programa es una simulación represent
 Los mensajes intercambiados son solicitudes para que el objeto \textbf{receptor} del mismo lleve a cabo una de sus operaciones. El \textbf{receptor} determinara si puede llevar a cabo dicha operación y, si puede hacerlo la ejecutará.
 
 \subsection{Objetos}
-Entonces un objeto es una entidad del programa que puede recibir un conjunto de mensajes (al que llamaremos \textbf{interfaz} o \textbf{protocolo}) que le permite determinar como llevar a cabo ciertas operaciones. Internamente, estará compuesto por un conjunto de \textbf{colaboradores internos} (tambien llamados \textbf{atributos} o \textbf{variables internas}) que determinan su \textbf{estado interno} y por un conjunto de \textbf{métodos} que describen (implementan) las operaciones que puede realizar y, si estas afectan a su estado interno, como lo hacen.
+Entonces un objeto es una entidad del programa que puede recibir un conjunto de mensajes (al que llamaremos \textbf{interfaz} o \textbf{protocolo}) que le permiten determinar como llevar a cabo ciertas operaciones. Internamente, estará compuesto por un conjunto de \textbf{colaboradores internos} (tambien llamados \textbf{atributos} o \textbf{variables internas}) que determinan su \textbf{estado interno} y por un conjunto de \textbf{métodos} que describen (implementan) las operaciones que puede realizar y, si estas afectan a su estado interno, como lo hacen.
 
 \paragraph{Principio de ocultamiento de la información}
 El estado de un objeto es \textbf{privado} y solamente puede ser consultado o modificado por sus propios métodos, por lo que su implementación no depende de los detalles de implementación de otros objetos. Y la única forma que tenemos de interactuar con el mismo es enviándole los mensajes definidos en su interfaz.
 
-\paragraph{Method dispatch} Es el método mediante el cuál, un proceso, estable la asociación entre el mensaje y el método a ejecutar. Es decir, cuando un objeto recibe un mensaje, el \textbf{method dispatch} se encarga de hallar la \textbf{declaración del método} que se pretende ejecutar. Este método puede ser \textbf{estático} (realizado en tiempo de compilación) o \textbf{dinámico} (realizado en tiempo de ejecución).
+\paragraph{Method dispatch} Es el método mediante el cuál, un proceso, establece la asociación entre el mensaje y el método a ejecutar. Es decir, cuando un objeto recibe un mensaje, el \textbf{method dispatch} se encarga de hallar la \textbf{declaración del método} que se pretende ejecutar.
 
 \paragraph{Corrientes de organización}
 Por lo general,tratamos de agrupar los objetos en conjuntos compuestos por objetos que se comportan de manera similar para conseguir programas más concisos. Esto se puede hacer de dos formas: Mediante clasifiación o mediante prototipado.

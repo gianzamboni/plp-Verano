@@ -29,24 +29,26 @@ Cuando escribimos un programa en este paradigma, es común que creemos nuevas cl
 
 Para evitar tener que escribir toda una clase de cero, hacemos que la clase que estamos creando \textbf{herede} los atributos y los métodos de la clase pre-existente (la \textbf{super-clase}) que queremos extender. De esta forma, la nueva clase tendrá todo lo que tenía la super-clase y, además, las modificaciones que nosotros querramos agregarle.
 
-La herencia define una relación transitiva por lo que si una clase $A$ tiene como super-tipo a otra clase $B$, entonces el super-tipo $C$ de $B$, entonces $C$ tambien es supertipo de $A$. Llamaremos \textbf{ancestros} a todos los supertipos de $A$ y \textbf{descendientes} a todos los tipos que tienen a $A$ como ancestro.
+La herencia define una relación transitiva. Si una clase $A$ tiene como super-tipo a otra clase $B$ y $C$ es super-tipo de $B$, entonces $C$ tambien es super-tipo de $A$. Llamaremos \textbf{ancestros} a todos los supertipos de $A$ y \textbf{descendientes} a todos los tipos que tienen a $A$ como ancestro.
 
 \subsection{Tipos de herencia}
-Hay dos tipos de herencia: \textbf{simple} y \textbf{múltiple}. La herencia simple permite que una clase tenga una única clase padre y la única clase que no tiene padre es la clase \texttt{Object} que es la clase de la que heredan todas las demás. Mientras que la herencia múltiple deja que una clase tenga varios padres.
+Hay dos tipos de herencia: \textbf{simple} y \textbf{múltiple}. La herencia simple permite que una clase tenga una única clase padre, mientras que la herencia múltiple deja que una clase tenga varios padres.
 
-La mayoría de los lenguajes orientados a objetos utilizan la primera ya que la herencia múltiple complica el proceso de method dispath (que asocia los mensajes de un objeto con sus respectivos métodos). Para ver por qué pasa esto, supongamos que tenemos dos clases $A$ y $B$ incomparables y una clase $C$ que es subclase de $A$ y $B$. Si $A$ y $B$ definen (o heredan) dos métodos diferentes para un mismo mensaje $m$, entonces cuando enviemos dicho mensaje a $C$ deberíamos saber cual de los dos elegir.
+Además, todas las clases deben heredar de una clase \texttt{Object} que es la raíz del árbol o cadena de herencias.
 
-Hay dos soluciones posibles a este problema:
+La mayoría de los lenguajes orientados a objetos utilizan la herencia simple ya que la herencia múltiple complica el proceso de method dispath (que asocia los mensajes de un objeto con sus respectivos métodos). 
+
+Supongamos que tenemos dos clases $A$ y $B$ incomparables y una clase $C$ que es subclase de $A$ y $B$ simultaneamente. Si $A$ y $B$ definen (o heredan) dos métodos diferentes para un mismo mensaje $m$, entonces cuando enviemos dicho mensaje a $C$ deberemos decidir cuál de los dos métodos asociados debemos evaluar. Esta selección se puede realizar de dos formas:
 \begin{itemize}
-\item Podemos establecer un \textbf{orden de búsqueda} sobre las superclases de un clase estableciendo, de esta forma, un nivel de prioridad sobre algunas de ellas.
-\item O obligar al programado a \textbf{redefinir} el método en $C$ si $C$ hereda dos métodos distintos para el mismo mensaje.
+\item Estableciendo un \textbf{orden de búsqueda} sobre las superclases de un clase asignando un nivel de prioridad a cada una de ellas.
+\item U obligando al programador a \textbf{redefinir} el método en $C$ si $C$ hereda dos métodos distintos para el mismo mensaje.
 \end{itemize}
 
 \subsubsection{Method Dispatch}
 
-Como dijimos, el \textbf{method Dispatch} es el método mediante el cual asociamos un mensaje a su método correspondiente en el objeto. Por lo general, este método se realiza de manera dinámica, es decir se realizan durante tiempo de ejecución dependiendo del contexto sin embargo, hay situaciones en las que realizar este proceso de manera estática es necesario. 
+Como dijimos, el \textbf{method Dispatch} es el método mediante el cual asociamos un mensaje a su método correspondiente en el objeto. Por lo general, este método se realiza de manera dinámica, es decir se realizan durante tiempo de ejecución. Sin embargo, dependiendo del contexto, hay situaciones en las que realizar este proceso de manera estática es necesario. 
 
-Un ejemplo de esto, es cuando el lenguaje nos permite hacer uso de \texttt{super}, una pseudovariable que \textbf{referencia al objeto que recibe el mensaje} y \textbf{cambia} su proceso de activación al momento de recibir un mensaje.
+Un ejemplo de esto, es cuando el lenguaje nos permite hacer uso de \texttt{super}, una pseudovariable que \textbf{referencia al objeto que recibe el mensaje} y \textbf{cambia} su proceso de activación al momento de recibirlo.
 Cuando usamos una expresión de la forma \texttt{super msg} en el cuerpo de un método $m$, el \textbf{method lookup} (la búsqueda del método realizada por el method dispath), comienze a realizarse desde el padre de la \textbf{clase anfitriona} de m.
 
-Algunos lenguajes, además, nos permiten pasarle como parámetro una clase a partir de la que empezar de la siguiente forma: \texttt{super[A] msg}, siempre y cuando $A$ sea un ancestro de la clase anfitriona del método.
+Algunos lenguajes, además, nos permiten pasarle como parámetro una clase a partir de la cual se debe empezar la búsqueda de la siguiente forma: \texttt{super[A] msg}, siempre y cuando $A$ sea un ancestro de la clase anfitriona del método.

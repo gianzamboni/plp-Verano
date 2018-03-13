@@ -96,6 +96,7 @@ pdfencoding = auto]{hyperref}
 \forestset{tikzQtree/.style={for tree={if n children=0{
                 node options=every leaf node/.try}{node options=every tree node/.try}, text centered}}}
                 
+\forestset{resolucion/.style={for tree={ grow=north, calign=first }}}
                 
 \DeclareMathOperator{\Erase}{Erase}
 
@@ -106,6 +107,3 @@ pdfencoding = auto]{hyperref}
 
 \newcommand{\red}[1]{{\color{red}#1}}%\renewcommand{\appendixtocname}{Apéndices}
 \newcommand{\green}[1]{{\color{green!60!black}#1}}%\renewcommand{\appendixpagename}{Apéndices}
-
-
-
