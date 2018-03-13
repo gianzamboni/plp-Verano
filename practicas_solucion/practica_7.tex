@@ -153,7 +153,10 @@ iesimo(N, [E|T], X):- length([E|T],L), L>=N, iesimo(N1, T, X), N1 is N-1.
 
 \subsection{Ejercicio 8}
 \begin{itemize}
-\item
+\item desde2(X,Y):- nonvar(Y), X=<Y. \\
+desde2(X,Y) :- var(Y), desde(X,Y).
+\item desde(X,X). \\
+desde(X,Y) :- N is X+1, desde(N,Y).
 \end{itemize}
 
 \subsection{Ejercicio 9}
@@ -173,18 +176,33 @@ iesimo(N, [E|T], X):- length([E|T],L), L>=N, iesimo(N1, T, X), N1 is N-1.
 
 \subsection{Ejercicio 12}
 \begin{itemize}
-\item
+\item inorder(nil,[]). \\
+inorder(bin(Izq, V, Der), XS):-inorder(Izq, L1),inorder(Der,L2),append([L1,[V],L2],XS).
+\item arbolConInorder([],nil). \\
+arbolConInorder(XS,bin(Izq,X, Der)):-append(L1,[X|L2],XS),arbolConInorder(L1,Izq),arbolConInorder(L2,Der).
+\item 
+\item 
 \end{itemize}
 \section*{\ Generate and test}
 
 \subsection{Ejercicio 13}
 \begin{itemize}
-\item
+\item coprimos(X,Y):- desde(2,X), between(2,X,Y), 1 is gcd(X,Y).
 \end{itemize}
 
 \subsection{Ejercicio 14}
 \begin{itemize}
 \item
+lista_que_suman([],0,0). \\
+lista_que_suman([X|XS],S,N):- \\
+    between(0,S,X),  \\
+    N2 is N-1, \\
+    length(XS,N2),  \\
+    S2 is S-X,  \\
+    lista_que_suman(XS,S2,N2). \\
+cuadradoSemiLatino(N,XS):-length(XS,N),desde(0,S),cuadradoSemiLatinoAux(N,N,XS,S). \\
+cuadradoSemiLatinoAux(_,0,[],_). \\
+cuadradoSemiLatinoAux(M,N,[X|XS],S):- N2 is N-1, lista_que_suman(X,S,M), cuadradoSemiLatinoAux(M,N2,XS,S).
 \end{itemize}
 
 \subsection{Ejercicio 15}
