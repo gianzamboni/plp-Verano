@@ -161,7 +161,37 @@ desde(X,Y) :- N is X+1, desde(N,Y).
 
 \subsection{Ejercicio 9}
 \begin{itemize}
-\item
+\item difSimetrica(L1,L2,L):- append([L1,L2],L3), delete_rep(L3,L).
+\item delete_rep([],[]). \\
+delete_rep([X|XS],L):- member(X,XS), !, delete(XS,X,YS), delete_rep(YS,L). \\
+delete_rep([X|XS],[X|L]):- delete_rep(XS,L).
+\item sinRepetidos([],[]). \\
+sinRepetidos([X|L3],L33):-member(X,L3),!,sinRepetidos(L3,L33). \\
+sinRepetidos([X|L3],[X|L33]):-sinRepetidos(L3,L33).
+\item interseccion(+L1, +L2, -L3). \\
+interseccion(L1,L2,L33):-interseccionAux(L1,L2,L3), sinRepetidos(L3,L33).
+\item interseccionAux([],_,[]). \\
+interseccionAux([X|L1],L2,[X|L3]):-member(X,L2),!,interseccionAux(L1,L2,L3). \\
+interseccionAux([_|L1],L2,L3):-interseccionAux(L1,L2,L3).
+\item split(N, L, L1, L2). \\
+split(0, L, [], L). \\
+split(N, [X|L], [X|L1], L2) :- N2 is N-1, length(L,Largo), N2=<Largo, split(N2, L, L1, L2).
+\item borrar(+ListaOriginal, +X, -ListaSinXs). \\
+borrar([], _, []). \\
+borrar([X|L], E, LsinX):- X==E,!,borrar(L, E, LsinX). \\
+borrar([X|L], E, [X|LsinX]):- borrar(L, E, LsinX).
+\item sacarDuplicados(+L1, -L2). \\
+sacarDuplicados(L1, L2):-setof(X,member(X,L1),L2).
+\item reparto(+L, +N, -LListas). \\
+repartoSinVaciasAux?
+\item repartoSinVacias(+L, -LListas). \\
+desde(X,X). \\
+desde(X,Y) :- N is X+1, desde(N,Y).
+\item repartoSinVacias(L, LListas):-desde(1,S),repartoSinVaciasAux(L, S, LListas). \\
+repartoSinVaciasAux(_, 0, []). \\
+repartoSinVaciasAux(L, N, [X|LListas]):- sublista(L,X), length([X|LListas],N), N2 is N-1, repartoSinVaciasAux(L, N2, LListas).
+\item sublista(L,X):- sublistaAux(L,Sub), sacarDuplicados(Sub, X). \\
+sublistaAux(L,Sub):-append(_,Medio,L),append(Sub, _,Medio).
 \end{itemize}
 
 \subsection{Ejercicio 10}
