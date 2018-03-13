@@ -98,35 +98,34 @@ Respuestas: vecino(5, Y, [5,6,5,3]).
 
 \subsection{Ejercicio 5}
 \begin{itemize}
-
-%last(?L, ?U)
-\item last([],[]). \\
+\item last(?L, ?U). \\
+last([],[]). \\
 last([E],E). \\
 last([E|T],E2):-last(T,E2).
-%reverse(+L, -L1)
-\item reverse([],[]). \\
+\item reverse(+L, -L1). \\
+reverse([],[]). \\
 reverse([E|T],L):- reverse(T,L2),append([L2,[E]],L).
-%maxlista(+L, -M)
-\item maxlista([E],E). \\
+\item maxlista(+L, -M). \\
+maxlista([E],E). \\
 maxlista([E|T],E):-maxlista(T,M),E>=M. \\
 maxlista([E|T],M):-maxlista(T,M),E=<M.
-%maxlista(+L, -M)
-\item minlista([E],E). \\
+\item maxlista(+L, -M).\\
+minlista([E],E). \\
 minlista([E|T],M):-minlista(T,M),E>=M. \\
 minlista([E|T],E):-minlista(T,M),E=<M.
-%prefijo(?P, +L)
-\item prefijo([], _). \\
+\item prefijo(?P, +L). \\
+prefijo([], _). \\
 prefijo([E|T2], [E|T]):-prefijo(T2,T).
-%sufijo(?S, +L)
-\item sufijo(S, L):-reverse(S,S2),reverse(L,L2),prefijo(S2,L2).
-%sublista(?S, +L)
-\item sublistas(Sub,L) :- \\
+\item sufijo(?S, +L). \\
+sufijo(S, L):-reverse(S,S2),reverse(L,L2),prefijo(S2,L2).
+\item sublista(?S, +L). \\
+sublistas(Sub,L) :- \\
 length(Sub,Largo), \\
 append(Aux,Der,L), \\
 append(Izq,Sub,Aux), \\
 Largo >= 1.
-%pertenece(?X, +L)
-\item pertenece(X, [X|_]). \\
+\item pertenece(?X, +L). \\
+pertenece(X, [X|_]). \\
 pertenece(X, [_|T]):-pertenece(X,T).
 \end{itemize}
 
