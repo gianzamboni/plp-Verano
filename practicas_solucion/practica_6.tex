@@ -352,20 +352,47 @@ $\{-q, -q, -p, q\},\{-q, -q, q, q\}\}$ es insatisfacible
     \end{enumerate}
 
 \subsection{Ejercicio 13}
-    Cláusulas:
-    Queremos probar: $\exists x. I(x)$ = $\{I(f(e))\}$
-    \begin{enumerate}
-        \item $R(alan)$
-        \item $J(alan)$
-        \item $\forall Res(x1,PL(y1)) \Rightarrow I(x1)$ = $\forall x1. \forall y1. \neg Res(x1,PL(y1)) \vee I(x1)$ = $\{\neg Res(x1,PL(y1)), I(x1)\}$
-        \item $\forall x2. J(x2) \Rightarrow Res(x2,PR(y2))$ = $\forall x2. \neg J(x2) \vee Res(x2,PR(y2))$  = $\{\neg J(x2), Res(x2,PR(y2))\}$ 
-        \item $\forall x3. PR(x3) \Rightarrow PL(x3)$ = $\forall x3. \neg PR(x3) \vee PL(x3)$  = $\{\neg PR(x3), PL(x3)\}$
-        \item $\exists x4. PR(x4)$ = $\{PR(f(c))\}$
-        \item $\{I(f(e))\}$
-        \item 7y3. $\{x1 \leftarrow f(e)\}$ resolvente: $\{\neg Res(f(e),PL(y1))\}$
-        \item 8y4. $\{x2 \leftarrow f(e), y2 \leftarrow y1\}$ resolvente: $\{\neg J(x2)\}$ \blue{ACA ME FALTA PL(y1))=PR(y2)}
-        \item 9y2. $\{x2 \leftarrow alan\}$ resolvente: $\{\}$
-    \end{enumerate}
+Cálculo de cláusulas: \\
+S:
+\begin{itemize}
+    \item $R(alan)$
+    \item $J(alan)$
+    \item $\forall Res(x1,y1) \wedge PL(y1) \Rightarrow I(x1)$ \\
+    = $\forall \neg (Res(x1,y1) \wedge PL(y1)) \vee I(x1)$ \\
+    = $\forall (\neg Res(x1,y1) \vee \neg PL(y1)) \vee I(x1)$ \\
+    = $\{ \neg Res(x1,y1), \neg PL(y1)), I(x1) \}$
+    \item $\forall x2. (J(x2) \wedge R(x2)) \Rightarrow (Res(x2,y2) \wedge PR(y2))$ \\
+    = $\forall x2. \neg (J(x2) \wedge R(x2)) \vee (Res(x2,y2) \wedge PR(y2))$ \\
+    = $\forall x2. (\neg J(x2) \vee \neg R(x2)) \vee (Res(x2,y2) \wedge PR(y2))$ \\
+    = $\forall x2. (\neg J(x2) \vee \neg R(x2) \vee Res(x2,y2)) \wedge (neg J(x2) \vee \neg R(x2) \vee PR(y2))$ \\
+    = $\{\{\neg J(x2) \vee \neg R(x2) \vee Res(x2,y2)\}\{neg J(x2) \vee \neg R(x2) \vee PR(y2)\}\}$
+    \item $\forall x3. PR(x3) \Rightarrow PL(x3)$ \\
+    = $\forall x3. \neg PR(x3) \vee PL(x3)$  \\
+    = $\{\neg PR(x3), PL(x3)\}$
+    \item $\exists x4. PR(x4)$ \\
+    = $\{PR(c)\}$
+\end{itemize}
+Quiero probar que: $S \Rightarrow \exists x4. I(x4)$ \\
+Entonces lo niego y lo agrego al sistema S: $\neg \exists x4. I(x4)$ = $\forall x4. \neg I(x4)$ \\
+Sea S':
+\begin{enumerate}
+\item $\{R(alan)\}$
+\item $\{J(alan)\}$
+\item $\{ \neg Res(x1,y1), \neg PL(y1)), I(x1) \}$
+\item $\{\neg J(x2), \neg R(x2), Res(x2,y2)\}$
+\item $\{neg J(x2), \neg R(x2), PR(y2)\}$
+\item $\{\neg PR(x3), PL(x3)\}$
+\item $\{PR(c)\}$
+\item $\{\neg I(x4)\}$ \\
+Resolución:
+\item 8y3. $\{x1 \leftarrow x4\}$ $\{\neg Res(x4,y1), \neg PL(y1))\}$
+\item 9y4. $\{x2 \leftarrow x4, y2 \leftarrow y1\}$ $\{\neg J(x4), \neg R(x4), \neg PL(y1))\}$
+\item 10y1 $\{x4 \leftarrow alan\}$ $\{\neg J(alan), \neg PL(y1))\}$
+\item 11y2 $\{\}$ $\{\neg PL(y1))\}$
+\item 12y6. $\{x3 \leftarrow y1\}$ $\{\neg PR(y1)\}$
+\item 13y7. $\{y1 \leftarrow c\}$ $\{\}$
+\end{enumerate}
+$\Rightarrow$ S es insatisfacible.
 
 % \subsection{Ejercicio 14 \blue{no se si está bien}}
 %     \begin{itemize}
