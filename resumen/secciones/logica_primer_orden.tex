@@ -1,0 +1,249 @@
+\section{Lógica de primer orden}
+Definimos un método para probar que una proposición es una tautología. Sin embargo, todavía no tiene todo el poder que podría tener. Nos gustaría, dada una proposición con literales, saber que valor deberían tomar esos literales para que la proposición sea una tautología.
+
+Para esto debemos dotar de semántica a los literales y proveer un mecanismo que nos permita inferir los valores que deben componer a cada uno de ellos.
+
+\subsection{Repaso}
+Un \textbf{lenguaje de primer orden} (LPO) $\mathcal{L}$ consiste en:
+\begin{enumerate}
+\item Un conjunto numerable de \textbf{constantes} $c_0,c_1,\dots$
+\item Un conjunto numerable de \textbf{símbolos de función} con aridad $n > 0$ $f_0, f_1,\dots$
+\item Un conjunto numerable de \textbf{símbolos de predicado} con aridad $n\geq 0$, $P_0,P_1,\dots$.
+\end{enumerate}
+
+\subsubsection{Términos de primer orden}
+Sea $\mathcal{V} = \{x_0,x_1,\dots\}$ un conjunto numerable de variables y $\mathcal{L}$ un lenguaje de primer orden. El conjunto de \textbf{$\mathcal{L}$-términos} se define inductivamente como:
+\begin{itemize}
+\item Toda constante de $\mathcal{L}$ y toda variable es un $\mathcal{L}$-término.
+\item Si $t_1,\dots,t_n\in \mathcal{L}$-términos y $f$ es un símbolo de función de aridad $n$, entonces $$f(t_1,\dots,t_n)\in \mathcal{L}\text{-términos}$$
+\end{itemize}
+
+\subsubsection{Fórmulas átomicas}
+Sea $\mathcal{V}$ un conjunto numerable de variables y $\mathcal{L}$ un lenguaje de primer orden. El conjunto de \textbf{$\mathcal{L}$-fórmulas átomicas} se define inductivamente como:
+\begin{enumerate}
+\item Todo símbolo de predicado de aridad $O$ es una $\mathcal{L}$-fórmula átomica.
+\item Si $t_1,\dots,t_n\in\mathcal{L}$-términos y $P$ es un símbolo de predicado de aridad $n$, entonces $P(t_1,\dots,t_n)$ es una $\mathcal{L}$-fórmula átomica.
+\end{enumerate}
+\subsubsection{Fórmulas de primer orden}
+Sea $\mathcal{V}$ un conjunto numerable de variables y $\mathcal{L}$ un lenguaje de primer orden. El conjunto de \textbf{$\mathcal{L}$-fórmulas} se define inductivamente como:
+\begin{enumerate}
+\item Toda $\mathcal{L}$-fórmula átomica es $\mathcal{L}$-fórmula.
+\item Si $A,B\in \mathcal{L}$-fórmula, entonces $\lnot A$, $(A\land B)$, $(A\lor B)$, $(A\supset B)$ y $A\iff B$ son $\mathcal{L}$-fórmulas.
+\item Para toda variable $x_i$ y cualquier $\mathcal{L}$-fórmula $A$, $\forall x_i.A$ t $\exists x_i.A$ son $\mathcal{L}$-fórmulas.
+
+\end{enumerate}
+\subsubsection*{Variables libres y ligadas}
+
+Las variables pueden ocurrir \textbf{libres} o \textbf{ligadas}. En este lenguaje, los cuantificadores ligan variable y usaremos $FV(A)$ y $BV(A)$ parar referirnos a las variables libres y ligadas, respectivamente, de $A$.
+
+Cuando $FV(A) = \emptyset$ diremos que $A$ es una \textbf{sentencia}.
+
+Una fórmula $A$ está \textbf{rectificada} si $FV(A)$ y $BV(A)$ son disjuntos, es decir si todos los cuantificadores que aparecen en $A$ ligan variables distintas. Además, toda fórmula se puede \textbf{rectificar} a una fórmula equivalente renombrando sus variables.
+
+\subsubsection{Estructuras de primer orden}
+Dado un lenguaje $\mathcal{L}$, una \textbf{estructura para $\mathcal{L}$}, \textbf{M}, es un par \textbf{M} $=(M, I)$ donde 
+\begin{itemize}
+\item $M$ (\textbf{dominio}) es un conjunto no vacío
+\item $I$ (\textbf{función de interpretación}) asigna funciones y predicados sobre $M$ a símbolos del lenguaje $\mathcal{L}$ de la siguiente manera:
+\begin{enumerate}
+\item Para toda constante $c$, $I(c)\in M$.
+\item Para todo $f$ de aridad $n > O$, $I(f):M^n\to M$
+\item Para todo predicado $P$ de aridad $n \geq 0$, $I(P) : M^n \to\{\textbf{T}, \textbf{F}\}$
+
+Sea $M$ una estructura para $\mathcal{L}$. Una \textbf{asignación} es una función $s:\mathcal{V}\to M$ y, si $a\in M$, escribimos $s[x \leftarrow a]$ para denotar la asignación que se comporta igual que $s$ salvo en el elemento $x$, en cuyo caso retorna $a$.
+\end{enumerate}
+\end{itemize}
+
+\subsubsection{Satisfactibilidad}
+La relación $s \models_M A$ establece que la asignación $s$ satisface la fórmula $A$ en la estructura $M$. Y se define usando inducción estructural en $A$:
+
+\begin{align*}
+&s \models_\textbf{M} P(t_1,\dots,t_n)&&~sii~P(s(t_1),\dots,s(t_n))&&&\\
+&s \models_\textbf{M} \lnot A &&~sii ~s \not{\models}_\textbf{M} A &&&\\
+&s \models_\textbf{M} (A \lor B)&&~sii~s \models_\textbf{M} A \text{ o } s\models_\textbf{M} B&&&\\
+&s \models_\textbf{M} (A \land B)&&~sii~s \models_\textbf{M} A \text{ y } s\models_\textbf{M} B&&&\\
+&s \models_\textbf{M} (A \supset B)&&~sii~s\not\models_\textbf{M} A \text{ o } s\models_\textbf{M} B&&&\\
+&s \models_\textbf{M} (A \iff B)&&~sii~(s\models_\textbf{M} A \text{ sii } s\models_\textbf{M} B)&&&\\
+&s \models_\textbf{M} (A \supset B)&&~sii~s\not\models_\textbf{M} A \text{ o } s\models_\textbf{M} B&&&\\
+&s \models_\textbf{M} \forall x_i.A &&~sii~s[x_i\leftarrow a]\models_\textbf{M} A \text{ para todo } a\in \textbf{M}&&&\\
+&s \models_\textbf{M} \exists x_i.A &&~sii~s[x_i\leftarrow a]\models_\textbf{M} A \text{ para algún } a\in \textbf{M}&&&\\
+\end{align*}
+
+\newpage
+\subsubsection{Validez}\label{logica::primerOrden::validez}
+\begin{itemize}
+\item Una fórmula $A$ es \textbf{satisfactible en M} si y solo si existe una asiganción $s$ tal que $s\models_\textbf{M} A$
+
+\item Una fórmula $A$ es \textbf{satisfactible} si y solo si existe un \textbf{M} tal que A es satisfactible en \textbf{M}. En caso contrario se dice que $A$ es insatisfactible.
+
+\item Una fórmula $A$ es \textbf{válida en M} si y solo si $s \models_\textbf{M} A$, para toda asigación $s$.
+
+\item $A$ es valida si y solo si $\lnot A$ es insatisfactible.
+\end{itemize}
+
+\subsection{El método de resolución}
+
+El \textbf{teorem de Church} asegura que \textbf{no} existe un algoritmo que pueda determinar si una fórmula de primer orden es válida. Por lo que el método de resolución será parcialmente computable, es decir que si la sentencia que deseamos resolver es insatisfactible entonces hallaremos una refutación a la misma, en caso contrario puede ser que no se detenga.
+
+Para resolver una fórmula, el método tomará su forma clausal e irá agregando resolventes hasta que el conjunto contenga a la cláusula vacía.
+
+\subsubsection{Forma de la fórmula}
+Dada una fórmula $A$, el primer pasoe es escribirla en forma clausal siguiendo estos pasos:
+\begin{enumerate}
+\item Eliminar las implicaciones, es decir, si aparece una clausula de la forma $(A\supset B)$, reescribirla como $(\lnot A \lor B)$.
+
+\item Pasar a \textbf{forma normal negada}.
+\item Pasar a \textbf{forma normal prenexa}.
+\item Pasar a \textbf{forma normal de Skolem}.
+\item Pasar a \textbf{forma normal conjuntiva}.
+\item \textbf{Distribuir} cuantificadores universales.
+\end{enumerate}
+
+\subsubsection*{Forma normal negada}
+El conjunto de fórmulas en \textbf{forma normal negada} (NNF) se define inductivamente como:
+
+\begin{enumerate}
+\item Para cada fórmula atómica $A$, $A$ y $\lnot A$ están en NNF.
+\item Si $A,B\in$ NNF, etnoces $(A\lor B),(A\land B) \in$ NNF.
+
+\item Si $A\in$ NNF, entonces $(\forall x.A),(\exists x. A)\in$ NNF.
+\end{enumerate}
+
+En otras palabras, son todas las fórmulas en las que si aparece una negación, entonces esta está aplicada a una formula atómica del lenguaje.
+
+Los remplazos que se hacen para pasar una formula a FNN son:
+
+\begin{multicols}{2}
+$$\lnot(A\land B) \iff \lnot A \land \lnot B$$
+$$\lnot(A\lor B) \iff \lnot A \lor \lnot B$$
+\vfill\null
+\columnbreak
+$$\lnot\lnot A \iff A$$
+$$\lnot\forall x.A \iff \exists x.\lnot A$$
+$$\lnot\exists x.A \iff \forall x.\lnot A$$
+\end{multicols}
+
+\subsubsection*{Forma normal prenexa}
+Son las fórmulas de la forma $Q_1x_1\dots Q_nx_n.B$, $n\geq 0$, donde $B$ no tiene cuantificadores, $x_1,\dots,x_n$ son variables y $Q_i \in \{\forall,\exists\}$.
+
+Sea $A$ una fórmula en forma normal negativa, entonces valen las siguientes equivalencias:
+
+\begin{multicols}{2}
+$$(\forall x.A)\land B \iff \forall x.(A\land B)$$
+$$(A\land\forall x.B) \iff \forall x.(A\land B)$$
+$$(\exists x.A)\land B \iff \exists x.(A\land B)$$
+$$(A\land\exists x.B) \iff \exists x.(A\land B)$$
+
+$$(\forall x.A)\lor B \iff \forall x.(A\lor B)$$
+$$(A\lor\forall x.B) \iff \forall x.(A\lor B)$$
+$$(\exists x.A)\lor B \iff \exists x.(A\lor B)$$
+$$(A\lor\exists x.B) \iff \exists x.(A\lor B)$$
+\end{multicols}
+
+Cuando una fórmula tenga dos o más cuantificadores que liguen variables con el mismo nombre, entonces debemos renombrar cada una de esas variables con nombres distintos para poder realizar la transformación.
+
+\subsubsection{Forma normal de Skolem}
+Dada una fórmula en forma normal prenexa, debemos pasarla a forma normal de Skolem usando un proceso llamado \textbf{solemización}. El objetivo de esta transformación es eliminar los cuantificadores existenciales de un fórmula sin alterar su sastifactibilidad.
+
+La idea es que al eliminar el existencial remplazemos cada aparición de la variable que ligaba por un ``testigo'' que es una constante nueva del lenguaje de primer orden que depende de las demás variables libres de la fórmula. Por ejemplo, si tenemos la fórmula $\exists x.P(x)$, su forma skolemizada será $P(c)$ con $c$ una nueva constante del lenguaje que llamaremos \textbf{parámetro}. 
+
+En fórmulas más grandes,  cada ocurrencia de una subfórmula $\exists x.B$ en $A$ se remplaza por $B\{ x \leftarrow f(x_1,\dots,x_n)\}$ donde:
+\begin{itemize}
+\item $\{\bullet \leftarrow \bullet\}$ es la operación usual de sustitución.
+\item $f$ es un símbolo de función nuevo y las $x_1,\dots, x_n$, son las variables libres en $B$ de las que depende $x$.
+\end{itemize} 
+
+Ahora, si bien el resultado de skolemizar una fórmula preserva la sastifactibilidad, no preserva validez. Por ejemplo, la fórmula $\exists x.(P(a) \supset P(x))$ es válida, sin embargo, su skolemización \\ $P(a)\supset P(b)$ no lo es. (Ver la definición de validez en \ref{logica::primerOrden::validez}).
+
+\subsubsection*{Definición formal}
+Sea $A$ una sentencia rectificada en forma normal negada, la \textbf{forma normal de Skolem de A} (\textbf{SK(A)}) se define recursivamente como sigue:
+
+Sea $A'$ cualquier subfórmula de $A$, 
+\begin{itemize}
+\item Si $A'$ es una fórmula atómica o su negación, \textbf{SK}$(A') = A'$.
+\item Si $A'$ es de la forma $(B\star C)$ con $\star \in \{\land,\lor\}$, entonces $\textbf{SK}(A') = (\textbf{SK}(B)\star \textbf{SK}(C))$.
+\item Si $A'$ es de la forma $\forall x.B$, entonces $\textbf{SK}(A') = \forall x.\textbf{SK}(B)$.
+\item Si $A'$ es de la forma $\exists x.B$ y $\{x,y_1,\dots,y_m\}$ son las variables libres de $B$, entonces:
+\begin{enumerate}
+\item Si $m>0$, crear un \textbf{símbolo de función de Skolem}, $f_x$ de aridad $m$ y definir:
+
+$$\textbf{SK}(A') = \textbf{SK}(B\{ x \leftarrow f(y_1,\dots,y_m)\})$$
+
+\item Si $m=0$, crear una nueva \textbf{constante de Skolem} $c_x$ y
+
+$$\textbf{SK}(A') = \textbf{SK}(B\{ x \leftarrow c_x\})$$
+
+\end{enumerate}
+\end{itemize}
+
+\subsubsection*{Forma clausal}
+Una vez que tenemos una formula en forma normal prenexa skolemizada, es decir tiene la siguiente forma:
+ $$\forall x_1\dots\forall x_n.B$$
+
+Pasamos $B$ a \textbf{forma normal conjuntiva} \ref{Logica::Proposicional::FNC} como si fuese una fórmula proposicional y distribuimos los cuantificadores sobre cada conjunción, obteniendo así una conjunción de \textbf{cláusulas}
+
+$$\forall x_1\dots\forall x_n.C_1\land\dots\land\forall x_1\dots\forall x_n.C_m$$
+
+donde cada $C_i$ es una disyunción de literales.  Luego, podemos escribirla de la siguiente forma:
+
+$$ \{C_1,\dots,C_m\}$$
+
+\subsubsection{Regla de resolución}
+Las variables del lenguaje nos permiten escribir expresiones que son un ``template'' que nos asegura que podemos encontrar un conjunto de constantes tal que si remplazamos las apariciones de esas variables por esas constantes y eliminamos los cuantificadores, obtenemos una verdad. Por ejemplo, si tenemos $\forall x.P(x)$, entonces vale $P(a),P(b),\dots$ (vale para cualquier constante del lenguaje). Y si tenemos $\exists x.(x < 1)$, entonces podemos encontrar constantes para lo que vale esa fórmula, en este caso $x=0$ lo cumple.
+
+La regla de resolución debe tener en cuenta que, a pesar de que una clausula no sea negación de otra, puede haber claúsulas que sean ``instancias'' de otras y que contradigan a otras.
+
+Por ejemplo, si tenemos $\{{P(x)\}, \{\lnot P(a)\}}$ podemos deducir que el conjunto es insatisfactible porque por la segunda cláusula vale $\lnot P(a)$ pero, por la primera vale que $\forall x.P(x) \Rightarrow P(a)$.
+
+Entonces, debemos \textbf{unificar} estas dos expresiones para poder llegar a un error. Definimos la regla de la siguiente forma:
+
+$$\frac{\{\blue{B_1,\dots,B_k},A_1,\dots,A_n\}\hspace*{5mm}\{\blue{\lnot D_1,\dots,\lnot D_k},A_1,\dots,A_n\}}{\red{\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})}}$$
+
+donde $\sigma$ es el \textbf{unificador más general} (MGU) de $\{B_1,\dots,B_k,\lnot D_1,\dots,\lnot D_k\}$ y $\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})$ es el \textbf{resolvente}.
+
+Cuando usamos $\sigma$, debemos tener en cuenta que todas las cláusulas usan variables distintas, por lo que si hay dos cláusulas que usan variables con el mismo nombre es conveniente renombrarlas para evitar confusiones.
+
+\subsubsection{Método de resolución}
+
+Entonces ya tenemos la regla de resolución para fórmulas de la lógica de primer orden. El método de resolución es análogo al de la lógica proposicional. En cada paso buscaremos una resolvente que podamos agregar al conjunto y haremos esto hasta que la resolvente que agregamos sea $\Box$ (la cláusula vacía).
+
+A diferencia del método de lógica de primer orden, en cada paso no solo agregaremos una resolvente al conjunto sino que además definimos una función unificadora que nos permitirá deducir los valores que pueden tomar las variables libres de una expresión para que sea valida. Esta deducción la haremos de manera similar a como lo hacemos cuando ejecutamos el algoritmo de inferencia para tipos del cálculo $\lambda$ (una vez terminada nuestra demostración compondremos todas las sustituciones realizadas).
+
+\paragraph{Ejemplo:} Queremos probar que $\{C_1, C_2, C_3\}$ es insatisfactible con
+\begin{itemize}
+\item $C_1 = \{\lnot P(z_1,a), \lnot P(z_1,x), \lnot P(x,z_1)\}$
+\item $C_2 = \{P(z_2,f(z_2)), P(z_2,a)\}$
+\item $C_3 = \{P(f(z_3),z_3), P(z_3,a)\}$
+\end{itemize}
+
+\begin{centrado}
+\begin{enumerate}
+\item De $C_1$ y $C_2$ con $\{z_1\leftarrow a, x\leftarrow a, z_2\leftarrow a,\}$ tenemos $C_4 = \{ P(a,f(a))\}$
+\item De $C_1$ y $C_2$ con $\{z_1\leftarrow a, x\leftarrow a, z_3\leftarrow a,\}$ tenemos $C_5 = \{ P(f(a),a)\}$
+\item De $C_1$ y $C_5$ con $\{z_1 \leftarrow f(a), x\leftarrow a\}$: $C_6 = \{ \lnot P(a,f(a))\}$
+\item De $C_4$ y $C_6$: $\Box$.
+\end{enumerate}
+\end{centrado}
+
+\subsubsection{Regla de resolución binaria}
+
+$$\frac{\{\blue{B_1},A_1,\dots,A_n\}\hspace*{5mm}\{\blue{\lnot D_1},A_1,\dots,A_n\}}{\red{\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})}}$$
+
+\hspace*{5mm}
+Si intentamos refutar $\{\{P(x), P(y)\}, \{\lnot P(v), \lnot P(w)\}\}$ solo con esta regla nos encontraremos con que no podremos encontrar una secuencia de resolventes que termine en la cláusula $\Box$.
+
+\subsubsection*{Regla de factoriazción}
+La regla de factorización resuelve este problema permitiendonos extraer de una cláusula un literal represente a cada uno de los literales que la componen. Es decir, un literal que pueda ser unificado con cada uno de los literales de la cláusula.
+
+$$\frac{\{\blue{B_1,\dots,B_k},A_1,\dots,A_n\}}{\red{\sigma(\{B_1,A_1,\dots A_m\})}}$$
+
+\hspace*{5mm}
+
+Entonces con esta regla podemos usar $\{P(z)\}$ como resolvente para la cláusula $\{P(x), P(y)\}$ y la demostración del ejemplo anterior quedaría de la siguiente forma:
+
+\begin{enumerate}
+\item $\{\{P(x), P(y)\}, \{\lnot P(v), \lnot P(w)\}\}$
+\item $\{\{P(x), P(y)\}, \{\lnot P(v), \lnot P(w)\}, \blue{\{P(z)\}}\}$ (por la regla de factorización sobre la primer cláusula)
+\item $\{\{P(x), P(y)\}, \{\lnot P(v), \lnot P(w)\}, \{P(z)\}, \blue{\{\lnot P(u)\}}\}$ (por la regla de factorización sobre la segunda cláusula)
+\item $\{\{P(x), P(y)\}, \{\lnot P(v), \lnot P(w)\}, \{P(z)\}, \{\lnot P(u)\}, \Box\}$
+\end{enumerate}

@@ -419,7 +419,7 @@ Representan a distintos objetos porque responden a los distintos mensajes.
 	\end{center}
 
 \newpage
-\subsection{\red{Ejercicio 10}}
+\subsection{Ejercicio 10}
 \vspace*{5mm}
 	\begin{center}
 		\begin{scprooftree}
@@ -450,7 +450,7 @@ Representan a distintos objetos porque responden a los distintos mensajes.
     \BinaryInfC{$\OOReduccion{o.a}{[\OOAtributo{a}{y}{y := [~]}]}$}
 		\end{scprooftree}    
 	\end{center}
-\subsection{\red{Ejercicio 11}}
+\subsection{Ejercicio 11}
 \paragraph{a)}
 \setlength{\columnsep}{-5cm}
 \begin{multicols}{2}
@@ -580,14 +580,21 @@ malezaClass = [~& \OOAtributo{new}{c}{[altura = c.altura,~\OOAtributo{crecer}{t}
 
 \paragraph{e)}
 \begin{align*}
-frutalClass = [~& \OOAtributo{new}{c}{[altura = c.altura,~cantFrutos = c.cantFrutos\OOAtributo{crecer}{t}c.crecer~t]}, \\
+frutalClass = [~& \OOAtributo{new}{c}{[altura = c.altura,~cantFrutos = c.cantFrutos,~\OOAtributo{crecer}{t}c.crecer~t]}, \\
 &cantFrutos = 0, \\
 &altura = plantaClass.altura,\\
 &crecer = \lambda(t)((plantaClass.crecer t).cantFrutos := t.cantFrutos+1) \\
 ]~&\\
 \end{align*}
 
-\paragraph{\red{f)}}
+\paragraph{f)}
+\begin{align*}
+frutalMixin = \lambda(m)[~& \OOAtributo{new}{c}{[altura = c.altura,~cantFrutos = frutalMixin(m).cantFrutos,~\\
+&\qquad\qquad\qquad \OOAtributo{crecer}{t}frutalMixin(m).crecer(t)]}, \\
+&cantFrutos = 0, \\
+&crecer = \lambda(t)((m.crecer(t)).cantFrutos := t.cantFrutos+1) \\
+]~&\\
+\end{align*}
 \end{document} 
 
 

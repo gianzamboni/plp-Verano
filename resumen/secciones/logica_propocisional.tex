@@ -1,0 +1,135 @@
+\section{Lógica Proposicional}
+\subsection*{Sintaxis}
+Dado un conjunto $\mathcal{V}$ de \textbf{variables proposionales} $P,P_0,P_1,\dots$, el conjunto de \textbf{formulas proposicionales (o proposiciones)} se define como:
+
+\begin{align*}
+		A,B ~ :&= ~ P &&\text{una variable proposicional} \\
+		& |~ \lnot A &&\text{negación}\\
+		& |~ A \land B &&\text{conjunción}\\
+		& |~ A \lor B &&\text{disjunción}\\
+		& |~ A \supset B &&\text{implicación}\\
+		& |~ A \iff B &&\text{si y solo si} \\
+\end{align*}
+
+
+\subsection{Semántica} 
+
+Una \textbf{evaluación} es una función $v:\mathcal{V}\to{\textbf{T},\textbf{F}}$ que asigna valores de verdad a las variables proposicionales. Decimos que $v$ \textbf{satisface} una proposicón $A$ si $V\models A$ donde:
+
+\begin{align*}
+v \models P~&sii~v(P) = T\\
+v \models \lnot A~&sii~ v \not{\models} A \text{ ($v$ no satisface $A$)}\\
+v \models A \lor B~&sii~v \models A \text{ o } v\models B\\
+v \models A \land B~&sii~v \models A \text{ y } v\models B\\
+v \models A \supset B~&sii~v\not\models A \text{ o } v\models B\\
+v \models A \iff B~&sii~(v\models A \text{ sii } v\models B)\\
+\end{align*}
+
+Una proposición es \textbf{satisfactible} si existe una valuación $v$ tal que $v\models A$. Cuando no existe $v$ qua satisfaga $A$, decimos que $A$ es \textbf{insatisfactible}.
+
+Podemos extender estas definiciones a conjuntos de proposiciones. Si $S$ es un conjunto de proposiciones, entonces es \textbf{satisfactible} si existe una valuación $v$ tal que para todo $A\in S$, se tiene que $v\models A$. Y si no existe este $v$, entones $S$ es \textbf{insatisfactible}.
+
+Dada una proposición $A$, si vale que $v\models A$ para toda valuación $v$, entonces decimos que $A$ es una \textbf{tautología}.
+
+\paragraph{Literales} Un literal es una variable proposicional $P$ o su negación $\lnot P$.
+
+\subsubsection{Forma Normal Conjutiva (FNC)}\label{Logica::Proposicional::FNC}
+Diremos que una proposición $A$ está en FNC si es una conjunción de disjunciones de literales. Es decir si tiene la siguiente forma:
+
+$$C_1 \land\dots\land C_n$$
+
+donde cada \textbf{claúsula} $C_i$ es una disyunción de literales:
+
+$$B_{i1}\lor\dots\lor B_{in_i}$$
+
+\paragraph{Teorema:} Para toda proposición $A$ puede hallarse una proposición $A'$ en FNC que es lógicamente equivalente a $A$.
+
+\paragraph{Nota:} $A$ es lógicamente equivalente a $B$ si y solo si la proposición $A\iff B$ es una tautología. 
+
+\subsubsection*{Notación conjuntista}
+Dada la siguiente expresión en forma normal conjuntiva:
+
+$$(A\lor B)\land(A\lor \lnot A) \land (\lnot B \lor \lnot B) \land (B\lor A)\land (C\lor D)$$
+ 
+Trataremos de escribirla de manera más simple. Lo primero que notamos es que $(A \lor \lnot A)$ es una tautología, ya que siempre vale una de las dos propocisiones. Entonces podemos eliminar esta clausula sin modificar su valor de verdad.
+
+$$(A\lor B)\land (\lnot B \lor \lnot B) \land (B\lor A)$$
+
+Además, $(\lnot B \lor \lnot B) \iff \lnot B$ ($\lor$ es idempotente):
+
+$$(A\lor B)\land \lnot B \land (B\lor A)$$
+
+Como $\lor$ también es conmutativo, sabemos que $(A \lor B) \iff (B \lor A)$ por lo que podemos eliminar una de las dos:
+
+$$(A\lor B)\land \lnot B$$
+
+Logramos escribir la proposición original con una expresión equivalente con todas las clausulas distintas. Donde las clausula son $C_1 = (A\lor B)$ y $C_2 = \lnot B$.
+
+Cuando sucede esto, podemos representar la proposición como un conjunto de clausulas \\ $\{C_1,\dots,C_n\}$ donde cada clausula $C_i$ es un conjunto de literales. Es decir que la expresión del ejemplo puede ser escrita de la siguiente manera:
+
+$$\{\{A,B\},\{\lnot B\}\}$$
+
+\subsection{Validez por refutación}
+
+\textbf{Teorema:} Una proposición $A$ es una tautología sii $\lnot A$ es insastisfactible.
+
+\vspace*{5mm}
+Entonces, dada una proposición $A$, si probramos que $\lnot A$ es insatisfactible podemos probar que $A$ es una tautología. A pesar de que hay varias técnicas para hacer esto, vamos a concentrarnos en el método de \textbf{resolución} que fue introducipo por Alan Robinson en 1965.
+
+Este método es simple de implementar y hace uso de una única regla de inferencia (\textbf{la regla de resolución}) para demostrar que una fórmula en forma normal conjuntiva es insatisfactible.
+
+\subsubsection{Principios fundamentales}
+El método, usa la regla de inferencia para expandir un conjunto $S$ hasta que el mismo contenga dos clausulas que se niegen entre si. Para esto, hace uso de la siguiente tautología: 
+
+$$(A\lor P)\land (B\lor \lnot P) \iff (A\lor P)\land (B\lor \lnot P) \land (A \lor B)$$
+
+\begin{centrado}
+\paragraph{Demostración} Queremos ver que $(A\lor P)\land (B\lor \lnot P)$ y $(A\lor P)\land (B\lor \lnot P) \land (A \lor B)$ son equivalentes:
+
+Si $(A\lor P)\land (B\lor \lnot P)$ es satisfactible, entonces valen las dos clausulas de la proposición. Por la primer clausula vale que $A$ es satisfactible o $P$ lo és. Si $P$ es satisfactible, entonces $B$ es satisfactible, pues $\lnot P$ no lo es, entonces vale $(A\lor B)$.
+
+Si $P$ no es satisfactible, entonces $A$ debe serlo para que $(A\lor P)$ lo sea y, además $\lnot P$ es satisfactible por lo que la segunda clausula tambien lo és y como $A$ es satisfactible vale $(A\lor B)$.
+
+Por otro lado, si $A$ y $B$ no son satisfactibles, entonces $(A\lor P)\land (B\lor \lnot P)$ no es satisfactible pues, para que lo sea, tendrían que valer $P$ y $\lnot P$ al mismo tiempo.
+
+Entonces, ambas expresiones son equivalentes.
+
+\end{centrado}
+
+Este resultado nos permite asegurar que los conjuntos de claúsulas 
+$$\{C_1,\dots,C_n,\{A,P\}, \{B,\lnot P\}\}\hspace*{5mm}y\hspace*{5mm}\{C_1,\dots,C   _n,\{A,P\}, \{B,\lnot P\}, \{A,B\}\}$$
+son equivalentes. Y si uno de ellos es insatisfactible, entonces el otro lo és.
+
+Cuando esto suceda, diremos que la cláusula $\{A,B\}$ es la \textbf{resolvente} de las claúsulas $\{A,P\}$ y $\{B,\lnot P\}$. Además generalizamos la definicion para clausulas con más de dos literales:
+
+\paragraph{Notación:} Dado un literal $L$,  su opuesto $\overline{L}$ se define como
+\begin{itemize}
+\item  $\lnot P$ si $L=P$ 
+\item $P$ si $L=\lnot P$.
+\end{itemize}
+
+
+\vspace*{5mm}
+Dadas dos cláusulas $C_1$, $C_2$, una claúsula $C$ se dice \textbf{resolvente de $C_1$ y $C_2$} si y solo si, para algún literal $L$, $L\in C_1$ y $\overline{L}\in C_2$ y $C = (C_1-\{L_1\})\cup(C_2-\{\overline{L}\})$. Notaremos la regla de resolución como
+$$\frac{C_1 = \{A_1,\dots,A_m,L\}\hspace*{5mm} C_2 = \{B_1,\dots,B_m, \overline{L}\}}{C = \{A_1,\dots,A_m, B_1,\dots,B_n\}}$$
+
+
+El método de resolución ira agregando resolventes (que todavía no pertenezcan) al conjunto hasta conseguir un conjunto que contenga dos cláusulas de la forma $\{P\}$ y $\{\lnot P\}$ cuya resolvente es la cláusula vacía notada como $\Box$. Cuando esto suceda, diremos que conseguimos una \textbf{refutación}.
+
+Entonces, en resumen, el método de resolución trata de construir una secuencia de conjuntos claúsales que termina en una refutación y, si lo logra, como todos los conjuntos de la secuencia son equivalentes el conjunto original no es satisfactible.
+
+El método siempre termina, ya que las resolventes agregados se forman con los literales distintos que aparecen en el conjunto de partida y hay una cantidad finitas de literales en dicho conjunto.
+
+En el peor de los casos, la regla de resolución podrá generar una nueva cláusula por cada combinación diferente de literales distintos de $S$.
+
+\paragraph{Teorema} Dado un conjunto finito $S$ de cláusulas, $S$ es insatisfactible si y solo si tiene una refutación. 
+
+\subsubsection*{Ejemplo de resolución}
+
+Vamos a probar que $\{ \{P,Q\},\{P,\lnot Q\},\{\lnot P, Q\},\{\lnot P, \lnot Q\}\}$ es insatisfactible. Armamos la primer resolvente con $\{P,Q\}$,$\{P,\lnot Q\}$ que nos queda $C = \{P\}$, entonces el nuevo conjunto es:
+$$\{ \{P,Q\},\{P,\lnot Q\},\{\lnot P, Q\},\{\lnot P, \lnot Q\}, \{P\} \}$$
+Armamos la segunda resolvente con $\{\lnot P, Q\}$ y $\{\lnot P, \lnot Q\}$ entonces $C_1 = \{\lnot P\}$:
+$$\{ \{P,Q\},\{P,\lnot Q\},\{\lnot P, Q\},\{\lnot P, \lnot Q\}, \{P\}, \{\lnot P\} \}$$
+Y por útlimo usamos $\{P\}$ $\{\lnot P\}$ y agregamos la resolvente $\Box$ al conjunto, obteniendo de esta manera la refutación que buscabamos.
+
+$$\{ \{P,Q\},\{P,\lnot Q\},\{\lnot P, Q\},\{\lnot P, \lnot Q\}, \{P\}, \{\lnot P\}, \red{\Box} \}$$
