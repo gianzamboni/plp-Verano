@@ -496,8 +496,8 @@ origen \equalDef [~& x = 0, \\
 \begin{align*}
 Punto \equalDef [~& \OOAtributo{new}{z}{[~x= z.x,~y = z.y,~ \OOAtributo{mv}{c}{\lambda(x_1)\lambda(x_2) z.mv(c,x_1,x_2)}]
 }, \\
-& x = 0, \\
-& y = 0, \\
+& x = \lambda(p)0, \\
+& y = \lambda(p)0, \\
 & \OOAtributo{mv}{c}{\lambda(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z} ] \\
 \end{align*}
 
@@ -520,9 +520,9 @@ Punto \equalDef [~& \OOAtributo{new}{z}{[~x= z.x,~y = z.y,~ \OOAtributo{mv}{c}{\
 \begin{align*}
 PuntoColoreado \equalDef [~& \OOAtributo{new}{z}{[~x=z.x,~y = z.y,~color=z.color, \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]
 }, \\
-&  x = Punto.x, \\
-&  y = Punto.y, \\
-&  color = \text{``rojo''}, \\ 
+&  x = \lambda(p)Punto.x, \\
+&  y = \lambda(p)Punto.y, \\
+&  color = \lambda(p)\text{``rojo''}, \\ 
 &  mv = Punto.mv ] \\
 \end{align*}
 
