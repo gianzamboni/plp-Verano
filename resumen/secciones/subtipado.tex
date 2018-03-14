@@ -99,7 +99,7 @@ Y este es el segundo caso, en el que definimos a $r$ como una referencia de $Flo
 
 Entonces, la regla de subtipado no es ni contravariante ni covariente, es variante. La única ``sustitución" que podemos hacer es cuando $\sigma$ y $\tau$ son el mismo tipo.
 
-$$\frac{\sigma <: \tau\hspace*{5mm}}{Ref~\tau <: Ref~\sigma}$$
+$$\frac{\sigma <: \tau\hspace*{5mm} \tau <: \sigma}{Ref~\tau <: Ref~\sigma}$$
 
 \subsubsection{Refinando el tipo \textit{Ref}}
 Extendemos el lenguaje, con los siguiente tipos $Source~\sigma$ y $Sink~\sigma$ que representan las referencias de lectura y las de escritura, respectivamente. 

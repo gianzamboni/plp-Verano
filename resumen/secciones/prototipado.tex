@@ -189,7 +189,7 @@ Cuando un trait completo tenga dentro suyo a la función $new$, diremos que ese 
 \begin{align*}
 \texttt{Contador}\equalDef [~&
 new = \varsigma(z)[\OOAtributo{inc}{s}{z.inc(s)},~v = z.v,~ \OOAtributo{get}{s}{z.get(s)} ], \\
- & v = 0, \\
+ & v = \lambda(s)0, \\
  & inc = \lambda(s) s.v := s.v + 1, \\
  & get = \lambda(s) s.v \\
  ]~&  \\

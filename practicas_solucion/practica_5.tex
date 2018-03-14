@@ -494,8 +494,10 @@ origen \equalDef [~& x = 0, \\
 \end{align*}
 \paragraph{b)}
 \begin{align*}
-Punto \equalDef [~& \OOAtributo{new}{z}{[~x=0,~y = 0,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]
+Punto \equalDef [~& \OOAtributo{new}{z}{[~x= z.x,~y = z.y,~ \OOAtributo{mv}{c}{\lambda(x_1)\lambda(x_2) z.mv(c,x_1,x_2)}]
 }, \\
+& x = 0, \\
+& y = 0, \\
 & \OOAtributo{mv}{c}{\lambda(p)\lambda(w)\lambda(z) (p.x:=p.x+w).y:=p.y+z} ] \\
 \end{align*}
 
@@ -507,17 +509,20 @@ Punto \equalDef [~& \OOAtributo{new}{z}{[~x=0,~y = 0,~ \OOAtributo{mv}{p}{\lambd
 
         \AxiomC{$\OOReduccion{Punto}{Punto}$}
 
-        \AxiomC{$\OOReduccion{[~x=0,~y = 0,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]\{z\leftarrow Punto\}}{p}$}
+        \AxiomC{$\OOReduccion{[~x=z.x,~y = z.y,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]\{z\leftarrow Punto\}}{p}$}
     \RightLabel{[Sel]}
     \BinaryInfC{$\OOReduccion{Punto.new}{p}$}
 		\end{scprooftree}    
 	\end{center}
-	con $p \equalDef [~x=0,~y = 0,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) Punto.mv(p,x_1,x_2)}]$
+	con $p \equalDef [~x=Punto.x,~y = Punto.y,~ \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) Punto.mv(p,x_1,x_2)}]$
 
 \paragraph{d)}
 \begin{align*}
-PuntoColoreado \equalDef [~& \OOAtributo{new}{z}{[~x=0,~y = 0,~color=\texttt{rojo}, \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]
+PuntoColoreado \equalDef [~& \OOAtributo{new}{z}{[~x=z.x,~y = z.y,~color=z.color, \OOAtributo{mv}{p}{\lambda(x_1)\lambda(x_2) z.mv(p,x_1,x_2)}]
 }, \\
+&  x = Punto.x, \\
+&  y = Punto.y, \\
+&  color = \text{``rojo''}, \\ 
 &  mv = Punto.mv ] \\
 \end{align*}
 
