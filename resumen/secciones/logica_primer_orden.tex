@@ -189,25 +189,22 @@ donde cada $C_i$ es una disyunción de literales.  Luego, podemos escribirla de 
 $$ \{C_1,\dots,C_m\}$$
 
 \subsubsection{Regla de resolución}
-Las variables del lenguaje nos permiten escribir expresiones que son un ``template'' que nos asegura que podemos encontrar un conjunto de constantes tal que si remplazamos las apariciones de esas variables por esas constantes y eliminamos los cuantificadores, obtenemos una verdad. Por ejemplo, si tenemos $\forall x.P(x)$, entonces vale $P(a),P(b),\dots$ (vale para cualquier constante del lenguaje). Y si tenemos $\exists x.(x < 1)$, entonces podemos encontrar constantes para lo que vale esa fórmula, en este caso $x=0$ lo cumple.
+A diferencia de la lógica de primer orden, tendremos literales que cuando son negados podrían contradecir a otro literal que no sea exactamente el mismo. Por ejemplo, si tenemos la siguiente proposición $\{\{\{P(x)\},\{\{\lnot P(a)\}\}$. La primer cláusula, nos dice que vale $P(x)$ para todo $x$ y la segunda nos dice que $P(a)$ no vale, esto es una contradicción que deberíamos poder resolver. 
 
-La regla de resolución debe tener en cuenta que, a pesar de que una clausula no sea negación de otra, puede haber claúsulas que sean ``instancias'' de otras y que contradigan a otras.
+Debemos \textbf{unificar} estas dos expresiones con el algoritmo de Martelli-Montanari. Por lo que en cada paso, elegiremos las cláusulas que queremos resolver, buscaremos un MGU que nos permita modificarlas y la resolvente será la resolvente de ambas expresiones con el MGU aplicado.
 
-Por ejemplo, si tenemos $\{{P(x)\}, \{\lnot P(a)\}}$ podemos deducir que el conjunto es insatisfactible porque por la segunda cláusula vale $\lnot P(a)$ pero, por la primera vale que $\forall x.P(x) \Rightarrow P(a)$.
-
-Entonces, debemos \textbf{unificar} estas dos expresiones para poder llegar a un error. Definimos la regla de la siguiente forma:
-
+Entonces, la regla es:
 $$\frac{\{\blue{B_1,\dots,B_k},A_1,\dots,A_n\}\hspace*{5mm}\{\blue{\lnot D_1,\dots,\lnot D_k},A_1,\dots,A_n\}}{\red{\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})}}$$
 
-donde $\sigma$ es el \textbf{unificador más general} (MGU) de $\{B_1,\dots,B_k,\lnot D_1,\dots,\lnot D_k\}$ y $\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})$ es el \textbf{resolvente}.
+donde $\sigma$ es el \textbf{unificador más general} (MGU) de $\{B_1,\dots,B_k,\lnot D_1,\dots,\lnot D_k\}$ y \\ $\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})$ es el \textbf{resolvente}.
 
 Cuando usamos $\sigma$, debemos tener en cuenta que todas las cláusulas usan variables distintas, por lo que si hay dos cláusulas que usan variables con el mismo nombre es conveniente renombrarlas para evitar confusiones.
 
 \subsubsection{Método de resolución}
 
-Entonces ya tenemos la regla de resolución para fórmulas de la lógica de primer orden. El método de resolución es análogo al de la lógica proposicional. En cada paso buscaremos una resolvente que podamos agregar al conjunto y haremos esto hasta que la resolvente que agregamos sea $\Box$ (la cláusula vacía).
+Ya tenemos la regla de resolución para fórmulas de la lógica de primer orden. El método de resolución es análogo al de la lógica proposicional. En cada paso buscaremos una resolvente que podamos agregar al conjunto y haremos esto hasta que la resolvente que agregamos sea $\Box$ (la cláusula vacía).
 
-A diferencia del método de lógica de primer orden, en cada paso no solo agregaremos una resolvente al conjunto sino que además definimos una función unificadora que nos permitirá deducir los valores que pueden tomar las variables libres de una expresión para que sea valida. Esta deducción la haremos de manera similar a como lo hacemos cuando ejecutamos el algoritmo de inferencia para tipos del cálculo $\lambda$ (una vez terminada nuestra demostración compondremos todas las sustituciones realizadas).
+A diferencia del método de lógica de primer orden, en cada paso no solo agregaremos una resolvente al conjunto sino que además definimos una sustitución que nos permitirá unificar distintos términos de la expresiones.
 
 \paragraph{Ejemplo:} Queremos probar que $\{C_1, C_2, C_3\}$ es insatisfactible con
 \begin{itemize}
@@ -224,7 +221,6 @@ A diferencia del método de lógica de primer orden, en cada paso no solo agrega
 \item De $C_4$ y $C_6$: $\Box$.
 \end{enumerate}
 \end{centrado}
-
 \subsubsection{Regla de resolución binaria}
 
 $$\frac{\{\blue{B_1},A_1,\dots,A_n\}\hspace*{5mm}\{\blue{\lnot D_1},A_1,\dots,A_n\}}{\red{\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})}}$$
