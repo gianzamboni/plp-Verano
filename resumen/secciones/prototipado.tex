@@ -143,7 +143,7 @@ Vamos a decir que un trait es completo cuando provea todos los atributos necesar
 
 $$new \equalDef \lambdaAbsI{z}{[\OOAtributo{l_i}{s}{z.l_i(s)^{i\in 1..n}}]}$$
 
-El trait \texttt{CompT} no es completo y, por lo tanto, si queremos hacer un $new$ de un objeto, nos devolverá un objeto inutilizable:
+En el siguiente ejemplo trait \texttt{CompT} no es completo y, por lo tanto, si queremos hacer un $new$ de un objeto, nos devolverá un objeto inutilizable:
 
 \begin{align*}
 	\texttt{CompT}\equalDef [~& \\ &\OOAtributo{eq}{t}{\lambda(x)\lambda(y)\lambdaIf{(x.comp(y)) == 0}{\texttt{true}}{\texttt{false}}},~\\
@@ -157,18 +157,15 @@ new~\texttt{CompT}\longrightarrow [~& \\ &\OOAtributo{eq}{x}{\lambda(y)\texttt{C
 ]~&
 \end{align*}
 
-Sin embargo, este objeto sigue sin poder ser utilizado.
+Podemos ver que a $new~\texttt{CompT}$ le falta el atributo $comp$ que es utilizado dentro de las funciones del trait para realizar la comparación.
 
-El siguiente ejemplo es un trait completo, si bien no puede ser usado, se puede ver que cuando creamos un objeto, le agrega el atributo $get$, $inc$ que usan un atributo $v$ y además le agrega el atributo $v$, por lo que estos dos métodos podrán ser ejecutados desde el nuevo objeto.
-
-\vspace*{5mm}
+El trait \texttt{Contador} mostrado a continuación es un trait completo. Si bien no puede ser usado, cuando creamos un objeto se le asignan los atributos $get$, $inc$ y $v$. $get$ e $inc$ usan a $v$ cuando son evaluados, por lo que estos dos métodos podrán ser ejecutados desde el nuevo objeto.
 \begin{align*}
 \texttt{Contador}\equalDef [~& v = 0, \\
  & inc = \lambda(s) s.v := s.v + 1, \\
  & get = \lambda(s) s.v \\
  ]~&  \\
 \end{align*}
-
 \begin{align*}
 new~\texttt{Contador}\equalDef [~& v = Contador.v, \\
  & inc = \varsigma(s) Contador.inc(s), \\
@@ -176,7 +173,7 @@ new~\texttt{Contador}\equalDef [~& v = Contador.v, \\
  ]~&  \\
 \end{align*}
 
-
+\newpage
 Cuando un trait completo tenga dentro suyo a la función $new$, diremos que ese trait es una \textbf{clase}:
 \begin{align*}
 \texttt{C}\equalDef [~& \\ &\OOAtributo{new}{z}{[\OOAtributo{l_i}{s}{z.l_i(s)^{i\in 1..n}}]}~\\
