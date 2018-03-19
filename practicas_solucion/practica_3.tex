@@ -28,61 +28,61 @@
 \subsection{Ejercicio 2}
 \paragraph{I)}
 \begin{align*}
-MGU(\{t_1\to t_2\equalDot Nat\to Bool\}) \goesTo{1}{} \{t_1\equalDot Nat,~t_2\equalDot Bool\} \goesTo{4}{Nat/t_1} \{t_2\equalDot Bool\} \goesTo{4}{Bool/t_2} \emptyset
+MGU(\{t_1\to t_2\doteq Nat\to Bool\}) \goesTo{1}{} \{t_1\doteq Nat,~t_2\doteq Bool\} \goesTo{4}{Nat/t_1} \{t_2\doteq Bool\} \goesTo{4}{Bool/t_2} \emptyset
 \end{align*}
 
 Entonces $S=\{Bool/t_2\}\circ\{Nat/t_1\} = \{Bool/t_2,~Nat/t_1\}$
 
-\paragraph{II)}$MGU(\{t_1\to t_2\equalDot t_3\}) \goesTo{4}{t_1\to t_2/t_3} \emptyset$
+\paragraph{II)}$MGU(\{t_1\to t_2\doteq t_3\}) \goesTo{4}{t_1\to t_2/t_3} \emptyset$
 
 Entonces $S = \{t_1\to t_2/t_3\}$
 
-\paragraph{III)}$MGU(\{t_1\to t_2\equalDot t_2\}) \goesTo{6}{} \falla$ porque $t_2\in FV(t_1\to t_2)$ y $t_2\neq t_1\to t_2$
+\paragraph{III)}$MGU(\{t_1\to t_2\doteq t_2\}) \goesTo{6}{} \falla$ porque $t_2\in FV(t_1\to t_2)$ y $t_2\neq t_1\to t_2$
 
-\paragraph{IV)}$MGU(\{(t_2\to t_1)\to Bool\equalDot t_2\to t_3\}) \goesTo{1}{} \{(t_2\to t_1)\equalDot t_2,~ Bool\equalDot t_3\} \goesTo{6}{} \falla$ porque $t_2\in FV(t_2\to t_1)$ y $t_2\neq t_2\to t_1$
+\paragraph{IV)}$MGU(\{(t_2\to t_1)\to Bool\doteq t_2\to t_3\}) \goesTo{1}{} \{(t_2\to t_1)\doteq t_2,~ Bool\doteq t_3\} \goesTo{6}{} \falla$ porque $t_2\in FV(t_2\to t_1)$ y $t_2\neq t_2\to t_1$
 
-\paragraph{V)}$MGU(\{t_2\to t_1\to Bool\equalDot t_2\to t_3\}) \goesTo{1}{} \{(t_2\equalDot t_2,~ t_1\to Bool\equalDot t_3\} \goesTo{2}{} \{t_1\to Bool\equalDot t_3\} \goesTo{4}{t_1\to t_2/t_3} \emptyset$
+\paragraph{V)}$MGU(\{t_2\to t_1\to Bool\doteq t_2\to t_3\}) \goesTo{1}{} \{(t_2\doteq t_2,~ t_1\to Bool\doteq t_3\} \goesTo{2}{} \{t_1\to Bool\doteq t_3\} \goesTo{4}{t_1\to t_2/t_3} \emptyset$
 
 Entonces $S = \{t_1\to Bool/t_3\}$
 
-\paragraph{V)}$MGU(\{t_2\to t_1\to Bool\equalDot t_2\to t_3\}) \goesTo{1}{} \{(t_2\equalDot t_2,~ t_1\to Bool\equalDot t_3\} \goesTo{2}{} \{t_1\to Bool\equalDot t_3\} \goesTo{4}{t_1\to t_2/t_3} \emptyset$
+\paragraph{V)}$MGU(\{t_2\to t_1\to Bool\doteq t_2\to t_3\}) \goesTo{1}{} \{(t_2\doteq t_2,~ t_1\to Bool\doteq t_3\} \goesTo{2}{} \{t_1\to Bool\doteq t_3\} \goesTo{4}{t_1\to t_2/t_3} \emptyset$
 
 Entonces $S = \{t_1\to Bool/t_3\}$
 
 \paragraph{VI)}
 \begin{align*}
-&MGU(\{t_1\to Bool\equalDot Nat\to Bool, ~t_1\equalDot t_2\to t_3\}) \goesTo{1}{} \{t_1\equalDot Nat,~ Bool\equalDot Bool, ~t_1\equalDot t_2\to t_3\} \\
-&\goesTo{4}{Nat/t_1} \{Bool\equalDot Bool, ~\red{Nat\equalDot t_2\to t_3}\} \goesTo{5}{} \falla
+&MGU(\{t_1\to Bool\doteq Nat\to Bool, ~t_1\doteq t_2\to t_3\}) \goesTo{1}{} \{t_1\doteq Nat,~ Bool\doteq Bool, ~t_1\doteq t_2\to t_3\} \\
+&\goesTo{4}{Nat/t_1} \{Bool\doteq Bool, ~\red{Nat\doteq t_2\to t_3}\} \goesTo{5}{} \falla
 \end{align*}
 
 \paragraph{VII)}
 \begin{align*}
-&MGU(\{t_1\to Bool\equalDot Nat\to Bool, ~t_2\equalDot t_1\to t_1\}) \goesTo{1}{} \{t_1\equalDot Nat,~ Bool\equalDot Bool, ~t_2\equalDot t_1\to t_1\} \\
-&\goesTo{4}{Nat/t_1} \{Bool\equalDot Bool, ~t_2\equalDot Nat\to Nat\} \goesTo{2}{} \{t_2\equalDot Nat\to Nat\} \goesTo{4}{Nat\to Nat/t_2} \emptyset
+&MGU(\{t_1\to Bool\doteq Nat\to Bool, ~t_2\doteq t_1\to t_1\}) \goesTo{1}{} \{t_1\doteq Nat,~ Bool\doteq Bool, ~t_2\doteq t_1\to t_1\} \\
+&\goesTo{4}{Nat/t_1} \{Bool\doteq Bool, ~t_2\doteq Nat\to Nat\} \goesTo{2}{} \{t_2\doteq Nat\to Nat\} \goesTo{4}{Nat\to Nat/t_2} \emptyset
 \end{align*}
 
 Entonces $S = \{Nat/t_1\} \circ \{Nat\to Nat/t_2\} = \{Nat/t_1,~Nat\to Nat/t_2\}$
 
 \paragraph{VIII)}
 \begin{align*}
-&MGU(\{t_1\to t_2\equalDot t_3\to t_4, ~t_3\equalDot t_2\to t_1\}) \goesTo{1}{} \{t_1\equalDot t_3,~ t_2\equalDot t_4, ~t_3\equalDot t_2\to t_1\} \\
-&\goesTo{4}{t_3/t_1} \{t_2\equalDot t_4, ~\red{t_3\equalDot t_2\to t_3}\} \goesTo{6}{} \falla\\
+&MGU(\{t_1\to t_2\doteq t_3\to t_4, ~t_3\doteq t_2\to t_1\}) \goesTo{1}{} \{t_1\doteq t_3,~ t_2\doteq t_4, ~t_3\doteq t_2\to t_1\} \\
+&\goesTo{4}{t_3/t_1} \{t_2\doteq t_4, ~\red{t_3\doteq t_2\to t_3}\} \goesTo{6}{} \falla\\
 \end{align*}
 
 \subsection{Ejercicio 3}
 
 \begin{itemize}
 \item $t\to u$ unifica con $Nat\to Bool$ y $(Nat\to u)\to Bool$,
-    $$MGU(\{t\to u \equalDot Nat\to Bool\}) = \{Nat/t,~Bool/u\}$$
-    $$MGU(\{t\to u \equalDot (Nat\to u)\to Bool\}) = \{Nat\to Bool/t,~Bool/u\}$$
+    $$MGU(\{t\to u \doteq Nat\to Bool\}) = \{Nat/t,~Bool/u\}$$
+    $$MGU(\{t\to u \doteq (Nat\to u)\to Bool\}) = \{Nat\to Bool/t,~Bool/u\}$$
 \item $Nat$ unifica con $t$,
-    $$MGU(\{Nat \equalDot t\}) = \{Nat/t\}$$
+    $$MGU(\{Nat \doteq t\}) = \{Nat/t\}$$
 \item $u\to bool$ unifica con $t$ y $Nat\to Bool$, 
-    $$MGU(\{u\to Bool \equalDot t\}) = \{u\to Bool/t\}$$
-    $$MGU(\{u\to Bool \equalDot Nat\to Bool\}) = \{Nat/u\}$$
+    $$MGU(\{u\to Bool \doteq t\}) = \{u\to Bool/t\}$$
+    $$MGU(\{u\to Bool \doteq Nat\to Bool\}) = \{Nat/u\}$$
 \item $a\to b \to c$ unifica con $t$, y $Nat\to u \to Bool$
-    $$MGU(\{a\to b \to c \equalDot t\}) = \{a\to b \to c/t\}$$
-        $$MGU(\{a\to b \to c \equalDot Nat\to u \to Bool\}) = \{Nat/a,~u/b~, Bool/c\}$$
+    $$MGU(\{a\to b \to c \doteq t\}) = \{a\to b \to c/t\}$$
+        $$MGU(\{a\to b \to c \doteq Nat\to u \to Bool\}) = \{Nat/a,~u/b~, Bool/c\}$$
 \end{itemize}
 
 \subsection{Ejercicio 4}
@@ -125,14 +125,14 @@ Entonces $S = \{Nat/t_1\} \circ \{Nat\to Nat/t_2\} = \{Nat/t_1,~Nat\to Nat/t_2\}
 
 \paragraph{(3)} $\WFunc(succ(0)) \equalDef \judgeType{S\emptyset}{S(succ(0))}{Nat} = \judgeType{\emptyset}{succ(0)}{Nat}$ 
 \begin{centrado}
-$S = MGU(\{Nat\equalDot Nat\}) \goesTo{2}{} \emptyset$
+$S = MGU(\{Nat\doteq Nat\}) \goesTo{2}{} \emptyset$
 \end{centrado}
 
 \paragraph{(4)} $\WFunc(\lambdaIf{z}{0}{succ(0)}) \equalDef \judgeType{S\{z:t_1\}\cup S\emptyset \cup S\emptyset}{\lambdaIf{z}{0}{succ(0)}}{SNat}$
 
 \quad\quad$ = \judgeType{\{z:Bool\}}{\lambdaIf{z}{0}{succ(0)}}{Nat}$ 
 \begin{centrado}
-$S = MGU(\{t_1\equalDot Bool\}) \goesTo{4}{Bool/t1} \emptyset~\Rightarrow~S = \{Bool/t1\}$
+$S = MGU(\{t_1\doteq Bool\}) \goesTo{4}{Bool/t1} \emptyset~\Rightarrow~S = \{Bool/t1\}$
 \end{centrado}
 
 \paragraph{(5)} $\WFunc(\lambdaAbsI{z}{\lambdaIf{z}{0}{succ(0)}}) \equalDef \judgeType{\emptyset}{\lambdaAbs{z}{Bool}{\lambdaIf{z}{0}{succ(0)}}}{Nat}$
@@ -165,7 +165,7 @@ $S = MGU(\{t_1\equalDot Bool\}) \goesTo{4}{Bool/t1} \emptyset~\Rightarrow~S = \{
 
 \paragraph{(4)} $\WFunc((\lambdaAbsI{x}{x})~y) \equalDef \judgeType{S\emptyset \cup S\{y:t_2\}}{S(\lambdaAbs{x}{t_1}{x})~Sy}{St_3} = \judgeType{\{y:t_1\}}{(\lambdaAbs{x}{t_1}{x})~y}{t_1}$ 
 \begin{centrado}
-$S = MGU(\{t_1\to t_1 \equalDot t_2\to t_3\}) \goesTo{1}{} \{t_1\equalDot t_2,~ t_1 \equalDot t_3\} \goesTo{4}{t_1/t_2}\{t_1 \equalDot t_3\} \goesTo{4}{t_1/t_3} \emptyset$ $\Rightarrow~S = \{t_1/t_2,~t_1/t_3\}$
+$S = MGU(\{t_1\to t_1 \doteq t_2\to t_3\}) \goesTo{1}{} \{t_1\doteq t_2,~ t_1 \doteq t_3\} \goesTo{4}{t_1/t_2}\{t_1 \doteq t_3\} \goesTo{4}{t_1/t_3} \emptyset$ $\Rightarrow~S = \{t_1/t_2,~t_1/t_3\}$
 \end{centrado}
 
 \paragraph{(5)} $\WFunc(succ((\lambdaAbsI{x}{x})~y)) \equalDef \judgeType{S\{y:t_1\}}{S(succ((\lambdaAbs{x}{t_1}{x})~y))}{Nat}$ 
@@ -173,7 +173,7 @@ $S = MGU(\{t_1\to t_1 \equalDot t_2\to t_3\}) \goesTo{1}{} \{t_1\equalDot t_2,~ 
 \quad\quad\quad$ = \judgeType{\{y:Nat\}}{succ((\lambdaAbs{x}{Nat}{x})~y)}{Nat}$
 
 \begin{centrado}
-$S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = \{Nat/t_1\}$
+$S = MGU(\{t_1 \doteq Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = \{Nat/t_1\}$
 \end{centrado}
 
 \paragraph{(6)} $\WFunc(\lambdaAbsI{y}{succ((\lambdaAbsI{x}{x})~y)}) \equalDef \judgeType{\emptyset}{\lambdaAbs{y}{Nat}{succ((\lambdaAbs{x}{Nat}{x})~y)}}{Nat\to Nat}$ 
@@ -214,7 +214,7 @@ $S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = 
 
 \paragraph{(5)} $\WFunc(isZero(x)) \equalDef \judgeType{S\{x:t_1\}}{S(isZero(x))}{Bool} = \judgeType{\{x:Nat\}}{isZero(x)}{Bool}$ 
 \begin{centrado}
-$S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = \{Nat/t_1\}$
+$S = MGU(\{t_1 \doteq Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = \{Nat/t_1\}$
 \end{centrado}
 
 \paragraph{(6)} $\WFunc(x) \equalDef \judgeType{\{x:t_5\}}{x}{t_5}$
@@ -225,7 +225,7 @@ $S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = 
 \end{align*}
 
 \begin{align*}
-&S = MGU(\{t_2 \equalDot t_3,~t_2 \equalDot t_4, t_3 \equalDot t_4,~t_2 \equalDot Bool\}) \goesTo{4}{t_2/t_3} \{t_2 \equalDot t_4, t_2 \equalDot t_4,~t_2 \equalDot Bool\} \\ &\goesTo{4}{t_2/t_4} \{t_2 \equalDot t_2,~t_2 \equalDot Bool\} \goesTo{2}{} \{t_2 \equalDot Bool\} \goesTo{4}{Bool/t_2} \emptyset \\
+&S = MGU(\{t_2 \doteq t_3,~t_2 \doteq t_4, t_3 \doteq t_4,~t_2 \doteq Bool\}) \goesTo{4}{t_2/t_3} \{t_2 \doteq t_4, t_2 \doteq t_4,~t_2 \doteq Bool\} \\ &\goesTo{4}{t_2/t_4} \{t_2 \doteq t_2,~t_2 \doteq Bool\} \goesTo{2}{} \{t_2 \doteq Bool\} \goesTo{4}{Bool/t_2} \emptyset \\
 &\Rightarrow~S = \{Bool/t_2,~Bool/t_4,~Bool/t_3\}
 \end{align*}
 
@@ -236,7 +236,7 @@ $S = MGU(\{t_1 \equalDot Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = 
 &\equalDef \judgeType{S\{x:Nat\}\cup S\{x:t_5\}\cup S\{x:Bool\}}{\lambdaIf{isZero(x)}{x}{(\lambdaIf{x}{x}{x}})}{t_5}\\ 
 \end{align*}
 
-$S = MGU(\{Nat \equalDot t_5,~Nat \equalDot Bool, t_5 \equalDot Bool,~\red{Nat \equalDot Bool}\}) \goesTo{6}{} \falla$
+$S = MGU(\{Nat \doteq t_5,~Nat \doteq Bool, t_5 \doteq Bool,~\red{Nat \doteq Bool}\}) \goesTo{6}{} \falla$
 
 \subsubsection*{IV)}
 
@@ -273,7 +273,7 @@ $S = MGU(\{Nat \equalDot t_5,~Nat \equalDot Bool, t_5 \equalDot Bool,~\red{Nat \
 \end{align*}
 
 \begin{align*}
-&S = MGU(\{t_1 \equalDot Bool,~t_2 \equalDot Nat\}) \goesTo{4}{Bool/t_1} \{t_2 \equalDot Nat\} \goesTo{4}{Nat/t_2} \emptyset \\
+&S = MGU(\{t_1 \doteq Bool,~t_2 \doteq Nat\}) \goesTo{4}{Bool/t_1} \{t_2 \doteq Nat\} \goesTo{4}{Nat/t_2} \emptyset \\
 &\Rightarrow S = \{Bool/t_1,~Nat/t_2\}
 \end{align*}
 
@@ -326,7 +326,7 @@ $S = MGU(\{Nat \equalDot t_5,~Nat \equalDot Bool, t_5 \equalDot Bool,~\red{Nat \
 
 \begin{centrado}
 \begin{align*}
-S &= MGU(\{t_1\to Nat \equalDot Nat\to t_2\}) \goesTo{1}{} \{t_1\equalDot Nat,~ Nat \to t_4\} \goesTo{4}{Nat/t_1} \{Nat \to t_4\} \\
+S &= MGU(\{t_1\to Nat \doteq Nat\to t_2\}) \goesTo{1}{} \{t_1\doteq Nat,~ Nat \to t_4\} \goesTo{4}{Nat/t_1} \{Nat \to t_4\} \\
 &\goesTo{4}{Nat/t_4} \emptyset \\
 &\Rightarrow S=\{Nat/t_1, Nat/t_2\}
 \end{align*}
@@ -344,7 +344,7 @@ S &= MGU(\{t_1\to Nat \equalDot Nat\to t_2\}) \goesTo{1}{} \{t_1\equalDot Nat,~ 
 
 \begin{centrado}
 \begin{align*}
-S &= MGU(\{t_3\to Nat \equalDot Bool\to t_4\}) \goesTo{1}{} \{t_3\equalDot Bool,~ Nat \to t_4\} \goesTo{4}{Bool/t_3} \\
+S &= MGU(\{t_3\to Nat \doteq Bool\to t_4\}) \goesTo{1}{} \{t_3\doteq Bool,~ Nat \to t_4\} \goesTo{4}{Bool/t_3} \\
 &\{Nat \to t_4\} \goesTo{4}{Nat/t_4} \emptyset \\
 &\Rightarrow S=\{Bool/t_3, Nat/t_4\}
 \end{align*}
@@ -359,7 +359,7 @@ S &= MGU(\{t_3\to Nat \equalDot Bool\to t_4\}) \goesTo{1}{} \{t_3\equalDot Bool,
 \end{align*}
 \begin{centrado}
 \begin{align*}
-S &= MGU(\{Bool\equalDot Bool,~Nat \equalDot Nat\}) \goesTo{2}{\times 2} \emptyset\\
+S &= MGU(\{Bool\doteq Bool,~Nat \doteq Nat\}) \goesTo{2}{\times 2} \emptyset\\
 &\Rightarrow S=\emptyset
 \end{align*}
 \end{centrado}
@@ -402,7 +402,7 @@ S &= MGU(\{Bool\equalDot Bool,~Nat \equalDot Nat\}) \goesTo{2}{\times 2} \emptys
 
 \begin{centrado}
 \begin{align*}
-S &= MGU(\{t_1\equalDot Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
+S &= MGU(\{t_1\doteq Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
 &\Rightarrow S=\{Nat\to t_2/t_1\}
 \end{align*}
 \end{centrado}
@@ -419,7 +419,7 @@ S &= MGU(\{t_1\equalDot Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
 
 \begin{centrado}
 \begin{align*}
-S &= MGU(\{t_1\equalDot Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
+S &= MGU(\{t_1\doteq Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
 &\Rightarrow S=\{Nat\to t_2/t_1\}
 \end{align*}
 \end{centrado}
@@ -432,7 +432,7 @@ S &= MGU(\{t_1\equalDot Nat \to t_2\}) \goesTo{4}{Nat\to t_2/t1}  \emptyset \\
 &\equalDef \judgeType{S\{f:Nat\to t_2\} \cup S\{f:Bool\to t_4\}}{S(\lambdaIf{true}{f~0}{f~false})}{St_2} \\
 \end{align*}
 \begin{align*}
-S &= MGU(\{Bool\equalDot Bool,~Nat\to t_2 \equalDot Bool \to t_4\}) \goesTo{1}{} \{Bool\equalDot Bool,~\red{Nat \equalDot Bool},~t_2 \equalDot t_4\} \goesTo{5}{} \falla\\
+S &= MGU(\{Bool\doteq Bool,~Nat\to t_2 \doteq Bool \to t_4\}) \goesTo{1}{} \{Bool\doteq Bool,~\red{Nat \doteq Bool},~t_2 \doteq t_4\} \goesTo{5}{} \falla\\
 \end{align*}
 
 \subsubsection*{VII)}
@@ -469,7 +469,7 @@ S &= MGU(\{Bool\equalDot Bool,~Nat\to t_2 \equalDot Bool \to t_4\}) \goesTo{1}{}
 
 \begin{centrado}
 \begin{align*}
-S = MGU(\{t_3\equalDot Nat\}) \goesTo{4}{Nat/t3}  \emptyset \Rightarrow S=\{Nat/t_3\}
+S = MGU(\{t_3\doteq Nat\}) \goesTo{4}{Nat/t3}  \emptyset \Rightarrow S=\{Nat/t_3\}
 \end{align*}
 \end{centrado}
 
@@ -482,7 +482,7 @@ S = MGU(\{t_3\equalDot Nat\}) \goesTo{4}{Nat/t3}  \emptyset \Rightarrow S=\{Nat/
 & = \judgeType{\{z:Bool,~y:Nat,~x:Nat\}}{\lambdaIf{z}{y}{succ(x)}}{Nat}
 \end{align*}
 \begin{align*}
-S &= MGU(\{t_1 \equalDot Bool,~Nat \equalDot t_3\}) = \{Bool/t_1,~Nat/t_3\}
+S &= MGU(\{t_1 \doteq Bool,~Nat \doteq t_3\}) = \{Bool/t_1,~Nat/t_3\}
 \end{align*}
 
 \paragraph{(6)} 
@@ -531,7 +531,7 @@ S &= MGU(\{t_1 \equalDot Bool,~Nat \equalDot t_3\}) = \{Bool/t_1,~Nat/t_3\}
 \paragraph{(3)} $\WFunc(pred(x)) \equalDef \judgeType{S\{x:t_2\}}{Ssucc(x)}{Nat} = \judgeType{\{x:Nat\}}{succ(x)}{Nat}$
 
 \vspace*{5mm}
-$S = MGU(\{t_2\equalDot Nat\}) \goesTo{4}{Nat/t_2}  \emptyset \Rightarrow S=\{Nat/t_2\}$
+$S = MGU(\{t_2\doteq Nat\}) \goesTo{4}{Nat/t_2}  \emptyset \Rightarrow S=\{Nat/t_2\}$
 
 \paragraph{(4)} 
 $\WFunc(\lambdaAbsI{x}{pred(x)})
@@ -544,9 +544,9 @@ $
 
 \begin{align*}
 \vspace*{5mm}
-&S = MGU(\{(t_1\to t_1)\to t_1 \equalDot (Nat\to Nat)\to t_3\}) \goesTo{1}{}  \{(t_1\to t_1)\equalDot (Nat\to Nat),~t_1 \equalDot  t_3\} \\
-&\goesTo{1}{}  \{t_1\equalDot Nat,~ t_1\equalDot Nat,~t_1 \equalDot  t_3\}  
-\goesTo{4}{Nat/t_1}  \{Nat \equalDot Nat,~Nat \equalDot  t_3\} \goesTo{2}{}  \{Nat \equalDot  t_3\} \goesTo{4}{Nat/t_3}  \emptyset \\
+&S = MGU(\{(t_1\to t_1)\to t_1 \doteq (Nat\to Nat)\to t_3\}) \goesTo{1}{}  \{(t_1\to t_1)\doteq (Nat\to Nat),~t_1 \doteq  t_3\} \\
+&\goesTo{1}{}  \{t_1\doteq Nat,~ t_1\doteq Nat,~t_1 \doteq  t_3\}  
+\goesTo{4}{Nat/t_1}  \{Nat \doteq Nat,~Nat \doteq  t_3\} \goesTo{2}{}  \{Nat \doteq  t_3\} \goesTo{4}{Nat/t_3}  \emptyset \\
 &\Rightarrow S=\{Nat/t_1,~Nat/t_3\}
 \end{align*}
 
@@ -586,7 +586,7 @@ $
 \paragraph{(3)} $\WFunc(z~x) \equalDef \judgeType{S\{z:t_1, x:t_2\}}{S(z~x)}{St_3} = \judgeType{\{z:t_2\to t_3, x:t_2\}}{z~x}{t_3}$
 
 \vspace*{5mm}
-$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+$S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 
 
 \paragraph{(4)} $\WFunc(y) \equalDef \judgeType{\{y:t_4\}}{y}{t_4}$
@@ -596,7 +596,7 @@ $S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \WFunc((z~x)~y) &\equalDef \judgeType{S\{z:t_2\to t_3, x:t_2\}\cup S\{ y: t_4\}}{S((z~x)~y)}{St_5} \\ &= \judgeType{\{z:t_2\to t_4\to t_5,~x:t_2,~y: t_4\}}{(z~x)~y}{t_5}
 \end{align*}
 \begin{align*}
-S &= MGU(\{t_3 \equalDot t_4\to t_5\}) = \{t_4\to t_5/t_3\}
+S &= MGU(\{t_3 \doteq t_4\to t_5\}) = \{t_4\to t_5/t_3\}
 \end{align*}
 
 \paragraph{(6)} $\WFunc(z) \equalDef \judgeType{\{z:t_6\}}{z}{t_6}$
@@ -606,7 +606,7 @@ S &= MGU(\{t_3 \equalDot t_4\to t_5\}) = \{t_4\to t_5/t_3\}
 \WFunc((z~x)~y) &\equalDef \judgeType{S\{z:t_2\to t_4\to t_5,~x:t_2,~y: t_4\}\cup S\{ z: t_6\}}{S((z~x)~y)}{St_7}
 \end{align*}
 \begin{align*}
-S &= MGU(\{t_6 \equalDot t_2\to t_4\to t_5,~t_5\equalDot t_6\to t_7\}) \goesTo{4}{t_2\to t_4\to t_5/t_6} \{\red{t_5}\equalDot (t_2\to t_4\to \red{t_5})\to t_7\} \goesTo{6}{} \falla
+S &= MGU(\{t_6 \doteq t_2\to t_4\to t_5,~t_5\doteq t_6\to t_7\}) \goesTo{4}{t_2\to t_4\to t_5/t_6} \{\red{t_5}\doteq (t_2\to t_4\to \red{t_5})\to t_7\} \goesTo{6}{} \falla
 \end{align*}
 
 \paragraph{II)}
@@ -639,7 +639,7 @@ S &= MGU(\{t_6 \equalDot t_2\to t_4\to t_5,~t_5\equalDot t_6\to t_7\}) \goesTo{4
 \paragraph{(3)} $\WFunc(w~y) \equalDef \judgeType{S\{w:t_1\}\cup S\{ y:t_2\}}{S(w~y)}{St_3} = \judgeType{\{w:t_2\to t_3, y:t_2\}}{w~y}{t_3}$
 
 \vspace*{5mm}
-$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+$S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 
 \paragraph{(4)} $\WFunc(\lambdaAbsI{y}{w~y}) \equalDef \judgeType{\{w:t_2\to t_3\}}{\lambdaAbs{y}{t_2}{w~y}}{t_2\to t_3}$
 
@@ -648,8 +648,8 @@ $S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \paragraph{(6)} $\WFunc(w~(\lambdaAbsI{y}{w~y})) \equalDef \judgeType{S\{w:t_4\}\cup S\{w:t_2\to t_3\}}{Sw~S(\lambdaAbs{y}{t_2}{w~y})}{St_5}$
 
 \begin{align*}
-&S = MGU\{t_4 \equalDot t_2\to t_3,~ t_4 \equalDot (t_2\to t_3)\to t_5\} \goesTo{4}{t_2\to t_3/t_4} \{t_2\to t_3 \equalDot (t_2\to t_3)\to t_5\} \\
-&\goesTo{1}{} \{\red{t_2} \equalDot \red{t_2}\to t_3,~ t_3\equalDot t_5\} \goesTo{6}{} \falla
+&S = MGU\{t_4 \doteq t_2\to t_3,~ t_4 \doteq (t_2\to t_3)\to t_5\} \goesTo{4}{t_2\to t_3/t_4} \{t_2\to t_3 \doteq (t_2\to t_3)\to t_5\} \\
+&\goesTo{1}{} \{\red{t_2} \doteq \red{t_2}\to t_3,~ t_3\doteq t_5\} \goesTo{6}{} \falla
 \end{align*}
 
 
@@ -679,7 +679,7 @@ $S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \paragraph{(3)} $\WFunc(x~y) \equalDef \judgeType{S\{x:t_1\}\cup S\{ y:t_2\}}{S(x~y)}{St_3} = \judgeType{\{x:t_2\to t_3, y:t_2\}}{x~y}{t_3}$
 
 \vspace*{5mm}
-$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+$S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 
 \paragraph{(4)} $\WFunc(\lambdaAbsI{y}{x~y}) \equalDef \judgeType{\{x:t_2\to t_3\}}{\lambdaAbs{y}{t_2}{x~y}}{t_2\to t_3}$
 
@@ -711,7 +711,7 @@ $S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \paragraph{(3)} $\WFunc(y~x) \equalDef \judgeType{S\{y:t_1\}\cup S\{x:t_2\}}{S(y~x)}{St_3} = \judgeType{\{y:t_2\to t_3, x:t_2\}}{y~x}{t_3}$
 
 \vspace*{5mm}
-$S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
+$S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 
 \paragraph{(4)} $\WFunc(\lambdaAbsI{y}{y~x}) \equalDef \judgeType{\{x:t_2, \}}{\lambdaAbs{y}{t_2\to t_3}{x~y}}{(t_2\to t_3)\to t_3}$
 
@@ -770,7 +770,7 @@ $S = MGU\{t_1 \equalDot t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 $
 
 \vspace*{5mm}
-$S = MGU(\{t_1\to t_1\equalDot t_2\to t_3\}) \goesTo{1}{} \{t_1\equalDot t_2,~\to t_1\equalDot t_3\} \goesTo{4}{t_1/t_2} \{t_1\equalDot t_3\}\} \goesTo{4}{t_1/t_3} \emptyset$
+$S = MGU(\{t_1\to t_1\doteq t_2\to t_3\}) \goesTo{1}{} \{t_1\doteq t_2,~\to t_1\doteq t_3\} \goesTo{4}{t_1/t_2} \{t_1\doteq t_3\}\} \goesTo{4}{t_1/t_3} \emptyset$
 
 $\Rightarrow S = \{t_1/t_2,~t_1/t_3\}$
 
@@ -811,6 +811,6 @@ $\Rightarrow S = \{t_1/t_2,~t_1/t_3\}$
 \paragraph{(4)} $\WFunc(z~(\lambdaAbsI{y}{z})) \equalDef \judgeType{S\{z:t_3\}\cup S\{z:t_1\}}{S(z~(\lambdaAbs{y}{t_2}{z}))}{St_4}$
 
 \vspace*{5mm}
-$S = MGU(\{t_3\equalDot t_1,~t_3\equalDot (t_2\to t_1)\to t_4\}) \goesTo{4}{t_3/t_1} \{\red{t_3}\equalDot (t_2\to \red{t_3})\to t_4\} \goesTo{6}{} \falla$
+$S = MGU(\{t_3\doteq t_1,~t_3\doteq (t_2\to t_1)\to t_4\}) \goesTo{4}{t_3/t_1} \{\red{t_3}\doteq (t_2\to \red{t_3})\to t_4\} \goesTo{6}{} \falla$
 
 \end{document}

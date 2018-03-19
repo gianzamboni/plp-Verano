@@ -623,5 +623,142 @@ $\WFunc(\red{\lambdaFix{(U)}}) \equalDef \judgeType{S\Gamma}{S~\lambdaFix{(M)}}{
 \end{centrado}
 
 \newpage
+\section{Subtipado}
 
+\begin{align*}
+\frac{}{Nat <: Float}(\text{S-NatFloat}) \hspace*{5mm}\frac{}{Int <: Float}(\text{S-IntFloat}) \hspace*{5mm}\frac{}{Bool <: Nat}(\text{S-BoolNat})
+\end{align*}
+
+$$\frac{\sigma' <: \sigma\hspace*{5mm}\tau <: \tau'}{\sigma\to\tau <: \sigma'\to\tau'}(\text{S-Func})$$
+
+$$\frac{}{\sigma <: \sigma}(\text{S-Refl}) \hspace*{1cm}\frac{\sigma <:\tau\hspace*{5mm}\tau <: \rho}{\sigma <: \rho}(\text{S-Trans})$$
+
+$$\frac{\sigma <: \tau\hspace*{5mm} \tau <: \sigma}{Ref~\tau <: Ref~\sigma}$$
+
+\begin{align*}
+\frac{\sigma <: \tau}{Source~\sigma <: Source~\tau}(\text{S-Source})\hspace*{1cm}\frac{\tau <: \sigma}{Sink~\sigma <: Sink~\tau}(\text{S-Sink})
+\end{align*}
+
+\begin{align*}
+\frac{}{Ref~\tau <: Source~\tau}(\text{S-RefSource})\hspace*{1cm}\frac{}{Ref~\tau <: Sink~\tau}(\text{S-RefSink})
+\end{align*}
+\subsection{Reglas de reduccion con subtipado}
+
+\begin{equation*}
+\begin{gathered}
+    \frac{x:\sigma\in\Gamma}{\judgeTypeS{\Gamma}{x}{\sigma}}(\text{T-Var})\hspace*{2cm}
+\vspace*{5mm} \\
+    \frac {\judgeTypeS{\Gamma,x:\sigma}{M}{\tau}}
+          {\judgeTypeS{\Gamma}{\lambdaAbs{x}{\sigma}{M}}{\sigma\to\tau}}(\text{T-Abs})\hspace*{2cm}
+    \frac{\judgeTypeS{\Gamma}{M}{\sigma\to\tau}\hspace*{5mm}\judgeTypeS{\Gamma}{N}{\blue{\rho}}\hspace*{5mm}\blue{\rho <: \sigma}}{\judgeTypeS{\Gamma}{M~N}{\tau}}(\text{T-App})
+\end{gathered}
+\end{equation*}
+
+\newpage
+\section{Objetos}
+\subsubsection{Sintaxis}
+\begin{tabular}{lllll}
+	$a,b$ &$::=$& &$x$ & Variables \\
+ 	      &     & $|$ &$[\OOAtributo{l_i}{x_i}{b_i}^{i\in1..n}]$ &  Objetos\\
+ 	      &     & $|$ &$a.l$ &  Selección/ Envío de mensajes \\
+ 	      &     & $|$ &$\OORedefinicion{a.l}{x}{b}$ &  Redefinición de un método.	       	       	      
+\end{tabular}
+
+\subsection{Variables libres}
+\begin{tabular}{ll}
+	$\text{fv}(\varsigma(x)b)$ &$= \text{fv}(b)\backslash \{x\} $\\
+	$\text{fv}(x)$ &$= \{x\} $\\
+	$\text{fv}([\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}])$ &$=  \bigcup^{1\in 1..n} \text{fv}(\varsigma(x)b)$\\
+	$\text{fv}(a.l)$ &$= \text{fv}(a) $\\
+	$\text{fv}(\OORedefinicion{a.l}{x}{b})$ &$= \text{fv}(a.l)\cup \text{fv}(\varsigma(x)b) $\\
+\end{tabular}
+
+\subsection{Sustitución}
+\begin{center}
+\begin{tabular}{lll}
+	$x\{x \leftarrow c\}$ &$= c$ & \\
+	$y\{x \leftarrow c\}$ &$= y$ & si $x\neq y$\\
+	$([\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}])\{x \leftarrow c\}$ &$=  [l_i = (\varsigma(x_i)b_i)\{x \leftarrow c\}^{i\in 1..n}]$ & \\
+	$(a.l)\{x \leftarrow c\}$ &$= (a\{x \leftarrow c\}).l $ & \\
+	$(\OORedefinicion{a.l}{x}{b})\{x \leftarrow c\}$ &$= (a\{x \leftarrow c\}).l \leftleftharpoons (\varsigma(x)b)\{x \leftarrow c\} $ & \\
+	$(\varsigma(y)b)\{x \leftarrow c\}$ &$= (\varsigma(y')(b\{y \leftarrow y'\}\{x \leftarrow c\})) $ & si $y'\notin$fv$(\varsigma(y)b)\cup$fv$(c)\cup\{x\}$ \\
+\end{tabular}
+\end{center}
+
+\subsection{Semantica operacional}
+$$V~::=~[\OOAtributo{l_i}{x_i}{b_i}^{1\in 1..n}]$$
+
+$$\frac{}{v\longrightarrow v}[\text{Obj}]$$
+\vspace*{5mm}
+$$\frac{a\longrightarrow v'\hspace*{5mm} v'\equiv [\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}]\hspace*{5mm} b_j\{x_j\leftarrow v'\}\longrightarrow v\hspace*{5mm} j\in1..n}{a.l_j\longrightarrow v}[\text{Sel}]$$
+
+\vspace*{5mm}
+$$\frac{a\longrightarrow [\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n}]\hspace*{5mm} j\in1..n}{\OORedefinicion{a.l_j}{x}{b}\longrightarrow [\OOAtributo{l_j}{x}{b},~\OOAtributo{l_i}{x_i}{b_i}^{i\in 1..n-\{j\}}]}[\text{Upd}]$$
+
+\paragraph{Indefinido: } $[\OOAtributo{a}{x}{x.a}].a$
+
+\subsubsection{Codificacion de funciones}
+\begin{align*}
+\OORep{x} &\equalDef x\\
+\OORep{M~N} &\equalDef \OORep{M}.arg :=~\OORep{N}\\
+\OORep{\lambdaAbsI{x}{M}} &\equalDef 
+[\OOAtributo{val}{y}{\OORep{M}\{x\leftarrow y.arg\}},~\OOAtributo{arg}{y}{y.arg}]\\
+\end{align*}
+
+
+\newpage
+\section{Resolución}
+\subsection{Lógica propocisional}
+$$\frac{C_1 = \{A_1,\dots,A_m,L\}\hspace*{5mm} C_2 = \{B_1,\dots,B_m, \overline{L}\}}{C = \{A_1,\dots,A_m, B_1,\dots,B_n\}}$$
+
+\subsection{Lógica de primer orden}
+Transformar la formula:
+\begin{enumerate}
+\item Eliminar las implicaciones, es decir, si aparece una clausula de la forma $(A\supset B)$, reescribirla como $(\lnot A \lor B)$.
+\item Pasar a \textbf{forma normal negada}.
+\item Pasar a \textbf{forma normal prenexa}.
+\item Pasar a \textbf{forma normal de Skolem}.
+\item Pasar a \textbf{forma normal conjuntiva}.
+\item \textbf{Distribuir} cuantificadores universales.
+\end{enumerate}
+
+\subsubsection{Skolemización}
+
+Sea $A$ una sentencia rectificada en forma normal negada, la \textbf{forma normal de Skolem de A} (\textbf{SK(A)}) se define recursivamente como sigue:
+
+Sea $A'$ cualquier subfórmula de $A$, 
+\begin{itemize}
+\item Si $A'$ es una fórmula atómica o su negación, \textbf{SK}$(A') = A'$.
+\item Si $A'$ es de la forma $(B\star C)$ con $\star \in \{\land,\lor\}$, entonces $\textbf{SK}(A') = (\textbf{SK}(B)\star \textbf{SK}(C))$.
+\item Si $A'$ es de la forma $\forall x.B$, entonces $\textbf{SK}(A') = \forall x.\textbf{SK}(B)$.
+\item Si $A'$ es de la forma $\exists x.B$ y $\{x,y_1,\dots,y_m\}$ son las variables libres de $B$, entonces:
+\begin{enumerate}
+\item Si $m>0$, crear un \textbf{símbolo de función de Skolem}, $f_x$ de aridad $m$ y definir:
+
+$$\textbf{SK}(A') = \textbf{SK}(B\{ x \leftarrow f(y_1,\dots,y_m)\})$$
+
+\item Si $m=0$, crear una nueva \textbf{constante de Skolem} $c_x$ y
+
+$$\textbf{SK}(A') = \textbf{SK}(B\{ x \leftarrow c_x\})$$
+
+\end{enumerate}
+\end{itemize}
+
+\subsection{Reglas de resolucion de primer orden}
+$$\frac{\{\blue{B_1,\dots,B_k},A_1,\dots,A_n\}\hspace*{5mm}\{\blue{\lnot D_1,\dots,\lnot D_k},A_1,\dots,A_n\}}{\red{\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})}}$$
+
+donde $\sigma$ es el \textbf{unificador más general} (MGU) de $\{B_1,\dots,B_k,\lnot D_1,\dots,\lnot D_k\}$ y \\ $\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})$ es el \textbf{resolvente}.
+
+\subsection{Regla de resolucion binaria y factorizacion}
+$$\frac{\{\blue{B_1},A_1,\dots,A_n\}\hspace*{5mm}\{\blue{\lnot D_1},A_1,\dots,A_n\}}{\red{\sigma(\{A_1,\dots A_m, C_1,\dots,C_n\})}}$$
+
+$$\frac{\{\blue{B_1,\dots,B_k},A_1,\dots,A_n\}}{\red{\sigma(\{B_1,A_1,\dots A_m\})}}$$
+
+\section{Prolog predicados}
+\paragraph{Predicados:} 
+=, sort, msort, length, nth1, nth0, member, append, last, between, is\_list, list\_to\_set, is\_set, union, intersection, subset, subtract, select, delete, reverse,  atom,  number, numlist, sumlist, flatten, help
+
+\paragraph{Operaciones extra-lógicas}: is, $\backslash =$,  $==$,  $=:=$, $=\backslash=$, $>$, $<$, $=<$, $>=$, abs, max, min, gcd,  var,  nonvar, ground, trace, notrace
+
+\paragraph{Metapredicados:} bagof, setof, maplist, include, not, forall, assert, retract, listing
 \end{document}

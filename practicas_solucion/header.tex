@@ -1,4 +1,4 @@
-
+%% Packages
 \usepackage[pdftex,
 pdfauthor={Gianfranco Zamboni},
 pdftitle={Resumen: Paradigmas de Lenguajes de Programación},
@@ -7,33 +7,52 @@ pdfkeywords={Resumen , Computacion, FCEyN, UBA, Paradigmas de Lenguajes de Progr
 pdfproducer={Latex with hyperref},
 pdfcreator={pdflatex}]{hyperref}
 
-\usepackage{amsmath}
-\usepackage{ amssymb }
-\usepackage{bussproofs}
-
-\usepackage[spanish]{babel}
-
-
-\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
-\usepackage{graphicx}
-\usepackage{xcolor}
-\usepackage{pifont}
-
-\usepackage{lscape}
-\usepackage{minted}
 \usepackage{a4wide} % márgenes un poco más anchos que lo usual
+\usepackage{amsmath}
+\usepackage{amssymb}
 \usepackage[titletoc,toc,page]{appendix}
-\usepackage{tikz}
-\usepackage{forest}
-\usepackage{multicol}
-\usepackage{mathabx}
+\usepackage[spanish]{babel}
+\usepackage{bussproofs}
+\usepackage{enumerate}
 
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc} % para poder usar tildes en archivos UTF-8
+\usepackage{lscape}
+\usepackage{mathabx}
+\usepackage{minted}
+\usepackage{multicol}
+\usepackage{pifont}
+\usepackage[table]{xcolor}
+
+%Para crear los arboles de sintaxis y demostraciones
+\usepackage{forest}
+\usepackage{tikz}
+
+
+% Styles
+
+\rowcolors{2}{gray!10}{white}
 
 \usemintedstyle{borland}    
 
 \setlength{\columnsep}{5mm}
 
 \ifthenelse{\paperwidth < \paperheight}{\input{page.layout}}{\input{landscape.page.layout}}
+
+\tikzset{
+    every tree node/.style={align=center},
+}
+
+\forestset{resolucion/.style={for tree={ grow=north, calign=first,l=1.5cm }}}
+
+
+\forestset{tikzQtree/.style={
+        for tree={node options=every tree node/.try}, text centered},
+        begin draw/.code={\begin{tikzpicture}[baseline=(current bounding box.center)]},
+        }
+
+
+% Enviroments
 
 \newenvironment{centrado}
     {
@@ -54,38 +73,54 @@ pdfcreator={pdflatex}]{hyperref}
      \end{minipage}
      \end{center}
     }
-\newcommand{\rel}{\ensuremath{\mathcal{R}}}
+    
 
-\newcommand{\equalDef}{\overset{def}{=}}
-\newcommand{\equalDot}{\overset{\cdot}{=}}
+\newenvironment{scprooftree}
+{\leavevmode\hbox\bgroup}
+{\DisplayProof\egroup}
+
+%Comandos
+
+% Simbolos Utiles
 \newcommand{\alphaEq}[1]{\underset{#1}{\overset{\alpha-eq}{\leadsto}}}
 
-\newcommand{\goesTo}[2]{\underset{#2}{\overset{#1}{\leadsto}}}
-\newcommand{\reduceTo}[1]{\underset{#1}{\to}}
+\newcommand{\comma}{{,}} % Para usar dentro de los bosques.
 
+
+\newcommand{\equalDef}{\overset{def}{=}}
+
+\newcommand{\goesTo}[2]{\underset{#2}{\overset{#1}{\leadsto}}}
+
+\newcommand{\List}[1]{[~]_{#1}}
 \newcommand{\longTo}{\longrightarrow}
 
-\DeclareMathOperator{\Erase}{Erase}
-\DeclareMathOperator{\Nat}{Nat}
-\DeclareMathOperator{\Bool}{Bool}
-\DeclareMathOperator{\Union}{Union}
+\newcommand{\reduceTo}[1]{\underset{#1}{\to}}
+\newcommand{\rel}{\ensuremath{\mathcal{R}}}
+\newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
+\newcommand{\multiReplaceBy}[2]{#1\{#2\}}
+
 
 \newcommand{\WFunc}{\mathbb{W}}
 
-\newcommand{\List}[1]{[~]_{#1}}
+\newcommand{\xmark}{\ding{55}}%
 
+%Colores
+\newcommand{\blue}[1]{{\color{blue}#1}}
+\newcommand{\red}[1]{{\color{red}#1}}
+\newcommand{\green}[1]{{\color{green}#1}}
+
+%Calculo Lambda
 \newcommand{\lambdaAbs}[3]{\lambda #1: #2 \text{.} #3}
-\newcommand{\lambdaAssign}[2]{#1~:=~#2}
 \newcommand{\lambdaApp}[2]{#1~#2}
-\newcommand{\lambdaIf}[3]{\text{if } #1 \text{ then } #2 \text{ else } #3}
-\newcommand{\lambdaTrue}{true}
+\newcommand{\lambdaAssign}[2]{#1~:=~#2}
 \newcommand{\lambdaFalse}{false}
+\newcommand{\lambdaFix}[1]{\text{fix } #1}
+\newcommand{\lambdaIf}[3]{\text{if } #1 \text{ then } #2 \text{ else } #3}
 \newcommand{\lambdaLet}[4]{\text{let}~#1:#2 = #3~in~#4}
 \newcommand{\lambdaRef}[1]{\text{ref}~#1}
-\newcommand{\lambdaVar}[1]{#1}
+\newcommand{\lambdaTrue}{true}
 \newcommand{\lambdaValue}[1]{{\color{red}#1}}
-\newcommand{\lambdaFix}[1]{\text{fix } #1}
-
+\newcommand{\lambdaVar}[1]{#1}
 
 \newcommand{\lambdaAbsI}[2]{\lambda #1\text{.} #2}
 \newcommand{\lambdaLetI}[3]{let~#1 = #2~in~#3}
@@ -95,44 +130,16 @@ pdfcreator={pdflatex}]{hyperref}
 \newcommand{\lambdaListCase}[3]{\text{case } #1 \text{ of } \{[~]\leadsto#2~|~h::t\leadsto#3\}}
 \newcommand{\lambdaListFold}[3]{\text{foldr } #1 \text{ base }\leadsto#2;~\text{rec}(h, r)\leadsto#3}
 
-\newcommand{\blue}[1]{{\color{blue}#1}}
-\newcommand{\red}[1]{{\color{red}#1}}
-\newcommand{\green}[1]{{\color{green}#1}}
-
 \newcommand{\falla}{\red{\texttt{falla}}}
-
-\newcommand{\replaceBy}[3]{#1\{#2\leftarrow#3\}}
-\newcommand{\multiReplaceBy}[2]{#1\{#2\}}
 
 \newcommand{\judgeType}[3]{#1\triangleright #2 : #3}
 \newcommand{\judgeTypeS}[3]{#1\mapsto #2 : #3}
 
-\newcommand{\xmark}{\ding{55}}%
 
+%Calculo objetos
 \newcommand{\OOAtributo}[3]{#1 = \varsigma(#2)#3}
 \newcommand{\OORedefinicion}[2]{#1 \leftleftharpoons #2}
 \newcommand{\OOReduccion}[2]{#1 \longrightarrow #2}
 \newcommand{\OOMetodo}[2]{\varsigma(#1)#2}
 \newcommand{\OORep}[1]{\green{[[}#1\green{]]}}
-
-\newenvironment{scprooftree}
-{\leavevmode\hbox\bgroup}
-{\DisplayProof\egroup}
-
-\tikzset{
-    every tree node/.style={align=center},
-}
-
-\forestset{tikzQtree/.style={
-        for tree={node options=every tree node/.try}, text centered},
-        begin draw/.code={\begin{tikzpicture}[baseline=(current bounding box.center)]},
-        }
-
-
-%\newenvironment{scforestset}[1]%
-%{\gdef\scalefactor{#1}\proofSkipAmount \leavevmode\hbox\bgroup}%
-%    {\scalebox{\scalefactor}{\DisplayProof}\egroup\proofSkipAmount }
-
-%\renewcommand{\appendixtocname}{Apéndices}
-%\renewcommand{\appendixpagename}{Apéndices}
 

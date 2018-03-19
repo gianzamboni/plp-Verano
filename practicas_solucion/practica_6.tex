@@ -1,4 +1,3 @@
-
 \documentclass[10pt,a4paper]{article}
 \input{header}
 
@@ -15,301 +14,514 @@
   \maketitle
   \setcounter{page}{1}
 
-
-\section*{\ Resolución en Lógica Proposicional}
+\section*{Resolución en Lógica Proposicional}
 \subsection{Ejercicio 1}
-    \subsubsection{FNC:}
-    \begin{itemize}
-    \item $-p \lor p$
-    \item $-p \lor -q \lor p$
-    \item $(-p \lor p) \land (-q \lor p)$
-    \item $(-p \lor p) \land (p \lor -p)$
-    \item $(q \lor -p \lor -q) \land (p \lor -p \lor -q)$
-    \item $(p \lor p) \land (p \lor r) \land (q \lor p) \land (q \lor r)$
-    \item $(r \lor -p) \land (-q \lor r)$
-    \item $-p \lor -q \lor r$
-    \end{itemize}
-    \subsubsection{FNClausal:}
-    \begin{enumerate}
-    \item $\{-p, p\}$
-    \item $\{-p, -q, p\}$
-    \item $\{\{-p, p\},\{-q, p\}\}$
-    \item $\{\{-p, p\}, \{p, -p\}\}$
-    \item $\{\{q, -p, -q\}, \{p, -p, -q\}\}$
-    \item $\{\{p, p\}, \{p, r\}, \{q, p\}, \{q, r\}\}$
-    \item $\{\{r, -p\}, \{-q, r\}\}$
-    \item $\{-p, -q, r\}$
-    \end{enumerate}
+\begin{tabular}{c|c|c}
+\textbf{Formula} & \textbf{FNC} & \textbf{FC} \\[1pt]
+$p \supset p$ & $\lnot p \lor p$ & $\{\lnot p, p\}$ \\[1pt] 
+$(p \land q) \supset p$ & $\lnot p \lor \lnot q \lor p$ & $\{\lnot p, \lnot q, p\}$ \\[1pt]
+$(p \lor q) \supset p$ & $(\lnot p \lor p) \land (\lnot q \lor p)$ &  $\{\{\lnot p, p\},\{\lnot q, p\}\}$\\[1pt]
+$\lnot(p \iff \lnot p)$ & $\lnot p \lor p$ & $\{\{\lnot p, p\}\}$ \\[1pt]
+$\lnot(p\land q) \supset (\lnot p \lor \lnot q) $&  $(p \lor \lnot p \lor \lnot q)\land(q \lor \lnot p \lor \lnot q)$ & $\{\{p, \lnot p, \lnot q\},\{q, \lnot p, \lnot q\} \}$\\[1pt]
+$(p \land q) \lor (p \land r)$ & $p \land (p \lor r) \land (q \lor p) \land (q \lor r)$ & $\{\{p\}, \{p, r\}, \{q, p\}, \{q, r\}\}$ \\[1pt]
+$(p \land q) \supset r $ & $\lnot p \lor \lnot q \lor r$ & $\{\lnot p,\lnot q, r\}$ \\[1pt]
+$ p \supset (q \supset r)$ & $\lnot p \lor \lnot q \lor r$ & $\{\lnot p, \lnot q, r\}$ \\[1pt]
+\end{tabular}
+
 \subsection{Ejercicio 2}
-  \subsubsection{Resolución para la lógica proposicional:}
-    \begin{enumerate}
-        \item $(-p \lor p)$ es una tautología $  \Leftrightarrow \{\{p\},\{-p\}\} $ es insatisfacible \\
-        $S=\{\{p\},\{-p\}\}$ \\
-        $\{p\}-(p) \cup \{-p\}-(-p)=\{\}$ \\
-        $S=\{\{p\},\{-p\},\{\}\} \Rightarrow $ es insatisfacible
-        \item $((-p \lor -q) \lor p) $ es una tautología$ \Leftrightarrow \{\{p\},\{q\},\{-p\}\} $ es insatisfacible \\
-        $S=\{\{p\},\{q\},\{-p\}\}$ \\
-        $\{p\}-(p) \cup \{-p\}-(-p)=\{\}$ \\
-        $S=\{\{p\},\{q\},\{-p\},\{\}\} \Rightarrow $ es insatisfacible
-        \item $((-p \lor p)\land(-q \lor p))$ es una tautología $ \Leftrightarrow \{\{p, q\},\{p, -p\},\{-p, q\},\{-p, -p\}\} $ es insatisfacible \\
-        $S=\{\{p, q\},\{p, -p\},\{-p, q\},\{-p, -p\}\}$ \\
-        $\{p, q\}-(p) \cup \{-p, q\}-(-p)=\{q\}$ \\
-        $S=\{\{p, q\},\{p, -p\},\{-p, q\},\{-p, -p\},\{q\}\}$ \\
-        No podemos aplicar ningún paso de resolución a S es decir generar una cláusula nueva, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(p)=F,v(q)=V$.
-        \item $((-p \lor p)\land(p \lor -p))$ es una tautología $ \Leftrightarrow \{\{p, -p\},\{p, p\},\{-p, -p\},\{-p, p\}\} $ es insatisfacible \\
-        $S=\{\{p, -p\},\{p, p\},\{-p, -p\},\{-p, p\}\}$ \\
-        $\{p, -p\}-(p,-p) \cup \{-p, p\}-(p,-p)=\{\}$ \\
-        $S=\{\{p, -p\},\{p, p\},\{-p, -p\},\{-p, p\},\{\}\} \Rightarrow $ es insatisfacible
-        \item $((q \lor -p \lor -q)\land(p \lor -p \lor -q))$ es una tautología $ \Leftrightarrow \{\{-q, -p\},\{-q, p\},\{-q, q\},\{p, -p\}, \\ \{p, p\},\{p, q\},\{q, -p\},\{q, p\},\{q, q\}\} es$ insatisfacible
-        $S=\{\{-q, -p\},\{-q, p\},\{-q, q\}, \\ \{p, -p\},\{p, p\},\{p, q\},\{q, -p\},\{q, p\},\{q, q\}\}$ \\
-        $\{-q, -p\}-(-q, -p) \cup \{p, q\}-(p, q)=\{\}$ \\
-        $S=\{\{-q, -p\},\{-q, p\},\{-q, q\},\{p, -p\},\{p, p\},\{p, q\},\{q, -p\},\{q, p\},\{q, q\},\{\}\} \Rightarrow $ es insatisfacible
-        \item $((p \lor p)\land(p \lor r)\land(q \lor p)\land(q \lor r))$ es una tautología $ \Leftrightarrow \{\{-p, -p, -q, -q\},\{-p, -p, -q, -r\}, \\ \{-p, -p, -p, -q\},\{-p, -p, -p, -r\},\{-p, -p, -q, -q\},\{-p, -p, -q, -r\}, \\ \{-p, -p, -p, -q\},\{-p, -p, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\}, \\ \{-p, -r, -p, -q\},\{-p, -r, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\},\{-p, -r, -p, -q\},\{-p, -r, -p, -r\}\} $ es insatisfacible \\
-        $S=\{\{-p, -p, -q, -q\},\{-p, -p, -q, -r\},\{-p, -p, -p, -q\}, \{-p, -p, -p, -r\},\{-p, -p, -q, -q\}, \\ \{-p, -p, -q, -r\},\{-p, -p, -p, -q\},\{-p, -p, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\},\{-p, -r, -p, -q\}, \\ \{-p, -r, -p, -r\},\{-p, -r, -q, -q\},\{-p, -r, -q, -r\},\{-p, -r, -p, -q\},\{-p, -r, -p, -r\}\}$ \\
-        No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea v(p)=v(q)=v(r)=F.
-        \item $((r \lor -p)\land(-q \lor r))$ es una tautología $ \Leftrightarrow \{\{-r, q\},\{p, q\},\{-r, -r\},\{p, -r\}\} $ es insatisfacible \\
-        $S=\{\{-r, q\},\{p, q\},\{-r, -r\},\{p, -r\}\}$ \\
-        No se puede generar el conjunto vacío
-        \item $(-p \lor -q \lor r)$ es una tautología $ \Leftrightarrow \{\{p\},\{q\},\{-r\}\} $ es insatisfacible \\
-        $S=\{\{p\},\{q\},\{-r\}\}$ \\
-        No podemos aplicar ningún paso de resolución a S, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea v(p)=v(q)=T,v(r)=F.
-    \end{enumerate}
-\subsubsection{Deducción:}
-Tomamos el conjunto de reglas como están + regla que quiero implicar negada = hago resolución. \\
-Porque: \\
-$\lnot ((a1\land a2) \Rightarrow b)$ \\
-$=\lnot (\lnot (a1\land a2) \lor b)$ \\
-$=(\lnot \lnot (a1\land a2) \land \lnot b)$ \\
-$=a1\land a2 \land (\lnot b)$
+\paragraph{I.} Para probar que una fórmula es una tatulogía hay que negarla, escribirla en forma clausal y ver que es insatisfactible agregando resolventes hasta llegar a la resolvente $\Box$. Las tautologías son:
+\begin{itemize}
+\item $(p \supset p)$. 
+
+Su negación $(p \land \lnot p)$ escrita en forma clausal es $S = \{\{p\},\{\lnot p\}\}$. La resolvente entre $\{p\}$ y $\{\lnot p\}\}$ es $\Box$. Entonces $S$ es insatisfacible.
+
+\item $(p \land q) \supset p$.
+
+Su negación $(p \land q \land \lnot p)$ escrita en forma clausal es $S = \{\{p\},\{q\},\{\lnot p\}\} $. Resolviendo $\{p\}$ y $\{\lnot p\}\}$ obtenemos $\Box$. Entonces $S$ es insatisfactible.
+
+\item $\lnot(p \iff \lnot p)$.
+
+Su forma normal clausal es $(p \lor \lnot p)$ y su negación $(p \land \lnot p)$ que es el primer item, entonces es una tautología.
+
+\item $\lnot(p\land q) \supset (\lnot p \lor \lnot q) $.
+
+Su negación $((\lnot p \lor \lnot q)\land p \land q$ escrita en forma clausal es $S = \{\{\lnot p,\lnot q\},\{p\},\{q\}\}$.
+
+De $\{p\}$ y $\{\lnot p,\lnot q\}$, obtenemos la resolvente $\{\lnot q,\}$ y de $\{\lnot q,\}$ y $\{\ q,\}$ obtenemos $\Box$. Entonces es insatisfactible.
+    \end{itemize}
+
+\paragraph{II.} Queremos ver que
+$ ((\lnot p \supset q) \land (p \supset q) \land (\lnot p \supset \lnot q)) \supset  (p \land q)$. Osea que debemos negarla y usar resolución para ver que la fórmula negada es insatisfactible.
+
+\subsubsection*{Paso a forma clausal de la fórmula:}
+
+\begin{align*}
+\lnot[((\lnot p \supset q) \land (p \supset q) \land (\lnot p \supset \lnot q)) \supset  (p \land q)] &\hspace{5mm}\text{Negación} \\[1pt]
+\lnot[\lnot((p \lor q) \land (\lnot p \lor q) \land (p \lor \lnot q)) \lor  (p \land q)] &\hspace{5mm}\text{Eliminación de implicas}\\[1pt]
+\lnot\lnot((p \lor q) \land (\lnot p \lor q) \land (p \lor \lnot q)) \land  \lnot(p \land q) & \\[1pt]
+(p \lor q) \land (\lnot p \lor q) \land (p \lor \lnot q) \land  (\lnot p \land \lnot q) & \hspace{5mm}\text{FNN y FNC}\\[1pt]
+\{\blue{\underbrace{\{p , q\}}_{C_1}} , \blue{\underbrace{\{\lnot p , q\}}_{C_2}} , \blue{\underbrace{\{p , \lnot q\}}_{C_3}} , \blue{\underbrace{\{\lnot p , \lnot q\}}_{C_4}}\} & \hspace{5mm}\text{Forma Clausal}
+\end{align*}
+
+\subsubsection*{Resolución:}
+\begin{center}
+\begin{forest}resolucion,
+ [ $\red{\Box}$,
+    [$\{q\}$,
+        [$C_1$]
+        [$C_2$]
+    ]
+    [$\{\lnot q\}$,
+        [$C_3$]
+        [$C_4$]
+    ]
+ ]
+\end{forest}    
+\end{center}
 
 \subsection{Ejercicio 3}
-Tomamos el conjunto de reglas como están + regla que quiero implicar negada = hago resolución.
+Valen las siguientes proposiciones:
+\begin{multicols}{2}
+\begin{itemize}
+    \item $p \supset a \leadsto \lnot p \lor a \leadsto \blue{C_1 = \{\lnot p, a\}}$
+    \item $\lnot p \supset c \leadsto p\lor c \leadsto \blue{C_2 = \{p,c\}}$
+    \item $\lnot(a\land c) \leadsto \lnot a \lor \lnot c \leadsto \blue{C_3 = \{\lnot a, \lnot c\}}$
+    \item $a \leadsto \blue{C_4 = \{a\}}$
+    \item $\lnot l\leadsto \blue{C_5 = \{\lnot l\}}$
+    \vfill\null
+\end{itemize}
+\end{multicols}
 
-Porque:
-\\
-Porque: \\
-$\lnot ((a1\land a2) \Rightarrow b)$ \\
-$=\lnot (\lnot (a1\land a2) \lor b)$ \\
-$=(\lnot \lnot (a1\land a2) \land \lnot b)$ \\
-$=a1\land a2 \land (\lnot b)$
+Queremos probar  que vale $(p\land\lnot l)\lor (\lnot p\land l)$ usando resolución. Primero la negamos y la pasamos a forma clausal:
 
-\section*{\ Unificación en Lógica de Primer Orden}
+\begin{align*}
+    \lnot[(p \land \lnot l)\lor (\lnot p\land l)] &\hspace{5mm}\text{Negación}\\[1pt]
+    \lnot(p \land \lnot l)\land \lnot(\lnot p\land l) &\hspace{5mm}\\[1pt]
+    (\lnot p \lor l)\land (p \lor \lnot l) &\hspace{5mm}\text{FNN y FNC}\\[1pt]
+    \{\blue{\underbrace{\{\lnot p , l\}}_{C_6}},\blue{\underbrace{\{p , \lnot l\}}_{C_7}}\} &\hspace{5mm}\text{Forma Clausal}\\[1pt]
+\end{align*}
+
+Y resolvemos:
+\begin{center}
+\begin{forest}resolucion,
+ [ $\red{\Box}$,
+    [$\{\lnot a\}$,
+        [$\{c\}$,
+            [$\{\lnot p\}$,
+                [$C_6$]
+                [$C_5$]
+            ]
+            [$C_2$]
+        ]
+        [$C_3$]
+    ]
+    [$C_4$]
+ ]
+\end{forest}    
+\end{center}
+
+\newpage
+\section*{Unificación en Lógica de Primer Orden}
 \subsection{Ejercicio 4}
-    \begin{enumerate}
+\begin{multicols}{2}
+\begin{enumerate}
     \item $P(f(x)) $ unifica con:
         \begin{enumerate}
-        \item $P(f(a)) $ si $ x \doteq a$
+        \item $P(f(a))$ si $\sigma = \{a/x\}$
         \end{enumerate}
     \item $P(a) $ unifica con:
         \begin{enumerate}
-            \item $P(x) $ si $ x \doteq a$
+            \item $P(x)$ si $\sigma =\{a/x\}$
         \end{enumerate}
     \item $P(y) $ unifica con:
         \begin{enumerate}
-            \item $P(x) $ si $ y \doteq x$
-            \item $P(f(a)) $ si $ y \doteq f(a)$
+            \item $P(x) $ si $\sigma = \{y/x\}$
+            \item $P(f(a)) $ si $\sigma = \{f(a)/y\}$
         \end{enumerate}
-    \item $Q(x,f(y)) $ no unifica
-    \item $Q(x,f(z)) $ no unifica
+    \vfill\null
+    \columnbreak
+    \item $Q(x,f(y)) $ unifica con:
+    \begin{enumerate}
+        \item $Q(f(y),x)$ si $\sigma = \{f(y)/x\}$
+    \end{enumerate}
+    \item $Q(x,f(z)) $ unifica con:
+    \begin{enumerate}
+        \item $Q(f(y),x)$ si $\sigma = \{f(y)/x,~y/z\}$
+        \item $Q(f(y),f(x))$ si $\sigma = \{f(y)/x,~f(y)/z\}$
+        \item $Q(f(y),y)$ si $\sigma = \{f(z)/y,~f(f(z))/x\}$
+    \end{enumerate}
     \item $Q(x,f(a)) $ unifica con:
         \begin{enumerate}
-            \item $Q(f(y),x) $ si $ x \doteq f(a) $ y $ y \doteq a$
-            \item $Q(f(y),y) $ si $ y \doteq f(a) $ y $ x \doteq f(f(a))$
+            \item $Q(f(y),x) $ si $\sigma = \{a/y,~f(a)/x\}$
+            \item $Q(f(y),y) $ si $\sigma = \{ f(a)/y,~f(f(a))/x\}$
         \end{enumerate}
     \end{enumerate}
-\subsection{Ejercicio 5 \blue{?}}
+\end{multicols}
+
+\subsection{Ejercicio 5}
 \begin{enumerate}
-    \item $f(x,x,y) \doteq f(a,b,z)$ $\sigma:{x/a}$ \\
-    $f(a,a,y) \doteq f(a,b,z)$ \\
-    como $a ! \doteq b \Rightarrow$ Falla 
-    \item $f(x) \doteq y$ no unifican
-    \item $f(g(c,y),x) \doteq f(z,g(z,a))$ $\sigma:{z/g(c,y)}$
-    $f(g(c,y),x) \doteq f(g(c,y),g(g(c,y),a))$ $\sigma_{2}:{x/g(g(c,y),a)}$
-    \item $f(a) \doteq g(y)$ si $g(y)=f(a)$
-    \item $f(x) \doteq x$ Falla porque $x \in FV(f(x))$
-    \item $g(x,y) \doteq g(f(y),f(x))$ $\sigma:{x/f(y)}$
-    $g(f(y),y) \doteq g(f(y),f(f(y)))$ Falla porque $y \in FV(f(f(y)))$
+    \item $f(x,x,y) \doteq f(a,b,z) \goesTo{}{x/a}~f(a,a,y) \doteq f(a,b,z)\goesTo{}{} \falla$ ($a$ no unifica con $b$)
+    \item $f(x) \doteq y\goesTo{}{f(x)/y} f (x)\doteq f(x)$ y el MGU es $\{f(x)/y\}$.
+    \item $f(g(c,y),x) \doteq f(z,g(z,a)) \goesTo{}{g(c,y)/z} f(g(c,y),x) \doteq f(g(c,y),g(g(c,y),a)) \\[10pt] \goesTo{}{g(g(c,y),a)/x} f(g(c,y),g(g(c,y),a)) \doteq f(g(c,y),g(g(c,y),a))$
+    
+    $$MGU = \{g(g(c,y),a)/x,~g(c,y)/z\}$$
+    \item $f(a) \doteq g(y) \goesTo{}{} \falla$ ($f$ y $g$ son funciones distintas).
+    
+    \item $f(x) \doteq x \goesTo{}{} \falla$ ($x \in FV(f(x))$)
+    \item $g(x,y) \doteq g(f(y),f(x)) \goesTo{}{f(y)/x} g(f(y),y) \doteq g(f(y),f(f(y))) \goesTo{}{} \falla$ ($y \in FV(f(f(y)))$)
 \end{enumerate}
 
-\section*{\ Resolución en Lógica de Primer Orden}
+\newpage
+\section*{Resolución en Lógica de Primer Orden}
 \subsection{Ejercicio 6}
-    \begin{enumerate}
-        \item $\forall x.  \forall y. ( \lnot Q(x,y) \Rightarrow \lnot P(x,y)$ \\
-        $\forall x.  \forall y. ( \lnot \lnot Q(x,y) \lor \lnot P(x,y)$ \\
-        $\forall x.  \forall y. ( Q(x,y) \lor \lnot P(x,y)$
-        \item $\forall x.  \forall y. ((P(x,y) \land Q(x,y)) \Rightarrow R(x,y))$ \\
-        $\forall x.  \forall y. (\lnot (P(x,y) \land Q(x,y)) \lor R(x,y))$ \\
-        $\forall x.  \forall y. ((\lnot P(x,y) \lor \lnot Q(x,y)) \lor R(x,y))$
-        \item $\forall x.  \exists y. (P(x,y) \Rightarrow Q(x,y))$ \\
-        $\forall x.  \exists y. (\lnot P(x,y) \lor Q(x,y))$
-    \end{enumerate}
+\begin{multicols}{2}
+\paragraph{I.}
+\begin{align*}
+\forall x.  \forall y. ( \lnot Q(x,y) \supset \lnot P(x,y))& \\[1pt]
+\forall x.  \forall y. ( \lnot \lnot Q(x,y) \lor \lnot P(x,y))& \\[1pt]
+\forall x.  \forall y. ( Q(x,y) \lor \lnot P(x,y))&
+\end{align*}
+
+
+\paragraph{II.}
+\begin{align*}
+\forall x.  \forall y. ((P(x,y) \land Q(x,y)) \supset R(x,y))& \\[1pt]
+\forall x.  \forall y. (\lnot (P(x,y) \land Q(x,y)) \lor R(x,y))& \\[1pt]
+\forall x.  \forall y. (\lnot P(x,y) \lor \lnot Q(x,y) \lor R(x,y))&
+\end{align*}
+\vfill\null
+\columnbreak
+\paragraph{III.}
+\begin{align*}
+\forall x.  \exists y. (P(x,y) \supset Q(x,y))& \\[1pt]
+\forall x.  \exists y. (\lnot P(x,y) \lor Q(x,y))&
+\end{align*}
+
+\end{multicols}
+
 \subsection{Ejercicio 7}
-    \begin{enumerate}
-        \item 
-        $\exists x. \exists y. (x<y)$ \\
-        $\exists x. (x<f(x))$ \\
-        $c<f(c)$ \\
-        $Forma clausal: \{\{c<f(c)\}\}$
-        \item 
-        $\forall x. \exists y. (x<y)$ \\
-        $\forall x. (x<f(x))$ \\
-        Forma clausal: $\{\{x<f(x)\}\}$
-        \item 
-        $\blue{\forall x. \lnot(P(x) \land \forall y.(\lnot P(y) \lor Q(y)))}$ \\
-        completar.
-        \item 
-        $\exists x. \forall y. (P(x,y) \land Q(x) \land \lnot R(y))$ \\
-        $\forall y. (P(c,y) \land Q(c) \land \lnot R(y))$ \\
-        Forma clausal: $\{\{P(c,y), Q(c), \lnot R(y)\}\}$
-        \item 
-        $\forall x. (P(x) \land \exists y. (Q(y) \lor \forall z. \exists w. (P(z) \land \lnot Q(w)))$ \\
-        $\forall x. \forall z. (P(x) \land (Q(c) \lor (P(z) \land \lnot Q(f(z))))$ \\
-        $\forall x. \forall z. (P(x) \land (Q(c) \lor P(z) ) \land (Q(c) \lor \lnot Q(f(z)) ) )$ \\
-        Forma clausal: $\{\{ P(x)\} , \{Q(c), P(z)\} , \{Q(c), \lnot Q(f(z))\} \}$
-    \end{enumerate}
-%   \subsection{Ejercicio 8}
+\begin{multicols}{2}
+\paragraph{I.} 
+\begin{align*}
+\exists x. \exists y. (x<y) \\[1pt]
+\exists y. (c<y) \\[1pt]
+c<d &\hspace{5mm}\text{FSK}\\[1pt]
+\{\{c<d\}\}
+\end{align*}
+\vfill\null
+\paragraph{II.}
+\begin{align*}
+\forall x. \exists y. (x<y) & \\[1pt]
+\forall x. (x<f(x)) &\hspace{5mm}\text{FSK} \\[1pt]
+\{\{x<f(x)\}\} &\hspace{5mm}\text{FC}
+\end{align*}
+\vfill\null
+\end{multicols}
+\begin{multicols}{2}
+\paragraph{III.} 
+\begin{align*}
+\forall x. \lnot(P(x) \land \forall y.(\lnot P(y) \lor Q(y))) & \\[1pt]
+\forall x. \lnot P(x) \lor \lnot\forall y.(\lnot P(y) \lor Q(y)) & \\[1pt]
+\forall x. \lnot P(x) \lor \exists y.\lnot(\lnot P(y) \lor Q(y)) & \\[1pt]
+\forall x. \lnot P(x) \lor \exists y.(\lnot\lnot P(y) \land \lnot Q(y))& \\[1pt]
+\forall x. \lnot P(x) \lor \exists y. (P(y) \land \lnot Q(y))\\[1pt]
+\forall x.\lnot P(x) \lor  (P(c) \land \lnot Q(c)) \\[1pt]
+\forall x. (\lnot P(x) \lor  P(c)) \land (\lnot P(x)\lor \lnot Q(c))  \\[1pt]
+\{\{\lnot P(x), P(c)\},\{\lnot P(z), \lnot Q(c)\}\} \\[1pt]
+\end{align*}
+\vfill\null
+\columnbreak
+\paragraph{IV.}
+\begin{align*}
+ \exists x. \forall y. (P(x,y) \land Q(x) \land \lnot R(y))&\hspace{5mm}\text{FNN} \\[1pt]
+\forall y. (P(c,y) \land Q(c) \land \lnot R(y)) \\[1pt]
+\{\{P(c,y)\}, \{Q(c)\}, \{\lnot R(z)\}\}\\[1pt]
+\end{align*}
+\vfill\null
+\end{multicols}
+
+\paragraph{V.}
+\begin{align*}
+\forall x. (P(x) \land \exists y. (Q(y) \lor \forall z. \exists w. (P(z) \land \lnot Q(w))) \\[1pt]
+\forall x. (P(x) \land (Q(f(x)) \lor \forall z. \exists w. (P(z) \land \lnot Q(w))) \\[1pt]
+\forall x. (P(x) \land (Q(f(x)) \lor \forall z. (P(z) \land \lnot Q(f(x,z))) \\[1pt]
+\forall x.\forall z.  (P(x) \land (Q(f(x)) \lor (P(z) \land \lnot Q(f(x,z))) \\[1pt]
+\forall x.\forall z.  (P(x) \land (Q(f(x)) \lor P(z)) \land (Q(f(x) \lor \lnot Q(f(x,z)) \\[1pt]
+\{\{ P(x)\} , \{Q(f(x_1)), P(z)\} , \{Q(f(x_2)), \lnot Q(f(x_2,z))\} \}
+\end{align*}
+       
+\subsection{Ejercicio 8}
+\paragraph{I.} La cláusula $\{p,\lnot p\}$, si se resuelve consigo misma da la resolvente $\Box$.
+\paragraph{II.} Las cláusulas $\{p,q\}$ y $\{\lnot p, \lnot q\}$ arrojan las siguientes resolventes:
+\begin{itemize}
+    \item Si resolvemos los dos literales, entonces arroja $\Box$.
+    \item Si resolvemos solo con $p$, entonces arroja $\{q,\lnot q\}$.
+    \item Si resolvemos solo con $q$, entonces arroja $\{p,\lnot p\}$.
+\end{itemize}
+\paragraph{III.} Las clausulas de la forma$\{p,\lnot p, q\}$ y $\{\lnot p, p,\lnot q\}$ deben unificar los tres literales al mismo tiempo para conseguir la clausula $\Box$.
+
 \subsection{Ejercicio 9}
-    \begin{enumerate}
-    \item
-    $\exists x. \forall y. R(x,y) \Rightarrow \forall y. \exists x. R(x,y)$  =  $\lnot \exists x. \forall y. R(x,y) \lor \forall y. \exists x. R(x,y)$ \\
-    Negado: \\
-    $\lnot (\lnot \exists x. \forall y. R(x,y) \lor \forall y. \exists x. R(x,y))$  =  $ \lnot \lnot \exists x. \forall y. R(x,y) \land \lnot \forall y. \exists x. R(x,y) $ \\
-    $ \exists x. \forall y. R(x,y) \land \lnot \forall y. \exists x. R(x,y) $  =  $ \forall y. R(f(y),y) \land \exists y. \lnot \exists x. R(x,y) $ \\
-    $ \forall y. R(f(y),y) \land \exists y. \forall x. \lnot R(x,y) $  =  $ \forall y. R(f(y),y) \land \forall x. \lnot R(x,f(x)) $ \\
-    $ \forall y. \forall x.  R(f(y),y) \land \lnot R(x,f(x)) $ \\
-    Forma clausal: $S=\{\{ R(f(y),y)\},\{ \lnot R(x,f(x))\} \}$ \\
-    Resolución: No podemos aplicar ningún paso de resolución a S \blue{porque las cláusulas no unifican}, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(f(y),y))=T$, $v(\lnot R(x,f(x)))=F$.
-    \item
-    $\forall x. \exists y. R(x,y) \Rightarrow \exists y. \forall x. R(x,y)$  =  $\lnot \forall x. \exists y. R(x,y) \lor \exists y. \forall x. R(x,y)$ \\
-    Negado: \\
-    $\lnot (\lnot \forall x. \exists y. R(x,y) \lor \exists y. \forall x. R(x,y))$  =  $\lnot \lnot \forall x. \exists y. R(x,y) \land \lnot \exists y. \forall x. R(x,y)$ \\
-    $\forall x. \exists y. R(x,y) \land \forall y. \lnot \forall x. R(x,y)$  =  $\forall x. \exists y. R(x,y) \land \forall y. \exists x. \lnot R(x,y)$ \\
-    $\forall x. R(x,f(x)) \land \forall y. \lnot R(f(y),y)$ \\
-    Forma clausal: $S=\{ \{ R(x,f(x))\},\{ \lnot R(f(y),y) \}\}$ \\
-    Resolución: No podemos aplicar ningún paso de resolución a S  \blue{porque las cláusulas no unifican}, por lo tanto, no puede llegarse a una refutación a partir S. Entonces, S debe ser satisfacible. Sea $v(R(x,f(x)))=T$, $v(\lnot R(f(y),y))=F$.
-    \item
-    $\exists x. [P(x) \Rightarrow \forall x. P(x)]$  =  $\exists x'. [\lnot P(x') \lor \forall x. P(x)]$ \\
-    Negado: \\
-    $\lnot (\exists x'. [\lnot P(x') \lor \forall x. P(x)])$  =  $ \forall x'. \lnot [\lnot P(x') \lor \forall x. P(x)]$ \\
-    $ \forall x'. [ \lnot \lnot P(x') \land \lnot \forall x. P(x)]$  =  $ \forall x'. [ P(x') \land \exists x. \lnot P(x)]$ \\
-    $ \forall x'. [ P(x') \land \lnot P(f(c))]$ \\
-    Forma clausal: $S=\{ \{ P(x') \} , \{ \lnot P(f(c)) \} \}$ \\
-    Resolución: \\
-    $S=\{ \{P(x')\}, \{ \lnot P(f(c))\}\}$\\
-    Sea $\sigma(x' / f(c)) \Rightarrow \sigma(S)=\{ P(f(c)), \lnot P(f(c))\} \Rightarrow \{\}$ \\
-    $S=\{ \{P(x')\}, \{ \lnot P(f(c))\}, \{\} \} \Rightarrow $ S es insatisfacible
-    \item
-    $ \exists x. [P(x) \lor Q(x)] \Rightarrow [\exists P(x) \lor \exists Q(x)]$ \\
-    Completar.
-    \item
-    $ \forall x. [P(x) \lor Q(x)] \Rightarrow [\forall P(x) \lor \forall Q(x)]$  =  $ \forall x. \lnot [P(x) \lor Q(x)] \lor [\forall P(x) \lor \forall Q(x)]$ \\
-    Negado: \\
-    $ \lnot \forall x. \lnot [P(x) \lor Q(x)] \lor [\forall x. P(x) \lor \forall x. Q(x)]$  =  $ \exists x. \lnot \lnot [P(x) \lor Q(x)] \land \lnot [\forall x. P(x) \lor \forall x. Q(x)]$ \\
-    $ \exists x. [P(x) \lor Q(x)] \land [\lnot \forall x. P(x) \land \lnot \forall x. Q(x)]$  =  $ \exists x. [P(x) \lor Q(x)] \land [\exists x. \lnot P(x) \land \exists x. \lnot Q(x)]$ \\
-    $ [P(f(c)) \lor Q(f(c))] \land [\lnot P(f(b)) \land \lnot Q(f(a))]$  =  $ [P(f(c)) \lor Q(f(c))] \land [\lnot P(f(b)) \land \lnot Q(f(a))]$ \\
-    Forma clausal: $\{ \{P(f(c)), Q(f(c))\}, \{ \lnot P(f(b)), \lnot Q(f(a))\} \}$ \\
-    Resolución:\\
-    $S=\{P(f(c)) \lor Q(f(c))\},\{ \lnot P(f(b))\}$ $\sigma= c \doteq b$ resolvente = $\{Q(f(b))\}$ \\
-    $S=\{ P(f(c)) \lor Q(f(c)), \lnot P(f(b)), \lnot Q(f(a)), Q(f(b)) \}$ \\
-    $S=\{ \lnot Q(f(a))\},\{Q(f(b)) \}$ $ \sigma= a \doteq b$ resolvente = $ \{\} $
-    $S=\{ P(f(c)) \lor Q(f(c)), \lnot P(f(b)), \lnot Q(f(a)), Q(f(b)), \{\} \}$ $\Rightarrow$ S es insatisfacible.
-    \item
-    $ [\exists x. P(x) \land \forall x. Q(x)] \Rightarrow \exists x. [P(x) \land Q(x)] $  =  $ \lnot [\exists x. P(x) \land \forall x. Q(x)] \lor \exists x. [P(x) \land Q(x)] $ \\
-    $ [\lnot \exists x. P(x) \land \lnot \forall x. Q(x)] \lor \exists x. [P(x) \land Q(x)] $  =  $ [\forall x. \lnot P(x) \land \exists x. \lnot Q(x)] \lor [P(f(a)) \land Q(f(a))] $ \\
-    $ \forall x. [\lnot P(x) \land \lnot Q(f(b))] \lor [P(f(a)) \land Q(f(a))] $  =  $ \forall x. (\lnot P(x) \lor P(f(a))) \land (\lnot Q(f(b)) \lor P(f(a))) \land (\lnot P(x)\lor Q(f(a))) \land (\lnot Q(f(b)) \lor Q(f(a))) $ \\
-    Forma clausal: $\{ \{ \lnot P(x), P(f(a))\}, \{ \lnot Q(f(b)), P(f(a))\}, \{ \lnot P(x), Q(f(a))\}, \{ \lnot Q(f(b)), Q(f(a))\}\}$
-    Resolución: \\
-    $S=\{(\lnot Q(f(b)) \lor P(f(a))), (\lnot P(x)\lor Q(f(a)))\}$ $\sigma=(f(a)) \doteq x \doteq f(b)))$ resolvente = $ \{\} $ \\
-    $S=\{ (\lnot P(x) \lor P(f(a))), (\lnot Q(f(b)) \lor P(f(a))), (\lnot P(x)\lor Q(f(a))), (\lnot Q(f(b)) \lor Q(f(a))), \{\}\}$ $\Rightarrow$ S es insatisfacible.
-    \item
-    $\forall x. \exists y. \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)]$ \\
-    Negado: \\
-    $\lnot \forall x. \exists y. \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)]$  =  $\exists x. \lnot \exists y. \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)]$ \\
-    $\exists x. \forall y. \lnot \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)]$  =  $\exists x. \forall y. \exists z. \lnot \exists w. [P(x,y) \lor \lnot P(w,z)]$ \\
-    $\exists x. \forall y. \exists z. \forall w. \lnot [P(x,y) \lor \lnot P(w,z)]$  =  $\exists x. \forall y. \exists z. \forall w. [\lnot P(x,y) \land \lnot \lnot P(w,z)]$ \\
-    $\forall y. \forall w. [\lnot P(f(b),y) \land P(w,f(a))]$ \\
-    Forma clausal: $\{\{ \lnot P(f(b),y) \}, \{P(w,f(a)) \} \}$
-    Resolución: \\
-    $S=\{ \lnot P(f(b),y), P(w,f(a)) \}$ $\sigma=(w \doteq f(b), y \doteq f(a))$ resolvente = $ \{\} $ \\
-    $S=\{ \lnot P(f(b),y), P(w,f(a)), \{\} \}$ $\Rightarrow$ S es insatisfacible.
-    \item
-    $\forall x. \forall y. \forall z. [\lnot P(f(a)) \lor \lnot P(y) \lor Q(y)] \land P(f(z)) \land [\lnot P(f(f(x))) \lor \lnot Q(f(x))]$ \\
-    Negado: \\
-    $\lnot (\forall x. \forall y. \forall z. [\lnot P(f(a)) \lor \lnot P(y) \lor Q(y)] \land P(f(z)) \land [\lnot P(f(f(x))) \lor \lnot Q(f(x))])$ \\
-    $\exists x. \lnot \forall y. \forall z. [\lnot P(f(a)) \lor \lnot P(y) \lor Q(y)] \land P(f(z)) \land [\lnot P(f(f(x))) \lor \lnot Q(f(x))]$ \\
-    $\exists x. \exists y. \lnot \forall z. [\lnot P(f(a)) \lor \lnot P(y) \lor Q(y)] \land P(f(z)) \land [\lnot P(f(f(x))) \lor \lnot Q(f(x))]$ \\
-    $\exists x. \exists y. \exists z. \lnot [\lnot P(f(a)) \lor \lnot P(y) \lor Q(y)] \land P(f(z)) \land [\lnot P(f(f(x))) \lor \lnot Q(f(x))]$ \\
-    $\exists x. \exists y. \exists z. [ \lnot (\lnot P(f(a)) \lor \lnot P(y) \lor Q(y))] \lor \lnot P(f(z)) \lor [\lnot (\lnot P(f(f(x))) \lor \lnot Q(f(x)))]$ \\
-    $\exists x. \exists y. \exists z. [ (\lnot \lnot P(f(a)) \land \lnot \lnot P(y) \land \lnot Q(y))] \lor \lnot P(f(z)) \lor [\lnot \lnot P(f(f(x))) \land \lnot \lnot Q(f(x))]$ \\
-    $\exists x. \exists y. \exists z. [ (P(f(a)) \land P(y) \land \lnot Q(y))] \lor \lnot P(f(z)) \lor [P(f(f(x))) \land Q(f(x))]$ \\
-    $\exists x. \exists y. \exists z. [ ( (P(f(a)) \lor \lnot P(f(z)) ) \land ( P(y) \lor \lnot P(f(z)) ) \land ( \lnot Q(y)) \lor \lnot P(f(z)) )]  \lor [P(f(f(x))) \land Q(f(x))]$ \\
-    $\exists x. \exists y. \exists z. \\
-    P(f(a)) \lor \lnot P(f(z)) \lor P(f(f(x)) \land \\
-    P(f(a)) \lor \lnot P(f(z)) \lor Q(f(x))  \land \\
-    P(y) \lor \lnot P(f(z)) \lor P(f(f(x)) \land \\
-    P(y) \lor \lnot P(f(z)) \lor Q(f(x)) \land \\
-    \lnot Q(y)) \lor \lnot P(f(z)) \lor P(f(f(x)) \land \\
-    \lnot Q(y)) \lor \lnot P(f(z)) \lor Q(f(x)) $ \\
-    Forma clausal: $\{ \\
-    \{P(f(a)), \lnot P(f(z)), P(f(f(x))\}, \\
-    \{P(f(a)), \lnot P(f(z)), Q(f(x)) \}, \\
-    \{P(y), \lnot P(f(z)), P(f(f(x))\}, \\
-    \{P(y), \lnot P(f(z)), Q(f(x))\}, \\
-    \{ \lnot Q(y)), \lnot P(f(z)), P(f(f(x))\}, \\
-    \{ \lnot Q(y)), \lnot P(f(z)), Q(f(x))\} \\
-    \}$ \\
-    Resolución: \\
-    $\{P(y) \lor \lnot P(f(z)) \lor Q(f(x)) \},\{ \lnot Q(y')) \lor \lnot P(f(z')) \lor P(f(f(x'))\}$ \\
-    $\sigma=(y \doteq f(z'), f(z) \doteq f(f(x)), f(x) \doteq y')$ \\
-    Resolvente: $\{\}$ \\
-    $S=\{ P(f(a)) \lor \lnot P(f(z)) \lor P(f(f(x)), \\
-    P(f(a)) \lor \lnot P(f(z)) \lor Q(f(x)) , \\
-    P(y) \lor \lnot P(f(z)) \lor P(f(f(x)), \\
-    P(y) \lor \lnot P(f(z)) \lor Q(f(x)), \\
-    \lnot Q(y)) \lor \lnot P(f(z)) \lor P(f(f(x)), \\
-    \lnot Q(y)) \lor \lnot P(f(z)) \lor Q(f(x)), \\
-    \{\} $ $\}$ $\Rightarrow$ S es insatisfacible.
+\paragraph{I.} $\exists x. \forall y. R(x,y) \supset \forall y. \exists x. R(x,y) \goesTo{}{} \exists x.\forall y. [ R(x,y) \supset [\forall w.\exists z. R(z,w) ]]$
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot\exists x. \forall y. [ R(x,y) \supset [\forall w. \exists z. R(z,w) ]] & \\[1pt]
+\lnot\exists x. \forall y. [ \lnot R(x,y) \lor [\forall w. \exists z. R(z,w) ]] \\[1pt]
+\forall x.\lnot \forall y. [ \lnot R(x,y) \lor [\forall w. \exists z. R(z,w) ]]  \\[1pt]
+\forall x.\exists y. \lnot [ \lnot R(x,y) \lor [\forall w. \exists z. R(z,w) ]] \\[1pt]
+\forall x.\exists y. [ R(x,y) \land \lnot[\forall w. \exists z. R(z,w) ]] \\[1pt]
+\forall x.\exists y. [ R(x,y) \land [\exists w. \lnot\exists z. R(z,w) ]]  \\[1pt]
+\forall x.\exists y. [ R(x,y) \land [\exists w. \forall z. \lnot R(z,w) ]] \\[1pt]
+\forall x.\exists y. \exists w. \forall z. [ R(x,y) \land \lnot R(z,w) ] \\[1pt]
+\forall x.\exists w. \forall z. [ R(x,f(x)) \land \lnot R(z,w) ]  \\[1pt]
+\forall x.\forall z. [ R(x,f(x)) \land \lnot R(z,g(x)) ]  \\[1pt]
+\{ \{R(x_1,f(x_1))\}, \{\lnot R(z_2,g(x_2))\} \}  \\[1pt]
+\end{align*}
 
-\end{enumerate}
+\noindent\textbf{Resolución:} 
+
+No podemos aplicar ningún paso de resolución a S porque las cláusulas no unifican:
+
+\noindent$R(x_1,f(x_1)) \doteq R(z,g(x_2)) \goesTo{}{x_1/x_2} \falla$ porque $f(x_2)$ y $g(x_2)$ no unifican.
+\vfill\null
+\end{multicols}
+\paragraph{II.} $\forall x. \exists y. R(x,y) \supset \exists y. \forall x. R(x,y)  \goesTo{}{}  \forall x. \exists y. [R(x,y) \supset [\exists w. \forall z. R(z,w)]]$
+
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot\forall x. \exists y. [ R(x,y) \supset [\exists w. \forall z. R(z,w) ]]  \\[1pt]
+\lnot\exists x. \exists y. [ \lnot R(x,y) \lor [\exists w. \forall z. R(z,w) ]] \\[1pt]
+\forall x.\lnot \exists y. [ \lnot R(x,y) \lor [\exists w. \forall z. R(z,w) ]]  \\[1pt]
+\exists x.\forall y. \lnot [ \lnot R(x,y) \lor [\exists w. \forall z. R(z,w) ]]  \\[1pt]
+\exists x.\forall y. [ R(x,y) \land \lnot[\exists w. \forall z. R(z,w) ]]  \\[1pt]
+\exists x.\forall y. [ R(x,y) \land [\forall w. \lnot\forall z. R(z,w) ]]  \\[1pt]
+\exists x.\forall y. [ R(x,y) \land [\forall w. \exists z. \lnot R(z,w) ]] \\[1pt]
+\exists x.\forall y. \forall w. \exists z. [ R(x,y) \land \lnot R(z,w) ] \\[1pt]
+\forall y. \forall w. \exists z. [ R(c,y) \land \lnot R(z,w) ] \\[1pt]
+\forall y. \forall w.[ R(c,y) \land \lnot R(f(y,w),w) ] \\[1pt]
+\{ \{R(c,y_1)\},\{\lnot R(f(y_2,w_2),w_2)\}\} \\[1pt]
+\end{align*}
+
+\noindent\textbf{Resolución:} 
+
+No podemos aplicar ningún paso de resolución a S  porque $c$ y $f(y_2,w_2)$ no unifican.
+
+\end{multicols}
+
+\newpage
+\paragraph{III.} $\exists x. [P(x) \supset \forall x. P(x)] \goesTo{}{} \exists x. [P(x) \supset \forall y. P(y)]$
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot\exists x. [P(x) \supset \forall y. P(y)] & \\[1pt]
+\lnot\exists x. [\lnot P(x) \lor \forall y. P(y)] &\\[1pt]
+\forall x. \lnot[\lnot P(x) \lor \forall y. P(y)] & \\[1pt]
+\forall x. [P(x) \land \lnot\forall y. P(y)]  \\[1pt]
+\forall x. [P(x) \land \lnot\forall y. P(y)]  \\[1pt]
+\forall x. [P(x) \land \exists y. \lnot P(y)]  \\[1pt]
+\forall x. [P(x) \land \exists y. \lnot P(y)]  \\[1pt]
+\forall x.\exists y. [P(x) \land  \lnot P(y)]  \\[1pt]
+\forall x.[P(x) \land  \lnot P(f(x))]\\[1pt]
+\{\{P(x_1)\}, \{\lnot P(f(x_2))\}\}  \\[1pt]
+\end{align*}
+
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+	[$\{P(x_1)\}$,edge label={node[midway,right] {$x_1\leftarrow f(x_2)$}}]
+    [$\{\lnot P(f(x_2))\}$]
+]
+	\end{forest}
+\end{center}
+La negación de la formula es insatisfactible cuando $\sigma = \{ f(x_2)/x\}$ por lo que la fórmula es valida.
+\end{multicols}
 
 
+\paragraph{IV.} $\exists x.[P(x) \lor Q(x)] \supset [\exists x.P(x) \lor \exists x.Q(x)] \goesTo{}{} \exists x.[P(x) \lor Q(x)] \supset [\exists y.P(y) \lor \exists z.Q(z)]$
 
-%   \subsection{Ejercicio 10}
-% \subsubsection{Modus Ponens: $((P \rightarrow Q) \land P) \rightarrow Q$}
-% $((P \rightarrow Q) \land P) \rightarrow Q$ \\
-% $\lnot ((P \rightarrow Q) \land P) \lor Q$ \\
-% $\lnot ((\lnot P \lor Q) \land P) \lor Q$ \\
-% $(\lnot (\lnot P \lor Q) \lor \lnot P) \lor Q$ \\
-% $((P \lor Q) \land (\lnot Q \lor Q )) \lor (\lnot P \lor Q)$ \\
-% $((P \lor Q \lor \lnot P \lor Q) \land (\lnot Q \lor Q \lor \lnot P \lor Q))$ \\
-% Forma clausal: \\
-% $\{\{P, Q, \lnot P, Q\}\{ \lnot Q, Q, \lnot P, Q\}\}$ \\
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot\exists x.[P(x) \lor Q(x)] \supset [\exists y.P(y) \lor \exists z.Q(z)] & \\[1pt]
+\lnot\exists x.\lnot [P(x) \lor Q(x)] \lor [\exists y.P(y) \lor \exists z.Q(z)] & \\[1pt]
+\forall x.\lnot\lnot [P(x) \lor Q(x)] \land \lnot[\exists y.P(y) \lor \exists z.Q(z)] & \\[1pt]
+\forall x.[P(x) \lor Q(x)] \land [\forall y.\lnot(P(y) \lor \exists z.Q(z))] & \\[1pt]
+\forall x.[P(x) \lor Q(x)] \land [\forall y.\lnot P(y) \land \lnot\exists z.Q(z)] & \\[1pt]
+\forall x.[P(x) \lor Q(x)] \land [\forall y.\lnot P(y) \land \forall z.\lnot Q(z)] & \\[1pt]
+\forall x.[P(x) \lor Q(x)] \land [\forall y.\lnot P(y) \land \lnot\exists z.Q(z)] & \\[1pt]
+\forall x.\forall y.\forall z.[P(x) \lor Q(x)] \land \lnot P(y) \land \lnot Q(z) & \\[1pt]
+\{\{P(x),Q(x)\}, \{\lnot P(y)\}, \{\lnot Q(z)\}\}  \\[1pt]
+\end{align*}
 
-% \subsubsection{Modus Tollens: $((P \rightarrow Q) \land \lnot Q) \rightarrow \lnot P$}
-% $((P \rightarrow Q) \land \lnot Q) \rightarrow \lnot P$ \\
-% $(\lnot (\lnot P \lor Q) \land \lnot Q) \lor \lnot P$ \\
-% $((\lnot \lnot P \land \lnot Q) \lor \lnot \lnot Q) \lor \lnot P$ \\
-% Forma clausal: \\
-% $\{\{P, Q, \lnot P\}\{ \lnot Q , Q, \lnot P\}\} $
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+	[$\{Q(y)\}$,edge label={node[midway,right] {$y\leftarrow z$}}
+	    [$\{P(x) \comma Q(x)\}$
+	    ,edge label={node[midway,right]{$x\leftarrow y$}}]
+	    [$\{\lnot P(y)\}$]
+	]
+	[$\{\lnot Q(z)\}$]
+]
+	\end{forest}
+\end{center}
+La negación de la formula es insatisfactible con $\sigma = \{ z/y,~z/x\}$ por lo que la fórmula es valida.
+\end{multicols}
+
+\paragraph{V.}$ \forall x. [P(x) \lor Q(x)] \supset [\forall x. P(x) \lor \forall x. Q(x)] \leadsto \forall x. [[P(x) \lor Q(x)] \supset [\forall y. [P(y) \lor \forall z. Q(z)]]]$
+
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot \forall x. [[P(x) \lor Q(x)] \supset [\forall y. [P(y) \lor \forall z. Q(z)]]] \\[1pt]
+\lnot\forall x. [\lnot [P(x) \lor Q(x)] \lor [\forall y. [P(y) \lor \forall z. Q(z)]]] \\[1pt]
+\exists x. [\lnot\lnot [P(x) \lor Q(x)] \land \lnot[\forall y. [P(y) \lor \forall z. Q(z)]]] \\[1pt]
+\exists x. [P(x) \lor Q(x)] \land [\exists y.\lnot[P(y) \lor \forall z. Q(z)]] \\[1pt]
+\exists x. [P(x) \lor Q(x)] \land [\exists y.\lnot P(y) \land \lnot\forall z. Q(z)]\\[1pt]
+\exists x. [P(x) \lor Q(x)] \land [\exists y.\lnot P(y) \land\exists z. \lnot Q(z)]\\[1pt]
+\exists x.\exists y. \exists z. [P(x) \lor Q(x)] \land [\lnot P(y) \land \lnot Q(z)]\\[1pt]
+\exists y. \exists z. [P(c) \lor Q(c)] \land [\lnot P(y) \land \lnot Q(z)]\\[1pt]
+\exists z. [P(c) \lor Q(c)] \land [\lnot P(d) \land \lnot Q(z)]\\[1pt]
+[P(c) \lor Q(c)] \land \lnot P(d) \land \lnot Q(e)\\[1pt]
+\{\{P(c), Q(c)\}, \{ \lnot P(d)\} , \{\lnot Q(e)\}\}\\[1pt]
+\end{align*}
+
+\textbf{Resolución:}
+Las clausulas no unifican entre si porque usan distintas constantes.
+\end{multicols}
+
+\paragraph{VI.}$ [\exists x. P(x) \land \forall x. Q(x)] \supset \exists x. [P(x) \land Q(x)] \leadsto [\exists x. P(x) \land \forall y. Q(y)] \supset \exists z. [P(z) \land Q(z)]$
+
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot([\exists x. P(x) \land \forall y. Q(y)] \supset \exists z. [P(z) \land Q(z)]) \\[1pt]
+\lnot(\lnot[\exists x. P(x) \land \forall y. Q(y)] \lor \exists z. [P(z) \land Q(z)]) \\[1pt]
+\lnot\lnot[\exists x. P(x) \land \forall y. Q(y)] \land \lnot\exists z. [P(z) \land Q(z)]) \\[1pt]
+[\exists x. P(x) \land \forall y. Q(y)] \land \forall z. \lnot[P(z) \land Q(z)]) \\[1pt]
+\exists x. P(x) \land \forall y. Q(y) \land \forall z. [\lnot P(z) \lor \lnot Q(z)]) \\[1pt]
+\exists x.\forall y. \forall z. P(x) \land  Q(y) \land [\lnot P(z) \lor \lnot Q(z)]) \\[1pt]
+\forall y. \forall z. P(c) \land  Q(y) \land [\lnot P(z) \lor \lnot Q(z)]) \\[1pt]
+\{\{P(c)\}, \{Q(y)\}, \{\lnot P(z) , \lnot Q(z)\} \}\\[1pt]
+\end{align*}
+
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+	[$\{\lnot Q(c)\}$,edge label={node[midway,right] {$y\leftarrow c$}}
+	    [$\{\lnot P(z) \comma \lnot Q(z)\}$
+	    ,edge label={node[midway,right]{$z\leftarrow c$}}]
+	    [$\{P(c)\}$]
+	]
+	[$\{Q(y)\}$]
+]
+	\end{forest}
+\end{center}
+La negación de la formula es insatisfactible con $\sigma = \{ c/y,~c/z\}$ por lo que la fórmula es valida.
+\end{multicols}
+
+\paragraph{VII.}$\forall x. \exists y. \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)]$
+
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot \forall x. \exists y. \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)]  \\[1pt]
+\exists x. \lnot \exists y. \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)] \\[1pt]
+\exists x. \forall y. \lnot \forall z. \exists w. [P(x,y) \lor \lnot P(w,z)]  \\[1pt]
+\exists x. \forall y. \exists z. \lnot \exists w. [P(x,y) \lor \lnot P(w,z)] \\[1pt]
+\exists x. \forall y. \exists z. \forall w. \lnot [P(x,y) \lor \lnot P(w,z)]  \\[1pt]
+\exists x. \forall y. \exists z. \forall w. [\lnot P(x,y) \land \lnot \lnot P(w,z)] \\[1pt]
+\exists x. \forall y. \exists z. \forall w. [\lnot P(x,y) \land P(w,z)] \\[1pt]
+\forall y. \exists z. \forall w. [\lnot P(c,y) \land P(w,z)] \\[1pt]
+\forall y.\forall w. [\lnot P(c,y) \land P(w,f(y))] \\[1pt]
+\forall y. \forall w. [\lnot P(c,y) \land P(w,f(y))] \\[1pt]
+\{\{ \lnot P(c,y_1) \}, \{P(w,f(y_2)) \} \}
+\end{align*}
+
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+	[$\{ \lnot P(c\comma y_1) \}$,edge label={node[midway,right] {$w\leftarrow c,~y\leftarrow f(y_2)$}}]
+	[$\{P(w \comma f(y_2))$]
+]
+	\end{forest}
+\end{center}
+La negación de la formula es insatisfactible con $\sigma = \{ c/w,~f(y_2)/y\}$ por lo que la fórmula es valida.
+\end{multicols}
+
+
+\paragraph{VIII.} Este es muy largo, pero todos los literales terminan con constantes distintas y ninguno tiene variables.
+
+
+\subsection{Ejercicio 10}
+\paragraph{I.} Modus Ponens: $((P \supset Q) \land P) \supset Q$
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot[((P \supset Q) \land P) \supset Q] \\[1pt]
+\lnot[\lnot((\lnot P \lor Q) \land P) \lor Q] \\[1pt]
+\lnot\lnot((\lnot P \lor Q) \land P) \land \lnot Q \\[1pt]
+(\lnot P \lor Q) \land P \land \lnot Q \\[1pt]
+\{\{\lnot P, Q\}, \{P\}, \{Q\}\}\} \\[1pt]
+\end{align*}
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+	[$\{ Q \}$,
+    	[$\{\lnot P\comma Q\}$]
+    	[$\{P\}$]
+	]
+	[$\{ \lnot Q \}$]
+]
+	\end{forest}
+\end{center}
+\end{multicols}
+
+\newpage
+\paragraph{II.} Modus Tollens: $((P \lor Q) \land \lnot P) \supset Q$
+\begin{multicols}{2}
+\textbf{Negación:}
+\begin{align*}
+\lnot[((P \lor Q) \land \lnot P) \supset Q] \\[1pt]
+\lnot[\lnot((P \lor Q) \land \lnot P) \lor Q] \\[1pt] \lnot\lnot((P \lor Q) \land \lnot P) \land \lnot Q \\[1pt]
+(P \lor Q) \land \lnot P \land \lnot Q \\[1pt]
+\{\{P, Q\}, \{\lnot P\}, \{\lnot Q\}\}\} \\[1pt]
+\end{align*}
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+	[$\{ Q \}$,
+    	[$\{ P\comma Q\}$]
+    	[$\{\lnot P\}$]
+	]
+	[$\{ \lnot Q \}$]
+]
+	\end{forest}
+\end{center}
+\end{multicols}
 
 \subsection{Ejercicio 11}
+\paragraph{I.} $\{P(x), \lnot P(x), Q(a)\}$ no es una cláusula de Horn. 
 
-    \begin{itemize}
-        \item $\{P(x), \lnot P(x), Q(a)\}$
-        \item $\{P(x), \lnot Q(y), \lnot R(x,y) \}$
-        \item $\{\lnot P(x,x,z), \lnot Q(x,y), \lnot Q(y,z) \}$
-        \item $\{M(1,2,x) \}$
-    \end{itemize}
-    \begin{enumerate}
-        \item 2,3y4.
-        \item 2=regla, 3=claúsula objetivo y 4=hecho.
-        \item Formulas de 1er Orden:
-            \begin{enumerate}
-                \item $\forall x. \forall y. (P(x) \lor \lnot Q(y) \lor \lnot R(x,y))$
-                \item $\forall x. \forall y. \forall z. (P(x,x,z) \lor \lnot Q(x,y) \lor \lnot Q(y,z))$
-                \item $\forall x. M(1,2,x)$
-            \end{enumerate}
-    \end{enumerate}
+Su fórmula de primer orden es $\forall x.P(x)\lor \lnot P(x)\lor Q(a)$.
+
+\paragraph{II.} $\{P(x), \lnot Q(y), \lnot R(x,y) \}$ es una cláusula de de definición.
+
+Su fórmula de primer orden es $\forall x\forall y.P(x) \lor \lnot Q(y) \lor R(x,y)$
+
+\paragraph{III.} $\{\lnot P(x,x,z), \lnot Q(x,y), \lnot Q(y,z) \}$ es una cláusula de Horn pero no de definición.
+
+Su fórmula de primer orden: $\forall x.\forall z.\forall y. \lnot P(x,x,z) \lor \lnot Q(x,y) \lor \lnot Q(y,z)$
+\paragraph{IV.} $\{M(1,2,x) \}$ es una cláusula de definición.
+
+Su fórmula de primer orden es $\forall x. M(1,2,x)$.
 
 \subsection{Ejercicio 12}
     Condiciones son necesarias para que una demostración por resolución sea SLD:
@@ -320,192 +532,423 @@ $=a1\land a2 \land (\lnot b)$
         \item Empezar por una cláusula que provenga de la negación de lo que se quiere demostrar.
         \item Utilizar la regla de resolución binaria en lugar de la general.
     \end{enumerate}
-    Innecesarias:
-    \begin{enumerate}
-        \item Utilizar cada cláusula a lo sumo una vez.
-        \item Recorrer el espacio de búsqueda de arriba hacia abajo y de izquierda a derecha.
-    \end{enumerate}
 
 \subsection{Ejercicio 13}
-Cálculo de cláusulas: \\
-S:
+Enunciado expresado en cláusulas:
+
 \begin{itemize}
-    \item $R(alan)$
-    \item $J(alan)$
-    \item $\forall Res(x1,y1) \land PL(y1) \Rightarrow I(x1)$ \\
-    = $\forall \lnot (Res(x1,y1) \land PL(y1)) \lor I(x1)$ \\
-    = $\forall (\lnot Res(x1,y1) \lor \lnot PL(y1)) \lor I(x1)$ \\
-    = $\{ \lnot Res(x1,y1), \lnot PL(y1)), I(x1) \}$
-    \item $\forall x2. (J(x2) \land R(x2)) \Rightarrow (Res(x2,y2) \land PR(y2))$ \\
-    = $\forall x2. \lnot (J(x2) \land R(x2)) \lor (Res(x2,y2) \land PR(y2))$ \\
-    = $\forall x2. (\lnot J(x2) \lor \lnot R(x2)) \lor (Res(x2,y2) \land PR(y2))$ \\
-    = $\forall x2. (\lnot J(x2) \lor \lnot R(x2) \lor Res(x2,y2)) \land (neg J(x2) \lor \lnot R(x2) \lor PR(y2))$ \\
-    = $\{\{\lnot J(x2) \lor \lnot R(x2) \lor Res(x2,y2)\}\{neg J(x2) \lor \lnot R(x2) \lor PR(y2)\}\}$
-    \item $\forall x3. PR(x3) \Rightarrow PL(x3)$ \\
-    = $\forall x3. \lnot PR(x3) \lor PL(x3)$  \\
-    = $\{\lnot PR(x3), PL(x3)\}$
-    \item $\exists x4. PR(x4)$ \\
-    = $\{PR(c)\}$
+    \item Alana es un robot japonés.
+    \begin{align*}
+    R(\texttt{alan})\land J(\texttt{alan}) \\
+    \{\blue{\underbrace{\{R(\texttt{alan})\}}_{C_1}},\blue{\underbrace{\{J(\texttt{alan})\}}_{C_2}}\}
+    \end{align*}
+    \item Cualquier robot que puede resolver un problema lógico es \texttt{inteligente}.
+    \begin{align*}
+\forall x.[ R(x) \land \exists y. PL(y) \land Res(x,y)] \supset I(x) \\[1pt]
+\forall x.\lnot [ R(x) \land \exists y. PL(y) \land Res(x,y)] \lor I(x) \\[1pt]
+\forall x. \lnot R(x) \lor \lnot \exists y. PL(y) \lor \lnot Res(x,y) \lor I(x) \\[1pt]
+\forall x. \lnot R(x) \lor \lnot \exists y. PL(y) \lor \lnot Res(x,y) \lor I(x) \\[1pt]
+\forall x. \lnot R(x) \lor \forall y. \lnot PL(y) \lor \lnot Res(x,y) \lor I(x) \\[1pt]
+\forall x.\forall y. \lnot R(x) \lor  \lnot PL(y) \lor \lnot Res(x,y) \lor I(x) \\[1pt]
+\blue{C_3 = \{ \lnot R(x_3),\lnot PL(y_3),\lnot Res(x_3,y_3) ,I(x_3) \}  }\\[1pt]
+   \end{align*}
+    
+    \item Todos los robots japoneses pueden resolver todos los problemas de esta práctica.
+        \begin{align*}
+\forall x.[ R(x) \land J(x) ] \supset [\forall y. Pr(y) \land Res(x,y)] \\[1pt]
+\forall x.\lnot[ R(x) \land J(x) ] \lor [\forall y. Pr(y) \land Res(x,y)] \\[1pt]
+\forall x.\forall y.[\lnot R(x) \lor \lnot J(x) ] \lor [ Pr(y) \land Res(x,y)] \\[1pt]
+\forall x.\forall y.[\lnot R(x) \lor \lnot J(x) \lor Pr(y) ] \land [ \lnot R(x) \lor \lnot J(x) \lor Res(x,y)] \\[1pt]
+\{\blue{\underbrace{\{\lnot R(x_4), \lnot J(x_4), Pr(y_4)\}}_{C_4}},\blue{\underbrace{\{ \lnot R(x_5), \lnot J(x_5), Res(x_5,y_5)\}}_{C_5}}\}
+       \end{align*}
+\item Todos los problemas de esta práctica son lógicos.
+\begin{align*}
+\forall x. Pr(x) \supset PL(x) \\[1pt]
+\forall x. \lnot Pr(x) \lor PL(x) \\[1pt]
+\blue{C_6 =\{\lnot Pr(x_6),PL(x_6)\}} \\[1pt]
+\end{align*}
+\item Existe al menos un problema en esta práctica.
+\begin{align*}
+\exists x. Pr(x) \\[1pt]
+Pr(c) \\[1pt]
+\blue{C_7 = \{Pr(c)\}} \\[1pt]
+\end{align*}
 \end{itemize}
-Quiero probar que: $S \Rightarrow \exists x4. I(x4)$ \\
-Entonces lo niego y lo agrego al sistema S: $\lnot \exists x4. I(x4)$ = $\forall x4. \lnot I(x4)$ \\
-Sea S':
-\begin{enumerate}
-\item $\{R(alan)\}$
-\item $\{J(alan)\}$
-\item $\{ \lnot Res(x1,y1), \lnot PL(y1)), I(x1) \}$
-\item $\{\lnot J(x2), \lnot R(x2), Res(x2,y2)\}$
-\item $\{neg J(x2), \lnot R(x2), PR(y2)\}$
-\item $\{\lnot PR(x3), PL(x3)\}$
-\item $\{PR(c)\}$
-\item $\{\lnot I(x4)\}$ \\
-Resolución:
-\item 8y3. $\{x1 \leftarrow x4\}$ $\{\lnot Res(x4,y1), \lnot PL(y1))\}$
-\item 9y4. $\{x2 \leftarrow x4, y2 \leftarrow y1\}$ $\{\lnot J(x4), \lnot R(x4), \lnot PL(y1))\}$
-\item 10y1 $\{x4 \leftarrow alan\}$ $\{\lnot J(alan), \lnot PL(y1))\}$
-\item 11y2 $\{\}$ $\{\lnot PL(y1))\}$
-\item 12y6. $\{x3 \leftarrow y1\}$ $\{\lnot PR(y1)\}$
-\item 13y7. $\{y1 \leftarrow c\}$ $\{\}$
+Queremos ver para que $x$ vale $I(x)$, entonces lo negamos y usamos resolución para conseguir alguna sustitución que lo haga.
+
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+	[$\{\lnot J(\texttt{alan})\}$
+    	[$\{ \lnot R(x) \comma \lnot J(x)\}$, edge label={node[midway,right] {$x\leftarrow \texttt{alan}$}},
+        	[$\{ \lnot R(x) \comma \lnot J(x) \comma \lnot Pr(y_3)\}$, edge label={node[midway,right] {$y_3\leftarrow c$}}
+            	[$\{ \lnot R(x) \comma \lnot J(x) \comma \lnot PL(y_3)\}$
+            	, edge label={node[midway,right] {$x_6\leftarrow y_3$}}
+                	[$\{ \lnot R(x) \comma \lnot PL(y_3) \comma \lnot Res(x\comma y_3)\}$, edge label={node[midway,right] {$x_5\leftarrow x,~y_5\leftarrow y_3$}}
+                    	[$\lnot I(x)$,edge label={node[midway,right] {$x_3\leftarrow x$}}]
+                    	[$C_3$]
+                	]
+                	[$C_5$]
+            	]
+            	[$C_6$]
+        	]
+        	[$C_7$]
+    	]
+    	[$C_1$]
+	]
+	[$C_2$]
+]
+	\end{forest}
+\end{center}
+
+La sustitución resultante es $\sigma = \{ alan/x,~c/y3,~c/x_6,~alan/x_5,~c/y_5,~alan/x_3\}$. Entonces $alan$ es un robot \texttt{inteligente}.
+
+\subsection{Ejercicio 14}
+\textbf{Cláusulas:}
+\begin{itemize}
+\item $C_1 = \{\lnot suma(x_1,y_1,z_1), suma(x_1,suc(y_1),suc(z_1))\}$
+\item $C_2 =\{suma(x_2,cero,x_2)\}$
+\item $C_3 =\{\lnot suma(x_3,y_3,z_3), par(y_3)\}$
+\end{itemize}
+
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+        	[$\{\lnot suma(x_1'\comma cero\comma z_1')\}$,
+            edge label={node[midway,right] {$x_2\leftarrow x_1',~z_1' \leftarrow x_1'$}}
+            	[$\{\lnot suma(x_1\comma suc(cero)\comma z_1)\}$
+            	, edge label={node[midway,right] {$x_1\leftarrow x_1',~y_1'\leftarrow cero, z_1 \leftarrow suc(z_1')$}}
+                	[$\{\lnot suma(x_3 \comma suc(suc(cero)) \comma z_3)\}$, edge label={node[midway,right] {$x_3\leftarrow x_1,~y_1\leftarrow suc(cero), z_3\leftarrow suc(z_1)$}}
+                    	[$\{\lnot par(suc(suc(cero)))\}$,edge label={node[midway,right] {$y_3\leftarrow suc(suc(cero))$}}]
+                    	[$C_3$]
+                	]
+                	[$C_1$]
+            	]
+            	[$C_1$]
+        	]
+        	[$C_2$]
+]
+	\end{forest}
+\end{center}
+
+Y la sustitución resultante es 
+\begin{align*}
+\sigma = \{ &x_1'/x_2,~x_1'/z_1',~x_1'/x_1, cero/y_1', suc(x_1')/z_1, x_1'/x_3, \\ &suc(cero)/y_1, suc(suc(x_1'))/z_3, suc(suc(cero))/y_3\}
+\end{align*}
+
+La resolución usada es resolución SLD porque en cada paso resolvimos únicamente un literal (es lineal), comenzamos con un goal compuesto solo de negaciones y todas las cláusulas son fórmulas de Horn.
+
+\subsection{Ejercicio 15}
+\paragraph{I.} Renombro las variables. $c\leftarrow x$ y $e\leftarrow y$ para que no sea confuso.
+\begin{enumerate}[a)]
+\item $\forall x. ( V(x) \lor \exists y.(P(y, x)))$
+\begin{align*}
+\forall x. ( V(x) \lor \exists y.(P(y, x))) \\[1pt]
+\forall x.\exists y. ( V(x) \lor P(y, x)) \\[1pt]
+\blue{C_1 = \{V(x_1), P(f(x_1), x_1)\}} \\[1pt]
+\end{align*}
+\item $\lnot \exists x.(V (x) \land \exists y.(P(y, x)))$
+\begin{align*}
+\lnot \exists x.(V (x) \land \exists y.(P(y, x)))\\[1pt]
+\forall x.(\lnot V(x) \lor \lnot\exists y.(P(y, x)))\\[1pt]
+\forall x.(\lnot V(x) \lor \forall y.\lnot P(y, x))\\[1pt]
+\forall x.\forall y.(\lnot V(x) \lor \lnot P(y, x))\\[1pt]
+\blue{C_2 = \{\lnot V(x_2) , \lnot P(y_2, x_2)\}}\\[1pt]
+\end{align*}
+\item $\forall y.\forall x.(P(y, I(x)) \iff P(y, x))$
+\begin{align*}
+\forall y.\forall x.(P(y, I(x)) \iff P(y, x)) \\[1pt]
+\forall y.\forall x.[P(y, I(x)) \supset P(y, x)]\land [P(y, x)\supset P(y, I(x)) ] \\[1pt]
+\forall y.\forall x.[\lnot P(y, I(x)) \lor P(y, x)]\land [\lnot P(y, x)\lor P(y, I(x)) ] \\[1pt]
+\{\blue{\underbrace{\{\lnot P(y_3, I(x_3)), P(y_3, x_3)\}}_{C_3}},\blue{\underbrace{\{\lnot P(y_4, x_4), P(y_4, I(x_4))\}}_{C_4}}\\[1pt]
+\end{align*}
 \end{enumerate}
-$\Rightarrow$ S es insatisfacible.
 
-% \subsection{Ejercicio 14 \blue{no se si está bien}}
-%     \begin{itemize}
-%         \item Cláusulas: \\
-%         $1.{\lnot suma(x1,y1,z1), suma(x1,suc(y1),suc(z1))}$ \\
-%         $2.{suma(x2,cero,x2)}$ \\
-%         $3.{\lnot suma(x3,y3,z3), par(y3)}$
-%         \item Quiero probar: \\
-%         ${par(suc(suc(cero)))}$
-%         \item Entonces, la niego: \\
-%         $4.{\lnot par(suc(suc(cero)))}$
-%         \item Demostración: \\
-%         $5.4y3. \sigma={y3 \leftarrow suc(suc(cero))}$ y la resolvente es: $ {\lnot suma(x3,suc(suc(cero)),z3)}$ \\
-%         $6.5y1. \sigma={x1 \leftarrow x3,suc(y1) \leftarrow suc(suc(cero)),z3 \leftarrow suc(z1))}$ y la resolvente es: ${\lnot suma(x3,suc(cero),z1)}$ \\
-%         $7.6y1. \sigma={x1' \leftarrow x3, suc(y1') \leftarrow suc(cero), suc(z1') \leftarrow z1}$ y la resolvente es: $ {\lnot suma(x3,cero, z1)}$ \\
-%         $8.7y2. \sigma={x2 \leftarrow z1, x3 \leftarrow x2} $ y la resolvente es: $ \{\}$
-%         \item Aplique resolución SLD, porque eran Cláusulas de horn, utilicé la resolucion binaria y en cada paso utilicé la última resolvente creada.
-%     \end{itemize}
-%   \subsection{Ejercicio 15}
+\paragraph{II.} Queremos ver que vale  $\forall x.(V (I(x)) \supset V (x))$, entonces lo negamos, lo pasamos a forma clausal usamos resolución para inferir la insatisfactibilidad de la negación.
 
-\subsection{Ejercicio 16}
-    \begin{itemize}
-        \item Para Identificar errores lo pruebo: $(\exists x. enBAr(x)) \Rightarrow \exists y. ( enBAr(y) \ wedge ( bebe(y) \Rightarrow \forall z. ( enBAr(z) \Rightarrow bebe(z) ) ) )$
-        \item Eliminar implicaciones: $\lnot (\exists x. enBAr(x)) \lor \exists y. ( enBAr(y) \ wedge (\lnot bebe(y) \lor \forall z. ( \lnot enBAr(z) \lor bebe(z) ) ) )$
-        \item Forma normal negada: $(\forall x. \lnot enBAr(x)) \lor \exists y. ( enBAr(y) \ wedge (\lnot bebe(y) \lor \forall z. ( \lnot enBAr(z) \lor bebe(z) ) ) )$
-        \item Forma normal de skolem: $\forall z. \forall x. (\lnot enBAr(x)) \lor ( enBAr(f(c)) \ wedge (\lnot bebe(f(c)) \lor ( \lnot enBAr(z) \lor bebe(z) ) ) )$
-        \item Forma normal clausal: $\forall z. \forall x. ((\lnot enBAr(x)) \lor enBAr(f(c))) \ wedge (\lnot enBAr(x)) \lor \lnot bebe(f(c)) \lor \lnot enBAr(z) \lor bebe(z) ) )$ \\
-        $\{\{ \lnot enBAr(x)), enBAr(f(c))\},\{ \lnot enBAr(x), \lnot bebe(f(c)), \lnot enBAr(z), bebe(z)\}\}$
-    \end{itemize}
-    \blue{1} la negacion del existencial \\
-    \blue{2} la separación en terminos de la forma clausal \\
-    \blue{3} cuando genera una resolvente a partir de dos cláusulas que son negaciones ($\lnot enBar()$) \\
-    \blue{4} cuando define a una sustitución de una constante por una variable($\{k \rightarrow Z\}$) \\
-    \blue{5} se olvido de negar lo que queria probar.
+\textbf{Negación:}
+\begin{align*}
+\lnot\forall x.(V (I(x)) \supset V (x)) \\[1pt]
+\lnot\forall x.(\lnot V (I(x)) \lor V (x)) \\[1pt]
+\exists x.(\lnot\lnot V (I(x)) \land \lnot V (x)) \\[1pt]
+\exists x.(V (I(x)) \land \lnot V (x)) \\[1pt]
+V (I(c)) \land \lnot V (c) \\[1pt]
+\{\blue{\underbrace{\{V (I(c))\}}_{G_1}},\blue{\underbrace{\{\lnot V (c)\}}_{G_2}}\} \\[1pt]
+\end{align*}
 
+ No vamos a poder usar resolución SLD, por que la cláusula $C_1$ no es una fórmula de Horn (tiene más de un literal positivo) y hay cláusulas de nuestro Goal que no están negadas.
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+        	[$\{V(c)\}$,
+            	[$\{\lnot P(y_2\comma c)\}$
+            	, edge label={node[midway,right] {$x_1\leftarrow c,~y_2\leftarrow f(c)$}}
+                	[$\{\lnot P(y_2\comma I(c))\}$, edge label={node[midway,right] {$y_4\leftarrow y_2,~x_4\leftarrow c$}}
+                    	[$G_1$,edge label={node[midway,right] {$x_2\leftarrow I(c)$}}]
+                    	[$C_2$]
+                	]
+                	[$C_4$]
+            	]
+            	[$C_1$]
+        	]
+        	[$G_2$]
+]
+	\end{forest}
+\end{center}
+Luego vale que $\forall x.(V (I(x)) \supset V (x))$.
+\subsection{Ejercicio 16} No lo pude demostrar.
+%\paragraph{a)} Los errores son:
+%\begin{itemize}
+%\item Negó mal los existenciales.
+%\item No negó la fórmula antes de usar resolución.
+%\item En el primer paso de la resolución sustituye una constante por una variable.
+%\item En el segundo paso de la resolución consigue una resolvente a partir de dos literales negados.
+%\end{itemize}
+%
+%\newpage
+%\paragraph{b)} $(\exists x. \texttt{enBar}(x)) \supset \exists y. ( \texttt{enBar}(y) \land ( \texttt{\texttt{bebe}}(y) \supset \forall z. ( \texttt{enBar}(z) \supset \texttt{\texttt{bebe}}(z) ) ) )$
+%
+%\textbf{Negación:}
+%\begin{align*}
+%\lnot[(\exists x. \texttt{enBar}(x)) \supset \exists y. ( \texttt{enBar}(y) \land ( \texttt{bebe}(y) \supset \forall z. ( \texttt{enBar}(z) \supset \texttt{bebe}(z) ) ) )] \\[1pt]
+%\lnot [\lnot (\exists x. \texttt{enBar}(x)) \lor \exists y. ( \texttt{enBar}(y) \land (\lnot \texttt{bebe}(y) \lor \forall z. ( \lnot \texttt{enBar}(z) \lor \texttt{bebe}(z) ) ) )] \\[1pt]
+%(\exists x. \texttt{enBar}(x)) \land \lnot\exists y. ( \texttt{enBar}(y) \land (\lnot \texttt{bebe}(y) \lor \forall z. ( \lnot \texttt{enBar}(z) \lor \texttt{bebe}(z) ) ) ) \\[1pt]
+%(\exists x. \texttt{enBar}(x)) \land \forall y. (\lnot\texttt{enBar}(y) \lor \lnot(\lnot \texttt{bebe}(y) \lor \forall z. ( \lnot \texttt{enBar}(z) \lor \texttt{bebe}(z) ) ) ) \\[1pt]
+%(\exists x. \texttt{enBar}(x)) \land \forall y. (\lnot\texttt{enBar}(y) \lor (\texttt{bebe}(y) \land \lnot\forall z. ( \lnot \texttt{enBar}(z) \lor \texttt{bebe}(z) ) ) ) \\[1pt]
+%(\exists x. \texttt{enBar}(x)) \land \forall y. (\lnot\texttt{enBar}(y) \lor (\texttt{bebe}(y) \land \exists z. ( \texttt{enBar}(z) \land \lnot\texttt{bebe}(z) ) ) ) \\[1pt]
+%\exists x.\forall y.\exists z.  \texttt{enBar}(x) \land (\lnot\texttt{enBar}(y) \lor (\texttt{bebe}(y) \land   \texttt{enBar}(z) \land \lnot\texttt{bebe}(z) )) \\[1pt]
+%\forall y.\exists z.  \texttt{enBar}(c) \land (\lnot\texttt{enBar}(y) \lor (\texttt{bebe}(y) \land   \texttt{enBar}(z) \land \lnot\texttt{bebe}(z) )) \\[1pt]
+%\forall y.  \texttt{enBar}(c) \land (\lnot\texttt{enBar}(y) \lor (\texttt{bebe}(y) \land   \texttt{enBar}(f(y)) \land \lnot\texttt{bebe}(f(y)) )) \\[1pt]
+%\forall y.  \texttt{enBar}(c) \land (\lnot\texttt{enBar}(y) \lor \texttt{bebe}(y)) \land  (\lnot\texttt{enBar}(y) \lor  \texttt{enBar}(f(y))) \land (\lnot\texttt{enBar}(y) \lor \lnot\texttt{bebe}(f(y)) ) \\[1pt]
+%\{\blue{\underbrace{\{\texttt{enBar}(c)\}}_{C_1}},\blue{\underbrace{\{\lnot\texttt{enBar}(y_2), \texttt{bebe}(y_2)\}}_{C_2}},\blue{\underbrace{\{\lnot\texttt{enBar}(y_3),  \texttt{enBar}(f(y_3))\}}_{C_3}}  , \blue{\underbrace{\{\lnot\texttt{enBar}(y_4), \lnot\texttt{bebe}(f(y_4)) \}}_{C_4}}\} \\[1pt]
+%\end{align*}
+%\textbf{Resolución:}
+%\begin{center}
+%	\begin{forest} resolucion,
+%[$\red{\Box}$ 
+%        	[$\{V(c)\}$,
+%            	[$\{\lnot P(y_2\comma c)\}$
+%            	, edge label={node[midway,right] {$x_1\leftarrow c,~y_2\leftarrow f(c)$}}
+%                	[$\{\lnot P(y_2\comma I(c))\}$, edge label={node[midway,right] {$y_4\leftarrow y_2,~x_4\leftarrow c$}}
+%                    	[$C_3$,edge label={node[midway,right] {$y_4\leftarrow y_3$}}]
+%                    	[$C_4$]
+%                	]
+%                	[$C_4$]
+%            	]
+%            	[$C_1$]
+%        	]
+%        	[$G_2$]
+%]
+%	\end{forest}
+%\end{center}
 \subsection{Ejercicio 17}
-    Cláusulas:
-    \begin{itemize}
-        \item $\forall x. \exists y. esContacto(x,y)$ = $\{esContacto(x,y)\}$
-        \item $\forall x. \forall y. esContacto(x,y) \Rightarrow esContacto(y,x)$ = $\lnot esContacto(x,y) \lor esContacto(y,x)$  = \\ $\{ \lnot esContacto(x,y), esContacto(y,x)\}$
-    \end{itemize}
-    A) 
-    \begin{itemize}
-        \item Queremos ver: $\forall x. esContacto(x,x)$ 
-        \item La negamos: $\lnot \forall x. esContacto(x,x)$ = $\exists x. \lnot esContacto(x,x)$ = $\lnot esContacto(c,c)$
-        \item Rta: Es correcta.
-    \end{itemize}
-    B) 
-    \begin{itemize}
-        \item Queremos ver: $\forall y. \exists x. esContacto(x,y)$ 
-        \item La negamos: $\lnot \forall y. \exists x. esContacto(x,y)$ = $\exists y. \lnot \exists x. esContacto(x,y)$ = $\exists y. \forall x. \lnot esContacto(x,y)$ = $\forall x. \lnot esContacto(x,f(c))$  
-        \item El punto 4) está mal. 
-        \item Queda: del 2 y 3, $esContacto(d,d)$ y ahi se traba porque va a usar simepre la $resolvente_{i}$ con 2.
-    \end{itemize}
+\begin{itemize}
+        \item $\blue{C_1 = \{\texttt{esContacto}(x_1,f(x_1))\}}$
+        \item $\blue{C_2 = \{ \lnot \texttt{esContacto}(x_2,y_2), \texttt{esContacto}(y_2,x_2)\}}$
+\end{itemize}
+
+\paragraph{I.} La demostración no es correcta, en el último paso, realiza la sustitución $f(x)\leftarrow c$ pero $f(x)$ no unificia con $c$.
+
+\paragraph{II.} En el paso 4, la sustitución no es correcta, la resultante obtenida en ese paso debería ser $\{\lnot\texttt{esContacto}(d,x)\}$.
+
+\paragraph{III.} Si, hay que seguir los mismos pasos que en el inciso anterior pero corrigiendo ese error:
+
+\begin{center}
+	\begin{forest} resolucion,
+[$\red{\Box}$ 
+                	[$\{\lnot\texttt{esContacto}(d \comma x)\}$, edge label={node[midway,right] {$x_1\leftarrow d,~x\leftarrow f(d)$}}
+                    	[$\{\lnot \texttt{esContacto}(x\comma d)\}$,edge label={node[midway,right] {$y_2\leftarrow x,~x_2\leftarrow d$}}]
+                    	[$C_2$]
+                	]
+                	[$C_1$]
+            	]
+        	]
+]
+	\end{forest}
+\end{center}
 
 \subsection{Ejercicio 18}
     \begin{itemize}
-        \item 1$.\{ \lnot Progenitor(x1,y1),Descenciente(y1,x1)\}$ 
-        \item 2$.\{ \lnot Descenciente(x2,y2), \lnot Descenciente(y2,z2), Descenciente(x2,z2)\}$ 
-        \item 3$.\{ \lnot Abuelo(x3,y3), Progenitor(x3, medio(x3,y3))\}$ 
-        \item 4$.\{ \lnot Abuelo(x4,y4), Progenitor(medio(x4,y4),y4)\}$ 
-        \item Queremos ver que: $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
-        \item $\forall x. \forall y. (Abuelo(x,y) \Rightarrow Descenciente(y,x))$ 
-        \item $\forall x. \forall y. (\lnot Abuelo(x,y) \lor Descenciente(y,x))$ 
-        \item Lo niego: $\lnot \forall x. \forall y. (\lnot Abuelo(x,y) \lor Descenciente(y,x))$ 
-        \item $\exists x. \lnot \forall y. (\lnot Abuelo(x,y) \lor Descenciente(y,x))$ 
-        \item $\exists x. \exists y. \lnot (\lnot Abuelo(x,y) \lor Descenciente(y,x))$ 
-        \item $\exists x. \exists y. (\lnot \lnot Abuelo(x,y) \land \lnot Descenciente(y,x))$ 
-        \item $\exists x. \exists y. (Abuelo(x,y) \land \lnot Descenciente(y,x))$ 
-        \item 5$.\{Abuelo(x5,y5)\} $  
-        \item 6$.\{ \lnot Descenciente(y6,x6)\} $ \\
-        \item Resolución: 
-        \item 7$. 5y3. \{x3 \leftarrow x6, y3 \leftarrow y6\}$ y la resolvente es: $\{Progenitor(x3, medio(x3,y3))\}$ 
-        \item 8$. 7y1. \{x1 \leftarrow x3, y1 \leftarrow medio(x3,y3)\}$ y la resolvente es: $\{Descenciente( medio(x3,y3),x3)\}\}$ 
-        \item 9.$ 8y6. \{y6 \leftarrow medio(x3,y3), x6 \leftarrow x3\}$ y la resolvente es: $\{\}$, por lo tanto probamos que \\ $\forall x. \forall y. (\lnot Abuelo(x,y) \lor Descenciente(y,x))$ es una tautología.
-    \end{itemize}
+        \item $C_1 = \{ \lnot \texttt{Progenitor}(x_1,y_1),\texttt{Descenciente}(y_1,x_1)\}$ 
+         \item $C_2 =\{ \lnot \texttt{Abuelo}(x_2,y_2), \texttt{Progenitor}(x_2, \texttt{medio}(x_2,y_2))\}$ 
+        \item $C_3 = \{ \lnot \texttt{Descenciente}(x_3,y_3), \lnot \texttt{Descenciente}(y_3,z_3), \texttt{Descenciente}(x_3,z_3)\}$ 
+        \item $C_4 =\{ \lnot \texttt{Abuelo}(x_4,y_4), \texttt{Progenitor}(\texttt{medio}(x_4,y_4),y_4)\}$ 
+     \end{itemize}
 
-% \subsection{\blue{Ejercicio 19 COMPLETAR}}
-% $\forall x. \lnot R(x,x)$ = $\{ \lnot R(x,x)\}$ \\
-% $\forall x. \forall y. (R(x,y) \Rightarrow R(y,x))$ = $\forall x. \forall y. (\lnot R(x,y) \lor R(y,x))$ = $\{ \lnot R(x,y), R(y,x)\}$ \\
-% $\forall x. \forall y. \forall z. ((R(x,y) \land R(y,z)) \Rightarrow R(x,z))$ = $\forall x. \forall y. \forall z. ( \lnot (R(x,y) \land R(y,z)) \lor R(x,z))$ = $\forall x. \forall y. \forall z. ( (\lnot R(x,y) \lor \lnot R(y,z)) \lor R(x,z))$ = $\{ \lnot R(x,y), \lnot R(y,z), R(x,z)\}$ \\
-% QVQ\\
-% $\forall x. \lnot \exists y. R(x,y)$ = $\forall x. \forall y. \lnot R(x,y)$ \\
-% Lo niego: $\exists x. \lnot \forall y. \lnot R(x,y)$ = $\exists x. \exists y. \lnot \lnot R(x,y)$ = $R(f(c),f(d))$ = $\{R(f(c),f(d))\}$ \\
-% Cláusulas: \\
-% $\{ \lnot R(x,x)\}$ \\
-% $\{ \lnot R(x,y), R(y,x)\}$ \\
-% $\{ \lnot R(x,y), \lnot R(y,z), R(x,z)\}$ \\
-% $\{R(f(c),f(d))\}$
+Queremos ver que: $\forall x. \forall y. (\texttt{Abuelo}(x,y) \supset \texttt{Descenciente}(y,x))$ 
+\textbf{Negación:}
+\begin{align*}
+\lnot\forall x. \forall y. (\texttt{Abuelo}(x,y) \supset \texttt{Descenciente}(y,x)) \\[1pt]
+\lnot\forall x. \forall y. (\lnot \texttt{Abuelo}(x,y) \lor \texttt{Descenciente}(y,x) \\[1pt]
+\exists x. \lnot \forall y. (\lnot \texttt{Abuelo}(x,y) \lor \texttt{Descenciente}(y,x)) \\[1pt]
+\exists x. \exists y. \lnot (\lnot \texttt{Abuelo}(x,y) \lor \texttt{Descenciente}(y,x))\\[1pt]
+\exists x. \exists y. (\lnot \lnot \texttt{Abuelo}(x,y) \land \lnot \texttt{Descenciente}(y,x))\\[1pt]
+\exists x. \exists y. (\texttt{Abuelo}(x,y) \land \lnot \texttt{Descenciente}(y,x))\\[1pt]
+\exists y. (\texttt{Abuelo}(c,y) \land \lnot \texttt{Descenciente}(y,c))\\[1pt]
+\texttt{Abuelo}(c,d) \land \lnot \texttt{Descenciente}(d,c)\\[1pt]
+\{\blue{\underbrace{\{\texttt{Abuelo}(c,d)\}}_{G_1}},\blue{\underbrace{\{\lnot \texttt{Descenciente}(d,c)\}}_{G_2}}\}\\[1pt]
+\end{align*}
 
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\Box$,
+    [$\{\texttt{Descenciente}(d\comma c)\}$
+        [$\{ \lnot \texttt{Abuelo}(c\comma d) \comma \texttt{Descenciente}(d\comma c)\}\}$,
+            [ $\{ \lnot \texttt{Progenitor}(\texttt{medio}(c\comma d)\comma x_3)\comma \texttt{Descenciente}(x_3\comma c)\}\}$,
+            , edge label={node[midway,right] {$x_4\leftarrow c,~y_4 \leftarrow d,~x_3\leftarrow d$}}
+                [$\{ \lnot \texttt{Descenciente}(x_3\comma \texttt{medio}(c\comma d))\comma \texttt{Descenciente}(x_3\comma c)\}\}$,
+                 edge label={node[midway,right] {$y_1'\leftarrow x_3,~x_1' \leftarrow \texttt{medio}(c,d)$}}
+                    [$\{\texttt{Descenciente}(\texttt{medio}(c\comma d) \comma c)\}$, edge label={node[midway,right] {$y_3\leftarrow \texttt{medio}(c,d),~z_3 \leftarrow c$}}
+                        [$\{ \texttt{Progenitor}(c\comma \texttt{medio}(c\comma d))\}$, edge label={node[midway,right] {$x_1\leftarrow c,~y_1\leftarrow \texttt{medio}(c,d)$}}
+                            [$G_1$,edge label={node[midway,right] {$x_2\leftarrow c,~y_2\leftarrow d$}}]
+                            [$C_2$]
+                        ]
+                        [$C_1$]
+                    ]
+                    [$C_3$]
+                ]
+                [$C_1$]
+            ]
+            [$C_4$]
+        ]
+        [$G_1$]
+    ]
+    [$G_2$]
+]
+	\end{forest}
+\end{center}
+
+ \subsection{Ejercicio 19}
+ \begin{itemize}
+ \item $R$ es \textbf{irreflexiva}
+ \begin{align*}
+ \forall x. \lnot R(x,x) \\[1pt]
+ \blue{C_1 = \{ \lnot R(x_1,x_1)\}}
+ \end{align*}
+ \item $R$ es \textbf{símetrica}
+ \begin{align*}
+ \forall x. \forall y. (R(x,y) \supset R(y,x)) \\[1pt]
+ \forall x. \forall y. (\lnot R(x,y) \lor R(y,x))\\[1pt]
+ \blue{C_2 = \{ \lnot R(x_2,y_2), R(y_2,x_2)\} }
+ \end{align*}
+ \item $R$ es \textbf{transitiva}
+ \begin{align*}
+\forall x. \forall y. \forall z. ((R(x,y) \land R(y,z)) \supset R(x,z))\\[1pt]\forall x. \forall y. \forall z. ( \lnot (R(x,y) \land R(y,z)) \lor R(x,z))\\[1pt]
+\forall x. \forall y. \forall z. ( (\lnot R(x,y) \lor \lnot R(y,z)) \lor R(x,z))\\[1pt]
+\blue{C_3 = \{ \lnot R(x_3,y_3), \lnot R(y_3,z_3), R(x_3,z_3)\}} \\[1pt]
+ \end{align*}
+\end{itemize}
+
+$R$ es vacía es $\forall x. \lnot \exists y. R(x,y)$, y queremos probrar que no existe una relación no vacia que pueda cumplir todas las propiedades a la vez, osea que  $\lnot(\forall x. \lnot \exists y. R(x,y))$ es insatisfactible si valen las primeras tres propiedades. Entonces lo pasamos a forma clausal y usamos resolución para probarlo.
+\begin{align*}
+\lnot(\forall x. \lnot \exists y. R(x,y)) \\[1pt]
+\exists x. \lnot \forall y. \lnot R(x,y) \\[1pt]
+\exists x. \exists y. \lnot \lnot R(x,y)\\[1pt]
+\exists x. \exists y. R(x,y)\\[1pt]
+\exists y. R(c,y)\\[1pt]
+R(c,d)\\[1pt]
+\blue{G = \{R(c,d)\}}\\[1pt]
+\end{align*}
+
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\Box$,
+    [$\{ \lnot R(c\comma d)\}$
+        [$\{\lnot R(z_3\comma d)\comma R(c\comma z_3)\}$, edge label={node[midway,right] {$z_3\leftarrow c$}}
+            [$\{ R(d\comma z_3)\comma R(c\comma z_3)\}$, edge label={node[midway,right] {$x_1\leftarrow c,~y_1\leftarrow \texttt{medio}(c,d)$}}
+                [$G$,edge label={node[midway,right] {$x_3\leftarrow c,~y_3\leftarrow d$}}]
+                [$C_3$]
+            ]
+            [$C_2$]
+        ]
+        [$C_1$]
+    ]
+    [$G$]
+]
+	\end{forest}
+\end{center}
+
+\newpage
 \subsection{Ejercicio 20}
-     Definiciones:
-    \begin{itemize}
-        \item natural(cero).
-        \item natural(suc(X)) $:-$ natural(X).
-        \item mayorOIgual(suc(X),Y) $:-$ mayorOIgual(X,Y).
-        \item mayorOIgual(X,X) $:-$ natural(X).
-    \end{itemize}
-    A) Que sucede con la consulta: mayorOIgual(suc(suc(N)), suc(cero))?
-    \begin{itemize}
-        \item mayorOIgual(suc(suc(N)), suc(cero)) trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(suc(N),suc(cero)).
-        \item mayorOIgual(suc(N),suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), y eso sucede si y solo si, mayorOIgual(X,Y)=mayorOIgual(N,suc(cero)).
-        \item mayorOIgual(N,suc(cero)): trata de unificar con, mayorOIgual(suc(X),Y), pero no puede porque N no tiene estructura de suc(), por lo tanto intenta unificar con mayorOIgual(N,suc(cero)) y no puede porque no sabe si N es suc(cero), entonces se cuelga. 
-    \end{itemize}
-    B) Demostración:
-    \begin{enumerate}
-    \item $\{natural(cero) \}$
-    \item $\{natural(suc(X2)), \lnot natural(X2) \}$
-    \item $\{mayorOIgual(suc(X3),Y3), \lnot mayorOIgual(X3,Y3) \}$
-    \item $\{mayorOIgual(X4,X4), \lnot natural(X4) \}$
-    \item $\{ \lnot mayorOIgual(suc(suc(N5)),suc(cero))\}$
-    \item 5y3. $\{X3 \leftarrow suc(N5), Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{ \lnot mayorOIgual(suc(N5),suc(cero))\}$
-    \item 6y3. $\{X3 \leftarrow N5, Y3 \leftarrow suc(cero)\}$ y la resolvente es $\{ \lnot mayorOIgual(N5,suc(cero))\}$
-    \item 7y4. $\{X4 \leftarrow suc(cero),N5 \leftarrow X5\}$ y la resolvente es $\{natural(suc(cero))\}$
-    \item 8y2. $\{X2 \leftarrow cero\}$ y la resolvente es $\{ \lnot natural(cero)\}$
-    \item 9y1. la resolvente es $\{\}$
-    \end{enumerate}
-    C) Es resolución SLD porque usé cláusulas de horn, resolución binaria y en cada paso de resolución usé la resolvente alterior. También usé el orden de resolución de prolog.
+\paragraph{I.} El programa reducirá siempre usando la primer regla de \texttt{mayorOIgual}, sin embargo cuando llegue a la expresión \texttt{mayorOIgual(N,suc(cero))}, $N$ no estará correctamente instanciada y podrá unificar con $succ(X)$ para cualquier $X$. Luego, intentará reducir la expresión \texttt{mayorOIgual(X,suc(cero))} y volverá a pasar lo mismo. Entonces el programa se cuelga.
+
+\paragraph{II.}
+\begin{itemize}
+    \item $C_1 = \{\texttt{natural}(\texttt{cero}) \}$
+    \item $C_2 = \{\texttt{natural}(\texttt{suc}(x_2)), \lnot \texttt{natural}(x_2) \}$
+    \item $C_3 = \{\texttt{mayorOIgual}(\texttt{suc}(x_3),y_3), \lnot \texttt{mayorOIgual}(x_3,y_3) \}$
+    \item $C_4 = \{\texttt{mayorOIgual}(x_4,x_4), \lnot \texttt{natural}(x_4) \}$
+\end{itemize}
+
+El goal es $ G = \{ \lnot \texttt{mayorOIgual}(\texttt{suc}(\texttt{suc}(N)),\texttt{suc}(\texttt{cero}))\}$
+
+\begin{center}
+	\begin{forest} resolucion,
+[$\Box$,
+    [$\{ \lnot \texttt{natural}(\texttt{cero})\}$
+        [$\{\lnot \texttt{natural}(\texttt{suc}(\texttt{cero}))\}$, edge label={node[midway,right] {$x_2\leftarrow \texttt{cero}$}}
+            [$\{ \lnot \texttt{mayorOIgual}(\texttt{suc}(N)\comma \texttt{succ}(\texttt{cero})) )\}$, edge label={node[midway,right] {$x_4\leftarrow \texttt{suc}(\texttt{cero}),~N\leftarrow \texttt{cero}$}}
+                [$G$,edge label={node[midway,right] {$x_3\leftarrow \texttt{suc}(N),~y_3\leftarrow \texttt{suc}(\texttt{cero})$}}]
+                [$C_3$]
+            ]
+            [$C_4$]
+        ]
+        [$C_2$]
+    ]
+    [$C_1$]
+]
+	\end{forest}
+\end{center}
+
+ La sustitución resultado es: $\sigma = \{\texttt{cero}/x_2,~\texttt{suc(cero)}/x_4,~\texttt{cero}/N,~\texttt{suc(cero)}/x_3,~ \texttt{suc(cero)}/y_3\}$ Por lo que $N = \texttt{cero}$ es una solución.
+\paragraph{III.} Es resolución SLD porque usamos cláusulas de horn, resolución binaria y lineal. Sin embargo, no usamos la misma técnica de selección que usa Prolog.
 
 \subsection{Ejercicio 21}
-    Quiero probar: $\exists x.$ inteligente(X) $\land$ analfabeto(X). \\
-    Entonces lo niego: $\lnot \exists x.$ inteligente(X) $\land$ analfabeto(X) = $\forall x. \lnot ($inteligente(X) $\land$ analfabeto(X)) = $\forall x. \lnot$ inteligente(X) $\lor \lnot$ analfabeto(X) $=$ $\{ \lnot$ inteligente(X), $\lnot$ analfabeto(X)$\}$
-    \begin{enumerate}
-        \item $\{analfabeto(X1), \lnot vivo(X1), \lnot noSabeLeer(X1) \}$
-        \item $\{noSabeLeer(X2), \lnot mesa(X2)\}$
-        \item $\{vivo(X3), \lnot delfin(X3) \}$
-        \item $\{noSabeLeer(X4), \lnot delfin(X4)\}$
-        \item $\{inteligente(flipper)\}$
-        \item $\{delfin(flipper)\}$
-        \item $\{inteligente(alan)\}$
-        \item $\{ \lnot inteligente(X8), \lnot analfabeto(X8)\}$
-        \item $8y1. \{X1 \leftarrow X8 \}$ resolvente: $\{ \lnot inteligente(X8), \lnot vivo(X8), \lnot noSabeLeer(X8) \}$
-        \item $9y3. \{X3 \leftarrow X8\}$ resolvente: $\{ \lnot delfin(X3),\lnot inteligente(X8), \lnot noSabeLeer(X8)\}$
-        \item $10y4.\{X4 \leftarrow X8\}$ resolvente: $\{ \lnot delfin(X3),\lnot inteligente(X8), \lnot delfin(X8)\}$
-        \item $11y6.\{X8 \leftarrow flipper\}$ resolvente: $\{ \lnot delfin(X3),\lnot inteligente(X8)\}$
-        \item $12y6. \{X8 \leftarrow flipper\}$ resolvente: $\{ \lnot inteligente(X8)\}$
-        \item $13y5. \{X8 \leftarrow flipper\}$ resolvente: $\{\}$
-    \end{enumerate}
-%   \subsection{Ejercicio 22}
+\begin{itemize}
+\item $C_1 = \{\texttt{analfabeto}(x_1), \lnot \texttt{vivo}(x_1), \lnot \texttt{noSabeLeer}(x_1) \}$
+\item $C_2 = \{\texttt{vivo}(x_2), \lnot \texttt{delfin}(x_2) \}$
+\item $C_3 = \{\texttt{inteligente}(\texttt{flipper})\}$
+\item $C_4 = \{\texttt{inteligente}(\texttt{alan})\}$
+\item $C_5 = \{\texttt{noSabeLeer}(x_5), \lnot \texttt{mesa}(x_5)\}$
+\item $C_6 = \{\texttt{noSabeLeer}(x_6), \lnot \texttt{delfin}(x_6)\}$
+\item $C_7 = \{\texttt{delfin}(\texttt{flipper})\}$
+\end{itemize}
+Queremos probar que existe alguien inteligente pero analfabeto, es decir que $\exists x.\texttt{inteligente}(x)\land\texttt{analfabeto}(x)$.
+
+\textbf{Negación:}
+\begin{align*}
+\lnot\exists x.\texttt{inteligente}(x)\land\texttt{analfabeto}(x)\\[1pt]
+\forall x.\lnot\texttt{inteligente}(x)\lor\lnot\texttt{analfabeto}(x)\\[1pt]
+\blue{G = \{\lnot\texttt{inteligente}(x)\lor\lnot\texttt{analfabeto}(x)\}}\\[1pt]
+\end{align*}
+
+\textbf{Resolución:}
+\begin{center}
+	\begin{forest} resolucion,
+[$\Box$,
+    [$\{ \lnot \texttt{delfin}(\texttt{flipper})\}$
+        [$\{\lnot \texttt{noSabeLeer}(\texttt{flipper})\comma \lnot \texttt{delfin}(\texttt{flipper})\}$, edge label={node[midway,right] {$x_6\leftarrow \texttt{flipper}$}}
+            [$\{\lnot \texttt{vivo}(\texttt{flipper})\comma \lnot \texttt{noSabeLeer}(\texttt{flipper})\}$, edge label={node[midway,right] {$x_2\leftarrow \texttt{flipper}$}}
+                [$\{\lnot \texttt{analfabeto}(\texttt{flipper})\}$,edge label={node[midway,right] {$x_1\leftarrow \texttt{flipper}$}}
+                    [$G$,,edge label={node[midway,right] {$x\leftarrow \texttt{flipper}$}}]
+                    [$C_3$]
+                ]
+                [$C_1$]
+            ]
+            [$C_2$]
+        ]
+        [$C_6$]
+    ]
+    [$C_7$]
+]
+	\end{forest}
+\end{center}
+
+%  \subsection{Ejercicio 22}
 
 \end{document}

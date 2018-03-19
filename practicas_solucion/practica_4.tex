@@ -246,7 +246,7 @@ Luego están los tipos de funciones ``recursivos'' que tienen la forma $\sigma\t
 		\textbf{(3)} $\WFunc(x~x) = \judgeType{S\{x:\sigma\}\cup S\{x:\tau\} }{S(x~x)}{S\theta}$
 		
 		\begin{align*}
-		S = MGU(\{\sigma\equalDot\tau,~\sigma\equalDot \tau \to \theta\}) \goesTo{4}{\tau/\sigma}\{\tau\equalDot \tau \to \theta\} \goesTo{6}{} \falla
+		S = MGU(\{\sigma\doteq\tau,~\sigma\doteq \tau \to \theta\}) \goesTo{4}{\tau/\sigma}\{\tau\doteq \tau \to \theta\} \goesTo{6}{} \falla
 		\end{align*}
 	\end{multicols}
 	\setlength{\columnsep}{-1cm}
@@ -273,7 +273,7 @@ Luego están los tipos de funciones ``recursivos'' que tienen la forma $\sigma\t
 		\end{center}
 		\vfill\null
 		\columnbreak
-		Entonces debemos unificar $\sigma\to\tau \equalDot \theta$ y $\sigma\equalDot\theta$ de tal manera que se cumpla $\theta <: \sigma$. Si elegimos que $\sigma = \theta = Top$, entonces nos queda que $x$ es de tipo $Top \rightarrow \tau$ y de tipo $Top$ simultaneamente. Y se cumple que $Top <: Top$. Además, como $x$ es una función, puede tomar cualquier cosa que sea subtipo de $Top$. En particular $Top \rightarrow \tau <: Top$, por lo que el jucio de tipado $\judgeTypeS{\{x:Top\to\tau\}}{x~x}{\tau}$ es válido.
+		Entonces debemos unificar $\sigma\to\tau \doteq \theta$ y $\sigma\doteq\theta$ de tal manera que se cumpla $\theta <: \sigma$. Si elegimos que $\sigma = \theta = Top$, entonces nos queda que $x$ es de tipo $Top \rightarrow \tau$ y de tipo $Top$ simultaneamente. Y se cumple que $Top <: Top$. Además, como $x$ es una función, puede tomar cualquier cosa que sea subtipo de $Top$. En particular $Top \rightarrow \tau <: Top$, por lo que el jucio de tipado $\judgeTypeS{\{x:Top\to\tau\}}{x~x}{\tau}$ es válido.
 	\end{multicols}
 	
 	\newpage
@@ -382,7 +382,6 @@ Luego están los tipos de funciones ``recursivos'' que tienen la forma $\sigma\t
 		
 \end{multicols}
 
-	\newpage
 	\subsection{Ejercicio 10}
 	\paragraph{a)} El término es tipable. Demostración:
 	
@@ -460,7 +459,6 @@ Luego están los tipos de funciones ``recursivos'' que tienen la forma $\sigma\t
 		\end{scprooftree}    
 	\end{center}
 
-\newpage
 \subsection{Ejercicio 11}
 \paragraph{1)}
 \begin{align*}
@@ -506,13 +504,9 @@ Luego están los tipos de funciones ``recursivos'' que tienen la forma $\sigma\t
 
 \vspace*{5mm}
 \begin{multicols}{2}
-\paragraph{3)} Con las nuevas reglas, entonces tenemos que $M = ((\lambdaAbs{x}{<Nat\times Nat>}{\pi_2(x)})~5)~1)$ es una expresión tipable, esto es porque por S-Curry, podemos tipar $(\lambdaAbs{x}{<\Nat\times\Nat>}{\pi_2(x)}$ como una función de tipo $Nat \to Nat \to Nat$. Sin embargo, cuando vamos a la función, vemos que necesitamos proyectar la segunda coordenada de una tupla, por lo que no tiene sentido pasarle como parámetro un entero a esa función.
-\vfill\null
-\columnbreak
-.
+\paragraph{3)} Con las nuevas reglas, entonces tenemos que \\ $M = ((\lambdaAbs{x}{<Nat\times Nat>}{\pi_2(x)})~5)~1)$ es una expresión tipable, esto es porque por S-Curry, podemos tipar $\lambdaAbs{x}{<Nat\times Nat>}{\pi_2(x)}$ como una función de tipo $Nat \to Nat \to Nat$. Sin embargo, cuando vamos a la función, vemos que necesitamos proyectar la segunda coordenada de una tupla, por lo que no tiene sentido pasarle como parámetro un entero a esa función.
 \end{multicols}
 
-\newpage
 \subsection{Ejercicio 12}
 \paragraph{1)}
 \begin{center}
@@ -587,10 +581,10 @@ Esto quiere decir que $AlimentoPara(\sigma)$ es subtipo de $AlimentoPara(\tau)$ 
 \end{align*}
 
 \begin{align*}
-\frac{\sigma <: \sigma'}{<\sigma\times\tau>~<:~\times_1(\sigma')}(\text{S-TuplaProj1})
+\frac{}{<\sigma\times\tau>~<:~\times_1(\sigma)}(\text{S-TuplaProj1})
 \end{align*}
 \begin{align*}
-\frac{\tau <: \tau'}{<\sigma\times\tau>~<:~\times_2(\tau')}(\text{S-TuplaProj2})
+\frac{}{<\sigma\times\tau>~<:~\times_2(\tau)}(\text{S-TuplaProj2})
 \end{align*}
 
 \vfill\null
@@ -613,10 +607,14 @@ Además, no tendría sentido la inversa, ya que si quisieramos remplazar una tup
 	\UnaryInfC{$\judgeTypeS{\Gamma}{p}{<Nat , Nat>}$}
 
 	\AxiomC{}
-	\RightLabel{S-NatInt}
-	\UnaryInfC{$Nat <: Int$}
 	\RightLabel{S-TuplaProj2}
-	\UnaryInfC{$<Nat,Nat> <: \times_2(Int)$}
+	\UnaryInfC{$<Nat,Nat> <: \times_2(Nat)$}
+	
+	\AxiomC{$Nat <: Int$}
+	\RightLabel{S-Proj2}
+	\UnaryInfC{$\times_2(Nat) <: \times_2(Int)$}
+	\RightLabel{S-Trans}
+	\BinaryInfC{$<Nat,Nat> <: \times_2(Int)$}
 \RightLabel{T-App}
 \TrinaryInfC{$\judgeTypeS{\Gamma= \{p:<Nat , Nat>\} }{ (\lambdaAbs{y}{\times_{2}(Int)}{\pi_{2}(y)})~p}{Float}$}
 	   
