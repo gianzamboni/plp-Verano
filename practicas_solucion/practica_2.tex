@@ -9,7 +9,7 @@
 
 \date{\today}
 
-\author{Zamboni, Gianfranco}
+\author{Gianfranco Zamboni}
 
 \maketitle
 \setcounter{page}{1}
@@ -40,7 +40,7 @@
 \begin{multicols}{2}
 \subsection{Ejercicio 2}
 
-    \begin{forest} tikzQtree,
+    \begin{forest}
         [$isZero(pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}})))$,
         [$pre(succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}}))$
         [$succ(0~\lambdaIf{true}{false}{\lambdaAbs{x}{ Nat}{x}})$
@@ -68,7 +68,7 @@ $\lambdaAbs{x}{ Nat}{succ((\lambdaAbs{x}{ Nat}{\blue{x}})~\lambdaValue{x})}$
 \paragraph{3. } La expresión $x~(y~z)$ no sucede en la expresión $u~x~(y~z)$
 
 \begin{center}
-    \begin{forest} tikzQtree,
+    \begin{forest}  
         [$u~x~(y~z)$
         [$u~x$
         [$u$]
@@ -88,7 +88,7 @@ $\lambdaAbs{x}{ Nat}{succ((\lambdaAbs{x}{ Nat}{\blue{x}})~\lambdaValue{x})}$
 Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables libres
 \paragraph{a)}
 
-\begin{forest} tikzQtree,
+\begin{forest}  
     [$\red{(}\blue{(}\red{u}~\red{x}\blue{)}(\red{y}~\red{z})\red{)}~(\lambdaAbs{v}{ Bool}{\blue{v}})$
     [$\blue{(}\red{u}~\red{x}\blue{)}(\red{y}~\red{z})$
     [$\red{u}~\red{x}$
@@ -111,7 +111,7 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
 \paragraph{b)} En esta expresión aparece $(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{x~z~(y~z)}}})~u$, la marco con una \xmark~ cuando aparece.
 
 \vspace*{5mm}
-\begin{forest}tikzQtree,
+\begin{forest} 
 [$\red{(}\blue{(}(\lambdaAbs{x}{ Bool\to  Nat \to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}\red{)}~ \red{w}$
     [$\blue{(}(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}\blue{)}~\red{v}$
         [ \xmark $(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\red{(}\blue{(}\blue{x}~\blue{z}\blue{)}(\blue{y}~\blue{z})\red{)}}}})~\red{u}$ ,
@@ -140,7 +140,7 @@ Marcamos con \blue{azul} las variables ligadas y con \red{rojo} las variables li
 \end{forest}
 
 \paragraph{c)}
-\begin{forest}tikzQtree,
+\begin{forest} 
 [$\red{(}\blue{(}\red{w}~(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})\blue{)}~\red{u}\red{)}~\red{v}$
     [$\blue{(}\red{w}~(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ z)\green{)}}}})\blue{)}~\red{u}$
         [$\red{w}~(\lambdaAbs{x}{ Bool\to  Nat\to  Bool}{\lambdaAbs{y}{ Bool\to  Nat}{\lambdaAbs{z}{ Bool}{\green{(}\red{(}\blue{x}~\blue{z}\red{)}~(\blue{y}~ \blue{z})\green{)}}}})$
@@ -639,7 +639,7 @@ Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está e
 \paragraph{1)}
 \begin{multicols}{2}
 
- \begin{forest} tikzQtree,
+ \begin{forest}  
 [$\lambdaListCase{0 :: succ(0) :: \List{ Nat}}{false}{isZero(x)}$,
     [$0 :: succ(0) :: \List{ Nat}$,
         [$0$]
@@ -655,7 +655,7 @@ Esta nueva regla, nos permite remplazar $x$ por $N$, sin importar si $N$ está e
 ]
 \end{forest}
 
- \begin{forest} tikzQtree,
+ \begin{forest}  
 [$\lambdaListFold{1 :: 2 :: 3 ::(\lambdaAbs{x}{[ Nat]}{x})~\List{ Nat}}{0}{h+r}$,
     [$1 :: 2 :: 3 :: (\lambdaAbs{x}{[ Nat]}{x})~\List{ Nat}$
         [$1$]

@@ -9,7 +9,7 @@
 
 \date{\today}
 
-\author{Zamboni, Gianfranco}
+\author{Gianfranco Zamboni}
 
 \maketitle
 \setcounter{page}{1}
@@ -102,7 +102,7 @@ Entonces $S = \{Nat/t_1\} \circ \{Nat\to Nat/t_2\} = \{Nat/t_1,~Nat\to Nat/t_2\}
 \subsection{Ejercicio 5}
 \subsubsection*{I)}
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{z}{\lambdaIf{z}{0}{succ(0)}}$ \blue{(5)},
     [$\lambdaIf{z}{0}{succ(0)}$ \blue{(4)},
         [$z$ \blue{(1)}]
@@ -139,7 +139,7 @@ $S = MGU(\{t_1\doteq Bool\}) \goesTo{4}{Bool/t1} \emptyset~\Rightarrow~S = \{Boo
 
 \subsubsection*{II)}
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{y}{succ((\lambdaAbsI{x}{x})~y)}$ \blue{(6)},
     [$succ((\lambdaAbsI{x}{x})~y)$ \blue{(5)},
         [$(\lambdaAbsI{x}{x})~y$ \blue{(4)},
@@ -181,7 +181,7 @@ $S = MGU(\{t_1 \doteq Nat\}) \goesTo{4}{Nat/t_1} \emptyset$ $\Rightarrow~S = \{N
 
 \subsubsection*{III)}
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{\lambdaIf{isZero(x)}{x}{(\lambdaIf{x}{x}{x}})}$,
     [\red{$\lambdaIf{isZero(x)}{x}{(\lambdaIf{x}{x}{x}})$} \blue{(8)},
         [$isZero(x)$ \blue{(5)},
@@ -241,7 +241,7 @@ $S = MGU(\{Nat \doteq t_5,~Nat \doteq Bool, t_5 \doteq Bool,~\red{Nat \doteq Boo
 \subsubsection*{IV)}
 
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaIf{x}{y}{succ(0)}}}$ \blue{(7)},
     [$\lambdaAbsI{y}{\lambdaIf{x}{y}{succ(0)}}$ \blue{(6)},
         [$\lambdaIf{x}{y}{succ(0)}$ \blue{(5)},
@@ -294,7 +294,7 @@ $S = MGU(\{Nat \doteq t_5,~Nat \doteq Bool, t_5 \doteq Bool,~\red{Nat \doteq Boo
 \subsubsection*{V)}
 
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaIf{true}{(\lambdaAbsI{x}{0})~0}{(\lambdaAbsI{x}{0})~false}$ \blue{(8)},
     [$true$ \blue{(1)}]
     [$(\lambdaAbsI{x}{0})~0$ \blue{(4)},
@@ -369,7 +369,7 @@ S &= MGU(\{Bool\doteq Bool,~Nat \doteq Nat\}) \goesTo{2}{\times 2} \emptyset\\
 
 \begin{center}
 
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$(\lambdaAbsI{f}{\lambdaIf{true}{f~0}{f~False}})~(\lambdaAbsI{x}{0})$,
     [$\lambdaAbsI{f}{\lambdaIf{true}{f~0}{f~False}}$,
         [\red{$\lambdaIf{true}{f~0}{f~False}$} \blue{(8)},
@@ -439,7 +439,7 @@ S &= MGU(\{Bool\doteq Bool,~Nat\to t_2 \doteq Bool \to t_4\}) \goesTo{1}{} \{Boo
 
 \begin{center}
 
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}}}$ \blue{(8)},
     [$\lambdaAbsI{y}{\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}}$ \blue{(7)},
         [$\lambdaAbsI{z}{\lambdaIf{z}{y}{succ(x)}}$ \blue{(6)},
@@ -507,7 +507,7 @@ S &= MGU(\{t_1 \doteq Bool,~Nat \doteq t_3\}) = \{Bool/t_1,~Nat/t_3\}
 
 \begin{center}
 
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaFix{\lambdaAbsI{x}{pred(x)}}$ \blue{(5)},
     [fix \blue{(1)}]
     [$\lambdaAbsI{x}{pred(x)}$ \blue{(4)},
@@ -555,7 +555,7 @@ $
 \paragraph{I)}
 \begin{center}
 
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{\lambdaAbsI{y}{\lambdaAbsI{z}{(z~x)~y~z}}}$,
     [$\lambdaAbsI{y}{\lambdaAbsI{z}{(z~x)~y~z}}$,
         [$\lambdaAbsI{z}{(z~x)~y~z}$,
@@ -612,7 +612,7 @@ S &= MGU(\{t_6 \doteq t_2\to t_4\to t_5,~t_5\doteq t_6\to t_7\}) \goesTo{4}{t_2\
 \paragraph{II)}
 \begin{center}
 
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{x~(w~(\lambdaAbsI{y}{w~y}))}$,
     [$x$]
     [$w~(\lambdaAbsI{y}{w~y})$ \blue{(6)}
@@ -656,7 +656,7 @@ $S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \paragraph{III)}
 \begin{center}
 
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{\lambdaAbsI{y}{x~y}}$ \blue{(5)},
     [$\lambdaAbsI{y}{x~y}$ \blue{(4)},
         [$x~y$ \blue{(3)},
@@ -688,7 +688,7 @@ $S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \paragraph{IV)}
 \begin{center}
 
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{\lambdaAbsI{y}{y~x}}$ \blue{(5)},
     [$\lambdaAbsI{y}{y~x}$ \blue{(4)},
         [$y~x$ \blue{(3)},
@@ -721,7 +721,7 @@ $S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \paragraph{V)}
 \begin{multicols}{2}
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{(\lambdaAbsI{x}{x})}$ \blue{(3)},
     [$\lambdaAbsI{x}{x}$ \blue{(2)},
         [$x$ \blue{(1)} ]
@@ -743,7 +743,7 @@ $S = MGU\{t_1 \doteq t_2\to t_3\} = \{t_2\to t_3/t_1\}$
 \paragraph{VI)}
 \begin{multicols}{2}
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$\lambdaAbsI{x}{(\lambdaAbsI{y}{y})~x}$ \blue{(5)},
     [$(\lambdaAbsI{y}{y})~x$ \blue{(4)},
         [$\lambdaAbsI{y}{y}$ \blue{(2)},
@@ -778,7 +778,7 @@ $\Rightarrow S = \{t_1/t_2,~t_1/t_3\}$
 
 \paragraph{VII)}
 \begin{center}
-\begin{forest} tikzQtree,
+\begin{forest}  ,
 [$(\lambdaAbsI{z}{\lambdaAbsI{x}{x~(z~(\lambdaAbsI{y}{z}))}})~true$,
     [$\lambdaAbsI{z}{\lambdaAbsI{x}{x~(z~(\lambdaAbsI{y}{z}))}}$,
         [$\lambdaAbsI{x}{x~(z~(\lambdaAbsI{y}{z}))}$,
