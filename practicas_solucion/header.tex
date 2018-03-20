@@ -26,31 +26,19 @@ pdfcreator={pdflatex}]{hyperref}
 
 %Para crear los arboles de sintaxis y demostraciones
 \usepackage{forest}
-\usepackage{tikz}
 
 
 % Styles
 
 \rowcolors{2}{gray!10}{white}
 
-\usemintedstyle{borland}    
+\usemintedstyle{friendly}    
 
 \setlength{\columnsep}{5mm}
 
 \ifthenelse{\paperwidth < \paperheight}{\input{page.layout}}{\input{landscape.page.layout}}
 
-\tikzset{
-    every tree node/.style={align=center},
-}
-
-\forestset{resolucion/.style={for tree={ grow=north, calign=first,l=1.5cm }}}
-
-
-\forestset{tikzQtree/.style={
-        for tree={node options=every tree node/.try}, text centered},
-        begin draw/.code={\begin{tikzpicture}[baseline=(current bounding box.center)]},
-        }
-
+\forestset{resolucion/.style={for tree={ grow=north, calign=first}}}
 
 % Enviroments
 
@@ -142,4 +130,11 @@ pdfcreator={pdflatex}]{hyperref}
 \newcommand{\OOReduccion}[2]{#1 \longrightarrow #2}
 \newcommand{\OOMetodo}[2]{\varsigma(#1)#2}
 \newcommand{\OORep}[1]{\green{[[}#1\green{]]}}
+
+
+%lenguajesInline
+\newcommand{\haskell}[1]{\mintinline{haskell}{#1}}
+\newcommand{\javascript}[1]{\mintinline{javascript}{#1}}
+\newcommand{\prolog}[1]{\mintinline{prolog}{#1}}
+
 

@@ -14,39 +14,39 @@
 \setcounter{page}{1}
 
 \subsection{Ejercicio 1}
-\mintinline{haskell}{null :: Foldable t => t a -> Bool} indica si una estructura está vacía. El tipo a debe ser de la clase Foldable, esto es, son tipos a los que se les puede aplicar la función foldr. La notación "t a" indica que es un tipo parámetrico, es decir, un tipo t que usa a otro tipo a, por ejemplo, si le pasamos a la función una lista de enteros, entonces a = Int y t = [Int]
+\haskell{null :: Foldable t => t a -> Bool} indica si una estructura está vacía. El tipo a debe ser de la clase Foldable, esto es, son tipos a los que se les puede aplicar la función foldr. La notación "t a" indica que es un tipo parámetrico, es decir, un tipo t que usa a otro tipo a, por ejemplo, si le pasamos a la función una lista de enteros, entonces a = Int y t = [Int]
 
 \vspace*{5mm}
-\mintinline{haskell}{head :: [a] -> a} devuelve el primer elemento de una lista.
+\haskell{head :: [a] -> a} devuelve el primer elemento de una lista.
 
 \vspace*{5mm}
-\mintinline{haskell}{tail :: [a] -> [a]} devuelve los últimos elementos de una lista (todos los elementos, salvo el primero).
+\haskell{tail :: [a] -> [a]} devuelve los últimos elementos de una lista (todos los elementos, salvo el primero).
 
 \vspace*{5mm}
-\mintinline{haskell}{init :: [a] -> [a]} devuelve los primeros elementos de una lista (todos los elementos salvo el último).
+\haskell{init :: [a] -> [a]} devuelve los primeros elementos de una lista (todos los elementos salvo el último).
 
 \vspace*{5mm}
-\mintinline{haskell}{last :: [a] -> a} devuelve el último elemento de una lista.
+\haskell{last :: [a] -> a} devuelve el último elemento de una lista.
 
 
 \vspace*{5mm}
-\mintinline{haskell}{take :: Int -> [a] -> [a]} devuelve los primeros n elementos de una lista
+\haskell{take :: Int -> [a] -> [a]} devuelve los primeros n elementos de una lista
 
 \vspace*{5mm}
-\mintinline{haskell}{drop :: Int -> [a] -> [a]} devuelve los últimos n elementos de una lista
+\haskell{drop :: Int -> [a] -> [a]} devuelve los últimos n elementos de una lista
 
 \vspace*{5mm}
-\mintinline{haskell}{(++) :: [a] -> [a] -> [a]} concatena dos listas
+\haskell{(++) :: [a] -> [a] -> [a]} concatena dos listas
 
 \vspace*{5mm}
-\mintinline{haskell}{concat :: Foldable t => t [a] -> [a]} concatena todas las listas de un contenedor de listas que soporte la operación foldr.
+\haskell{concat :: Foldable t => t [a] -> [a]} concatena todas las listas de un contenedor de listas que soporte la operación foldr.
 
 \vspace*{5mm}
-\mintinline{haskell}{(!!) :: [a] -> Int -> a} devuelve el elemento de una lista 
-\mintinline{haskell}{l} que se encuentra en la \mintinline{haskell}{n}-ésima posición. La numeración comienza desde 0.
+\haskell{(!!) :: [a] -> Int -> a} devuelve el elemento de una lista 
+\haskell{l} que se encuentra en la \haskell{n}-ésima posición. La numeración comienza desde 0.
 
 \vspace*{5mm}
-\mintinline{haskell}{elem :: (Eq a, Foldable t) => a -> t a -> Bool}: Dada una estructura T que soporta la operación foldr y que almacene elementos del tipo a que puedan ser comparados por medio de la igualdad y dado un elemento A de ese tipo, indica si A aparecen en T.
+\haskell{elem :: (Eq a, Foldable t) => a -> t a -> Bool}: Dada una estructura T que soporta la operación foldr y que almacene elementos del tipo a que puedan ser comparados por medio de la igualdad y dado un elemento A de ese tipo, indica si A aparecen en T.
 
 \subsection{Ejercicio 2}
 \begin{centrado}

@@ -4,9 +4,6 @@
 
 \setcounter{section}{7}
 
-\usemintedstyle{friendly}
-
-
 \begin{document}
   \title{PLP - Práctica 7: Programación Lógica}
 
@@ -21,31 +18,39 @@
 \section*{El motor de búsqueda de prolog}
 
 \subsection{Ejercicio 1}
-\paragraph{Base de conocimiento:}
-\begin{centrado}
-\begin{minted}{prolog}
-padre(juan, carlos).
-padre(juan, luis).
-padre(carlos, daniel).
-padre(carlos, diego).
+\subsubsection*{Base de conocimiento:}
 
-padre(luis, pablo).
-padre(luis, manuel).
-padre(luis, ramiro).
-abuelo(X,Y) :- padre(X,Z), padre(Z,Y).
+\begin{multicols}{2}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+padre(juan, carlos).   %(1)
+padre(juan, luis).     %(2)
+padre(carlos, daniel). %(3) 
+padre(carlos, diego).  %(4)
 \end{minted}
-\end{centrado}
+\end{centrado2}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+padre(luis, pablo).   %(5)
+padre(luis, manuel).  %(6)
+padre(luis, ramiro).  %(7)
+abuelo(X,Y) :-        %(8)
+    padre(X,Z), 
+    padre(Z,Y).
+\end{minted}
+\end{centrado2}
+\end{multicols}
 
-\paragraph{I.} La consulta \mintinline{prolog}{abuelo(X, manuel)}, devuele \mintinline{prolog}{X = juan}.
+\paragraph{I.} La consulta \prolog{abuelo(X, manuel)}, devuele \prolog{X = juan}.
 
 \subsubsection*{II.}
 \begin{multicols}{2}
 \begin{centrado2}
-\begin{minted}{prolog}
-hijo(X, Y) :-
+\begin{minted}[tabsize=4]{prolog}
+hijo(X, Y) :-       %(9)
 	padre(Y, X).
 
-hermano(X, Y) :-
+hermano(X, Y) :-    %(10)
 	padre(Z, X), 
 	padre(Z, Y),
 	X \= Y.
@@ -54,225 +59,538 @@ hermano(X, Y) :-
 \vfill\null
 \columnbreak
 \begin{centrado2}
-\begin{minted}{prolog}
-descendiente(X, Y) :-
+\begin{minted}[tabsize=4]{prolog}
+descendiente(X, Y) :-    %(11)
 	hijo(X,Y).
-descendiente(X,Y) :-
+descendiente(X,Y) :-     %(12)
 	hijo(X, Z),
 	descendiente(Z, Y).
 \end{minted}
 \end{centrado2}
 \end{multicols}
 
-%\item Regla: \\
-%ancestro(X, X). \\
-%ancestro(X, Y) :- ancestro(Z, Y), padre(X, Z).
-%\item el problema es que se genera una consulta que no termina, porque todo el tiempo el árbol se abre por ancestro().
-%\item Solucion: \\
-%ancestro(X, X). \\
-%ancestro(X, Y) :- padre(X, Z), ancestro(Z, Y).
-%\end{enumerate}
-%
-%\subsection{Ejercicio 2}
-%Base de conocimiento:
-%\begin{itemize}
-%\item vecino(X, Y, [X|[Y|Ls]]).
-%\item vecino(X, Y, [W|Ls]) :- vecino(X, Y, Ls).
-%\end{itemize}
-%Respuestas: vecino(5, Y, [5,6,5,3]).
-%\begin{enumerate}
-%\item Entra por la primera regla e instancia y = 6, luego entra por la segunda regla y saca el 5 y el 6, vuelve a usar la primera regla e instancia y = 3, y luego da false.
-%\item Instancia en orden opuesto, ya que primero se resuelven las consultas mas profundas. y da Y=3, Y=6.
-%\end{enumerate}
-%
-%\subsection{Ejercicio 3}
-%    Base de conocimiento:
-%    \begin{itemize}
-%        \item natural(0).
-%        \item natural(suc(X)) :- natural(X).
-%        \item menorOIgual(X, suc(Y)) :- menorOIgual(X, Y).
-%        \item menorOIgual(X,X) :- natural(X).
-%    \end{itemize}
-%    
-%    Respuestas:
-%    \begin{enumerate}
-%        \item menorOIgual(0,X1): prolog trata de unificar con la regla menorOIgual(X, suc(Y)) :- menorOIgual(X, Y), instancia a X1 como suc(Y) y consulta menorOIgual(0, Y), y así infinitas veces.
-%        \item Prolog puede generar un ciclo infinito cuando no tiene bien definido el caso base, hay que chequearlo antes de el caso "recursivo".
-%    \end{enumerate}
-%    
-%    Redefinición: cambiar el orden de las reglas.
-%    \begin{itemize}
-%        \item menorOIgual(X,X) :- natural(X).
-%        \item menorOIgual(X, suc(Y)) :- menorOIgual(X, Y).
-%    \end{itemize}
-%
-%\section*{\ Estructuras, instanciación y reversibilidad}
-%
-%\subsection{Ejercicio 4}
-%\begin{itemize}
-%%concatenar(?Lista1,?Lista2,?Lista3),
-%\item concatenar([],L1,C):-C=L1.
-%\item concatenar([E|T],L1,C):- concatenar(T,L1,C2),append([[E],C2],C).
-%\end{itemize}
-%
-%\subsection{Ejercicio 5}
-%\begin{itemize}
-%\item last(?L, ?U). \\
-%last([],[]). \\
-%last([E],E). \\
-%last([E|T],E2):-last(T,E2).
-%\item reverse(+L, -L1). \\
-%reverse([],[]). \\
-%reverse([E|T],L):- reverse(T,L2),append([L2,[E]],L).
-%\item maxlista(+L, -M). \\
-%maxlista([E],E). \\
-%maxlista([E|T],E):-maxlista(T,M),E>=M. \\
-%maxlista([E|T],M):-maxlista(T,M),E=<M.
-%\item maxlista(+L, -M).\\
-%minlista([E],E). \\
-%minlista([E|T],M):-minlista(T,M),E>=M. \\
-%minlista([E|T],E):-minlista(T,M),E=<M.
-%\item prefijo(?P, +L). \\
-%prefijo([], \_). \\
-%prefijo([E|T2], [E|T]):-prefijo(T2,T).
-%\item sufijo(?S, +L). \\
-%sufijo(S, L):-reverse(S,S2),reverse(L,L2),prefijo(S2,L2).
-%\item sublista(?S, +L). \\
-%sublistas(Sub,L) :- \\
-%length(Sub,Largo), \\
-%append(Aux,Der,L), \\
-%append(Izq,Sub,Aux), \\
-%Largo >= 1.
-%\item pertenece(?X, +L). \\
-%pertenece(X, [X|\_]). \\
-%pertenece(X, [\_|T]):-pertenece(X,T).
-%\end{itemize}
-%
-%\subsection{Ejercicio 6}
-%aplanar([],[]). \\
-%aplanar([[X1|T1]|T2], Y):- aplanar([X1|T1],Y1),aplanar(T2,Y2),!, append([Y1,Y2],Y). \\
-%aplanar([X|T], Y):- aplanar(T,Y2),append([[X],Y2],Y).
-%
-%\subsection{Ejercicio 7}
-%\begin{itemize}
-%\item 
-%%palindromo(+L, -L1)
-%palindromo([], []). \\
-%palindromo([X|T], P):- palindromo(T, P1), append([[X],P1,[X]],P).
-%\item 
-%%doble(?L, ?L1)
-%doble([],[]). \\
-%doble([X|T], L):- doble(T, L1), append([[X,X],L1],L).
-%\item 
-%%iesimo(?I, +L, -X)
-%iesimo(1, [X|\_], X). \\
-%iesimo(N, [E|T], X):- length([E|T],L), L>=N, iesimo(N1, T, X), N1 is N-1.
-%\end{itemize}
-%
-%\subsection{Ejercicio 8}
-%\begin{itemize}
-%\item desde2(X,Y):- nonvar(Y), X=<Y. \\
-%desde2(X,Y) :- var(Y), desde(X,Y).
-%\item desde(X,X). \\
-%desde(X,Y) :- N is X+1, desde(N,Y).
-%\end{itemize}
-%
-%\subsection{Ejercicio 9}
-%\begin{itemize}
-%\item difSimetrica(L1,L2,L):- append([L1,L2],L3), delete\_rep(L3,L).
-%\item delete\_rep([],[]). \\
-%delete\_rep([X|XS],L):- member(X,XS), !, delete(XS,X,YS), delete\_rep(YS,L). \\
-%delete\_rep([X|XS],[X|L]):- delete\_rep(XS,L).
-%\item sinRepetidos([],[]). \\
-%sinRepetidos([X|L3],L33):-member(X,L3),!,sinRepetidos(L3,L33). \\
-%sinRepetidos([X|L3],[X|L33]):-sinRepetidos(L3,L33).
-%\item interseccion(+L1, +L2, -L3). \\
-%interseccion(L1,L2,L33):-interseccionAux(L1,L2,L3), sinRepetidos(L3,L33).
-%\item interseccionAux([],\_,[]). \\
-%interseccionAux([X|L1],L2,[X|L3]):-member(X,L2),!,interseccionAux(L1,L2,L3). \\
-%interseccionAux([\_|L1],L2,L3):-interseccionAux(L1,L2,L3).
-%\item split(N, L, L1, L2). \\
-%split(0, L, [], L). \\
-%split(N, [X|L], [X|L1], L2) :- N2 is N-1, length(L,Largo), N2=<Largo, split(N2, L, L1, L2).
-%\item borrar(+ListaOriginal, +X, -ListaSinXs). \\
-%borrar([], \_, []). \\
-%borrar([X|L], E, LsinX):- X==E,!,borrar(L, E, LsinX). \\
-%borrar([X|L], E, [X|LsinX]):- borrar(L, E, LsinX).
-%\item sacarDuplicados(+L1, -L2). \\
-%sacarDuplicados(L1, L2):-setof(X,member(X,L1),L2).
-%\item reparto(+L, +N, -LListas). \\
-%repartoSinVaciasAux?
-%\item repartoSinVacias(+L, -LListas). \\
-%desde(X,X). \\
-%desde(X,Y) :- N is X+1, desde(N,Y).
-%\item repartoSinVacias(L, LListas):-desde(1,S),repartoSinVaciasAux(L, S, LListas). \\
-%repartoSinVaciasAux(_, 0, []). \\
-%repartoSinVaciasAux(L, N, [X|LListas]):- sublista(L,X), length([X|LListas],N), N2 is N-1, repartoSinVaciasAux(L, N2, LListas).
-%\item sublista(L,X):- sublistaAux(L,Sub), sacarDuplicados(Sub, X). \\
-%sublistaAux(L,Sub):-append(_,Medio,L),append(Sub, _,Medio).
-%\end{itemize}
-%
-%\subsection{Ejercicio 10}
-%\begin{itemize}
-%\item
-%\end{itemize}
-%
-%\subsection{Ejercicio 11}
-%\begin{itemize}
-%\item
-%\end{itemize}
-%
-%\subsection{Ejercicio 12}
-%\begin{itemize}
-%\item inorder(nil,[]). \\
-%inorder(bin(Izq, V, Der), XS):-inorder(Izq, L1),inorder(Der,L2),append([L1,[V],L2],XS).
-%\item arbolConInorder([],nil). \\
-%arbolConInorder(XS,bin(Izq,X, Der)):-append(L1,[X|L2],XS),arbolConInorder(L1,Izq),arbolConInorder(L2,Der).
-%\item 
-%\item 
-%\end{itemize}
-%\section*{\ Generate and test}
-%
-%\subsection{Ejercicio 13}
-%\begin{itemize}
-%\item coprimos(X,Y):- desde(2,X), between(2,X,Y), 1 is gcd(X,Y).
-%\end{itemize}
-%
-%\subsection{Ejercicio 14}
-%\begin{itemize}
-%\item
-%lista_que_suman([],0,0). \\
-%lista_que_suman([X|XS],S,N):- \\
-%    between(0,S,X),  \\
-%    N2 is N-1, \\
-%    length(XS,N2),  \\
-%    S2 is S-X,  \\
-%    lista_que_suman(XS,S2,N2). \\
-%cuadradoSemiLatino(N,XS):-length(XS,N),desde(0,S),cuadradoSemiLatinoAux(N,N,XS,S). \\
-%cuadradoSemiLatinoAux(_,0,[],_). \\
-%cuadradoSemiLatinoAux(M,N,[X|XS],S):- N2 is N-1, lista_que_suman(X,S,M), cuadradoSemiLatinoAux(M,N2,XS,S).
-%\end{itemize}
-%
-%\subsection{Ejercicio 15}
-%\begin{itemize}
-%\item
-%\end{itemize}
-%\section*{\ Negación por falla}
-%
-%\subsection{Ejercicio 16}
-%\begin{itemize}
-%\item
-%\end{itemize}
-%
-%\subsection{Ejercicio 17}
-%\begin{itemize}
-%\item
-%\end{itemize}
-%
-%\subsection{Ejercicio 18}
-%\begin{itemize}
-%\item
-%\end{itemize}
+\paragraph{IV.} \prolog{abuelo(juan,X)}
+\paragraph{V.} \prolog{hermano(pablo,X)}
+\paragraph{VII.} \prolog{ancestro(juan,X)} devuelve \prolog{X = juan} por la primer regla y luego, si se pide otro resultado, se cuelga porque \prolog{Z} no está bien instanciado.
+\paragraph{VIII.} Con dar vuelta las condiciones de la segunda regla se arregla este problema
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+ancestro(X, X). \\
+ancestro(X, Y) :- padre(X, Z), ancestro(Z, Y).
+\end{minted}
+\end{centrado}
+
+\newpage
+\subsection{Ejercicio 2}
+\paragraph{I.}
+\begin{center}
+	\begin{forest}
+[$\lnot\prolog{vecino(5,Y,[5,6,5,3])}$,
+    [$\Box \{\prolog{Y}\leftarrow \prolog{6}\}$,edge label={node[midway,left=2mm,font=\footnotesize] {$(1)~\prolog{X}\leftarrow \prolog{5},~\prolog{Y}\leftarrow\prolog{6},\prolog{LS}\leftarrow\prolog{[5,3]}$}},
+    ]
+    [$\lnot\prolog{vecino(5,Y,[6,5,3])}$,edge label={node[midway,right=2mm,font=\footnotesize] {$(2)~ \prolog{X}\leftarrow \prolog{5},~\prolog{Y}\leftarrow\prolog{Y},\prolog{W}\leftarrow\prolog{5},\prolog{LS}\leftarrow\prolog{[6,5,3]}$}}
+        [$\lnot\prolog{vecino(5,Y,[5,3])}$,edge label={node[midway,right=2mm,font=\footnotesize] {$(2)~ \prolog{X}\leftarrow \prolog{5},~\prolog{Y}\leftarrow\prolog{Y},\prolog{W}\leftarrow\prolog{6},\prolog{LS}\leftarrow\prolog{[5,3]}$}},
+            [$\Box \{\prolog{Y}\leftarrow \prolog{3}\}$,edge label={node[midway,left=2mm,font=\footnotesize] {$(1)~\prolog{X}\leftarrow \prolog{5},~\prolog{Y}\leftarrow\prolog{3},\prolog{LS}\leftarrow\prolog{[]}$}},
+                ]
+            [$\lnot\prolog{vecino(5,Y,[3])}$,edge label={node[midway,right=2mm,font=\footnotesize] {$(2)~ \prolog{X}\leftarrow \prolog{5},~\prolog{Y}\leftarrow\prolog{Y},\prolog{W}\leftarrow\prolog{5},\prolog{LS}\leftarrow\prolog{[3]}$}},
+                [$\lnot\prolog{vecino(5,Y,[])}$,edge label={node[midway,right=2mm,font=\footnotesize] {$(2)~ \prolog{X}\leftarrow \prolog{5},~\prolog{Y}\leftarrow\prolog{Y},\prolog{W}\leftarrow\prolog{3},\prolog{LS}\leftarrow\prolog{[]}$}},
+                    [$\falla$]
+                ]
+            ]
+        ]
+    ]
+]
+	\end{forest}
+\end{center}
+
+\paragraph{II.} En este caso, si invertimos las reglas, obtendremos exactamente los mismos resultado y el árbol generado por prolog, es el espejo del inciso anterior.
+
+\subsection{Ejercicio 3}
+\subsubsection*{Bases de conocimiento}
+\begin{minted}[tabsize=4]{prolog}
+natural(0).
+natural(suc(X)) :- natural(X).
+
+menorOIgual(X, suc(Y)) :- menorOIgual(X, Y).
+menorOIgual(X,X) :- natural(X).
+\end{minted}
+
+\paragraph{I.} Prolog  unifica \prolog{menorOIgual(0,X)} con la regla \prolog{menorOIgual(X, suc(Y))} remplazando \prolog{X} (de la regla) por \prolog{0} e instanciando el \prolog{X} de la consulta con \prolog{suc(Y)}, obteniendo la resolvente  \prolog{menorOIgual(0, Y)} que se resuelve de la misma manera. Entonces, entra en un ciclo infinito en el que siempre unifica con la primer regla.
+\paragraph{II.} Esto se debe a que Prolog no tiene suficiente información sobre \prolog{X} como para descartar la primer regla (\prolog{X} no está correctamente instanciada) por lo que siempre es posible hacerla coincidir con cualquier regla.
+
+\paragraph{III.} Otra vez, con cambiar el orden de evaluación de las reglas, el problema se arregla:
+\begin{minted}[tabsize=4]{prolog}
+menorOIgual(X,X) :- natural(X).
+menorOIgual(X, suc(Y)) :- menorOIgual(X, Y).
+\end{minted}
+
+\section*{\ Estructuras, instanciación y reversibilidad}
+
+\subsection{Ejercicio 4}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%concatenar(?Lista1, ?Lista2, ?Lista3)
+concatenar([], Lista2, Lista2).
+concatenar([X | T1], Lista2, [X| T3]) :-
+	concatenar(T1, Lista2, T3).
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 5}
+\begin{multicols}{2}
+\paragraph{I.}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+%last(?L, ?U)
+last([ X ], X ).
+last([ _ | T ], Y) :- last(T,Y).
+\end{minted}
+\end{centrado2}
+\paragraph{II.}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+%tienenLaMismaLongitud(+L, +L1)
+tienenLaMismaLongitud(L1, L2) :-
+	length(L1, N ),
+	length(L2, N ).
+
+%reverse(+L, -L1)
+reverse([],[]).
+reverse( [ X | T ], R) :-
+	tienenLaMismaLongitud([X | T], R),
+	reverse(T, RT ),
+	append(RT, [ X ], R).
+\end{minted}
+\end{centrado2}
+\paragraph{III.}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+%maxlista(+L, -M).
+maxlista([E],E).
+maxlista([E|T],E):-
+    maxlista(T,M),E>=M.
+maxlista([E|T],M):-
+    maxlista(T,M),E=<M.
+
+%minlista(+L, -M).
+minlista([E],E).
+minlista([E|T],M):-
+    minlista(T,M),E>=M.
+minlista([E|T],E):-
+    minlista(T,M),E=<M.
+\end{minted}
+\end{centrado2}
+
+\paragraph{IV.}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+%prefijo(?P, +L).
+prefijo([], _).
+prefijo([E|T2], [E|T]):-
+    prefijo(T2,T).
+\end{minted}
+\end{centrado2}
+
+\paragraph{V.}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+%sufijo(?S, +L).
+sufijo(S, L):-
+    prefijo(P,L),
+    append(P, S, L).
+\end{minted}
+\end{centrado2}
+
+\paragraph{VI.}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+%sublista(?S, +L).
+sublista([], _).
+sublista(XS, L) :-
+    prefijo(P, L),
+    sufijo(S, L),
+    append(P, XS, P1),
+    append(P1, S, L),
+    length(XS, N),
+    N >= 1.
+\end{minted}
+\end{centrado2}
+\paragraph{VII.}
+\begin{centrado2}
+\begin{minted}[tabsize=4]{prolog}
+%pertenece(?X, +L).
+pertenece(X, [X|_]).
+pertenece(X, [Y|T]):-
+    Y \= X,
+    pertenece(X,T).
+\end{minted}
+\end{centrado2}
+\end{multicols}
+
+\subsection{Ejercicio 6}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+aplanar([],[]).
+aplanar([ [] | T ], Res) :-
+	aplanar(T, Res).
+aplanar([ [X | T1 ] | T ], Res) :-
+	aplanar([ X | T1 ], Y),
+	aplanar(T, RecT),
+	append(Y, RecT, Res).
+aplanar([ X | T ], [X | Res]) :-
+	not(is_list(X)),
+	aplanar(T, Res).
+\end{minted}
+\end{centrado}
+
+\newpage
+\subsection{Ejercicio 7}
+\paragraph{I.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%palindromo(+L, -L1)
+palindromo(L, L1) :-
+	reverse(L, A),
+	append(L,A,L1).
+\end{minted}
+\end{centrado}
+
+\paragraph{II.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%doble(+L, -L1)
+doble([], []).
+doble([ X | T], [X, X | Rec ]) :-
+	doble(T, Rec).
+\end{minted}
+\end{centrado}
+
+\paragraph{III.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%iesimo(?I, +L, -X)
+iesimoAux(1, [X | _], X).
+iesimoAux(I, [_ | T], Y) :-
+	I1 is I - 1,
+	iesimo(I1, T, Y).
+
+iesimo(I, L, X) :- 
+	length(L, N),
+	between(1,N, I),
+	iesimoAux(I, L, X).
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 8}
+\paragraph{I.} Se debe instanciar \prolog{X} en un valor especifico. Entonces devuelve todos los números a partir de ese valor. Si se instancia \prolog{Y} en un valor menor que \prolog{X}, entonces se cuelga porque siempre se puede unificar con la segunda regla. Si se instancia \prolog{Y} en un valor mayor, entonces devolverá como primer resultado el valor de \prolog{Y} y luego se colgará por la misma razón que antes.
+
+Y si no se instancia \prolog{X} entonces tira error porque no tiene suficiente información sobre la variable como para realizar unificación.
+
+\paragraph{II.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%desde2(+X,?Y)
+desde2(X, Y) :- 
+	nonvar(Y),
+	Y >= X.
+desde2(X,Y) :-
+	var(Y),
+	desde(X,Y).
+\end{minted}
+\end{centrado}
+
+\newpage
+\subsection{Ejercicio 9}
+\paragraph{I.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%interseccionAux(+L1, +L2, +L3, -L4)
+interseccionAux([], _, _, []).
+interseccionAux([ X | T ], L2, Usados, Resultado) :-
+	not(member(X, L2)),
+	interseccionAux(T, L2, Usados, Resultado).
+interseccionAux([ X | T ], L2, Usados, [ X | L4 ]) :-
+	member(X, L2),
+	not(member(X, Usados)),
+	interseccionAux(T, L2, [ X | Usados], L4).
+interseccionAux([ X | T ], L2, Usados, L4 ) :-
+	member(X, Usados),
+	interseccionAux(T, L2, Usados, L4).
+
+%intersección(+L1, +L2, -L3)
+interseccion(L1, L2, L3) :-
+	interseccionAux(L1, L2, [], L3).
+
+\end{minted}
+\end{centrado}
+
+\paragraph{II.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+sufijoDeLongitud(L, N, S) :-
+	sufijo(S, L),
+	length(S, N).
+
+prefijoDeLongitud(L, N, S) :-
+	prefijo(S, L),
+	length(S, N).
+
+%split(+N,+L, -L1, -L2) -- N y L deben estar definidos
+split(N, L, L1, L2) :-
+	length(L, M),
+	N1 is M - N,
+	prefijoDeLongitud(L, N, L1),
+	sufijoDeLongitud(L, N1, L2).
+
+\end{minted}
+\end{centrado}
+
+\paragraph{III.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%borrar(+ListaOriginal, +X, -ListaSinXs)
+borrar([], _, []).
+borrar([X | T], X, ListaSinXs) :-
+	borrar(T, X, ListaSinXs).
+borrar([ Y | T], X, [ Y | Rec ]) :-
+	X \= Y,
+	borrar(T, X, Rec).
+\end{minted}
+\end{centrado}
+\paragraph{IV.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%sacarDuplicados(+L1, -L2)
+sacarDuplicados([], []).
+sacarDuplicados([ X | T], [ X | Rec ]) :-
+	borrar(T, X, T1),
+	sacarDuplicados(T1, Rec).
+\end{minted}
+\end{centrado}
+\newpage
+\paragraph{V.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%concatenarTodas( +LL, -L)
+concatenarTodas([], []).
+concatenarTodas([ X | T], Res) :-
+	concatenarTodas(T, Rec),
+	concatenar(X, Rec, Res).
+
+%todosSusMiembrosSonSublitas(+LListas, +L)
+todosSusMiembrosSonSublitas([], _).
+todosSusMiembrosSonSublitas([ X | XS], L) :-
+	sublista(X, L),
+	todosSusMiembrosSonSublitas(XS, L).
+%reparto(+L, +N, -LListas)
+reparto(L, N, LListas) :-
+	length(LListas, N),
+	todosSusMiembrosSonSublitas(LListas, L),
+	concatenarTodas(LListas, L).
+\end{minted}
+\end{centrado}
+
+\paragraph{VI.}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%repartoSinVacias(+L, -LListas)
+repartoSinVacias(L, LListas) :-
+	length(L, N),
+	between(1, N, X),
+	reparto(L, X, LListas),
+	not(member([], LListas)).
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 10}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%intercalar(?L1, ?L2, ?L3) -- Funciona para todas las combinaciones posibles.
+intercalar([], [], []).
+intercalar([], L, L) :-
+	length(L, N),
+	N >= 1.
+intercalar(L, [], L) :-
+	length(L, N),
+	N >= 1.
+intercalar([ X | T1], [ Y | T2 ], [ X, Y | T3 ] ) :-
+	intercalar(T1, T2, T3).
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 11}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%arbolEjemplo
+arbolEjemplo(bin(bin(nil,1,nil),2,bin(bin(nil,10,nil),20,bin(nil,30,nil)))).
+
+%vacio(?A)
+vacio(nil).
+
+%raiz(?A, ?R)
+raiz(bin(_,X,_), X).
+
+%altura(+A, -H)
+altura(nil, 0).
+altura(bin(I, _, D), H) :-
+	altura(I, HI),
+	altura(D, HD),
+	H is max(HI, HD) + 1.
+
+%cantidadDeNodos(+A, -N)
+cantidadDeNodos(nil, 0).
+cantidadDeNodos(bin(I, _, D), N) :-
+	cantidadDeNodos(I, NI),
+	cantidadDeNodos(D, ND),
+	N is NI + ND + 1.
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 12}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%inorder(+AB, -Lista)
+inorder(nil, []).
+inorder(bin(I, X, D), Inorder) :-
+	inorder(I, LI),
+	inorder(D, LD),
+	append(LI, [X | LD], Inorder).
+
+%arbolConInorder(-L, +AB)
+arbolConInorder([], nil).
+arbolConInorder(XS, bin(AI, X, AD)) :-
+	reparto(XS, 2, [LI, [X | LD]]),
+	arbolConInorder(LI, AI),
+	arbolConInorder(LD, AD).
+
+%abb(+T)
+aBB(nil).
+aBB(bin(I, _, D)) :-
+	aBB(I),
+	aBB(D).
+
+%aBBInsertar(+X, +T1, -T2)
+aBBInsertar(X, nil, bin(nil, X, nil)).
+aBBInsertar(X, bin(AI, Y, AD), bin(AIM, Y, AD)) :-
+	X =< Y,
+	aBBInsertar(X, AI, AIM).
+aBBInsertar(X, bin(AI, Y, AD), bin(AI, Y, ADM)) :-
+	X >= Y,
+	aBBInsertar(X, AD, ADM).
+\end{minted}
+\end{centrado}
+
+\section*{Generate and test}
+
+\subsection{Ejercicio 13}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%coprimos(-X,-Y)
+coprimos(X,Y) :-
+	desde(2, X),
+	between(2, X, Y),
+	1 is gcd(X,Y).
+\end{minted}
+\end{centrado}
+\subsection{Ejercicio 14}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+listasQueSuman([],0,0).
+listasQueSuman([X|XS],S,N):-
+    between(0,S,X),
+    N2 is N-1,
+    length(XS,N2), 
+    S2 is S-X, 
+    listasQueSuman(XS,S2,N2).
+
+cuadradoSemiLatinoAux(_,0,[],_).
+cuadradoSemiLatinoAux(M,N,[X|XS],S):- 
+	N2 is N-1, 
+	listasQueSuman(X,S,M),
+	cuadradoSemiLatinoAux(M,N2,XS,S).
+
+cuadradoSemiLatino(N,XS):-
+	length(XS,N),
+	desde(0,S),
+	cuadradoSemiLatinoAux(N,N,XS,S).
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 15}
+(Solución dada en clases)
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%ladoValido(+A, +B, +C)
+ladoValido(A,B,C) :-
+	S is B+C,
+	A < S,
+	D is abs(B-C),
+	A > D.
+
+%esTriangulo(+T)
+esTriangulo(tri(A,B,C)) :-
+	ladoValido(A,B,C),
+	ladoValido(B,C,A),
+	ladoValido(C,A,B).
+
+%perim  etro(?T,?P)
+perimetro(tri(A,B,C), P) :-
+	desde2(3,P),
+	M is P-2,
+	between(1,M,A),
+	N is P - A -1,
+	between(1, N, B),
+	C is P - A - B,
+	esTriangulo(tri(A,B,C)).
+\end{minted}
+\end{centrado}
+
+\section*{\ Negación por falla}
+
+\subsection{Ejercicio 16}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%diferenciaSimétrica(Lista1, +Lista2, -Lista3)
+diferenciaSimetrica([], L2, L2).
+diferenciaSimetrica([ X | L1], L2, [ X | XS]) :-
+	not(member(X, L2)),
+	diferenciaSimetrica(L1, L2, XS).
+diferenciaSimetrica([ X | L1], L2, XS) :-
+	member(X, L2),
+	borrar(L2, X, L2SinX),
+	diferenciaSimetrica(L1, L2SinX, XS).
+\end{minted}
+\end{centrado}
+
+\subsection{Ejercicio 17}
+\paragraph{I.} La consulta busca todos los valores para los que valga $P(Y)\land \lnot Q(Y)$.
+\paragraph{II.} Si se invierten el orden de los literales y queda \prolog{not(q(Y)),p(Y)}, entonces prolog se cuelga porque no puede instanciar \prolog{Y} correctamente.
+
+\subsection{Ejercicio 18}
+\begin{centrado}
+\begin{minted}[tabsize=4]{prolog}
+%sumList
+sumList([], 0).
+sumList([X | XS], N) :-
+	sumList(XS, N1),
+	N is N1 + X.
+
+%diff
+diff(L1, L2, DL) :-
+	sumList(L1, N1),
+	sumList(L2, N2),
+	DL is abs(N1-N2).
+
+%corteMásParejo(+L,-L1,-L2)
+corteMasParejo(L, L1, L2) :-
+	append(L1, L2, L),
+	diff(L1,L2,DL),
+	not((append(M1,M2,L), 
+		diff(M1,M2,DM),
+		DM < DL
+		)).
+\end{minted}
+\end{centrado}
 %
 %\subsection{Ejercicio 19}
 %\begin{itemize}

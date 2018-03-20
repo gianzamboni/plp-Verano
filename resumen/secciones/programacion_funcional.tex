@@ -35,7 +35,7 @@ Cada tipo de dato tiene asociado operaciones que no tienen significado para otro
 A toda expresión bien formada se le puede asignar un tipo que sólo depende los componentes de la expresión (strong-typing). Dada una expresión, se puede deducir su tipo a partir de su constitución.
 
 \subsubsection{Notación}  
-\mintinline{haskell}{e :: A } se lee “la expresión \mintinline{haskell}{e} tiene tipo \mintinline{haskell}{A}” y significa que el valor denotado por \mintinline{haskell}{e} pertenece al conjunto de valores denotado por \mintinline{haskell}{A}.
+\haskell{e :: A } se lee “la expresión \haskell{e} tiene tipo \haskell{A}” y significa que el valor denotado por \haskell{e} pertenece al conjunto de valores denotado por \haskell{A}.
 
 \subsubsection{Propiedades deseables de un lenguaje funcional}
 Se busca que un lenguaje le asigne un tipo de manera automática al mayor número posible de expresiones con sentido y que no le asigne ningún tipo al mayor número posible de expresiones mal formadas. Además, se busca que el tipo de la expresión se mantenga si es reducida.
@@ -44,12 +44,12 @@ Otra cosa a tener en cuenta, es que los tipos ofrecidos por el lenguaje deben se
 
 \paragraph{Inferencia de tipos} Dada una expresión e determinar si tiene tipo o no y, si lo tiene, cuál es ese tipo según las reglas.
 
-\paragraph{Chequeo de tipos} Dada una expresión tipable \mintinline{haskell}{e} y un tipo \mintinline{haskell}{A}, determinar si \mintinline{haskell}{e :: A} o no.
+\paragraph{Chequeo de tipos} Dada una expresión tipable \haskell{e} y un tipo \haskell{A}, determinar si \haskell{e :: A} o no.
 
 \subsection{Tipo Función}
 Un programa en el paradigma funcional es una función descripta por un conjunto de ecuaciones (expresiones) que definen uno o más valores. Estas ecuaciones son evaluadas (reducidas) hasta llegar a una expresión atómica que nos indique el valor de las mismas.
 
-\paragraph{Funciones} Las funciones son valores especiales que representan transformación de datos. En haskell el tipo de una función se escribe: \mintinline{haskell}{->}. Las funciones se aplican a elementos de un conjunto de entrada definido por el tipo de entrada de la función y devuelve un elemento del tipo de salida.
+\paragraph{Funciones} Las funciones son valores especiales que representan transformación de datos. En haskell el tipo de una función se escribe: \haskell{->}. Las funciones se aplican a elementos de un conjunto de entrada definido por el tipo de entrada de la función y devuelve un elemento del tipo de salida.
 
 Al ser valores, las funciones pueden ser argumentos y resultados de otras funciones, pueden almacenarse y pueden ser estructuras de datos.
 
@@ -61,7 +61,7 @@ Al ser valores, las funciones pueden ser argumentos y resultados de otras funcio
 
 Dada una expresión que puede ser tipada de infinitas maneras, el sistema puede asignarle un tipo que sea más general que todos ellos, y tal que en cada uso pueda transformarse en uno particular.
 
-Hay funciones que a pesar de poseer polimorfismo paramétrico, no aceptan cualquier clase de tipo, sino que requieren que los tipos con las que son llamadas tengan ciertas propiedades. Por ejemplo, que tengan relaciones de igualdad (\mintinline{haskell}{Eq}), relación de order (\mintinline{haskell}{Ord}), que se comporten como números (\mintinline{haskell}{Num}) o que puedan ser mostrados en pantalla (\mintinline{haskell}{Show})
+Hay funciones que a pesar de poseer polimorfismo paramétrico, no aceptan cualquier clase de tipo, sino que requieren que los tipos con las que son llamadas tengan ciertas propiedades. Por ejemplo, que tengan relaciones de igualdad (\haskell{Eq}), relación de order (\haskell{Ord}), que se comporten como números (\haskell{Num}) o que puedan ser mostrados en pantalla (\haskell{Show})
 
 \subsubsection{Evaluación}
 Por lo general, dependiendo del orden de evaluación del lenguaje, el tipo de evaluación se  clasifica en:
@@ -111,10 +111,10 @@ y pedir que $\rel$ sea el menor conjunto (en sentido de
 la inclusión) que satisfaga todas las reglas dadas.
 
 \subsubsection{Funciones recursivas}
-Sea \mintinline{haskell}{S} un conjunto inductivo, y \mintinline{haskell}{T} uno cualquiera. Una definición recursiva estructural de una función \mintinline{haskell}{f :: S -> T} es una definición de la siguiente forma:
+Sea \haskell{S} un conjunto inductivo, y \haskell{T} uno cualquiera. Una definición recursiva estructural de una función \haskell{f :: S -> T} es una definición de la siguiente forma:
 \begin{itemize}
-	\item Por cada elemento base \mintinline{haskell}{z}, el valor de \mintinline{haskell}{(f z)} se da directamente usando valores previamente definidos
-	\item Por cada elemento inductivo \mintinline{haskell}{y}, con partes inductivas \mintinline{haskell}{y1}, ..., \mintinline{haskell}{yn}, el valor de \mintinline{haskell}{(f y)} se da usando valores previamente definidos y los valores \mintinline{haskell}{(f y1)}, ..., \mintinline{haskell}{(f yn)}.
+	\item Por cada elemento base \haskell{z}, el valor de \haskell{(f z)} se da directamente usando valores previamente definidos
+	\item Por cada elemento inductivo \haskell{y}, con partes inductivas \haskell{y1}, ..., \haskell{yn}, el valor de \haskell{(f y)} se da usando valores previamente definidos y los valores \haskell{(f y1)}, ..., \haskell{(f yn)}.
 \end{itemize}
 
 \subsubsection{Principio de inducción}
@@ -146,7 +146,7 @@ Hay dos formas de definir un tipo de dato:
 \subsubsection{Tipos algebraicos en Haskell}
 Los definimos mediante \textbf{constantes} llamadas \textit{constructores} cuyos nombres comienzan con mayúscula. Los constructores no tienen asociada una regla de reducción y pueden tener argumentos.
 
-Para implementarlos en Haskell, usamos la clausula \texttt{data} que introduce un nuevo tipo algebraico, los nombres de su constructores y sus argumentos.
+Para implementarlos en Haskell, usamos la clausula \haskell{data} que introduce un nuevo tipo algebraico, los nombres de su constructores y sus argumentos.
 
 \textbf{Ejemplos:}
 \begin{centrado}
@@ -164,7 +164,7 @@ Los tipos algebraicos pueden tener argumentos. Esto nos permite definir tipos qu
 data Maybe = Nothing | Just a
 	\end{minted}
 \end{centrado}
-\texttt{Maybe} tiene todos los elementos del tipo a con \texttt{Just} adelante más el elemento \textit{Nothing}
+\haskell{Maybe} tiene todos los elementos del tipo a con \haskell{Just} adelante más el elemento \textit{Nothing}
 
 \vspace*{5mm}
 
@@ -182,11 +182,11 @@ El pattern matching es la búsqueda de patrones especiales (en nuestro caso, los
 Si el pattern matching resulta exitoso, entonces ligas las variables del patrón.
 
 \subsubsection{Tipos especiales}
-\paragraph{Tupla} Este tipo es un tipo algebraico con sintaxis especial. Una tupla es un estructura que posee varios elementos de distintos tipos. Por ejemplo: \mintinline{haskell}{(Float,Int)} es una tupla cuyo primer elemento es un \mintinline{haskell}{Float} y tiene como segundo elemento a un \mintinline{haskell}{Int}.
+\paragraph{Tupla} Este tipo es un tipo algebraico con sintaxis especial. Una tupla es un estructura que posee varios elementos de distintos tipos. Por ejemplo: \haskell{(Float,Int)} es una tupla cuyo primer elemento es un \haskell{Float} y tiene como segundo elemento a un \haskell{Int}.
 
-\paragraph{Maybe} El tipo \texttt{Maybe}, definido en el último ejemplo, nos permite expresar la posibilidad de que el resultado sea erróneo, sin necesidad de usar casos especiales. De esta forma, logramos evitar el uso de $\bot$ hasta que el programador lo decida, permitiendo controlar errores.
+\paragraph{Maybe} El tipo \haskell{Maybe}, definido en el último ejemplo, nos permite expresar la posibilidad de que el resultado sea erróneo, sin necesidad de usar casos especiales. De esta forma, logramos evitar el uso de $\bot$ hasta que el programador lo decida, permitiendo controlar errores.
 
-\paragraph{Either} El tipo \mintinline{haskell}{Either} representa la unión disjunta de dos conjuntos (los elementos de uno se identifican con \mintinline{haskell}{Left} y los del otro con \mintinline{haskell}{Right}. Sirve para mantener el tipado fuerte y poder devolver elementos de distintos tipos o para representar el origen de un valor.
+\paragraph{Either} El tipo \haskell{Either} representa la unión disjunta de dos conjuntos (los elementos de uno se identifican con \haskell{Left} y los del otro con \haskell{Right}. Sirve para mantener el tipado fuerte y poder devolver elementos de distintos tipos o para representar el origen de un valor.
 \begin{centrado}
 	\begin{minted}{haskell}
 data Either = Left a | Right b
@@ -245,7 +245,7 @@ Cuando tenemos un conjunto de funciones que manipulan ciertas estructuras de man
 
 A continuación, veremos unos ejemplos de esquemas sobre listas: 
 \subsubsection{Map}
-Dada una lista \mintinline{haskell}{l}, aplica una función \mintinline{haskell}{f} a cada elemento de \mintinline{haskell}{l}.
+Dada una lista \haskell{l}, aplica una función \haskell{f} a cada elemento de \haskell{l}.
 \begin{centrado}
 	\begin{minted}{haskell}
 map :: (a -> b) -> [a] -> [b]
@@ -262,10 +262,10 @@ dobleL = map doble
 	\end{minted}
 \end{centrado} 
 
-\mintinline{haskell}{dobleL} calcula el doble de cada elemento de una lista.
+\haskell{dobleL} calcula el doble de cada elemento de una lista.
 
 \subsubsection{Filter}
-Dada una lista \mintinline{haskell}{l} y un predicado \mintinline{haskell}{p}, selecciona todos los elementos de \mintinline{haskell}{l} que cumplen \mintinline{haskell}{p}.
+Dada una lista \haskell{l} y un predicado \haskell{p}, selecciona todos los elementos de \haskell{l} que cumplen \haskell{p}.
 
 \begin{centrado}
 	\begin{minted}{haskell}
@@ -283,11 +283,11 @@ masQueCero = filter (>0)
 	\end{minted}
 \end{centrado}
 
-\mintinline{haskell}{masQueCero} se queda con todos los elementos mayores de una lista
+\haskell{masQueCero} se queda con todos los elementos mayores de una lista
 
 \subsubsection{Fold}
-La función {fold} es la función que expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \mintinline{haskell}{l} y una función \mintinline{haskell}{f} que denota un valor que depende de todos los elementos de la lista \mintinline{haskell}{l} y un valor inicial \mintinline{haskell}{z}, aplica y combina las soluciones parciales obtenidas por \mintinline{haskell}{f} de manera  ``iterativa''. 
-Hay dos tipos de fold: \mintinline{haskell}{foldr} (acumula desde la derecha) y \mintinline{haskell}{foldl} (acumula desde la izquierda).
+La función {fold} es la función que expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \haskell{l} y una función \haskell{f} que denota un valor que depende de todos los elementos de la lista \haskell{l} y un valor inicial \haskell{z}, aplica y combina las soluciones parciales obtenidas por \haskell{f} de manera  ``iterativa''. 
+Hay dos tipos de fold: \haskell{foldr} (acumula desde la derecha) y \haskell{foldl} (acumula desde la izquierda).
 
 \begin{centrado}
 	\begin{minted}{haskell}
@@ -322,7 +322,7 @@ Recordemos de Logica y Computabilidad: una función h es recursiva primitiva si 
 
 Es decir, el caso recursivo de \textit{h} no solo depende de la descomposición de sus parámetros, sino que, además, depende de sus parámetros.
 
-En Haskell, podemos definir una función que dada una lista \mintinline{haskell}{l}, un caso base \mintinline{haskell}{z} y un caso recursivo primitivo \mintinline{haskell}{f}, aplique la definición de \mintinline{haskell}{z} y \mintinline{haskell}{f} a la lista:
+En Haskell, podemos definir una función que dada una lista \haskell{l}, un caso base \haskell{z} y un caso recursivo primitivo \haskell{f}, aplique la definición de \haskell{z} y \haskell{f} a la lista:
 \begin{centrado}
 	\begin{minted}{haskell}
 recr :: b -> (a -> [a] -> b -> b) -> [a] -> b
@@ -331,7 +331,7 @@ recr z f (x:xs) = f x xs (recr z f xs)
 	\end{minted}
 \end{centrado}
 
-En listas, este tipo de esquemas es difícil de ver. Como ejemplo, escibimos la función \mintinline{haskell}{insertar} de una lista con recursión primitiva:
+En listas, este tipo de esquemas es difícil de ver. Como ejemplo, escibimos la función \haskell{insertar} de una lista con recursión primitiva:
 \begin{centrado}
 	\begin{minted}{haskell}
 -- Insert con pattern matching
@@ -344,11 +344,11 @@ insert x = recr [x] (\y ys zs -> if x<y then (x:y:ys) else (y:zs))
 	\end{minted}
 \end{centrado}
 
-En el segundo caso, \mintinline{haskell}{insert} es una función que agrega el elemento \mintinline{haskell}{x} a una lista \mintinline{haskell}{xs} que se le pase como parámetro.
+En el segundo caso, \haskell{insert} es una función que agrega el elemento \haskell{x} a una lista \haskell{xs} que se le pase como parámetro.
 
 \subsubsection{Divide \& Conquer}
 La técnica de Divide \& Conquer consiste en dividir un problema en problemas más fáciles de resolver y luego, combinando los resultados parciales, lograr
-obtener un resultado general. En este caso, \mintinline{haskell}{DivideConquer} es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un elemento de tipo \texttt{b}:
+obtener un resultado general. En este caso, \haskell{DivideConquer} es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un elemento de tipo \texttt{b}:
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
 type DivideConquer a b  = (a -> Bool) -> (a -> b) -> (a -> [a]) 
@@ -357,10 +357,10 @@ type DivideConquer a b  = (a -> Bool) -> (a -> b) -> (a -> [a])
 \end{centrado}
 Las funciones que toma como parámetro son:
 \begin{itemize}
-	\item \mintinline{haskell}{esTrivial :: a -> Bool} que devuelve verdadero si elemento de tipo \texttt{a} es el caso base del problema.
-	\item \mintinline{haskell}{resolver :: a -> b} que resuelve el problema cuando el elemento de tipo \texttt{a} es el caso trivial
-	\item \mintinline{haskell}{repartir :: a -> [a]} que divide al elemento de tipo \texttt{a} en la cantidad de subproblemas necesarios para resolver el problema.
-	\item \mintinline{haskell}{combinar :: [b] -> b} que resuelve todos los subproblemas obtenidos por \texttt{repartir} y combina sus soluciones para obtener el resultado final.
+	\item \haskell{esTrivial :: a -> Bool} que devuelve verdadero si elemento de tipo \haskell{a} es el caso base del problema.
+	\item \haskell{resolver :: a -> b} que resuelve el problema cuando el elemento de tipo \haskell{a} es el caso trivial
+	\item \haskell{repartir :: a -> [a]} que divide al elemento de tipo \haskell{a} en la cantidad de subproblemas necesarios para resolver el problema.
+	\item \haskell{combinar :: [b] -> b} que resuelve todos los subproblemas obtenidos por \haskell{repartir} y combina sus soluciones para obtener el resultado final.
 \end{itemize}
 
 \textbf{Ejemplo}
@@ -384,12 +384,12 @@ where dc = divideConquerListas esTrivial resolver repartir combinar
 \paragraph{Otros esquemas de recursión} Los esquemas de recursión que nombramos, no son los únicos que existen y además, pueden ser definidos para otros tipos recursivos, no solo para listas.
 
 \subsubsection{La función fold y como definirla}
-Todo tipo algebraico tiene asociado un patrón de inducción estructural. En particular, dado un tipo algebraico recursivo \mintinline{haskell}{T}, podemos definir la función \mintinline{haskell}{foldrT:: * -> a} donde * son los parámetros de la función. A continuación damos algunas propiedades que debe cumplir para asegurarnos de la definimos correctamente:
+Todo tipo algebraico tiene asociado un patrón de inducción estructural. En particular, dado un tipo algebraico recursivo \haskell{T}, podemos definir la función \haskell{foldrT:: * -> a} donde * son los parámetros de la función. A continuación damos algunas propiedades que debe cumplir para asegurarnos de la definimos correctamente:
 \begin{itemize}
-	\item Por cada constructor recursivo debe tomar una función que tome como parámetros a cada elemento del constructor que no sea del tipo \texttt{T} y un parámetro de tipo \texttt{a} por cada elemento del tipo \texttt{T}  del constructor. Esta función devuelve un elemento del tipo \texttt{a} y es la que resolverá recursivamente el caso planteado usando la segunda clase de parámetros.
-	\item Por cada constructor base de \texttt{T} debe tomar un parámetro de tipo \text{a} que será el elemento devuelto por la función si cae en alguno de dichos casos.
-	\item Por último, si la función está bien implementada, si remplazamos cada parámetro por el contructor correspondiente que tiene asignado, la función resultante debería ser la función identidad del tipo \texttt{T}.
+	\item Por cada constructor recursivo debe tomar una función que tome como parámetros a cada elemento del constructor que no sea del tipo \haskell{T} y un parámetro de tipo \haskell{a} por cada elemento del tipo \haskell{T}  del constructor. Esta función devuelve un elemento del tipo \haskell{a} y es la que resolverá recursivamente el caso planteado usando la segunda clase de parámetros.
+	\item Por cada constructor base de \haskell{T} debe tomar un parámetro de tipo \haskell{a} que será el elemento devuelto por la función si cae en alguno de dichos casos.
+	\item Por último, si la función está bien implementada, si remplazamos cada parámetro por el contructor correspondiente que tiene asignado, la función resultante debería ser la función identidad del tipo \haskell{T}.
 \end{itemize}
 
 
-Al momento de definir \texttt{fold} ayuda mucho plantear el esquema de recursión del tipo.
+Al momento de definir \haskell{fold} ayuda mucho plantear el esquema de recursión del tipo.

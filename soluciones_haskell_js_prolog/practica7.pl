@@ -86,7 +86,6 @@ tienenLaMismaLongitud(L1, L2) :-
 reverse([],[]).
 reverse( [ X | T ], R) :-
 	tienenLaMismaLongitud([X | T], R),
-	last(R,X),
 	reverse(T, RT ),
 	append(RT, [ X ], R).
 
@@ -124,16 +123,17 @@ sufijo(S, L ) :-
 % VI.
 %sublista(?S, +L)
 sublista([], _).
-sublista([X | XS ], L) :-
+sublista(XS, L) :-
 	prefijo(P, L),
-	sufijo(SF, L),
-	append(P, [X | XS], P1),
-	append(P1, SF, L).
+	sufijo(S, L),
+	append(P, XS, P1),
+	append(P1, S, L),
+    length(XS, N),
+    N >= 1.
 
 
 % VII.
 %pertenece(?X, +L)
-pertenece(X, [X]).
 pertenece(X, [ X | _]).
 pertenece(X, [ Y | XS ]) :-
 	X \= Y,
@@ -229,7 +229,7 @@ sufijoDeLongitud(L, N, S) :-
 	length(S, N).
 
 prefijoDeLongitud(L, N, S) :-
-	sufijo(S, L),
+	prefijo(S, L),
 	length(S, N).
 
 split(N, L, L1, L2) :-
@@ -285,8 +285,13 @@ repartoSinVacias(L, LListas) :-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %intercalar(?L1, ?L2, ?L3) -- Funciona para todas las combinaciones posibles.
-intercalar([], L, L).
-intercalar(L, [], L).
+intercalar([], [], []).
+intercalar([], L, L) :-
+	length(L, N),
+	N >= 1.
+intercalar(L, [], L) :-
+	length(L, N),
+	N >= 1.
 intercalar([ X | T1], [ Y | T2 ], [ X, Y | T3 ] ) :-
 	intercalar(T1, T2, T3).
 

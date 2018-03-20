@@ -317,24 +317,24 @@ $$V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)$$
 	\end{minted}
 \end{centrado}
 
-Y es \textbf{case-sensitive}, es decir \texttt{unavariable} y \texttt{unaVariable} no son las mismas variables.
+Y es \textbf{case-sensitive}, es decir \javascript{unavariable} y \javascript{unaVariable} no son las mismas variables.
 
 \paragraph{Tipos}
 
 \begin{itemize}
-	\item \texttt{number}: Los números, no hay distinción entre enteros y punto flotantes. Contiene a las constantes \texttt{-Infinity},\texttt{+Infinity}, \texttt{NaN}.
-	\item \texttt{boolean}: Los literales \texttt{true} y \texttt{false} con las operaciones \texttt{\&\&}, \texttt{!} y \texttt{||}.
-	\item \texttt{string}: Secuencias de cero o más carácteres entre comillas simples o dobles.
-	\item \texttt{null}: Un único valor \texttt{null} (nada, valor desconocido).
-	\item \texttt{undefined}: Un único valor \texttt{undefined} (el valor no está definido).
+	\item \javascript{number}: Los números, no hay distinción entre enteros y punto flotantes. Contiene a las constantes \javascript{-Infinity},\javascript{+Infinity}, \javascript{NaN}.
+	\item \javascript{boolean}: Los literales \javascript{true} y \javascript{false} con las operaciones \javascript{\&\&}, \javascript{!} y \javascript{||}.
+	\item \javascript{string}: Secuencias de cero o más carácteres entre comillas simples o dobles.
+	\item \javascript{null}: Un único valor \javascript{null} (nada, valor desconocido).
+	\item \javascript{undefined}: Un único valor \javascript{undefined} (el valor no está definido).
 \end{itemize}
 
-Podemos usar \mintinline{javascript}{typeof} para saber el nombre del tipo de la expresión.
+Podemos usar \javascript{typeof} para saber el nombre del tipo de la expresión.
 
 \begin{itemize}
-\item \texttt{Arrays:} \mintinline{javascript}{[], [1,2,true], new Array()}
+\item \javascript{Arrays:} \javascript{[], [1,2,true], new Array()}
 
-\mintinline{javascript}{-[-] , push(-) , pop() , shift() , unshift(_)}
+\javascript{-[-] , push(-) , pop() , shift() , unshift(_)}
 \end{itemize}
 
 \paragraph{Tipado}
@@ -460,9 +460,9 @@ let o3 = Object.assign({}, o, o2)
 \end{centrado}
 
 \paragraph{Herencia}
-Todos los objetos tiene una propiedad privada llamada \mintinline{javascript}{[[Prototype]]} cuyo valor es \mintinline{javascript}{null} u otro objeto que es su \textbf{prototipo}. Esta propiedad induce una cadena de prototipado sin ciclos que finaliza con \mintinline{javascript}{null}.
+Todos los objetos tiene una propiedad privada llamada \javascript{[[Prototype]]} cuyo valor es \javascript{null} u otro objeto que es su \textbf{prototipo}. Esta propiedad induce una cadena de prototipado sin ciclos que finaliza con \javascript{null}.
 
-Cuando intentamos acceder a un método inexistente de un objeto, el mismo se busca en la cadena de prototipado del mismo hasta encontrar el primer objeto de la cadena que lo define. Si llegamos a \mintinline{javascript}{null} y el método no fue encontrado, entonces hay un error.
+Cuando intentamos acceder a un método inexistente de un objeto, el mismo se busca en la cadena de prototipado del mismo hasta encontrar el primer objeto de la cadena que lo define. Si llegamos a \javascript{null} y el método no fue encontrado, entonces hay un error.
 
 \begin{centrado}
 \begin{minted}[breaklines]{javascript}
@@ -474,7 +474,7 @@ o.__proto__ = o1 // Otra forma de setear el prototipo de o
 \end{minted}
 \end{centrado}
 
-Cuando ejecutamos un método de la cadena de prototipado, el método evaluado liga \mintinline{javascript}{this} al objeto llamó al método, es decir, si tenemos:
+Cuando ejecutamos un método de la cadena de prototipado, el método evaluado liga \javascript{this} al objeto llamó al método, es decir, si tenemos:
 
 \begin{centrado}
 \begin{minted}[breaklines]{javascript}
@@ -494,9 +494,9 @@ o1.b();
 \end{minted}
 \end{centrado}
 
-Para crear una copia de un objeto y asignarle a esa copia el objeto original como prototipo usamos \mintinline{javascript}{Object.create}.
+Para crear una copia de un objeto y asignarle a esa copia el objeto original como prototipo usamos \javascript{Object.create}.
 
-Además javascript provee el prototipo \mintinline{javascript}{Object.prototype} que es prototipo de todos los objetos y provee metodos básicos como \mintinline{javascript}{hasOwnProperty()} que indica si el objeto contiene una propiedad no heredada y \mintinline{javascript}{toString()} que devuelve un string que representa al receptor.
+Además javascript provee el prototipo \javascript{Object.prototype} que es prototipo de todos los objetos y provee metodos básicos como \javascript{hasOwnProperty()} que indica si el objeto contiene una propiedad no heredada y \javascript{toString()} que devuelve un string que representa al receptor.
 
 \paragraph{Cadenas de prototipado}
 
@@ -513,7 +513,7 @@ let o = Object.create(null)
 \end{minted}
 \end{centrado}
 
-\paragraph{Constructores} Son funciones que generan objetos. Cuando declaramos un constructor \mintinline{javascript}{C}, javascript crea un objeto llamado \mintinline{javascript}{C.prototype} que se asigna como prototipo de todos los objetos creados con dicha función. Por ejemplo:
+\paragraph{Constructores} Son funciones que generan objetos. Cuando declaramos un constructor \javascript{C}, javascript crea un objeto llamado \javascript{C.prototype} que se asigna como prototipo de todos los objetos creados con dicha función. Por ejemplo:
 
 \begin{centrado}
 \begin{minted}[breaklines]{javascript}

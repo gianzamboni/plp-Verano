@@ -330,7 +330,7 @@ No podemos aplicar ningún paso de resolución a S  porque $c$ y $f(y_2,w_2)$ no
 \begin{center}
 	\begin{forest} resolucion,
 [$\red{\Box}$ 
-	[$\{P(x_1)\}$,edge label={node[midway,right] {$x_1\leftarrow f(x_2)$}}]
+	[$\{P(x_1)\}$,edge label={node[midway,right,font=\footnotesize] {$x_1\leftarrow f(x_2)$}}]
     [$\{\lnot P(f(x_2))\}$]
 ]
 	\end{forest}
@@ -359,9 +359,9 @@ La negación de la formula es insatisfactible cuando $\sigma = \{ f(x_2)/x\}$ po
 \begin{center}
 	\begin{forest} resolucion,
 [$\red{\Box}$ 
-	[$\{Q(y)\}$,edge label={node[midway,right] {$y\leftarrow z$}}
+	[$\{Q(y)\}$,edge label={node[midway,right,font=\footnotesize] {$y\leftarrow z$}}
 	    [$\{P(x) \comma Q(x)\}$
-	    ,edge label={node[midway,right]{$x\leftarrow y$}}]
+	    ,edge label={node[midway,right,font=\footnotesize]{$x\leftarrow y$}}]
 	    [$\{\lnot P(y)\}$]
 	]
 	[$\{\lnot Q(z)\}$]
@@ -412,9 +412,9 @@ Las clausulas no unifican entre si porque usan distintas constantes.
 \begin{center}
 	\begin{forest} resolucion,
 [$\red{\Box}$ 
-	[$\{\lnot Q(c)\}$,edge label={node[midway,right] {$y\leftarrow c$}}
+	[$\{\lnot Q(c)\}$,edge label={node[midway,right,font=\footnotesize] {$y\leftarrow c$}}
 	    [$\{\lnot P(z) \comma \lnot Q(z)\}$
-	    ,edge label={node[midway,right]{$z\leftarrow c$}}]
+	    ,edge label={node[midway,right,font=\footnotesize]{$z\leftarrow c$}}]
 	    [$\{P(c)\}$]
 	]
 	[$\{Q(y)\}$]
@@ -446,7 +446,7 @@ La negación de la formula es insatisfactible con $\sigma = \{ c/y,~c/z\}$ por l
 \begin{center}
 	\begin{forest} resolucion,
 [$\red{\Box}$ 
-	[$\{ \lnot P(c\comma y_1) \}$,edge label={node[midway,right] {$w\leftarrow c,~y\leftarrow f(y_2)$}}]
+	[$\{ \lnot P(c\comma y_1) \}$,edge label={node[midway,right,font=\footnotesize] {$w\leftarrow c,~y\leftarrow f(y_2)$}}]
 	[$\{P(w \comma f(y_2))$]
 ]
 	\end{forest}
@@ -581,12 +581,12 @@ Queremos ver para que $x$ vale $I(x)$, entonces lo negamos y usamos resolución 
 	\begin{forest} resolucion,
 [$\red{\Box}$ 
 	[$\{\lnot J(\texttt{alan})\}$
-    	[$\{ \lnot R(x) \comma \lnot J(x)\}$, edge label={node[midway,right] {$x\leftarrow \texttt{alan}$}},
-        	[$\{ \lnot R(x) \comma \lnot J(x) \comma \lnot Pr(y_3)\}$, edge label={node[midway,right] {$y_3\leftarrow c$}}
+    	[$\{ \lnot R(x) \comma \lnot J(x)\}$, edge label={node[midway,right,font=\footnotesize] {$x\leftarrow \texttt{alan}$}},
+        	[$\{ \lnot R(x) \comma \lnot J(x) \comma \lnot Pr(y_3)\}$, edge label={node[midway,right,font=\footnotesize] {$y_3\leftarrow c$}}
             	[$\{ \lnot R(x) \comma \lnot J(x) \comma \lnot PL(y_3)\}$
-            	, edge label={node[midway,right] {$x_6\leftarrow y_3$}}
-                	[$\{ \lnot R(x) \comma \lnot PL(y_3) \comma \lnot Res(x\comma y_3)\}$, edge label={node[midway,right] {$x_5\leftarrow x,~y_5\leftarrow y_3$}}
-                    	[$\lnot I(x)$,edge label={node[midway,right] {$x_3\leftarrow x$}}]
+            	, edge label={node[midway,right,font=\footnotesize] {$x_6\leftarrow y_3$}}
+                	[$\{ \lnot R(x) \comma \lnot PL(y_3) \comma \lnot Res(x\comma y_3)\}$, edge label={node[midway,right,font=\footnotesize] {$x_5\leftarrow x,~y_5\leftarrow y_3$}}
+                    	[$\lnot I(x)$,edge label={node[midway,right,font=\footnotesize] {$x_3\leftarrow x$}}]
                     	[$C_3$]
                 	]
                 	[$C_5$]
@@ -617,11 +617,11 @@ La sustitución resultante es $\sigma = \{ alan/x,~c/y3,~c/x_6,~alan/x_5,~c/y_5,
 	\begin{forest} resolucion,
 [$\red{\Box}$ 
         	[$\{\lnot suma(x_1'\comma cero\comma z_1')\}$,
-            edge label={node[midway,right] {$x_2\leftarrow x_1',~z_1' \leftarrow x_1'$}}
+            edge label={node[midway,right,font=\footnotesize] {$x_2\leftarrow x_1',~z_1' \leftarrow x_1'$}}
             	[$\{\lnot suma(x_1\comma suc(cero)\comma z_1)\}$
-            	, edge label={node[midway,right] {$x_1\leftarrow x_1',~y_1'\leftarrow cero, z_1 \leftarrow suc(z_1')$}}
-                	[$\{\lnot suma(x_3 \comma suc(suc(cero)) \comma z_3)\}$, edge label={node[midway,right] {$x_3\leftarrow x_1,~y_1\leftarrow suc(cero), z_3\leftarrow suc(z_1)$}}
-                    	[$\{\lnot par(suc(suc(cero)))\}$,edge label={node[midway,right] {$y_3\leftarrow suc(suc(cero))$}}]
+            	, edge label={node[midway,right,font=\footnotesize] {$x_1\leftarrow x_1',~y_1'\leftarrow cero, z_1 \leftarrow suc(z_1')$}}
+                	[$\{\lnot suma(x_3 \comma suc(suc(cero)) \comma z_3)\}$, edge label={node[midway,right,font=\footnotesize] {$x_3\leftarrow x_1,~y_1\leftarrow suc(cero), z_3\leftarrow suc(z_1)$}}
+                    	[$\{\lnot par(suc(suc(cero)))\}$,edge label={node[midway,right,font=\footnotesize] {$y_3\leftarrow suc(suc(cero))$}}]
                     	[$C_3$]
                 	]
                 	[$C_1$]
@@ -685,9 +685,9 @@ V (I(c)) \land \lnot V (c) \\[1pt]
 [$\red{\Box}$ 
         	[$\{V(c)\}$,
             	[$\{\lnot P(y_2\comma c)\}$
-            	, edge label={node[midway,right] {$x_1\leftarrow c,~y_2\leftarrow f(c)$}}
-                	[$\{\lnot P(y_2\comma I(c))\}$, edge label={node[midway,right] {$y_4\leftarrow y_2,~x_4\leftarrow c$}}
-                    	[$G_1$,edge label={node[midway,right] {$x_2\leftarrow I(c)$}}]
+            	, edge label={node[midway,right,font=\footnotesize] {$x_1\leftarrow c,~y_2\leftarrow f(c)$}}
+                	[$\{\lnot P(y_2\comma I(c))\}$, edge label={node[midway,right,font=\footnotesize] {$y_4\leftarrow y_2,~x_4\leftarrow c$}}
+                    	[$G_1$,edge label={node[midway,right,font=\footnotesize] {$x_2\leftarrow I(c)$}}]
                     	[$C_2$]
                 	]
                 	[$C_4$]
@@ -731,9 +731,9 @@ Luego vale que $\forall x.(V (I(x)) \supset V (x))$.
 %[$\red{\Box}$ 
 %        	[$\{V(c)\}$,
 %            	[$\{\lnot P(y_2\comma c)\}$
-%            	, edge label={node[midway,right] {$x_1\leftarrow c,~y_2\leftarrow f(c)$}}
-%                	[$\{\lnot P(y_2\comma I(c))\}$, edge label={node[midway,right] {$y_4\leftarrow y_2,~x_4\leftarrow c$}}
-%                    	[$C_3$,edge label={node[midway,right] {$y_4\leftarrow y_3$}}]
+%            	, edge label={node[midway,right,font=\footnotesize] {$x_1\leftarrow c,~y_2\leftarrow f(c)$}}
+%                	[$\{\lnot P(y_2\comma I(c))\}$, edge label={node[midway,right,font=\footnotesize] {$y_4\leftarrow y_2,~x_4\leftarrow c$}}
+%                    	[$C_3$,edge label={node[midway,right,font=\footnotesize] {$y_4\leftarrow y_3$}}]
 %                    	[$C_4$]
 %                	]
 %                	[$C_4$]
@@ -759,8 +759,8 @@ Luego vale que $\forall x.(V (I(x)) \supset V (x))$.
 \begin{center}
 	\begin{forest} resolucion,
 [$\red{\Box}$ 
-                	[$\{\lnot\texttt{esContacto}(d \comma x)\}$, edge label={node[midway,right] {$x_1\leftarrow d,~x\leftarrow f(d)$}}
-                    	[$\{\lnot \texttt{esContacto}(x\comma d)\}$,edge label={node[midway,right] {$y_2\leftarrow x,~x_2\leftarrow d$}}]
+                	[$\{\lnot\texttt{esContacto}(d \comma x)\}$, edge label={node[midway,right,font=\footnotesize] {$x_1\leftarrow d,~x\leftarrow f(d)$}}
+                    	[$\{\lnot \texttt{esContacto}(x\comma d)\}$,edge label={node[midway,right,font=\footnotesize] {$y_2\leftarrow x,~x_2\leftarrow d$}}]
                     	[$C_2$]
                 	]
                 	[$C_1$]
@@ -799,12 +799,12 @@ Queremos ver que: $\forall x. \forall y. (\texttt{Abuelo}(x,y) \supset \texttt{D
     [$\{\texttt{Descenciente}(d\comma c)\}$
         [$\{ \lnot \texttt{Abuelo}(c\comma d) \comma \texttt{Descenciente}(d\comma c)\}\}$,
             [ $\{ \lnot \texttt{Progenitor}(\texttt{medio}(c\comma d)\comma x_3)\comma \texttt{Descenciente}(x_3\comma c)\}\}$,
-            , edge label={node[midway,right] {$x_4\leftarrow c,~y_4 \leftarrow d,~x_3\leftarrow d$}}
+            , edge label={node[midway,right,font=\footnotesize] {$x_4\leftarrow c,~y_4 \leftarrow d,~x_3\leftarrow d$}}
                 [$\{ \lnot \texttt{Descenciente}(x_3\comma \texttt{medio}(c\comma d))\comma \texttt{Descenciente}(x_3\comma c)\}\}$,
-                 edge label={node[midway,right] {$y_1'\leftarrow x_3,~x_1' \leftarrow \texttt{medio}(c,d)$}}
-                    [$\{\texttt{Descenciente}(\texttt{medio}(c\comma d) \comma c)\}$, edge label={node[midway,right] {$y_3\leftarrow \texttt{medio}(c,d),~z_3 \leftarrow c$}}
-                        [$\{ \texttt{Progenitor}(c\comma \texttt{medio}(c\comma d))\}$, edge label={node[midway,right] {$x_1\leftarrow c,~y_1\leftarrow \texttt{medio}(c,d)$}}
-                            [$G_1$,edge label={node[midway,right] {$x_2\leftarrow c,~y_2\leftarrow d$}}]
+                 edge label={node[midway,right,font=\footnotesize] {$y_1'\leftarrow x_3,~x_1' \leftarrow \texttt{medio}(c,d)$}}
+                    [$\{\texttt{Descenciente}(\texttt{medio}(c\comma d) \comma c)\}$, edge label={node[midway,right,font=\footnotesize] {$y_3\leftarrow \texttt{medio}(c,d),~z_3 \leftarrow c$}}
+                        [$\{ \texttt{Progenitor}(c\comma \texttt{medio}(c\comma d))\}$, edge label={node[midway,right,font=\footnotesize] {$x_1\leftarrow c,~y_1\leftarrow \texttt{medio}(c,d)$}}
+                            [$G_1$,edge label={node[midway,right,font=\footnotesize] {$x_2\leftarrow c,~y_2\leftarrow d$}}]
                             [$C_2$]
                         ]
                         [$C_1$]
@@ -859,9 +859,9 @@ R(c,d)\\[1pt]
 	\begin{forest} resolucion,
 [$\Box$,
     [$\{ \lnot R(c\comma d)\}$
-        [$\{\lnot R(z_3\comma d)\comma R(c\comma z_3)\}$, edge label={node[midway,right] {$z_3\leftarrow c$}}
-            [$\{ R(d\comma z_3)\comma R(c\comma z_3)\}$, edge label={node[midway,right] {$x_1\leftarrow c,~y_1\leftarrow \texttt{medio}(c,d)$}}
-                [$G$,edge label={node[midway,right] {$x_3\leftarrow c,~y_3\leftarrow d$}}]
+        [$\{\lnot R(z_3\comma d)\comma R(c\comma z_3)\}$, edge label={node[midway,right,font=\footnotesize] {$z_3\leftarrow c$}}
+            [$\{ R(d\comma z_3)\comma R(c\comma z_3)\}$, edge label={node[midway,right,font=\footnotesize] {$x_2\leftarrow d,~y_2\leftarrow z_3$}}
+                [$G$,edge label={node[midway,right,font=\footnotesize] {$x_3\leftarrow c,~y_3\leftarrow d$}}]
                 [$C_3$]
             ]
             [$C_2$]
@@ -891,9 +891,9 @@ El goal es $ G = \{ \lnot \texttt{mayorOIgual}(\texttt{suc}(\texttt{suc}(N)),\te
 	\begin{forest} resolucion,
 [$\Box$,
     [$\{ \lnot \texttt{natural}(\texttt{cero})\}$
-        [$\{\lnot \texttt{natural}(\texttt{suc}(\texttt{cero}))\}$, edge label={node[midway,right] {$x_2\leftarrow \texttt{cero}$}}
-            [$\{ \lnot \texttt{mayorOIgual}(\texttt{suc}(N)\comma \texttt{succ}(\texttt{cero})) )\}$, edge label={node[midway,right] {$x_4\leftarrow \texttt{suc}(\texttt{cero}),~N\leftarrow \texttt{cero}$}}
-                [$G$,edge label={node[midway,right] {$x_3\leftarrow \texttt{suc}(N),~y_3\leftarrow \texttt{suc}(\texttt{cero})$}}]
+        [$\{\lnot \texttt{natural}(\texttt{suc}(\texttt{cero}))\}$, edge label={node[midway,right,font=\footnotesize] {$x_2\leftarrow \texttt{cero}$}}
+            [$\{ \lnot \texttt{mayorOIgual}(\texttt{suc}(N)\comma \texttt{succ}(\texttt{cero})) )\}$, edge label={node[midway,right,font=\footnotesize] {$x_4\leftarrow \texttt{suc}(\texttt{cero}),~N\leftarrow \texttt{cero}$}}
+                [$G$,edge label={node[midway,right,font=\footnotesize] {$x_3\leftarrow \texttt{suc}(N),~y_3\leftarrow \texttt{suc}(\texttt{cero})$}}]
                 [$C_3$]
             ]
             [$C_4$]
@@ -932,10 +932,10 @@ Queremos probar que existe alguien inteligente pero analfabeto, es decir que $\e
 	\begin{forest} resolucion,
 [$\Box$,
     [$\{ \lnot \texttt{delfin}(\texttt{flipper})\}$
-        [$\{\lnot \texttt{noSabeLeer}(\texttt{flipper})\comma \lnot \texttt{delfin}(\texttt{flipper})\}$, edge label={node[midway,right] {$x_6\leftarrow \texttt{flipper}$}}
-            [$\{\lnot \texttt{vivo}(\texttt{flipper})\comma \lnot \texttt{noSabeLeer}(\texttt{flipper})\}$, edge label={node[midway,right] {$x_2\leftarrow \texttt{flipper}$}}
-                [$\{\lnot \texttt{analfabeto}(\texttt{flipper})\}$,edge label={node[midway,right] {$x_1\leftarrow \texttt{flipper}$}}
-                    [$G$,,edge label={node[midway,right] {$x\leftarrow \texttt{flipper}$}}]
+        [$\{\lnot \texttt{noSabeLeer}(\texttt{flipper})\comma \lnot \texttt{delfin}(\texttt{flipper})\}$, edge label={node[midway,right,font=\footnotesize] {$x_6\leftarrow \texttt{flipper}$}}
+            [$\{\lnot \texttt{vivo}(\texttt{flipper})\comma \lnot \texttt{noSabeLeer}(\texttt{flipper})\}$, edge label={node[midway,right,font=\footnotesize] {$x_2\leftarrow \texttt{flipper}$}}
+                [$\{\lnot \texttt{analfabeto}(\texttt{flipper})\}$,edge label={node[midway,right,font=\footnotesize] {$x_1\leftarrow \texttt{flipper}$}}
+                    [$G$,,edge label={node[midway,right,font=\footnotesize] {$x\leftarrow \texttt{flipper}$}}]
                     [$C_3$]
                 ]
                 [$C_1$]
