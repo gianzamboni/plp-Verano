@@ -135,8 +135,7 @@ sublista(XS, L) :-
 % VII.
 %pertenece(?X, +L)
 pertenece(X, [ X | _]).
-pertenece(X, [ Y | XS ]) :-
-	X \= Y,
+pertenece(X, [ _ | XS ]) :-
 	pertenece(X, XS).
 
 
