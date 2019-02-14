@@ -11,7 +11,7 @@ pdfproducer={Latex with hyperref},
 pdfcreator={pdflatex},
 pdfencoding = auto]{hyperref}
 
-\usepackage{a4wide}
+\usepackage{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{fancyhdr}
@@ -21,6 +21,11 @@ pdfencoding = auto]{hyperref}
 \usepackage{multicol}
 \usepackage{mathabx}
 \usepackage{bussproofs}
+
+\geometry{
+	includeheadfoot,
+	margin=2.54cm
+}
 
 \usemintedstyle{vs}    
 

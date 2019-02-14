@@ -9,7 +9,7 @@ La programación funcional se concentra en el primer aspecto.
 
 \paragraph{Valor} Entidad matemática abstracta con ciertas propiedades.
 
-\subsubsection{Expresión} 
+\paragraph{Expresión} 
 
 Secuencia de símbolos utilizada para denotar un valor. Hay dos tipos de expresiones:
 \begin{itemize}
@@ -21,13 +21,30 @@ Puede haber expresiones incorrectas (mal formadas) debido a errores sintácticos
 
 En funcional, computar significa tomar una expresión y reducirla hasta que sea atómica.
 
-\paragraph{Transparencia referencial} El valor que denota una expresión solo depende de los símbolos que la constituyen. Esto nos permite indicar. Esto nos permite hacer uso de un programa sin considerar la necesidad de considerar los detalles de su ejecución y nos permite demostrar propiedades usando las propiedades de las subexpresiones y métodos  de deducción lógica.
+\paragraph{Transparencia referencial} Asi se llama a la propiedad que nos permite remplazar una expresión de un programa por otra con igual valor, sin modificar el comportamiento el mismo.
+
+La propiedad solo se puede asegurar en ambientes en los que una función siempre da el mismo valor sin importar el contexto en la que es usada (ejemplo, es las funciones de haskell, siempre dan el mismo resultado para las mismas entradas). 
+
+En otros paradigmas, como imperativo, en los que los programas tienen efectos colaterales (se crea, modifican y destruyen variables constantemente) esto no es cierto. Como ejemplo, observemos el siguiente programa:
+
+\begin{centrado}
+	\begin{minted}{C++}
+		int x = 5;
+		
+		int suma(int y) {
+			x++;
+			return  x + y;
+		}
+	\end{minted}
+\end{centrado}
+
+En este supongamos que llamamos dos veces a la función suma de la siguiente manera: \mintinline{C++}{suma(1)}, la primera vez, el resultado de la función será siete, la segunda vez será ocho. Esto es porque $x$ es modificada por la función cada vez que es llamada y por lo tanto, la solución se ve afectada por su valor.
 
 \subsection{Tipos}
 Son una forma de particionar el universo de valores de acuerdo a ciertas propiedades. Hay:
 \begin{itemize}
 	\item \textbf{Tipos básicos} (Int, Bool, Float) ó primitivos que son los que ya vienen definidos en el lenguaje por literales y representan valores 
-	\item \textbf{Tipos compuestos} (pares, ) que son aquellos que se definen a partir de otros tipos.
+	\item \textbf{Tipos compuestos} (pares, listas, etc.) que son aquellos que se definen a partir de otros tipos.
 \end{itemize}
 
 Cada tipo de dato tiene asociado operaciones que no tienen significado para otros tipos.
@@ -213,7 +230,7 @@ Un tipo algebraico recursivo tiene al menos menos uno de los constructores con e
 
 Cada constructor define un caso de una definición inductiva de un conjunto. Si tiene al tipo definido como argumento, entonces es un caso inductivo, si no, es un caso base.
 
-En estos caso, el pattern matching nos da una forma de realizar analizar los casos y de acceder a los elementos inductivos que forman a un elemento dado. Por esta razón, se pueden definir funciones recursivas.
+En estos caso, el pattern matching nos proporciona una forma de analizar estos casos y de acceder a los elementos inductivos que forman a un elemento dado. Por esta razón, se pueden definir funciones recursivas.
 
 A estos tipos, les damos un significado a través de funciones definidas recursivamente. Estas funciones manipulan simbólicamente al tipo. Sin embargo, estas manipulaciones, por si solas no tienen un significado, sino que el significado se lo dan las propiedades que dichas manipulaciones deben cumplir.
 
@@ -380,11 +397,35 @@ where dc = divideConquerListas esTrivial resolver repartir combinar
 	\end{minted}
 \end{centrado}
 
+Supongamos que queremos ordenar listas usando \texttt{mergesort}, un algoritmo que usa esta técnica, entonces una posible implementación sería:
+
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=4]{haskell}
+	mergesort :: Ord a => [a] -> [a]
+	mergesort = divideConquerListas ((<=1).length) id partirALaMitad (\[xs,ys] -> merge xs ys)	
+
+	partirALaMitad :: [a] -> [[a]]
+	partirALaMitad xs = [ take i xs, drop i xs ] 
+	where i = (div (length xs) 2)
+	
+	merge :: Ord a => [a] -> [a] -> [a]
+	merge = foldr 
+	(\y rec -> (filter (<= y) rec) ++ [y] ++ (filter (>y) rec))	 
+	\end{minted}
+\end{centrado}
+
+\begin{centrado}
+	\begin{minted}[breaklines,tabsize=4]{haskell}
+	-- Auxires
+	
+
+	\end{minted}
+\end{centrado}
 
 \paragraph{Otros esquemas de recursión} Los esquemas de recursión que nombramos, no son los únicos que existen y además, pueden ser definidos para otros tipos recursivos, no solo para listas.
 
 \subsubsection{La función fold y como definirla}
-Todo tipo algebraico tiene asociado un patrón de inducción estructural. En particular, dado un tipo algebraico recursivo \haskell{T}, podemos definir la función \haskell{foldrT:: * -> a} donde * son los parámetros de la función. A continuación damos algunas propiedades que debe cumplir para asegurarnos de la definimos correctamente:
+Todo tipo algebraico tiene asociado un patrón de inducción estructural. En particular, dado un tipo algebraico recursivo \haskell{T}, podemos definir la función \haskell{foldrT:: * -> a} (donde * son los parámetros de la función) que representa a dicha induccion. A continuación damos algunas propiedades que debe cumplir \haskell{fold} para asegurarnos que la definimos correctamente:
 \begin{itemize}
 	\item Por cada constructor recursivo debe tomar una función que tome como parámetros a cada elemento del constructor que no sea del tipo \haskell{T} y un parámetro de tipo \haskell{a} por cada elemento del tipo \haskell{T}  del constructor. Esta función devuelve un elemento del tipo \haskell{a} y es la que resolverá recursivamente el caso planteado usando la segunda clase de parámetros.
 	\item Por cada constructor base de \haskell{T} debe tomar un parámetro de tipo \haskell{a} que será el elemento devuelto por la función si cae en alguno de dichos casos.

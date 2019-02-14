@@ -80,7 +80,7 @@ Esta definición agrega la tupla \mintinline{haskell}{(1,1,1)} a la lista y lueg
 pitagoricas :: [(Integer, Integer, Integer)]
 pitagoricas = [ (a, b, c) | c <- [1..], 
                             b <- [1..c],
-                            a <- [1..c], 2a^2 + b^2 == c^2]
+                            a <- [1..c], a^2 + b^2 == c^2]
 \end{minted}
 \end{centrado}
 En este caso, para cada número probamos todas las combinaciones de pares \mintinline{haskell}{(a,b)} tales que la suma de sus cuadrados podría llegar a dar \texttt{c}. Como \texttt{a} y \texttt{b} están acotados por \texttt{c}, ya que claramante \mintinline{haskell}{c^2 + c^2 > c^2}, la cantidad de pruebas de pares para cada número es finita ($2^c$ pares) y es posible pasar al siguiente número una vez realizados estos chequeos.
@@ -204,7 +204,7 @@ partirALaMitad xs = [ take i xs, drop i xs ]
 
 merge :: Ord a => [a] -> [a] -> [a]
 merge = foldr 
-	(\y rec -> (filter (<= y) rec) ++ [y] ++ (filter (>y) rec))	 
+	(\y rec -> (filter (<= y) rec) ++ [y] ++ (filter (>y) rec))
 	\end{minted}
 \end{centrado}
 
