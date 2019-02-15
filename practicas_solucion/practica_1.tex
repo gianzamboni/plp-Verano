@@ -314,8 +314,8 @@ sacarUna x = recr (\y ys rec -> if (x==y) then ys else y:rec) []
 	\begin{minted}[breaklines, tabsize=4]{haskell}
 -- I.
 genLista :: a -> (a -> a) -> Int -> [a]
-genLista x proximo n = 
-    foldr (\x rec ->  if null rec then [x]
+genLista y proximo n = 
+    foldr (\x rec ->  if null rec then [y]
 	            else rec ++ [ proximo (last rec)])
           []
           [1.. n ]
