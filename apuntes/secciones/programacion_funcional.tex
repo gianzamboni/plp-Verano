@@ -1,31 +1,24 @@
 
 \section{Programación Funcional}
-Los dos aspectos fundamentales de la programación son:
-\begin{itemize}
-	\item Transformación de la información.
-	\item Interacción con el medio (cargar datos, interfaces gráficas, etc).
-\end{itemize}
-La programación funcional se concentra en el primer aspecto.
 
 \paragraph{Valor} Entidad matemática abstracta con ciertas propiedades.
 
 \paragraph{Expresión} 
-
 Secuencia de símbolos utilizada para denotar un valor. Hay dos tipos de expresiones:
 \begin{itemize}
-	\item \textbf{Atómicas ó formas formales}: Son las expresiones más simples y denotan un valor.
-	\item \textbf{Compuestas}: Expresiones que se construyen combinando otras expresiones.
+	\item \textbf{Atómicas ó formas formales}: Son expresiones que representan a un valor. Por ejemplo: $2$, \textit{false}, $(3, True)$.
+	\item \textbf{Compuestas}: Se construyen combinando otras expresiones. Los valores que denotan estas expresiones pueden ser inferidos a partir de esta combinación.
 \end{itemize}
 
-Puede haber expresiones incorrectas (mal formadas) debido a errores sintácticos (expresiones mal escritas) o a errores de tipo (expresiones que denotan operaciones sobre tipos incorrectos).
+Hay expresiones a las que, a pesar de contener símbolos válidos, no se les puede dar un significado debido a errores sintácticos (mal escritas) o a errores de tipo (que denotan operaciones sobre tipos incorrectos). A éstas las llamamos \textbf{expresiones mal formadas}.
 
-En funcional, computar significa tomar una expresión y reducirla hasta que sea atómica.
+La programación funcional, se basa en la tranformación de la información. Es decir, dada una expresión bien formada, se la va transformando (\textbf{reduciendo}) de manera iterativa por expresiones equivalentes más simples hasta obtener una que denote un valor.
 
-\paragraph{Transparencia referencial} Asi se llama a la propiedad que nos permite remplazar una expresión de un programa por otra con igual valor, sin modificar el comportamiento el mismo.
+\paragraph{Transparencia referencial} Asi se llama a la propiedad que nos permite remplazar una expresión de un programa por otra con igual valor, sin modificar el comportamiento del mismo.
 
-La propiedad solo se puede asegurar en ambientes en los que una función siempre da el mismo valor sin importar el contexto en la que es usada (ejemplo, es las funciones de haskell, siempre dan el mismo resultado para las mismas entradas). 
+Ésta solo se puede asegurar en ambientes en los que una función siempre da el mismo valor sin importar el contexto en la que es usada (ejemplo son las funciones de haskell, siempre dan el mismo resultado para las mismas entradas). 
 
-En otros paradigmas, como imperativo, en los que los programas tienen efectos colaterales (se crea, modifican y destruyen variables constantemente) esto no es cierto. Como ejemplo, observemos el siguiente programa:
+En otros paradigmas, como imperativo, en donde los programas tienen efectos colaterales (se crea, modifican y destruyen variables constantemente) esto no es cierto. Por ejemplo, en el siguiente programa:
 
 \begin{centrado}
 	\begin{minted}{C++}
@@ -38,76 +31,89 @@ En otros paradigmas, como imperativo, en los que los programas tienen efectos co
 	\end{minted}
 \end{centrado}
 
-En este supongamos que llamamos dos veces a la función suma de la siguiente manera: \mintinline{C++}{suma(1)}, la primera vez, el resultado de la función será siete, la segunda vez será ocho. Esto es porque $x$ es modificada por la función cada vez que es llamada y por lo tanto, la solución se ve afectada por su valor.
+Si llamamos dos veces a la función suma de la siguiente manera: \mintinline{C++}{suma(1)}, la primera vez, el resultado será siete, la segunda vez será ocho. El resultado cambia porque depende del valor de $x$ que es modificado por la función cada vez que es llamada.
 
 \subsection{Tipos}
-Son una forma de particionar el universo de valores de acuerdo a ciertas propiedades. Hay:
+Son una forma de particionar el universo de valores de acuerdo a ciertas propiedades. Se clasifican en dos categorias:
 \begin{itemize}
-	\item \textbf{Tipos básicos} (Int, Bool, Float) ó primitivos que son los que ya vienen definidos en el lenguaje por literales y representan valores 
-	\item \textbf{Tipos compuestos} (pares, listas, etc.) que son aquellos que se definen a partir de otros tipos.
+	\item \textbf{Básicos} ó primitivos: Son los tipos que ya vienen definidos en el lenguaje por literales y representan valores. Ej: Int, Bool, Float, etc.
+	\item \textbf{Tipos compuestos} (pares, listas, etc.) Son aquellos que se definen a partir de otros tipos.
 \end{itemize}
 
-Cada tipo de dato tiene asociado operaciones que no tienen significado para otros tipos.
+Cada tipo de dato tiene asociado distintas operaciones que nos permiten manipularlos. Y las expresiones bien formadas o son valores de algún tipo o son una composicion de estas operaciones aplicadas a un valor del tipo adecuado (no todos los tipos soportan las mismas operaciones). Entonces, a toda expresión bien formada se le puede asignar un tipo que sólo depende los componentes de la expresión (strong-typing) y además puede ser inferido a partir de su constitución.
 
-A toda expresión bien formada se le puede asignar un tipo que sólo depende los componentes de la expresión (strong-typing). Dada una expresión, se puede deducir su tipo a partir de su constitución.
-
-\subsubsection{Notación}  
-\haskell{e :: A } se lee “la expresión \haskell{e} tiene tipo \haskell{A}” y significa que el valor denotado por \haskell{e} pertenece al conjunto de valores denotado por \haskell{A}.
+\paragraph{Notación:}   En haskell \haskell{e :: A } se lee “la expresión \haskell{e} tiene tipo \haskell{A}” y significa que el valor \haskell{e} pertenece al conjunto de valores denotado por \haskell{A}.
 
 \subsubsection{Propiedades deseables de un lenguaje funcional}
-Se busca que un lenguaje le asigne un tipo de manera automática al mayor número posible de expresiones con sentido y que no le asigne ningún tipo al mayor número posible de expresiones mal formadas. Además, se busca que el tipo de la expresión se mantenga si es reducida.
+Se busca que un lenguaje le asigne un tipo de manera automática al mayor número posible de expresiones ``con sentido'' y que no le asigne ningún tipo al mayor número posible de expresiones mal formadas. Además, se busca que el tipo de la expresión se mantenga si es reducida.
 
 Otra cosa a tener en cuenta, es que los tipos ofrecidos por el lenguaje deben ser descriptivos y razonablemente sencillos de leer.
 
-\paragraph{Inferencia de tipos} Dada una expresión e determinar si tiene tipo o no y, si lo tiene, cuál es ese tipo según las reglas.
+\paragraph{Inferencia de tipos} Dada una expresión \haskell{e} determinar si tiene tipo o no y, si lo tiene, cuál es.
 
 \paragraph{Chequeo de tipos} Dada una expresión tipable \haskell{e} y un tipo \haskell{A}, determinar si \haskell{e :: A} o no.
 
 \subsection{Tipo Función}
-Un programa en el paradigma funcional es una función descripta por un conjunto de ecuaciones (expresiones) que definen uno o más valores. Estas ecuaciones son evaluadas (reducidas) hasta llegar a una expresión atómica que nos indique el valor de las mismas.
+Un programa, en el paradigma funcional, es una función descripta por un conjunto de ecuaciones (expresiones) que definen uno o más valores. Estas ecuaciones son evaluadas (reducidas) hasta llegar a una expresión atómica que nos indique el valor de las mismas.
 
-\paragraph{Funciones} Las funciones son valores especiales que representan transformación de datos. En haskell el tipo de una función se escribe: \haskell{->}. Las funciones se aplican a elementos de un conjunto de entrada definido por el tipo de entrada de la función y devuelve un elemento del tipo de salida.
+\paragraph{Funciones} Las funciones son valores especiales que representan transformación de datos. En haskell, el tipo de una función se escribe: \haskell{->}. Las funciones se aplican a elementos de un conjunto de entrada definido por el tipo de entrada de la función y devuelve un elemento del tipo de salida.
 
 Al ser valores, las funciones pueden ser argumentos y resultados de otras funciones, pueden almacenarse y pueden ser estructuras de datos.
 
-\paragraph{Funciones de alto orden} Son funciones que manipulan otras funciones.
+\paragraph{Funciones de alto orden} Son funciones que manipulan otras funciones. Es decir, no se límitan a funciones que tomen como parámetro a otras, sino que tambien incluye aquellas funciones que generan nuevas funciones.
 
 \paragraph{Lenguaje Funcional Puro} Lenguaje de expresiones con transparencia referencial y funciones como valores, cuyo modelo de cómputo es la reducción realizada mediante el reemplazo de iguales por iguales.
 
-\paragraph{Polimorfismo paramétrico} Cuando una función tiene un parámetro que puede ser instanciado de diferentes maneras en diferentes usos. Esta propiedad se da dentro de los sistemas de tipos.
-
-Dada una expresión que puede ser tipada de infinitas maneras, el sistema puede asignarle un tipo que sea más general que todos ellos, y tal que en cada uso pueda transformarse en uno particular.
+\paragraph{Polimorfismo paramétrico} Se da cuando una función tiene un parámetro que puede ser instanciado de diferentes maneras. Es decir, cuando uno de sus parámetros puede de ser de cualquier tipo. En este caso, el sistema puede asignarle, a la función, un tipo que sea más general que todos los tipos de tal manera que, cada vez que sea llamada, se la transforma para ese uso particular. Por ejemplo, si tenemos una función que sume dos valores, podríamos llamarla con enteros, naturales o floats.
 
 Hay funciones que a pesar de poseer polimorfismo paramétrico, no aceptan cualquier clase de tipo, sino que requieren que los tipos con las que son llamadas tengan ciertas propiedades. Por ejemplo, que tengan relaciones de igualdad (\haskell{Eq}), relación de order (\haskell{Ord}), que se comporten como números (\haskell{Num}) o que puedan ser mostrados en pantalla (\haskell{Show})
 
 \subsubsection{Evaluación}
-Por lo general, dependiendo del orden de evaluación del lenguaje, el tipo de evaluación se  clasifica en:
+Cuando se computa el valor de una expresión, decimos que la estamos \textit{evaluando}. Por lo general, dependiendo del orden de evaluación del lenguaje, el tipo de evaluación se  clasifica en:
 
 \paragraph{Evaluación Estricta} Si una parte de una expresión se indefine, entonces la expresión se indefine. La evaluación eager, en la que un en lenguaje computa una expresión apenas es definida, es de este tipo. 
 
-\paragraph{Evaluación no Estricta} Puede pasar que una expresión esté definida a pesar de que alguna de sus partes se haya indefinido. La evaluación lazy, en la que un lenguaje solo computa una expresión cuando de esta depende el valor de otra expresión, es de este tipo.
+\paragraph{Evaluación no Estricta} Puede pasar que una expresión esté definida a pesar de que alguna de sus partes se haya indefinido. La evaluación lazy, en la que un lenguaje solo computa una expresión cuando es necesaria para saber el valor de otra, es de este tipo.
 
 Haskell usa evaluación lazy de izquierda a derecha, resolviendo primero las partes más externas de la expresión y luego, si es necesario, sus partes.
 
-\paragraph{Currificación} Correspondencia entre cada función de múltiples parámetros y una de alto orden que retorna una función intermedia que completa el trabajo.
-Por cada \textit{f} definida como:
+\paragraph{Currificación} Hay una correspondencia entre cada función de múltiples parámetros y una de alto orden que retorna una función intermedia que completa el trabajo. En otras palabras, por cada función \textit{f} definida como:
 \begin{centrado}
 	\begin{minted}{haskell}
 f :: (a,b) -> c
 f (x,y) = e
 	\end{minted}
 \end{centrado} 
-existe un función \textit{f'} tal que se puede escribir:
+existe un función \textit{f'} tal que:
 \begin{centrado}
 	\begin{minted}{haskell}
-f' :: a -> (b -> c)
-(f' x) y = e
+f' :: a -> (b -> c)   -- Acá, los parantesis están escritos para claridad del tema.
+(f' x) y = e	  -- Podemos obviarlos.
 	\end{minted}
 \end{centrado} 
 
-La currificación nos da mayor expresividad y la posibilidad de realizar evaluación parcial. Además, nos permite tratar el código de manera más modular al momento de inferir tipos y transformar programas.
+La currificación nos da la posibilidad de realizar funciones parciales y nos permite tratar el código de manera más modular al momento de inferir tipos y transformar programas.
 
 \paragraph{Evaluación parcial} Se evalúan las funciones parcialmente, lo que nos permite llamarlas con menos parámetros de los que necesitan. Esto nos devuelve una función con las expresiones asociadas a los valores pasados como parámetros y que toma como parámetros los parámetros faltantes de la función original.
+
+Un ejemplo de juguete: Supongamos que tenemos la función \haskell{suma}:
+
+\begin{centrado}
+	\begin{minted}{haskell}
+		suma :: Int -> Int -> Int
+		suma x y = x + y
+	\end{minted}
+\end{centrado} 
+
+Podemos usarla crear una función \haskell{sumarUno :: Int -> Int} instanciando su primer parámetro en 1, lo que retorna la función del tipo mencionado:
+
+\begin{centrado}
+	\begin{minted}{haskell}
+		sumarUno :: Int -> Int
+		sumarUno y = suma 1
+	\end{minted}
+\end{centrado} 
+
 
 \subsection{Inducción/Recursion}
 
@@ -190,7 +196,7 @@ Son considerados tipos algebraicos porque:
 	\item toda combinación válida de constructores y valores es elemento del tipo algebraico (y solo ellas lo son)
 	\item y porque dos elementos de un tipo algebraico son iguales si y solo si están construidos utilizando los mismos constructores aplicados a los mismos valores.
 \end{itemize}
-Al principio de esta sección, dijimos que además de establecer la forma que tiene el tipo, debemos dar un mecanismo único de inspección. En Haskell, este mecanismo es el \textbf{Pattern Matching}.
+Al principio de esta sección, dijimos que además de establecer la forma que tiene el tipo, debemos dar un mecanismo único de inspección. En Haskell, éste es el \textbf{Pattern Matching}.
 
 
 \subsubsection{Pattern Matching}
@@ -199,7 +205,7 @@ El pattern matching es la búsqueda de patrones especiales (en nuestro caso, los
 Si el pattern matching resulta exitoso, entonces ligas las variables del patrón.
 
 \subsubsection{Tipos especiales}
-\paragraph{Tupla} Este tipo es un tipo algebraico con sintaxis especial. Una tupla es un estructura que posee varios elementos de distintos tipos. Por ejemplo: \haskell{(Float,Int)} es una tupla cuyo primer elemento es un \haskell{Float} y tiene como segundo elemento a un \haskell{Int}.
+\paragraph{Tupla} Este es un tipo algebraico con sintaxis especial. Una tupla es un estructura que posee varios elementos de distintos tipos. Por ejemplo: \haskell{(Float,Int)} es una tupla cuyo primer elemento es un \haskell{Float} y su segundo elemento es un \haskell{Int}.
 
 \paragraph{Maybe} El tipo \haskell{Maybe}, definido en el último ejemplo, nos permite expresar la posibilidad de que el resultado sea erróneo, sin necesidad de usar casos especiales. De esta forma, logramos evitar el uso de $\bot$ hasta que el programador lo decida, permitiendo controlar errores.
 
@@ -213,7 +219,7 @@ data Either = Left a | Right b
 \subsubsection{Expresividad}
 Los tipos algebraicos no pueden representar cualquier cosa, por ejemplo, los números racionales son pares de enteros (numerador, denominador) cuya igualdad puede no depender de los valores con los que fueron construidos o incluso pueden llegar a no ser validos. Esto es así porque no todo par de enteros es un número racional, por ejemplo el (1,0). 
 
-Además recordemos que la igualdad de dos elementos de un tipo algebraico solo se da si estos fueron construidos exactamente de la misma forma. Si seguimos con el ejemplo de los racionales, sabemos que hay racionales iguales con distinto numerador y denominador como el (4,2) y el (2,1), sin embargo estos dos pares no podrían ser nunca iguales si fuesen tomados como un tipo algebraico.
+Además recordemos que la igualdad de dos elementos de un tipo algebraico solo se da si estos fueron construidos exactamente de la misma forma. Si seguimos con el ejemplo de los racionales, sabemos que hay valores iguales con distinto numerador y denominador como el (4,2) y el (2,1), sin embargo estos dos pares no podrían ser nunca iguales si fuesen tomados como un tipo algebraico.
 
 \subsubsection{Clases de tipos algebraicos}
 
@@ -226,13 +232,13 @@ Además recordemos que la igualdad de dos elementos de un tipo algebraico solo s
 \paragraph{Recursivos} Utilizan el tipo definido como argumento.
 
 \subsection{Tipos algebraicos recursivos}
-Un tipo algebraico recursivo tiene al menos menos uno de los constructores con el tipo que se define como argumento y es la concreción, en Haskell, de un conjunto definido inductivamente.
+Un tipo algebraico recursivo tiene al menos uno de los constructores con el tipo que se define como argumento y es la concreción, en Haskell, de un conjunto definido inductivamente.
 
 Cada constructor define un caso de una definición inductiva de un conjunto. Si tiene al tipo definido como argumento, entonces es un caso inductivo, si no, es un caso base.
 
 En estos caso, el pattern matching nos proporciona una forma de analizar estos casos y de acceder a los elementos inductivos que forman a un elemento dado. Por esta razón, se pueden definir funciones recursivas.
 
-A estos tipos, les damos un significado a través de funciones definidas recursivamente. Estas funciones manipulan simbólicamente al tipo. Sin embargo, estas manipulaciones, por si solas no tienen un significado, sino que el significado se lo dan las propiedades que dichas manipulaciones deben cumplir.
+A estos tipos, les damos un significado a través de funciones definidas recursivamente. Éstas manipulan simbólicamente al tipo. Sin embargo, estas manipulaciones, por si solas no tienen un significado, sino que se lo dan las propiedades que dichas manipulaciones deben cumplir.
 
 \paragraph{Enteros} Notación unaria para expresar tipos enteros.
 \begin{centrado}
@@ -303,7 +309,7 @@ masQueCero = filter (>0)
 \haskell{masQueCero} se queda con todos los elementos mayores de una lista
 
 \subsubsection{Fold}
-La función {fold} es la función que expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \haskell{l} y una función \haskell{f} que denota un valor que depende de todos los elementos de la lista \haskell{l} y un valor inicial \haskell{z}, aplica y combina las soluciones parciales obtenidas por \haskell{f} de manera  ``iterativa''. 
+\textbf{fold} expresa el patrón de recursión estructural sobre listas como función de alto orden. Dada una lista \haskell{l} y una función \haskell{f} que denota un valor que depende de todos los elementos de la lista \haskell{l} y un valor inicial \haskell{z}, aplica y combina las soluciones parciales obtenidas por \haskell{f} de manera  ``iterativa''. 
 Hay dos tipos de fold: \haskell{foldr} (acumula desde la derecha) y \haskell{foldl} (acumula desde la izquierda).
 
 \begin{centrado}
@@ -337,7 +343,7 @@ Recordemos de Logica y Computabilidad: una función h es recursiva primitiva si 
 	h(x_1,\dots,x_n,t+1) &= g(h(x_1,\dots,x_n, t),x_1,\dots, x_n, t) \\
 \end{align*}
 
-Es decir, el caso recursivo de \textit{h} no solo depende de la descomposición de sus parámetros, sino que, además, depende de sus parámetros.
+Es decir, el caso recursivo de \textit{h} no solo depende de la descomposición de sus parámetros, sino que, además, depende de los mismos.
 
 En Haskell, podemos definir una función que dada una lista \haskell{l}, un caso base \haskell{z} y un caso recursivo primitivo \haskell{f}, aplique la definición de \haskell{z} y \haskell{f} a la lista:
 \begin{centrado}
@@ -365,7 +371,7 @@ En el segundo caso, \haskell{insert} es una función que agrega el elemento \has
 
 \subsubsection{Divide \& Conquer}
 La técnica de Divide \& Conquer consiste en dividir un problema en problemas más fáciles de resolver y luego, combinando los resultados parciales, lograr
-obtener un resultado general. En este caso, \haskell{DivideConquer} es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un elemento de tipo \texttt{b}:
+obtener un resultado general. En este caso, \haskell{DivideConquer} es un tipo de función, es decir define una familia de funciones, que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un valor de tipo \texttt{b}:
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
 type DivideConquer a b  = (a -> Bool) -> (a -> b) -> (a -> [a]) 
@@ -414,13 +420,6 @@ Supongamos que queremos ordenar listas usando \texttt{mergesort}, un algoritmo q
 	\end{minted}
 \end{centrado}
 
-\begin{centrado}
-	\begin{minted}[breaklines,tabsize=4]{haskell}
-	-- Auxires
-	
-
-	\end{minted}
-\end{centrado}
 
 \paragraph{Otros esquemas de recursión} Los esquemas de recursión que nombramos, no son los únicos que existen y además, pueden ser definidos para otros tipos recursivos, no solo para listas.
 

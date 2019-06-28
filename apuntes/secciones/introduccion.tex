@@ -1,56 +1,58 @@
-Estos son los apuntes de la clases de PLP que se dio en Verano 2018. Prácticamente es una combinación de las diapositivas con lo que anoté de la teórica y las prácticas pero puede tener errores. En caso de ser así, estaría bueno que me avisen asi los corrigo. 
+Estos son los apuntes de la clases de PLP que se dio en Verano 2018. Prácticamente es una combinación de las diapositivas con lo que anoté de la teórica y las prácticas pero puede tener errores. En caso de ser así estaría bueno que me avisen así los corrigo. 
 
-El tema de objetos, en esta cursada se dio distinto a como se venía dando en cursadas anteriores. Vimos prototipado en vez de clasificación y además definimos el cálculo $\varsigma$ análogo al cálculo $\lambda$ en funcional. Los profesores no estaban seguros si estas modificaciones se iban a mantener o no durante las próximas cursadas.
+El tema de objetos en esta cursada se dió distinto a como se venía dando en cursadas anteriores. Vimos prototipado en vez de clasificación y además definimos el cálculo $\varsigma$ análogo al cálculo $\lambda$ en funcional. Los profesores no estaban seguros si estas modificaciones se iban a mantener o no durante las próximas cursadas.
 
 \section{Introducción}
 
 \paragraph{Paradigma} Marco filosófico y teórico de una escuela científica o disciplina en la que se formulan teorías, leyes y generalizaciones y se llevan a cabo experimentos que les dan sustento.
 
-\paragraph{Lenguaje de programación} Es un lenguaje usado para comunicar instrucciones a una computadora. Estas instrucciones describen cómputos que llevará a cabo la computadora.
+\paragraph{Lenguaje de programación} Es un lenguaje usado para comunicar instrucciones a una computadora. Éstas describen los cómputos que debe llevar a cabo.
 
 Un lenguaje de programación es computacionalmente completo si puede expresar todas las funciones computables.
 
 \paragraph{Paradigma de lenguaje de programación} Marco filosófico y teórico en el que se formulan soluciones a problemas de naturaleza algorítmica. Lo entendemos como un estilo de programación en el que se escriben soluciones a problemas en términos de algoritmos.
 
-Su ingrediente básico es el modelo de cómputo que es la visión que tiene el usuario de cómo se ejecutan sus programas.
+Su ingrediente básico es el modelo de cómputo, que es la visión que tiene el usuario de cómo se ejecutan sus programas.
 
 \subsection{Aspectos del lenguaje}
 
-\paragraph{Sintaxis} Descripción del conjunto de secuencias de símbolos considerados como programas válidos.
+\paragraph{Sintaxis} Descripción del conjunto de secuencias de símbolos considerados como programas válidos. Nos indica cuales son los símbolos del lenguaje y como combinarlos para que se les pueda dar una semántica.
 
 \subsubsection{Semántica}
 
-Descripción del significado de instrucciones y expresiones que puede ser informal (e.g. Castellano) o formal (basado en técnicas matemáticas).
+Descripción del significado de instrucciones y expresiones. Permite asignarle un significado a aquellas expresiones que formen parte de algún lenguaje, sea informal (e.g. Castellano) o formal (basado en técnicas matemáticas).
 
-\paragraph{Semántica operacional} Un programa es un mecanismo que dado un elemento del conjunto de partida, sigue una sucesión de pasos para calcular el elemento correspondiente del conjunto de llegada.
+Dependiendo el tipo de semántica que se esté utilizando, podremos interpretar un programa de distintas maneras:  Si $A$ es el dominio del problema y $B$ la imagen, entonces:
 
-\paragraph{Semántica axiomática} Interpreta a un programa como un conjunto de propiedades verdaderas que indican los estados que puede llegar a tomar.
+\paragraph{Semántica operacional} Se ve a un programa como un mecanismo que, dado un elemento $a\in A $, sigue una sucesión de pasos para calcular el elemento que le corresponde en $B$ a $a$.
 
-\paragraph{Semántica denotacional} Un programa es un valor matemático (función) que relaciona cada elemento de un conjunto de partida (expresiones que lo componen) con un único elemento de otro conjunto de llegada (significado de las expresiones).
+\paragraph{Semántica axiomática} Interpreta a un programa como un conjunto de propiedades verdaderas que indican los estados que puede llegar a tomar ciertos valores.
+
+\paragraph{Semántica denotacional} Un programa es un valor matemático (función) que relaciona cada elemento de $A$ (expresiones que lo componen) con un único elemento de $B$ (significado de las expresiones).
 
 \subsubsection{Sistema de tipo}
-Es una herramienta que nos permite analizar código para prevenir errores comunes en tiempo de ejecución (e.g. evitar sumar booleanos, aplicar función a número incorrecto de argumentos, etc). En general, requiere anotaciones de tipo en el código fuente. 
+Es una herramienta que nos permite analizar código para prevenir errores comunes en tiempo de ejecución (e.g. evitar sumar booleanos, usar funciones con un número incorrecto de argumentos, etc). En general, requiere anotaciones de tipo en el código fuente. 
 
 Además sirve para que la especificación de un programa sea más clara.
 
-Hay dos tipos de análisis de tipos:
+Hay dos clases de análisis de tipos:
 \begin{itemize}
-	\item \textbf{Estático}: Análisis de tipos en tiempo de compilación.
-	\item \textbf{Dinámico}: Análisis de tipos en tiempo de ejecución.
+	\item \textbf{Estático}: En tiempo de compilación.
+	\item \textbf{Dinámico}: En tiempo de ejecución.
 \end{itemize}
 
 \subsection{Paradigmas}
 \subsubsection{Paradigma Imperativo}
 
-\paragraph{Estado global} Se usan variables que representan celdas de memoria en distintos momentos del tiempo. En ellas vamos almacenando resultados intermedios del problema.
+\paragraph{Estado global} Se usan variables que representan celdas de memoria en distintos momentos del tiempo. Se usan para ir almacenando resultados intermedios del problema.
 
-\paragraph{Asignación} Es la acción que modifica las celdas de memoria
+\paragraph{Asignación} Es la acción que modifica las variables.
 
 \paragraph{Control de flujo} Es la forma que tenemos de controlar el orden y la cantidad de veces que se repite un cómputo dentro del programa. En este paradigma, la repetición de cómputos se basa en la iteración.
 
 \vspace*{5mm}
 
-Por lo general, los lenguajes de este paradigma son eficientes ya que el modelo de ejecución usado y la arquitectura de las computadoras (a nivel procesador) son parecidos. Sin embargo, el bajo nivel de abstracción que nos proveen hacen que, por lo general, la implementación de un problema sea difícil de entender.
+Por lo general, los lenguajes de este paradigma son eficientes ya que el modelo de ejecución usado y la arquitectura de las computadoras (a nivel procesador) son parecidos. Sin embargo, el bajo nivel de abstracción que nos proveen hacen que la implementación de un problema sea difícil de entender.
 
 \subsubsection{Paradigma Funcional}
 No tiene un estado global. Un cómputo se expresa a través de la aplicación y composición de funciones y los resultados intermedios (salida de las funciones) son pasados directamente a otras funciones como argumentos. Todas las expresiones de este paradigma son tipadas y usa la recursión para repetir cómputos.
@@ -58,7 +60,7 @@ No tiene un estado global. Un cómputo se expresa a través de la aplicación y 
 Ofrece un alto nivel de abstracción, es declarativo, usa una matemática elegante y se puede usar razonamiento algebraico para demostrar correctitud de programas.
 
 \subsubsection{Paradigma Lógico}
-Los programas son predicados de la lógica proposicional y la computación esta expresada a través de proof search. No existe un estado global y los resultados intermedios son pasados por unificación. La repetición se basa en la recursión.
+Los programas son predicados de la lógica proposicional y la computación esta expresada a través de proof search (probar que el predicado expresado es verdadero bajo ciertos axiomas). No existe un estado global y los resultados intermedios son pasados por unificación. La repetición se basa en la recursión.
 
 Ofrece un alto nivel de abstracción, es muy declarativo y, al ser predicados, tiene fundamentos lógicos robustos pero su ejecución es muy lenta.
 
