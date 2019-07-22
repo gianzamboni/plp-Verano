@@ -68,6 +68,13 @@ Al ser valores, las funciones, pueden ser pasadas como argumentos o ser resultad
 
 Hay funciones que, a pesar de poseer polimorfismo paramétrico, no aceptan cualquier clase de tipo. Sino que requieren que los tipos con las que son llamadas tengan ciertas propiedades. Por ejemplo, que posean relaciones de igualdad (\haskell{Eq}) o relación de orden (\haskell{Ord}).
 
+\begin{centrado}
+	\begin{minted}{haskell}
+		esMenor :: (Ord a) => a -> a -> Bool
+		esMenor x y = x < y
+	\end{minted}
+\end{centrado} 
+
 \subsubsection{Evaluación}
 Cuando se computa el valor de una expresión, decimos que la estamos \textit{evaluando}. Por lo general, dependiendo del orden de evaluación del lenguaje, el tipo de evaluación se  clasifica en:
 
@@ -265,7 +272,7 @@ A estos tipos, les damos un significado a través de funciones definidas recursi
 data N = Z | S N
 	\end{minted}
 \end{centrado}
-En este caso, \haskell{Z} y \haskell{S N} son el cero y el sucesor de un numero. (Notar que ese significado, es el que le damos nosotros y el que vamos a utilizar cuando escribamos funciones que nos permitan operar sobre este tipo. Para el lenguaje son solamente valores que pueden ser transformados por las funciones que nosotros definamos pero no tienen una semántica definida)
+En este caso, \haskell{Z} y \haskell{S N} son el cero y el sucesor de un numero. (Notar que ese significado, es el que le damos nosotros y el que vamos a utilizar cuando escribamos funciones que nos permitan operar sobre este tipo. Para el lenguaje son solamente valores que pueden ser transformados por las funciones que definamos, pero no tienen una semántica definida)
 \paragraph{Listas} Definición equivalente a las listas de Haskell
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
@@ -448,8 +455,6 @@ Supongamos que queremos ordenar listas usando \texttt{mergesort}, un algoritmo q
 \end{centrado}
 
 
-\paragraph{Otros esquemas de recursión} Los esquemas de recursión que nombramos, no son los únicos que existen y además, pueden ser definidos para otros tipos recursivos, no solo para listas.
-
 \subsubsection{La función fold y como definirla}
 Todo tipo algebraico tiene asociado un patrón de inducción estructural. En particular, dado un tipo algebraico recursivo \haskell{T}, podemos definir la función \haskell{foldrT:: * -> a} (donde * son los parámetros de la función) que representa a dicha induccion. A continuación damos algunas propiedades que debe cumplir \haskell{fold} para asegurarnos que la definimos correctamente:
 \begin{itemize}
@@ -471,7 +476,7 @@ data Arbol a = Hoja a | Nodo a (Arbol a) (Arbol a)
 
 foldrArbol :: * -> b
 
--- ¿Que es *?  Los casos bases, en nuestro caso, será cuando el arbol sea de la forma Hoja x, con x :: a entonces necesitaremos una función que devuelva un valor de tipo b a partir del valor x.
+-- ¿Que es *?  Los casos bases serán cuando el arbol sea de la forma Hoja x, con x :: a entonces necesitaremos una función que devuelva un valor de tipo b a partir del valor x.
 
 foldrArbol :: * -> (a -> b) -> b
 
@@ -494,3 +499,5 @@ foldrArbol fcr fcb (Node x ai ad) =
 -- ad = arbol derecho
 \end{minted}
 \end{centrado}
+
+\paragraph{Otros esquemas de recursión} Los esquemas de recursión que nombramos, no son los únicos que existen y además, pueden ser definidos para otros tipos recursivos, no solo para listas. En cada caso, debemos pensar como funcióna el esquema con cada constructor del tipo.
