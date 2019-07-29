@@ -1,16 +1,15 @@
 \section{Cálculo Lambda Tipado}
 
-El cálculo lambda es un modelo de computación turing completo basado en \textbf{funciones} introducido por \textbf{Alonzo Church}. Este modelo consiste en un conjunto de expresiones o terminos que representan abstracciones o aplicaciones de funciones y cuyos valores pueden ser determinados aplicando ciertas reglas sintacticas hasta obtener lo 	que se dice su forma normal, una expresión que, a falta de reglas no puede ser reducida de ninguna manera. En nuestro caso, estamos estudiando cálculo lambda tipado, es decir que habrá expresiones que, a pesar de estar bien formadas, no tendrán sentido.
+El cálculo lambda es un modelo de computación turing completo basado en \textbf{funciones} introducido por \textbf{Alonzo Church}. Este modelo consiste en un conjunto de expresiones o terminos que representan abstracciones o aplicaciones de funciones. Sus valores pueden ser determinados aplicando ciertas reglas sintacticas hasta obtener lo 	que se dice su forma normal, una expresión que, a falta de reglas, no puede ser reducida de ninguna manera. En nuestro caso, estamos estudiando cálculo lambda tipado, es decir que habrá expresiones que, a pesar de estar bien formadas, no tendrán sentido.
 
 % TODO https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system
 
 \subsection{Expresiones de Tipos de \texorpdfstring{$\lambda^b$}{lambda b}}
-El primer lenguaje lambda que usamos en la materia tiene dos \textbf{tipos} $Bool$ y $\sigma\rightarrow\theta$ que son los tipos de los valores booelanos y las funciones que van de un tipo $\sigma$ a un tipo $\theta$, respectivamente. Y lo notamos:
+El primer lenguaje lambda que usamos en la materia tiene dos \textbf{tipos} $Bool$ y $\sigma\rightarrow\theta$ que son los tipos de los valores booelanos y las funciones que van de un tipo $\sigma$ a un tipo $\theta$, respectivamente. Lo notamos:
 \begin{equation*}
 	\sigma,\theta ~::=~ Bool ~|~ \sigma\rightarrow\theta
 \end{equation*}
 
-Una vez que definamos por completo el lenguaje lambda para estos dos tipos, esto es definir reglas de sintaxis, de tipado y de reducción de expresiones, vamos a extender el lenguaje con los naturales y, luego, con otros tipos de interés, como abstracciones de memoria y comandos.
 \subsubsection{Términos de \texorpdfstring{$\lambda^b$}{lambda b}}
 Ahora debemos definir los \textbf{términos} que nos permitirán escribir las expresiones válidas del tipado. Sea $\mathcal{X}$ un conjunto infinito enumerable de variables y $x\in\mathcal{X}$. Los \textbf{términos} de $\lambda^b$ están dados por:
 
@@ -27,10 +26,10 @@ Ahora debemos definir los \textbf{términos} que nos permitirán escribir las ex
 
 Esto significa que dados tres términos $M$, $P$ y $Q$, los términos válidos del lenguaje son:
 \begin{itemize}
-	\item $true$ y $false$ que representan las \textbf{constantes de verdad}.
-	\item $ \lambdaIf{M}{P}{Q}$ que expresa el \textbf{condicional}.
-	\item $\lambdaApp{M}{N}$ que indica la \textbf{aplicación} de la función denotada por el termino $M$ al argumento $N$.
-	\item $\lambdaAbs{x}{\sigma}{M}$ que es una \textbf{función} (abstracción) cuyo parámetro formal es $x$ y cuyo cuerpo es $M$
+	\item $true$ y $false$: Representan las \textbf{constantes de verdad}.
+	\item $ \lambdaIf{M}{P}{Q}$: Expresa el \textbf{condicional}.
+	\item $\lambdaApp{M}{N}$: Indica la \textbf{aplicación} de la función denotada por el termino $M$ al argumento $N$.
+	\item $\lambdaAbs{x}{\sigma}{M}$: \textbf{Función} (abstracción) cuyo parámetro $x$ es de tipo $\sigma$ y cuyo cuerpo es $M$
 	\item $x$, una \textbf{variable de términos}.
 \end{itemize}
 
@@ -40,7 +39,7 @@ Por como definimos el lenguaje, una variable $x$ puede ocurrir de dos formas: \t
 Por ejemplo:
 $$\lambdaAbs{x}{Bool}{\lambdaIf{true}{\underbrace{x}_{ligada}}{\underbrace{y}_{libre}}} $$
 
-Para conseguir las variables ligadas de una expresión, vamos a definir la función $FV$ que toma como parámetro una expresión y devuelve el conjunto de variables libres de la misma.
+Definimos la función $FV$ (free variables) que devuelve el conjunto de variables libres de una expresión dada:
 
 \begin{equation*}
 	\begin{split}
@@ -48,13 +47,13 @@ Para conseguir las variables ligadas de una expresión, vamos a definir la funci
 		FV(true) = FV(false) &\equalDef \emptyset \\
 		FV(\lambdaIf{M}{P}{Q}) &\equalDef FV(M)\cup FV(P)\cup FV(Q) \\
 		FV(\lambdaApp{M}{N}) &\equalDef FV(M)\cup FV(N) \\
-		FV(\lambdaAbs{x}{\sigma}{M}) &\equalDef FV(M) \backslash \{x\}
+		FV(\lambdaAbs{x}{\sigma}{M}) &\equalDef FV(M) - \{x\}
 	\end{split}
 \end{equation*}
 
 \subsubsection{Reglas de sustitución}
 
-Una de las operaciones que podemos realizar sobre las expresiones del lenguaje es la \textbf{sustitución} que, dado un término $M$, sustituye todas las ocurrencias \textbf{libres} de una variable $x$ en dicho término por un término $N$. La notamos:
+Una de las operaciones que podemos realizar sobre las expresiones del lenguaje es la \textbf{sustitución}. Dado un término $M$ sustituye todas las ocurrencias \textbf{libres} de una variable $x$ en dicho término por un término $N$. La notamos:
 
 $$\replaceBy{M}{x}{N}$$
 
@@ -66,7 +65,7 @@ Esta operación nos sirve para darle semántica a la aplicación de funciones y 
 \paragraph{Captura de variables}\label{calculo_lambda:captura_variables} El primer problema se da cuando la sustitución que deseamos realizar sustituye una variable por otra con el mismo nombre que alguna de las variables ligadas de la expresión. Por ejemplo:
 $$\replaceBy{(\lambdaAbs{z}{\sigma}{x})}{x}{z} = \lambdaAbs{z}{\sigma}{z}$$
 
-En estos casos, si realizamos la sustitución cambiariamos el significado de la expresión (en el caso mostrado, estariamos convirtiendo la función constante que devuelve $x$ en la función identidad). Por esta razón debemos asegurarnos que cuando realizemos la operación $\replaceBy{\lambdaAbs{y}{\sigma}{M}}{x}{N}$, la variable ligada $y$ sea renombrada de tal manera que \textbf{no} ocurra libre en $N$.
+En estos casos, si realizamos la sustitución cambiariamos el significado de la expresión (aquí estariamos convirtiendo la función constante que devuelve $x$ en la función identidad). Por esta razón debemos asegurarnos que cuando realizemos la operación $\replaceBy{(\lambdaAbs{y}{\sigma}{M})}{x}{N}$, la variable ligada $y$ sea renombrada de tal manera que \textbf{no} ocurra libre en $N$.
 
 \vspace*{5mm}
 Entonces, teniendo en cuenta lo mencionado, definimos el comportamiento de la operación:
@@ -74,10 +73,10 @@ Entonces, teniendo en cuenta lo mencionado, definimos el comportamiento de la op
 \begin{equation*}
 	\begin{split}
 		\replaceBy{x}{x}{N} &\equalDef N \\
-		\replaceBy{a}{x}{N} &\equalDef a \text{ si } a \in \{true,false\}\cup\mathcal{X}\backslash\{x\} \\
+		\replaceBy{a}{x}{N} &\equalDef a \text{ si } a \in \{true,false\}\cup(\mathcal{X}-\{x\}) \\
 		\replaceBy{(\lambdaIf{M}{P}{Q})}{x}{N} &\equalDef \lambdaIf{\replaceBy{M}{x}{N}}{\replaceBy{P}{x}{N}}{\replaceBy{Q}{x}{N}}\\
 		\replaceBy{(\lambdaApp{M_1}{M_2})}{x}{N} &\equalDef \lambdaApp{\replaceBy{M_1}{x}{N}}{\replaceBy{M_2}{x}{N}}\\
-		\replaceBy{(\lambdaAbs{y}{\sigma}{M})}{x}{N} &\equalDef \lambdaAbs{y}{\sigma}{\replaceBy{M}{x}{N}}~x\neq y,~y\notin~FV(N)
+		\replaceBy{(\lambdaAbs{y}{\sigma}{M})}{x}{N} &\equalDef \lambdaAbs{y}{\sigma}{\replaceBy{M}{x}{N}}~\text{si } x\neq y,~y\notin~FV(N)
 	\end{split}
 \end{equation*}
 
@@ -110,11 +109,11 @@ El árbol sintáctico de $\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$ es:
 \subsection{Sistema de tipado}
 El sistema de tipado es un sistema formal de deducción (o derivación) que utiliza axiomas y reglas de tipado para caracterizar un subconjunto de los términos. A estos términos los llamamos \textbf{términos tipados}.
 
-Como dijimos, vamos a estudiar lenguajes de cálculo lambda tipado, por lo que para que una expresión sea considerada una expresión válida del lenguaje no solo debe ser sintácticamente correcta sino que debemos poder inferir su tipo a través del sistema de tipado que definamos. Y si no es posible inferir el tipo de una expresión con el sistema dado, entonces no la consideraremos una expresión válida del lenguaje.
+Para que una expresión sea considerada válida dentro de un lenguaje no solo debe ser sintácticamente correcta sino que debemos poder inferir su tipo a través del sistema de tipado que definamos. Si no es posible realizar esta inferencia entonces no la consideraremos una expresión válida del lenguaje.
 
-\paragraph{Contexto de tipado}: Es un conjunto de pares $x_i:\sigma_i$, anotado $\Gamma = \{x_1:\sigma_1, \dots, x_n:\sigma_n\}$ que nos indica los tipos de cada variable de un programa.
+\paragraph{Contexto de tipado:} Conjunto de pares $x_i:\sigma_i$ que indica los tipos de cada variable de un programa. Por lo general, se nota  $\Gamma = \{x_1:\sigma_1, \dots, x_n:\sigma_n\}$.
 
-Dado un contexto de tipado $\Gamma$, un \textbf{juicio de tipado} es una expresion $\judgeType{\Gamma}{M}{\sigma}$ que se lee ``el término M tiene tipo $\sigma$ asumiendo el contexto de tipado $\Gamma$''. 
+\paragraph{Juicio de tipado:} Dado un contexto de tipado $\Gamma$, un \textbf{juicio de tipado} es una expresion $\judgeType{\Gamma}{M}{\sigma}$ que se lee ``el término M tiene tipo $\sigma$ asumiendo el contexto de tipado $\Gamma$''. 
 
 \subsubsection{Axiomas de tipado de \texorpdfstring{$\lambda^b$}{lambda b}}
 
@@ -127,8 +126,11 @@ Dado un contexto de tipado $\Gamma$, un \textbf{juicio de tipado} es una expresi
 \end{equation*}
 
 \vspace*{5mm}
-Los axiomas \textbf{T-True} y \textbf{T-False} nos dicen, que no importa el contexto en el que se encuentren los valores \textit{true} y \textit{false}, respectivamente, ambos valores serán de tipo \textit{Bool}. El axioma \textbf{T-Var}, nos dice que una variable libre $x$ es de $\sigma$ en un contexto $\Gamma$ entonces el par $x:\sigma$ se encuentra en $\Gamma$
 
+\begin{itemize}
+	\item \textbf{T-True} y \textbf{T-False}: $\lambdaValue{true}$ y $\lambdaValue{false}$ son de tipo $Bool$ sin importar el contexto en el que se encuetren.
+	\item \textbf{T-Var}: $\lambdaValue{x}$ es de tipo $\sigma$ en $\Gamma$ si el par $\lambdaValue{x}:\sigma$ se encuentra en $\Gamma$.
+\end{itemize}
 \subsubsection{Reglas de tipado de \texorpdfstring{$\lambda^b$}{lambda b}}
 \begin{equation*}
 	\begin{gathered}
@@ -141,41 +143,112 @@ Los axiomas \textbf{T-True} y \textbf{T-False} nos dicen, que no importa el cont
 \end{equation*}
 
 \vspace*{5mm}
-\textbf{T-If} nos dice que si $\lambdaIf{M}{P}{Q}$ es de tipo $\sigma$ en $\Gamma$, entonces $M$ es de tipo $Bool$ y $P$ y $Q$ son de tipo $\sigma$ en $\Gamma$.
-
-\textbf{T-Abs} indica que si $\lambdaAbs{x}{\sigma}{M}$ es de tipo $\sigma\to\tau$ en $\Gamma$, entonces $M$ es de tipo $\tau$ y $x$ en de tipo $\sigma$ en $\Gamma$.
-
-\textbf{T-App} significa que si $\lambdaApp{M}{N}$ es de tipo $\sigma\to\tau$ en $\Gamma$, entonces $M$ es de tipo $\tau$ en el contexto $\Gamma, x:\sigma$. Este es el contexto formado por la unión disjunta entre $\Gamma$ y $x:sigma$, o en castellano, el contexto que remplaza el tipo de $x$ en $Gamma$ por $\sigma$.
+\begin{itemize}
+	\item \textbf{T-If}: Si $M$ es de tipo $Bool$ y $P$ y $Q$ son de tipo $\sigma$ en $\Gamma$ respecto de $\Gamma$, entonces $\lambdaIf{M}{P}{Q}$ es de tipo $\sigma$ en $\Gamma$.
+	\item \textbf{T-Abs}: Si $M$ es de tipo $\tau$ en el contexto $\Gamma\cup \{x:\sigma\}$, entonces $\lambdaAbs{x}{\sigma}{M}$ es de tipo $\sigma\to\tau$ en $\Gamma$.
+	\item \textbf{T-App}: Si $M$ es una función que va de $\sigma$ a $\tau$ y $N$ es de tipo $\sigma$ en $\Gamma$, entonces $\lambdaApp{M}{N}$ es de tipo $\tau$.
+	
+\end{itemize}
 
 \subsubsection{Resultados básicos}
 
 Si $\judgeType{\Gamma}{M}{\sigma}$ puede derivarse usando los axiomas y reglas de tipados decimos que el juicio es \textbf{derivable}. Además, si el juicio se puede derivar para algún $\Gamma$ y $\sigma$, entonces decimos que $M$ es \textbf{tipable}.
 
-\paragraph{Unicidad de tipos} Si $\judgeType{\Gamma}{M}{\sigma}$ y $\judgeType{\Gamma}{M}{\tau}$ son derivables, entonces $\sigma = \tau$
+\paragraph{Unicidad de tipos} Si $\judgeType{\Gamma}{M}{\sigma}$ y $\judgeType{\Gamma}{M}{\tau}$ son derivables, entonces $\sigma = \tau$. Osea una expresión $M$ puede tener un único tipo dentro de un contexto dado.
 
-\paragraph{Weakening + Strengthening} Si $\judgeType{\Gamma}{M}{\sigma}$ es derivable y $\Gamma\cap\Gamma'$ contiene a todas las variables libres de $M$, entonces $\judgeType{\Gamma'}{M}{\sigma}$
+\paragraph{Weakening + Strengthening} Si $\judgeType{\Gamma}{M}{\sigma}$ es derivable y $\Gamma\cap\Gamma'$ contiene a todas las variables libres de $M$, entonces $\judgeType{\Gamma'}{M}{\sigma}$.
 
 \paragraph{Sustitución} Si $\judgeType{\Gamma,x:\sigma}{M}{\tau}$ y $\judgeType{\Gamma}{N}{\sigma}$ son derivables, entonces $\judgeType{\Gamma}{\replaceBy{M}{x}{N}}{\tau}$ es derivable.
 
 \subsubsection{Demostración de juicios de tipado}
 Dado un sistema tipado, queremos ver si un juicio de tipado es correcto. Para hacer esto, iremos aplicando, al juicio, las reglas del sistema hasta llegar a sus axiomas o hasta llegar a una contradicción o incertidumbre. Si pasa lo primero, entonces el juicio es correcto, si pasa lo segundo, el juicio está mal.
 
+Sea $\Gamma =\{y: Bool\}$. Queremos ver si $\judgeType{\Gamma}{\lambdaIf{true}{false}{y}}{ Bool}$ es derivable. Como es un condicional, debemos fijarnos que cumpla con la regla \textbf{T-If}:
+
+\begin{center}
+	\begin{scprooftree}
+		\def\extraVskip{5pt}
+		
+		\AxiomC{$\judgeType{\Gamma}{true}{ Bool}$}
+		\AxiomC{$\judgeType{\Gamma}{false}{ Bool}$}
+		\AxiomC{$\judgeType{\Gamma}{y}{ Bool}$}
+		\RightLabel{T-If}
+		\TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{y}}{ Bool}$}
+	\end{scprooftree}
+\end{center}
+
+Para que se cumpla esta regla, entonces se debe cumplir cada una de sus condiciones. Dibujamos para cada una de ellas, las reglas que debemos aplicarle:
+
+\begin{center}
+	\begin{scprooftree}
+		\def\extraVskip{5pt}
+
+\AxiomC{}
+\RightLabel{T-True}
+\UnaryInfC{$\judgeType{\Gamma}{true}{ Bool}$}
+
+\AxiomC{}
+\RightLabel{T-False}
+\UnaryInfC{$\judgeType{\Gamma}{false}{ Bool}$}
+
+\AxiomC{$y:Bool \in\Gamma$}
+\RightLabel{T-Var}
+\UnaryInfC{$\judgeType{\Gamma}{y}{ Bool}$}
+
+\RightLabel{T-If}
+		\TrinaryInfC{$\judgeType{\Gamma}{\lambdaIf{true}{false}{y}}{ Bool}$}
+
+	\end{scprooftree}
+\end{center}
+
+En el último nivel dibujado, aplicamos \textbf{T-True}, \textbf{T-If} que por ser axiomas y no tener ninguna condición son verdaderas. Además, para la última, aplicamos \textbf{T-Var} que es verdadera porque ocurre $y:Bool \in\Gamma$. Entonces concluimos el juicio de tipado es derivable, es decir la expresión analizada es, efectivamente, de tipo \textit{Bool}
+
+Supongamos ahora que $\Gamma = \phi$, entonces la derivación quedaría:
+
+
+\begin{center}
+	\begin{scprooftree}
+		\def\extraVskip{5pt}
+		
+		\AxiomC{}
+		\RightLabel{T-True}
+		\UnaryInfC{$\judgeType{\phi}{true}{ Bool}$}
+		
+		\AxiomC{}
+		\RightLabel{T-False}
+		\UnaryInfC{$\judgeType{\phi}{false}{ Bool}$}
+		
+		\AxiomC{\red{$y:Bool \in\phi$}}
+		\RightLabel{T-Var}
+		\UnaryInfC{$\judgeType{\phi}{y}{ Bool}$}
+		
+		\RightLabel{T-If}
+		\TrinaryInfC{$\judgeType{\phi}{\lambdaIf{true}{false}{y}}{ Bool}$}
+		
+	\end{scprooftree}
+\end{center}
+
+En este caso, sabemos que el par $y:Bool$ no se encuentra en el conjunto vacío, por lo que llegamos a una contradicción. Luego, el juicio no es derivable en este contexto.
+
 \subsection{Semántica operacional}Ya definimos cuales serán los términos y expresiones válidas de nuestro lenguaje. El siguiente paso, es definir algún mecanismo que nos permita inferir el significado o \textbf{valor} de un término. 
 
-Para lograr este objetivo definimos lo que se llama \textbf{semántica operacional}, un mecanismo que interpreta a los \textbf{términos como estados} de una máquina abstracta y define una \textbf{función de transición} que indica, dado un estado, cual es el siguiente.
+\paragraph{Semántica operacional:} Mecanismo que interpreta a los \textbf{términos como estados} de una máquina abstracta y define una \textbf{función de transición} que indica, dado un estado, cual es el siguiente.
 
 De esta forma, el significado de un término $M$ es el estado final que alcanza la máquina al comenzar con $M$ como estado inicial.
 
 Tenemos dos formas de definir la semántica:
 \begin{itemize}
-	\item \textbf{Small-step}: La función de transición describe un paso de computación, descomponiendo los términos compuestos en términos más simples y especificando el orden el que deben ser reducidos.
-	\item \textbf{Big-step} (o \textbf{Natural Semantics}): La función de transición, en un paso, evalúa el termino a su resultado.
+	\item \textbf{Small-step}: La función de transición describe un paso de computación. Los términos compuestos se descomponen en términos más simples que deben ser reducidos en un orden específico.
+	\item \textbf{Big-step} (o \textbf{Natural Semantics}): La función de transición evalúa el termino a su resultado en un paso.
 \end{itemize}
 
-Nosotros vamos a usar la primer opción. Y la formulamos a través de \textbf{juicios de evaluación} 
-$$M\to N$$ que se leen ``\textit{el término M reduce, en un paso, al término N}''.
+\paragraph{Juicios de evaluación:} Son expresiones de la forma $M\to N$ que se leen ``\textit{el término M reduce, en un paso, al término N}''.
 
-Para establecer el significado de estos juicios, vamos a definir \textbf{axiomas de evaluación} y \textbf{reglas de evaluación}. Los axiomas nos indicarán cuales juicios de evaluación son siempre derivables y las reglas nos dirán que juicios son derivables dado un contexto. Las reglas de la semántica asumen que las expresiones están bien tipadas.
+\paragraph{Axiomas de evaluación:} Indican que juicios de evaluación son siempre derivables.
+
+\paragraph{Reglas de evaluación:} Dado un contexto, nos dirán que juicios son derivables.
+
+Las reglas de la semántica asumen que las expresiones están bien tipadas.
 
 \subsubsection{Expresiones Booleanas}\label{calculo_lambda:semantica:booleanas}
 Los valores de las  expresiones booleanas son:
@@ -195,24 +268,27 @@ y son usados para reducir el término $\lambdaIf{M_1}{M_2}{M_3}$ mediante los si
 \end{equation*}
 
 \vspace*{5mm}
-Estas reglas nos indican que dado un término del tipo $\lambdaIf{M_1}{M_2}{M_3}$, si $M_1 = true$, entonces podemos remplazar la expresión por $M_2$, si $M_1=false$ entonces podemos remplazar la expresión por $M_3$ y si $M_1$ es una expresión reducible a $M'_1$, entonces podemos remplazar la expresión por $\lambdaIf{M'_1}{M_2}{M_3}$.
+
+Si la expresión en la guarda, es un $\lambdaValue{true}$ o un $\lambdaValue{false}$ se reduce la expresión a $M_1$ o $M_2$.
+
+Si $M_1$ es una expresión reducible, entonces se la reduce una y la expresión se remplaza por $\lambdaIf{M'_1}{M_2}{M_3}$.
 
 Con estas reglas definimos la estrategia de evaluación del condicional que se corresponde el orden habitual en lenguajes de programación:
 \begin{enumerate}
 	\item Primero evaluamos la guarda del condicional
-	\item y una vez que la guarda sea un valor, evaluamos la expresión del \textit{then} o del \textit{else} según corresponda.
+	\item Una vez que la guarda sea un valor, evaluamos la rama que corresponda.
 \end{enumerate}
 
 \subsubsection{Propiedades}
 
-\paragraph{Determinismo} Si $M\to M'$ y $M\to M''$ entonces $M' = M''$, esto quiere decir que el valor que representa $M$ no cambia con las reducciones que le apliquemos.
+\paragraph{Determinismo} Si $M\to M'$ y $M\to M''$ entonces $M' = M''$, esto quiere decir que el valor que no siempre hay una sola regla que nos permite realizar el siguiente paso en la reducción.
 
 \paragraph{Valores en forma normal} Una \textbf{forma normal} es un término que no puede evaluarse más. Consideraremos que terminamos de evaluar un término cuando conseguimos su forma normal.
 
-Todos los valores tiene una forma normal, sin embargo hay que tener en cuenta que como estamos definiendo un lenguaje tipado, habrá formas normales que no representen ningún valor.
+Todos los valores tiene una forma normal, sin embargo hay que tener en cuenta que como estamos definiendo un lenguaje tipado habrá formas normales que no representen ningún valor.
 
 \subsubsection{Evaluación en muchos pasos}
-El juicio de \textbf{evualuación de muchos pasos} $\twoheadrightarrow$ es la clausura reflexiva, transitiva de $\to$. Es decir, la menor relación tal que:
+El juicio de \textbf{evualuación de muchos pasos} $\twoheadrightarrow$ es la clausura reflexiva y transitiva de $\to$. Es decir, la menor relación tal que:
 \begin{enumerate}
 	\item Si $M\to M'$, entonces $M\twoheadrightarrow M'$
 	\item $M\twoheadrightarrow M$ para todo $M$
