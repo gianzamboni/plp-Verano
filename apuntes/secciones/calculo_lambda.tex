@@ -1,17 +1,16 @@
 \section{Cálculo Lambda Tipado}
-
-El cálculo lambda es un modelo de computación turing completo basado en \textbf{funciones} introducido por \textbf{Alonzo Church}. Este modelo consiste en un conjunto de expresiones o terminos que representan abstracciones o aplicaciones de funciones. Sus valores pueden ser determinados aplicando ciertas reglas sintacticas hasta obtener lo 	que se dice su forma normal, una expresión que, a falta de reglas, no puede ser reducida de ninguna manera. En nuestro caso, estamos estudiando cálculo lambda tipado, es decir que habrá expresiones que, a pesar de estar bien formadas, no tendrán sentido.
+El cálculo lambda es un modelo de computación turing completo basado en \textbf{funciones} introducido por \textbf{Alonzo Church}. Este modelo consiste en un conjunto de expresiones que representan abstracciones (aplicaciones de funciones) y cuyos valores pueden ser determinados aplicando ciertas reglas sintácticas de manera iterativa hasta obtener lo	que se dice su forma normal. Ésta es una expresión que, a falta de reglas, no puede ser reducida de ninguna manera. En nuestro caso, estamos estudiando cálculo lambda tipado, es decir que habrá expresiones que, a pesar de estar bien formadas, no tendrán sentido.
 
 % TODO https://en.wikipedia.org/wiki/Hindley%E2%80%93Milner_type_system
 
 \subsection{Expresiones de Tipos de \texorpdfstring{$\lambda^b$}{lambda b}}
-El primer lenguaje lambda que usamos en la materia tiene dos \textbf{tipos} $Bool$ y $\sigma\rightarrow\theta$ que son los tipos de los valores booelanos y las funciones que van de un tipo $\sigma$ a un tipo $\theta$, respectivamente. Lo notamos:
+El primer lenguaje lambda que usamos en la materia tiene dos \textbf{tipos} $Bool$ y $\sigma\rightarrow\theta$ que son los tipos de los valores booleanos y las funciones que van de un tipo $\sigma$ a un tipo $\theta$, respectivamente. Y lo notamos:
 \begin{equation*}
 	\sigma,\theta ~::=~ Bool ~|~ \sigma\rightarrow\theta
 \end{equation*}
 
 \subsubsection{Términos de \texorpdfstring{$\lambda^b$}{lambda b}}
-Ahora debemos definir los \textbf{términos} que nos permitirán escribir las expresiones válidas del tipado. Sea $\mathcal{X}$ un conjunto infinito enumerable de variables y $x\in\mathcal{X}$. Los \textbf{términos} de $\lambda^b$ están dados por:
+Debemos definir los \textbf{términos} que nos permitirán escribir las expresiones válidas del tipado. Sea $\mathcal{X}$ un conjunto infinito enumerable de variables y $x\in\mathcal{X}$. Los \textbf{términos} de $\lambda^b$ están dados por:
 
 \begin{equation*}
 	\begin{split}
@@ -52,14 +51,13 @@ Definimos la función $FV$ (free variables) que devuelve el conjunto de variable
 \end{equation*}
 
 \subsubsection{Reglas de sustitución}
-
-Una de las operaciones que podemos realizar sobre las expresiones del lenguaje es la \textbf{sustitución}. Dado un término $M$ sustituye todas las ocurrencias \textbf{libres} de una variable $x$ en dicho término por un término $N$. La notamos:
+Una de las operaciones que podemos realizar sobre las expresiones del lenguaje es la \textbf{sustitución}. Dado un término $M$, sustituye todas las ocurrencias \textbf{libres} de una variable $x$ por un término $N$. La notamos:
 
 $$\replaceBy{M}{x}{N}$$
 
 Esta operación nos sirve para darle semántica a la aplicación de funciones y es sencilla de definir, sin embargo debemos tener en cuenta algunos casos especiales.
 
-\paragraph{$\alpha$-equivalencia} Dos terminos $M$ y $N$ que difieren solamente en el nombre de sus variables ligadas se dicen $\alpha$-equivalentes. Esta relación es una relación de equivalencia. Técnicamente, la sustitución está definida sobre clases de $\alpha$-equivalencia de términos
+\paragraph{$\alpha$-equivalencia} Dos términos $M$ y $N$ que difieren solamente en el nombre de sus variables ligadas se dicen $\alpha$-equivalentes. Esta relación es una relación de equivalencia. Técnicamente, la sustitución está definida sobre clases de $\alpha$-equivalencia de términos
 
 
 \paragraph{Captura de variables}\label{calculo_lambda:captura_variables} El primer problema se da cuando la sustitución que deseamos realizar sustituye una variable por otra con el mismo nombre que alguna de las variables ligadas de la expresión. Por ejemplo:
