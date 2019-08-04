@@ -302,12 +302,13 @@ Para todo $M$ existe una forma normal $N$ tal que $M\twoheadrightarrow N$
 \subsection{Semántica operacional de \texorpdfstring{$\lambda^b$}{lambda b}}
 En la sección \ref{calculo_lambda:semantica:booleanas} definimos el comportamiento de las expresiones booleanas, sin embargo, nos falta definir como reducir términos del tipo $\lambdaAbs{x}{\sigma}{M}$ y $\lambdaApp{M}{N}$.
 
-Lo primero a tener en cuenta, es que vamos a considerar a los términos de $\lambdaAbs{x}{\sigma}{M}$ como valores, sin si $M$ es reducible o nó. Entonce, nuestro conjunto de valores del lenguaje sería:
+Vamos a considerar a los términos de $\lambdaAbs{x}{\sigma}{M}$ como valores, sea $M$ reducible o no. Entonces, nuestro conjunto de valores del lenguaje sería:
 
 $$ V  ~::=~ true~|~false~|~\lambdaAbs{x}{\sigma}{M}$$
 
-Por lo que todo término bien tipado y cerrado (sin variables libres) evalúa a alguna de estos términos. Si es de tipo $Bool$ evalúa a $true$ o $false$, si es de tipo $\sigma\to\tau$ evalúa a $\lambdaAbs{x}{\sigma{M}}$
-A las reglas y axiomas definidos para los tipos booleanos agregamos los siguientes:
+Por lo que todo término bien tipado y cerrado (sin variables libres) evalúa a alguna de estos términos. Si es de tipo $Bool$ evalúa a $true$ o $false$, si es de tipo $\sigma\to\tau$ evalúa a $\lambdaAbs{x}{\sigma{M}}$.
+
+A las reglas de reducción agregamos los siguientes ($V$ y $V_1$ son expresiones atómicas):
 
 \begin{equation*}
 	\frac{M_1\to M'_1}{\lambdaApp{M_1}{M_2} \to 
@@ -326,29 +327,35 @@ A las reglas y axiomas definidos para los tipos booleanos agregamos los siguient
 
 \paragraph{Estado de error} Es un estado que \textbf{no es} un valor pero en el que la computación está trabada. Representa el estado en el cual el sistema de runtime de una implementación real generaría una excepción.
 
-El sistema de tipado, nos garantiza que si un término cerrado está bien tipado entonces evalúa a un valor.
+El sistema de tipado nos garantiza que si un término cerrado está bien tipado entonces evalúa a un valor.
 
 
 \paragraph{Corrección}
 La corrección de un término nos asegura dos cosas:	\textbf{Progreso} y \textbf{Preservación}.
 
-El \textbf{progreso} asegura que si $M$ es un término cerrado y bien tipado, entonces $M$ es un valor o existe $M'$ tal que $M\to M'$. En otras palabras, nos asegura que la evaluación no puede trabarse para términos cerrados y bien tipados que no son valores. Y si un programa termina, entonces nos devuelve un valor.
+\begin{itemize}
+	\item \textbf{Progreso:} Si $M$ es un término cerrado y bien tipado entonces $M$ es un valor o existe $M'$ tal que $M\to M'$. En otras palabras, la evaluación no puede trabarse para términos cerrados y bien tipados que no son valores. Además, si un programa termina entonces nos devuelve un valor.
+	
+	\item \textbf{Preservación:} La evaluación de un término $M$ cerrado y bien tipado preserva tipos. Es decir, no importa cuanta veces se reduzca $M$, el término resultante siempre es del tipo original.
+	$$\text{Si } \judgeType{\Gamma}{M}{\sigma} \text{ y } M\to N \text{ entonces } \judgeType{\Gamma}{N}{\sigma}$$	
+\end{itemize}
 
-La \textbf{preservación} asegura que la evaluación de un término $M$ cerrado y bien tipado preserva tipos. Es decir, no importa cuanta veces se reduzca $M$, el término resultante siempre es del tipo original.
 
-$$\text{Si } \judgeType{\Gamma}{M}{\sigma} \text{ y } M\to N \text{ entonces } \judgeType{\Gamma}{N}{\sigma}$$	
 
 \paragraph{Extendiendo el lenguaje}
-Cuando queramos extender el lenguaje, debemos realizar los mismos pasos que realizamos para definir el lenguaje $\lambda^b$, esto es decir, agregar el nuevo tipo al conjunto de tipos, definir los términos de ese tipo, sus reglas de tipado y sus reglas semánticas, asegurándonos de que las nuevas reglas no interfieran con las ya definidas. Esto es, no debemos definir reglas que las contradigan o que den nuevas formas de inferir algo que ya se podía inferir con otras reglas.
+Para extender el lenguaje debemos realizar los mismos pasos que realizamos para definir el lenguaje $\lambda^b$. Esto es:
+\begin{enumerate}
+	\item Agregar el nuevo tipo al conjunto de tipos.
+	\item Definir los términos de ese tipo.
+	\item Definir reglas de tipado y de semántica asegurandonos de que no interfieran con las ya definidas (no deben contradecir, ni crear nuevas formas de inferir algo que ya podía ser inferido). En el apéndice de extensiones hay algunos ejemplos.
+\end{enumerate}
 
-En el apéndice de extensiones, muestro algunas extensiones que servirán como ejemplo.
-
-
-\paragraph{Macros} Hay expresiones del lenguaje que usaremos con demasiada frecuencia, para estas expresiones podremos definir macros que simplificaran su escritura. Algunos ejemplos son:
+\paragraph{Macros} Hay expresiones del lenguaje que usaremos con demasiada frecuencia, a estas expresiones les asignamos macros (\textbf{nombres}) que podremos usar en otras expresiones para evitar escribirlas.
 
 $$Id_{Bool} \equalDef \lambdaAbs{x}{Bool}{x}$$
 $$and \equalDef \lambdaAbs{x}{Bool}{\lambdaAbs{y}{Bool}{\lambdaIf{x}{y}{false}}}$$
 
+La expresión $\lambdaApp{Id_{Bool}}{true}$ equivale a $\lambdaApp{(\lambdaAbs{x}{Bool}{x})}{true}$.
 \subsection{Extensión Naturales (\texorpdfstring{$\lambda^{bn}$}{lambda bn})}
 
 \paragraph{Tipos}
@@ -359,9 +366,9 @@ $$ M~::=~ \dots~|~0~|~succ(M)~|~pred(M)~|~isZero(M) $$
 
 Los términos significan:
 \begin{itemize}
-	\item $succ(M)$: evaluar $M$ hasta arrojar un número e incrementarlo.
-	\item $pred(M)$: evaluar $M$ hasta arrojar un número y decrementar.
-	\item $iszero(M)$: evaluar $M$ hasta arrojar un número, luego retornar $true/false$ según sea cero o no.
+	\item $succ(M)$: Sucesor del valor que representa $M$.
+	\item $pred(M)$: Predecesor del valor que representa $M$.
+	\item $iszero(M)$: Indica si $M$ es equivalente a cero o no.
 \end{itemize}
 
 \paragraph{Axiomas y reglas de tipado}
@@ -380,7 +387,7 @@ Los términos significan:
 \end{equation*}
 
 \paragraph{Valores}
-$$V~::=~\dots~|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^n(0)$$
+$$V~::=~\dots~|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^n(0) \text{ (aplicar $n$ veces $succ$ a $0$) }$$
 
 \paragraph{Axiomas y reglas de evaluación}
 
@@ -407,11 +414,14 @@ $$V~::=~\dots~|~\underline{n}\text{ donde } \underline{n} \text{ abrevia } succ^
 
 
 \subsection{Simulación de lenugajes imperativos}
-Los lenguajes imperativos se caracterizan por su capacidad de asignar y modificar variables dentro de un programa. Esto lo hace a través de comandos, expresiones del lenguaje cuyo objetivo es crear un efecto sobre el estado de la computadora. 
+Los lenguajes imperativos se caracterizan por su capacidad de asignar y modificar variables dentro de un programa.
+
+\paragraph{Comandos:} Expresiones del lenguaje cuyo objetivo es crear un efecto sobre el estado de la computadora. 
 
 Queremos extender el lenguaje $\lambda$ para que poder simular comandos y efectos sobre la memoria.
 
-En un lenguaje imperativo \textbf{todas} las variables son \textbf{mutables}, es decir, que hay operaciones que pueden modificar su valor. Para lograr esto, hace uso de tres operaciones básicas:
+\subsubsection{Operaciones básicas}
+En un lenguaje imperativo \textbf{todas} las variables son \textbf{mutables}. Definimos tres operaciones básicas para modificar variables:
 
 \begin{itemize}
 	\item \textbf{Asignación:} $x := M$ almacena en la referencia $x$ el valor de $M$
@@ -424,13 +434,7 @@ Notemos que una vez que agreguemos estas expresiones al lenguaje lambda, este de
 
 Nos gustaría agregar las expresiones mencionadas a nuestro lenguaje, para esto primero debemos asignarles un tipo. 
 
-\paragraph{Asignacion} Lo primero que debemos tener en cuenta, es que la igualdad ($x := M$) es una expresión de la cual no nos interesa saber su valor sino el efecto que tiene la misma sobre el contexto. Entonces, debemos definir un nuevo tipo que nos permita identificar cuando una expresión evaluada solo fue evaluada para generar un efecto. Nombraremos este tipo $Unit$ y su conjunto de valores será solo el valor $unit$. Podemos decir que este tipo cumple el rol de $void$ en C.
-
-\paragraph{Macro punto y coma ( ; )} En lenguajes con efectos laterales, como el que estamos definiendo, esta macro nos servirá para definir el orden de evaluación de varias expresiones en \textbf{secuencia}.
-
-$$M_1;M_2 \equalDef \lambdaApp{(\lambdaAbs{x}{Unit}{M_2})}{M_1} \hspace*{5mm} x\notin FV(M_2)$$
-
-Por como definimos las reglas semánticas del lenguaje, esto significa que primero se evalúa $M_1$ y luego $M_2$. 
+\paragraph{Asignacion} La igualdad ($x := M$) es una expresión de la cual no nos interesa saber su valor sino el efecto que tiene la misma sobre el contexto. Debemos definir un nuevo tipo que nos permita identificar cuando una expresión solo fue evaluada para generar un efecto. Nombraremos este tipo $Unit$ y su conjunto de valores será solo el valor $unit$. Podemos decir que este tipo cumple el rol de $void$ en C.
 
 \subsubsection{Extensión con Referencias (\texorpdfstring{$\lambda^{bnu}$}{lambda bnu})}
 
@@ -439,24 +443,25 @@ Por como definimos las reglas semánticas del lenguaje, esto significa que prime
 \paragraph{Referencias}
 Una referencia es una abstracción de una porción de memoria que se encuentra en uso. Usaremos el tipo $Ref~\sigma$ para diferenciar las expresiones que representan referencias. 
 
-\paragraph{Representación}
-Representaremos las posiciones con \textbf{direcciones simbólicas} o \textit{locations} usando etiquetas $l,l_1$ y definiremos a la \textbf{memoria} o \textit{store} como una función parcial $\mu$ que dada una dirección nos devuelve el valor almacenado en ella. Y notaremos:
+\paragraph{Direcciones de memoria:} Representaremos cada posicion con \textbf{direcciones simbólicas} o \textit{locations} usando etiquetas $l,l_1$.
+
+\paragraph{Memoria o \textit{store}:} La definimos como una función parcial $\mu$ que dada una dirección nos devuelve el valor almacenado en ella. Y notaremos:
 \begin{itemize}
 	\item $\mu[l\to V]$ es el store resultante de \textbf{pisar} $\mu(l)$ con $V$.
 	\item $\mu\oplus(l\to V)$ es el \textbf{store extendido} resultante de ampliar $\mu$ con una nueva asociación $l \to V$ asumiendo que $l \notin Dom(\mu)$.    
 \end{itemize}
 
-\paragraph{Uso en semántica} Ahora necesitamos una forma de usar estas nuevas definiciones en nuestras evaluaciones, por lo que agregaremos las etiquetas al conjunto de valores y, a partir de ahora, los juicios de evaluación, tendrán la siguiente forma: 
+\paragraph{Uso en semántica} Agregaremos las etiquetas al conjunto de valores y, a partir de ahora, los juicios de evaluación, tendrán la siguiente forma: 
 $$M|\mu \to M'|\mu'$$
 Esto significa que una expresión $M$ reduce a $M'$ y que afecta a $\mu$ de tal forma que pasa a ser $\mu'$, así reflejaremos los cambios de estado de la memoria.
 
 Notemos que, a pesar de que agregamos las etiquetas $l$ como términos y valores, estás son solo producto de la formalización y \textbf{no} se pretende que sean usadas por el programador.
 
-\paragraph{Uso en tipado} Con la posibilidad de modificar la memoria durante la ejecución de un programa, se hace necesaria la definición de un contexto que nos permita inferir el tipo del valor almacenado en las posiciones usadas. Introducimos el \textbf{contexto de tipado} $\Sigma$ para direcciones como una función parcial de direcciones a tipos. Y los juicios de tipado serán de la siguiente forma:
+\paragraph{Uso en tipado} Con la posibilidad de modificar la memoria durante la ejecución de un programa, se hace necesaria la definición de un contexto que nos permita inferir el tipo del valor almacenado en las posiciones usadas. Introducimos el \textbf{contexto de tipado} $\Sigma$ para direcciones como una función parcial que toma direcciones y devulve nombres de tipos. Los juicios de tipado serán de la siguiente forma:
 
 $$\judgeType{\Gamma|\Sigma}{M}{\sigma}$$
 
-Indicando esto, que $M$ es de tipo $\sigma$ en el contexto $\Gamma$ cuando el estado de la memoria se corresponde con el contexto de tipado $\Sigma$.
+Indicando que $M$ es de tipo $\sigma$ en el contexto $\Gamma$ cuando el estado de la memoria se corresponde con el contexto de tipado $\Sigma$.
 
 \subsubsection{La extension}
 
@@ -481,7 +486,7 @@ $$ M~::=~ \dots~|~unit~|~\lambdaRef{M}~|~!M~|~\lambdaAssign{M}{N}~|~    l$$
 \end{equation*}
 \vspace*{5mm}
 \begin{equation*}
-	\frac{\Sigma(l) = \sigma}{\judgeType{\Gamma|Signa}{l}{Ref~\sigma}}(\text{T-Loc})
+	\frac{\Sigma(l) = \sigma}{\judgeType{\Gamma|\Sigma}{l}{Ref~\sigma}}(\text{T-Loc})
 \end{equation*}
 
 \paragraph{Valores}
@@ -493,7 +498,7 @@ $$V~::=~\dots~|~unit~|~l$$
 \end{equation*}
 \vspace*{5mm}
 \begin{equation*}
-	\frac{}{(\lambdaApp{\lambdaAbs{x}{\sigma}{M})}{\lambdaValue{V}}|\mu\to \replaceBy{M}{x}{\lambdaValue{V}}|\mu'}(\text{E-AppAbs})
+	\frac{}{(\lambdaApp{\lambdaAbs{x}{\sigma}{M})}{\lambdaValue{V}}|\mu\to \replaceBy{M}{x}{\lambdaValue{V}}|\mu}(\text{E-AppAbs})
 \end{equation*}
 \vspace*{5mm}
 \begin{equation*}
@@ -518,23 +523,38 @@ $$V~::=~\dots~|~unit~|~l$$
 	\frac{l\notin Dom(\mu)}{\lambdaRef{\lambdaValue{V}}|\mu\to l|\mu\oplus(l\to \lambdaValue{V})}(\text{E-RefV})
 \end{equation*}
 
+\paragraph{Macro punto y coma ( ; )} En lenguajes con efectos laterales, como el que estamos definiendo, esta macro nos servirá para definir el orden de evaluación de varias expresiones en \textbf{secuencia}.
+
+$$M_1;M_2 \equalDef \lambdaApp{(\lambdaAbs{x}{Unit}{M_2})}{M_1} \hspace*{5mm} x\notin FV(M_2)$$
+
+Por como definimos las reglas semánticas del lenguaje, esto significa que primero se evalúa $M_1$ y luego $M_2$. 
+
+
 \subsubsection{Correción de tipos en un lenguaje con referencias}
-Al agregar referencia, hay consecuencias. Una de ellas es que no todo término cerrado y bien tipado termina. Por lo que debemos reformular las definiciones de corrección del lenguaje, es decir, debemos indicar que significa el \textbf{progreso} y la \textbf{preservación} cuando hay referencias.
+Debemos reformular las definiciones de corrección del lenguaje, es decir, debemos indicar que significa el \textbf{progreso} y la \textbf{preservación} cuando hay referencias.
 
-\subsubsection{Preservación} La preservación nos aseguraba que no importa cuantas veces reduzcamos una expresión, esta debería mantener su tipo. Sin embargo, con las asignaciones podemos cambiar el tipo de ciertos valores durante la ejecución de un programa, lo que implica que la expresión podria cambiar su tipo. Para definir la preservación precisamos una noción de compatibilidad entre el store y el contexto de tipado que nos permita asegurar que si los valores no cambian su tipo, entonces la expresión mantiene su tipo.
+\subsubsection{Preservación} La preservación nos aseguraba que no importa cuantas veces reduzcamos una expresión, esta debería mantener su tipo. Con las asignaciones podemos cambiar el tipo de ciertos valores durante la ejecución de un programa, lo que implica que la expresión podria cambiar su tipo. Para definir la preservación precisamos una noción de compatibilidad entre el store y el contexto de tipado que nos permita asegurar que si los valores no cambian su tipo, entonces la expresión lo mantiene.
 
-Decimos que $\Gamma|\Sigma\triangleright\mu$ si y solo si $Dom(\Sigma) = Dom(\mu)$ y $\judgeType{\Gamma|Sigma}{\mu(l)}{\Sigma(l)}$ para todo $l\in Dom(\mu)$. Es decir, $\mu$ es compatible con $\Sigma$ si ambas funciones tiene el mismo dominio, y es cierto que los tipos de cada etiqueta de $\mu$ coinciden con los tipos que se les asignó en $\Sigma$.
+\paragraph{Compatibilidad:}
+Diremos que $\mu$ es compatible con $\Sigma$ ($\Gamma|\Sigma\triangleright\mu$) si ambas funciones tiene el mismo dominio, y los tipos de cada etiqueta de $\mu$ coinciden con los tipos que se les asignó en $\Sigma$.
 
-Entonces definimos la preservación de la siguiente manera:
-\begin{centrado}
-	\textbf{Si}  $\judgeType{\Gamma|\Sigma}{M}{\sigma}$ y $M|\mu\to N|\mu'$ y $\Gamma|\Sigma\triangleright\mu$ \textbf{entonces existe un} $\Sigma'$ \textbf{que contiene a} $\Sigma$\textbf{ tal que} $\judgeType{\Gamma|\Sigma'}{N}{\sigma}$ y $\Gamma|\Sigma'\triangleright\mu'$
-\end{centrado}
+$$ \Gamma|\Sigma\triangleright\mu  \iff Dom(\Sigma) = Dom(\mu) \land (\forall~\mu)~\judgeType{\Gamma|\Sigma}{\mu(l)}{\Sigma(l)}$$
 
-La nueva definición nos dice que dada una expresión $M$ de tipo $\sigma$ y un contexto $\Gamma\Sigma$ compatible con $\mu$, si pasa que cuando reducimos $M|\mu\to N|\mu'$, $mu'$ es compatible con $\Sigma'$, entonces la reducción tendrá el mismo tipo que $M$.
+\paragraph{Preservación:} Dada una expresión $M$ tal que
+\begin{itemize}
+	\item $\judgeType{\Gamma|\Sigma}{M}{\sigma}$, 
+	\item $M|\mu\to N|\mu'$ y
+	\item $\Gamma|\Sigma\triangleright\mu$
+\end{itemize}
+entonces existe un 	$\Sigma'$ que contiene a $\Sigma$ tal que:
+\begin{itemize}
+	\item $\judgeType{\Gamma|\Sigma'}{N}{\sigma}$ y
+	\item $\Gamma|\Sigma'\triangleright\mu'$
+\end{itemize}
 
 Para que $\mu'$ sea compatible con $\Sigma'$ puede haber dos posibilidad: O qué $\mu' = \mu$ y $\Sigma = \Sigma'$ o qué $\mu'$ sea una extensión de $\mu$, es decir que se haya creado una referencia nueva, en cuyo caso ninguno de los tipos fue modificado y $\Sigma'$ es $\Sigma$ extendido con el tipo de la nueva referencia.
 
-\subsubsection{Progreso} El progreso nos aseguraba que dada una expresión, entonces su ejecución termina en un valor o no termina. Para el nuevo lenguaje, hay que tener en cuenta el contexto de tipado:
+\subsubsection{Progreso} El progreso asegura que dada una expresión, su ejecución termina en un valor o no termina. Para el nuevo lenguaje, hay que tener en cuenta el contexto de tipado:
 
 \begin{centrado}
 	Si $M$ es cerrado y bien tipado en un contexto de tipado de memoria $\Sigma$, entonces
@@ -547,11 +567,8 @@ Para que $\mu'$ sea compatible con $\Sigma'$ puede haber dos posibilidad: O qué
 Esto quiere decir que solo se puede asegurar progreso cuando $\mu$ es compatible con $\Sigma$.
 
 \subsection{Extensión con recursión}\label{lambda_calculo:recursion}
-Queremos dar al lenguaje $\lambda$, la capacidad de interpretar expresiones recursivas. Definimos, entonces, la función $fix M$ que dado para función $M$ devuelve el punto fijo de dicha función, es decir, un valor $x$ tal que $M x$ evalúa a $x$.
-
-Veamos un ejemplo, supongamos que tenemos la función $f(n) = \textbf{If } n=0 \textbf{ then } 1 \textbf{ else } n*f(n-1)$. Cuando evaluamos $f$ en $0$, obtenemos su definición para el valor $O$, cuando la evaluamos en $1$, la definimos para $0$ y $1$, con cada valor que tengamos, la iremos definiendo para ese valor y para todos los anteriores. 
-
-Podríamos pensar que cuando evaluamos $n\to\inf$, obtenemos una función que se define para todos los valores naturales, es decir obtenemos la función factorial, propiamente dicha.
+Queremos dar al lenguaje $\lambda$ la capacidad de interpretar expresiones recursivas. 
+Definimos la función $fix~M$ que, dada una función $M$, devuelve su punto fijo, es decir, un valor $x$ tal que $M~x$ evalúa a $x$.
 
 \paragraph{Términos}
 $$M~:=~\dots~|~\lambdaFix{M}$$
@@ -569,3 +586,18 @@ $$M~:=~\dots~|~\lambdaFix{M}$$
 \begin{equation*}
 	\frac{}{\lambdaFix{(\lambdaAbs{x}{\sigma}{M})}\to\replaceBy{M}{x}{\lambdaFix{\lambdaAbs{x}{\sigma}{M}}}}(\text{E-FixBeta})
 \end{equation*}
+
+\paragraph{Ejemplo:} Queremos expresar la función factorial:
+$$f(n) = \textbf{If } n=0 \textbf{ then } 1 \textbf{ else } n*f(n-1)$$
+
+Lo logramos con:
+$$fact = \lambdaFix{\lambdaAbs{f}{Nat\rightarrow Nat}{(\lambdaAbs{x}{\text{Nat}}{\lambdaIf{isZero(x)}{1}{x*(\lambdaApp{f}{pred(x)})}})}}$$
+
+De adentro hacia afuera:
+\begin{itemize}
+	\item La abstracción $\lambda x$ toma un natural y devuelve un natural. Si $x$ es cero, entonces devuelve $1$, sino $x*(f~pred(x))$. En esta expresión $f$ es una variable libre, puede ser cualquier cosa.
+	\item La abstracción $\lambda f$ liga $f$ a una función $Nat\to Nat$ y nos permite \textit{parametrizarla}. Osea que $f$ podría ser, por ejemplo, $(\lambdaAbs{y}{Nat}{succ(y)})$ y en ese caso estariamos devolviendo el mismo $x$.
+	\item Por último $fix$, nos dice que la función $f$ debe ser $fact$.
+\end{itemize}
+
+Notemos que $fact$ es una abstracción que toma un $Nat$ y devuelve un $Nat$. Esto es porque $fix$ \textit{aplica} $fact$ a $\lambda f$, lo que devuelve $\lambda x$ con $f$ remplazado por $fact$.
