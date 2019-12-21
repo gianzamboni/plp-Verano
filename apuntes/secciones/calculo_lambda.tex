@@ -92,21 +92,21 @@ El árbol sintáctico de $true$ es:
 
 El árbol sintáctico de $\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$ es:
 
-\begin{center}
-	\begin{forest} tikzQtree,
-		[$\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$, 
-		[$x$]
-		[$y$]
-		[$\lambdaAbs{z}{Bool}{z}$
-		[$z$]
-		]
-		]
-	\end{forest}
-\end{center}
+
 
 \subsection{Sistema de tipado}
 El sistema de tipado es un sistema formal de deducción (o derivación) que utiliza axiomas y reglas de tipado para caracterizar un subconjunto de los términos. A estos términos los llamamos \textbf{términos tipados}.
-
+\begin{center}
+	\begin{forest} tikzQtree,
+		[$\lambdaIf{x}{y}{\lambdaAbs{z}{Bool}{z}}$, 
+			[$x$]
+			[$y$]
+			[$\lambdaAbs{z}{Bool}{z}$
+				[$z$]
+			]
+		]
+	\end{forest}
+\end{center}
 Para que una expresión sea considerada válida dentro de un lenguaje no solo debe ser sintácticamente correcta sino que debemos poder inferir su tipo a través del sistema de tipado que definamos. Si no es posible realizar esta inferencia entonces no la consideraremos una expresión válida del lenguaje.
 
 \paragraph{Contexto de tipado:} Conjunto de pares $x_i:\sigma_i$ que indica los tipos de cada variable de un programa. Por lo general, se nota  $\Gamma = \{x_1:\sigma_1, \dots, x_n:\sigma_n\}$.
@@ -451,11 +451,11 @@ Una referencia es una abstracción de una porción de memoria que se encuentra e
 	\item $\mu\oplus(l\to V)$ es el \textbf{store extendido} resultante de ampliar $\mu$ con una nueva asociación $l \to V$ asumiendo que $l \notin Dom(\mu)$.    
 \end{itemize}
 
-\paragraph{Uso en semántica} Agregaremos las etiquetas al conjunto de valores y, a partir de ahora, los juicios de evaluación, tendrán la siguiente forma: 
+\paragraph{Uso en semántica} Agregaremos las etiquetas al conjunto de valores y, a partir de ahora, los juicios de evaluación tendrán la siguiente forma: 
 $$M|\mu \to M'|\mu'$$
 Esto significa que una expresión $M$ reduce a $M'$ y que afecta a $\mu$ de tal forma que pasa a ser $\mu'$, así reflejaremos los cambios de estado de la memoria.
 
-Notemos que, a pesar de que agregamos las etiquetas $l$ como términos y valores, estás son solo producto de la formalización y \textbf{no} se pretende que sean usadas por el programador.
+Notemos que, a pesar de que agregamos las etiquetas $l$ como términos y valores, estas son solo producto de la formalización y \textbf{no} se pretende que sean usadas por el programador.
 
 \paragraph{Uso en tipado} Con la posibilidad de modificar la memoria durante la ejecución de un programa, se hace necesaria la definición de un contexto que nos permita inferir el tipo del valor almacenado en las posiciones usadas. Introducimos el \textbf{contexto de tipado} $\Sigma$ para direcciones como una función parcial que toma direcciones y devulve nombres de tipos. Los juicios de tipado serán de la siguiente forma:
 
@@ -482,7 +482,7 @@ $$ M~::=~ \dots~|~unit~|~\lambdaRef{M}~|~!M~|~\lambdaAssign{M}{N}~|~    l$$
 \end{equation*}
 \vspace*{5mm}
 \begin{equation*}
-	\frac{\judgeType{\Gamma|\Sigma}{M_1}{Ref~\sigma}\hspace*{5mm}\judgeType{\Gamma|\Sigma}{M_2}{\sigma}}{\judgeType{\Gamma}{\lambdaAssign{M_1}{M_2}}{Unit}}(\text{T-Assing})
+	\frac{\judgeType{\Gamma|\Sigma}{M_1}{Ref~\sigma}\hspace*{5mm}\judgeType{\Gamma|\Sigma}{M_2}{\sigma}}{\judgeType{\Gamma}{\lambdaAssign{M_1}{M_2}}{Unit}}(\text{T-Assign})
 \end{equation*}
 \vspace*{5mm}
 \begin{equation*}

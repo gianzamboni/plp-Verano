@@ -1,16 +1,20 @@
 \section{Objetos y el modelo de cómputo}
 
-En el parádigma orientado a objetos, todo programa es una simulación representada por una entidad u \textbf{objeto} que asocia los objetos físicos o conceptuales de un dominio del mundo real en objetos del dominio del programa. Estos objetos tienen las características y capacidades del mundo real que nos interesa modelar y se comunican entre si a través de intercambios de mensajes.
+En el parádigma orientado a objetos, todo programa es una simulación representada por una entidad u \textbf{objeto} que asocia los objetos físicos o conceptuales de un dominio del mundo real en objetos del dominio del programa. Estos objetos tienen las características y capacidades del mundo real que nos interesa modelar y se comunican, entre si, a través de intercambios de mensajes.
 
-Los mensajes intercambiados son solicitudes para que el objeto \textbf{receptor} del mismo lleve a cabo una de sus operaciones. El \textbf{receptor} determinara si puede llevar a cabo dicha operación y, si puede hacerlo la ejecutará.
+Los mensajes intercambiados son solicitudes para que, el objeto \textbf{receptor} del mismo, lleve a cabo una de sus operaciones. El \textbf{receptor} determinara si puede llevarla a cabo y, si puede hacerlo la ejecutará.
 
 \subsection{Objetos}
-Entonces un objeto es una entidad del programa que puede recibir un conjunto de mensajes (al que llamaremos \textbf{interfaz} o \textbf{protocolo}) que le permiten determinar como llevar a cabo ciertas operaciones. Internamente, estará compuesto por un conjunto de \textbf{colaboradores internos} (tambien llamados \textbf{atributos} o \textbf{variables internas}) que determinan su \textbf{estado interno} y por un conjunto de \textbf{métodos} que describen (implementan) las operaciones que puede realizar y, si estas afectan a su estado interno, como lo hacen.
+Un objeto es una entidad del programa que puede recibir un conjunto de mensajes (al que llamaremos \textbf{interfaz} o \textbf{protocolo}) que le permiten determinar como llevar a cabo ciertas operaciones. Internamente, estará compuesto por: 
+\begin{itemize}
+	\item Un conjunto de \textbf{colaboradores internos} (tambien llamados \textbf{atributos} o \textbf{variables internas}) que determinan su \textbf{estado interno}.
+	\item Un conjunto de \textbf{métodos} que describen (implementan) las operaciones que puede realizar y, si estas afectan a su estado interno, como lo hacen.
+\end{itemize}
 
 \paragraph{Principio de ocultamiento de la información}
-El estado de un objeto es \textbf{privado} y solamente puede ser consultado o modificado por sus propios métodos, por lo que su implementación no depende de los detalles de implementación de otros objetos. Y la única forma que tenemos de interactuar con el mismo es enviándole los mensajes definidos en su interfaz.
+El estado de un objeto es \textbf{privado} y solamente puede ser consultado o modificado por sus propios métodos. Su implementación no depende de los detalles de implementación de otros objetos y la única forma que tenemos de interactuar con él, es enviándole los mensajes definidos en su interfaz.
 
-\paragraph{Method dispatch} Es el método mediante el cuál, un proceso, establece la asociación entre el mensaje y el método a ejecutar. Es decir, cuando un objeto recibe un mensaje, el \textbf{method dispatch} se encarga de hallar la \textbf{declaración del método} que se pretende ejecutar.
+\paragraph{Method dispatch} Es la forma mediante la cuál, un proceso, establece la asociación entre el mensaje y el método a ejecutar. Es decir, cuando un objeto recibe un mensaje, el \textbf{method dispatch} se encarga de hallar la \textbf{declaración del método} que se pretende ejecutar.
 
 \paragraph{Corrientes de organización}
-Por lo general,tratamos de agrupar los objetos en conjuntos compuestos por objetos que se comportan de manera similar para conseguir programas más concisos. Esto se puede hacer de dos formas: Mediante clasifiación o mediante prototipado.
+Por lo general, tratamos de agrupar los objetos en conjuntos compuestos por objetos que se comportan de manera similar para conseguir programas más concisos. Esto se puede hacer de dos formas: Mediante clasifiación o mediante prototipado.

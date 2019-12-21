@@ -1,8 +1,7 @@
 \section{Inferencia de tipos}
+Queremos modificar el lenguaje de cálculo lambda para que las expresiones no necesiten las notaciones de tipos explicitas. Para esto, debemos definir términos a partir de los cuales se pueda \textbf{inferir} la información faltante. Esto es, debemos poder convertirlos en términos bien tipados del cálculo lambda sin ningún problema.
 
-Queremos modificar el lenguaje de cálculo lambda para que las expresiones no necesiten las notaciones de tipos explicitas. Para esto debemos definir términos sin información de tipos en los que la información faltante pueda ser \textbf{inferida} de manera sencilla. Esto es, debemos convertir dichos términos en términos bien tipados del cálculo lambda sin ningún problema.
-
-Este nuevo lenguaje, nos evitará la sobrecarga de tener que declarar y manipular todos los tipos al momento de escribir un programa. Sin embargo, debemos tener en cuenta que, durante la compilación de los mismos, hay que hacer la inferencia de tipos, es decir, el compilador se deberá encargar de pasar el lenguaje que definamos a uno lambda tipado antes de poder compilar el programa.
+Este nuevo lenguaje nos evitará la sobrecarga de tener que declarar y manipular todos los tipos al momento de escribir un programa. Un compilador deberá realizar la inferencia de tipos antes de compilar el program.
 
 \subsubsection*{Términos}
 El lenguaje sin tipos tendrá todos los términos del lenguaje $\lambda$ con el que estuvimos trabajando hasta ahora, con la diferencia de que si en ellos había una notación de tipo, entonces la obviamos:
@@ -16,47 +15,51 @@ El lenguaje sin tipos tendrá todos los términos del lenguaje $\lambda$ con el 
 	\end{split}
 \end{equation*}
 
-Ahora, si bien la mayoría de los términos son iguales a los términos originales, necesitariamos alguna forma de convertir los términos del lambda cálculo a términos no tipados y viceversa. Para el primer caso, definimos la función $\Erase$ que dado un término del lambda cálculo, \textbf{elimina} las anotaciones de tipos de las abstracciones que contenga. Por ejemplos: 
+Si bien la mayoría de los términos son iguales a los originales, necesitaríamos alguna forma de convertir los términos del lambda cálculo a no tipados y viceversa. 
+
+\paragraph{Función Erase:} Dado un término del lambda cálculo, \textbf{elimina} las anotaciones de tipos de las abstracciones que contenga. Por ejemplos: 
 
 $$\Erase(\lambdaAbs{x}{Nat}{\lambdaAbs{f}{Nat\to Nat}{f~x}}) = \lambdaAbsI{x}{\lambdaAbsI{f}{f~x}}$$
 
-\paragraph{Chequeos de tipo}
-Realizar el chequeo de tipo es determinar, para un término estándar (del lenguaje $\lambda$ tipado) $M$, si existe $\Gamma$ y $\sigma$ tales que $\judgeType{\Gamma}{M}{\sigma}$ es derivable. Osea que nos indica si $M$ es un término tipable o no.
+\paragraph{Chequeos de tipo:}
+Realizar el chequeo de tipo es determinar, para un término estándar (del lenguaje $\lambda$ tipado) $M$, si existe $\Gamma$ y $\sigma$ tales que $\judgeType{\Gamma}{M}{\sigma}$ es derivable. Osea que nos indica si $M$ es un término tipable o no. Solo hay que seguir la estructura sintáctica de $M$ para reconstruir una derivación de juicio. 
 
-Este chequeo  es facil de realizar, ya que solo hay que seguir la estructura sintáctica de $M$ para reconstruir una derivación de juicio. 
-
-\subsubsection*{Definición de inferencia}
-En cambio, con la inferencia de tipos, dado un término $U$ sin notaciones de tipo, se trata hallar un término estándar (con anotaciones de tipos) $M$ tal que:
+\subsubsection*{Inferencia de tipos:} Dado un término $U$ sin notaciones de tipo, se trata hallar un término estándar (con anotaciones de tipos) $M$ bien tipado que sea equivalente. Osea tal que:
 \begin{enumerate}
-	\item $\judgeType{\Gamma}{M}{\sigma}$ para algún $\Gamma$ y $\sigma$, y
+	\item $\judgeType{\Gamma}{M}{\sigma}$ para algún contexto $\Gamma$ y algún tipo $\sigma$, y
 	\item $\Erase(M) = U$
 \end{enumerate}
 
-Lo que estamos diciendo es que queremos encontrar una expresión bien tipada $M$ del lenguaje lambda que sea equivalente a $U$. Si encontramos este $M$, $U$ será de tipo $\sigma$, sino $U$ será una expresión no tipable en nuestro lenguaje.
+Si encontramos este $M$, $U$ será de tipo $\sigma$- Sino, $U$ será una expresión no tipable en nuestro lenguaje.
 
 
 \subsubsection{Variables de tipo}
-Supongamos que tenemos la expresión $U = \lambdaAbsI{x}{x}$. En este caso, si queremos tipar $U$, nos damos cuenta que puede ser la función identidad de cualquier tipo. Como cualquiera de estas expresiones es igual de válida necesitamos escribir esto en nuestra solución, para eso usamos las \textbf{variables de tipo}.
-
-Una \textbf{variables de tipo} s es una variable que representa una expresión de tipo arbitraria e indica que no importa por que expresión de tipo la remplacemos, tendremos una solución válida. Esto nos permitirá escribir que la expresión $M$ resultante de inferir los tipos de $U$ será $M=\lambdaAbs{x}{\textbf{s}}{x}$ donde \textbf{s} puede ser cualquier tipo de nuestro lenguaje.
+Una \textbf{variables de tipo} s es una variable que representa una expresión de tipo arbitraria e indica que tendremos una solución válida sin importar por que expresión de tipo la remplacemos.
 
 Debemos agregar esta nueva expresión a las expresiones  de tipo del cálculo lambda:
 
-$$\sigma~::=~\text{s}~|~Nat~|~Bool~|~\sigma\to\tau$$
+$$\sigma,\tau~::=~\text{s}~|~Nat~|~Bool~|~\sigma\to\tau$$
+
+Supongamos que tenemos la expresión $U = \lambdaAbsI{x}{x}$. En este caso, $U$ puede ser la función identidad de cualquier tipo.
+Entonces, la expresión $M=\lambdaAbs{x}{\textbf{s}}{x}$ es el resultado de la inferencia de $U$ (\textbf{s} pudiendo ser cualquier tipo de nuestro lenguaje).
+
 
 
 \subsection{Sustitución de tipos}
-Una función $S$ de sustitución es una función que mapea variables de tipo en expresiones de tipo y puede ser aplicada a expresiones de tipos ($S\sigma$), términos ($SM$) y contextos de tipado ($S\Gamma$).
+Una función $S$ de sustitución es una función que mapea variables de tipo en expresiones de tipo y puede ser aplicada a expresiones de tipos, términos y contextos de tipado.
 
-Describimos $S$ usando la notación $\{\sigma_1/t_1,\dots,\sigma_n/t_n\}$ indicando que la variable $t_i$ debe ser remplazada por $\sigma_1$. Además, definimos el \textbf{conjunto soporte} de $S$ al conjunto $\{t_1,\dots,t_n\}$ como el conjunto que representa las variables que afecta $S$.
+Describimos $S$ usando la notación $\{\sigma_1/t_1,\dots,\sigma_n/t_n\}$. Esto significa que la variable $t_i$ debe ser remplazada por $\sigma_i$.
 
-Por ejemplo, si $S = \{  Bool/t \}$, entonces $S(\lambdaAbs{x}{\text{t}}{x}) = \lambdaAbs{x}{ Bool}{x}$ y el tipo soporte de $S$ es $\{t\}$.
+\paragraph{Conjunto soporte de $S$:} Conjunto $\{t_1,\dots,t_n\}$ que contiene a todas las variables que afecta $S$.
 
-La sustitución cuyo soporte es $\emptyset$, es la \textbf{sustitución identidad}.
+\paragraph{Ejemplos:}
+\begin{itemize}
+	\item Si $S = \{  Bool/t \}$, entonces $S(\lambdaAbs{x}{\text{t}}{x}) = \lambdaAbs{x}{ Bool}{x}$ y el conjunto soporte de $S$ es $\{t\}$.
+	\item La sustitución cuyo soporte es $\emptyset$, es la \textbf{sustitución identidad}
+\end{itemize}
 
-
-\hspace*{5mm}
-Si tenemos dos juicios de tipado $\judgeType{\Gamma}{M}{\sigma}$ y $\judgeType{\Gamma'}{M'}{\sigma'}$ tales que $\judgeType{\Gamma'}{M'}{\sigma'}$ es el resultado de aplicar alguna función de sustitución $S$ a $\judgeType{\Gamma}{M}{\sigma}$, entonces decimos que $\judgeType{\Gamma'}{M'}{\sigma'}$ es instancia de $\judgeType{\Gamma}{M}{\sigma}$
+\paragraph{Instancia de juicio de tipado:}
+Si tenemos dos juicios de tipado $\judgeType{\Gamma}{M}{\sigma}$ y $\judgeType{\Gamma'}{M'}{\sigma'}$ tales que $$S(\judgeType{\Gamma}{M}{\sigma}) = \judgeType{S\Gamma}{SM}{S\sigma} =\judgeType{\Gamma'}{M'}{\sigma'}$$, entonces decimos que $\judgeType{\Gamma'}{M'}{\sigma'}$ es instancia de $\judgeType{\Gamma}{M}{\sigma}$. )
 
 \paragraph{Composición de sustituciones} La composición de sustituciones de $S$ y $T$, denotada $S\circ T$, es la sustitución que se comporta como sigue:
 
@@ -66,27 +69,21 @@ $$(S\circ T)(\sigma) = S(T\sigma)$$
 
 
 \subsubsection{Unificación}
-El algoritmo de inferencia que vamos a proponer analiza un término (sin notaciones de tipos) a partir de sus subtérminos. Una vez obtenida la información para cada uno de los subtérminos debe determinar si la información de cada uno de ellos es consistente (\textbf{consistencia})y, si lo es, sintetizar la información del término original a partir de esta (\textbf{Síntesis}).
+El algoritmo de inferencia que vamos a proponer analiza un término (sin notaciones de tipos) a partir de sus subtérminos. Una vez obtenida la información de cada uno de ellos, debe determinar si es \textbf{consistente} y, si lo es, \textbf{sintetizar} la información del término original a partir de ésta.
 
-Para realizar la síntesis debemos \textbf{compatibilizar} la información de tipos de cada subtérmino, por cada variable $x$ del término tenemos que tomar los tipos que le asigno cada súbtermino y unificarlos. Es decir, debemos encontrar una sustitución $S$ que nos permita remplazar los tipos que dió cada subexpresión por un tipo único. Veamos un ejemplo:
+Para realizar la síntesis, debemos \textbf{compatibilizar} la información de tipos de cada subtérmino. Por cada una de las variables del término, tenemos que tomar los tipos que le asigno cada uno de ellos y \textbf{unificarlos}. Es decir, debemos encontrar una sustitución $S$ que nos permita remplazar los tipos que dió cada subexpresión por un tipo único. 
 
-Sea $M = x~y + x~(y+1)$, del primer súbtermino $x~y$ ténemos que $x :: \text{s}\to \text{t}$ e $y :: \text{s}$, del subtérmino $x~(y+1)$ tenemos que $x::Nat\to \text{u}$ e $y :: Nat$. Ahora, $x$ e $y$ pueden tener un solo tipo en $M$, por lo que necesitamos una sustitución que nos permita unificar $\text{s}\to \text{t}$ con $Nat\to \text{u}$ y $s$ con $Nat$. En este caso podemos definir $S = \{Nat/\text{s},~\text{u}/\text{t}\}$, concluyendo que $x :: Nat\to\text{t}$ e $y:Nat$.
 
 \paragraph{Ecuación de unificación} Es una expresión de la forma $\sigma_1 \equalDot \sigma_2$ cuya solución es una sustitución tal que $S\sigma_1 = S\sigma_2$. Por lo general tendremos un conjunto de ecuaciones de unificación y la solución a dicho conjunto será la sustitución que unifica todas las expresiones.
 
-En el ejemplo anterior, las ecuaciones de unificación hubiesen sido $\{\text{s}\to\text{t}\equalDot Nat\to\text{u},~\text{s}\equalDot Nat\}$
-
-Diremos que una sustitución $S$ es un \textbf{unificador más general (MGU)} de $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$, si es solución de ese conjunto y es más general que cualquier otra de sus soluciones.
-
-
+\paragraph{Unificador más general (MGU):} Una sustitución $S$ que resuelva $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$ y que es más general que cualquier otra sustitución que la resuelva.
 
 \paragraph{Teorema} Si $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$ tiene solución, entonces existe un MGU y además es único salvo renombre de variables.
 
 \subsubsection{Algoritmo de unificación de Martelli-Montanari}
+Es un algoritmo no deterministico que, a través de \textbf{reglas de simplificación}, nos permite reescribir un conjunto de ecuaciones de unificación (\textit{goal}) $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$. 
 
-Dado un conjunto de ecuaciones de unifiación $\{\sigma_1 \equalDot \sigma_1',\dots,\sigma_n \equalDot \sigma_n'\}$, vamos a presentar un algoritmo no-deterministico que consiste en \textbf{reglas de simplificación} que reescriben conjuntos de pares de tipos a unificar (\textit{goals}).
-
-Las secuencias que terminan en un \textit{goal} vacío son \textbf{exitosas}, el resto, son \textbf{fallidas}. Si una secuencia es exitosa, entonces los pasos en los que realizamos sustituciones serán soluciones parciales al problema y la composición de todas ellas será el MGU.
+Si, cuando el algortimo termina, conseguimos  una secuencia de reescrituras que terminan en un \textit{goal} vacío, entonces la corrida fue \textbf{exitosa}, los pasos en los que realizamos sustituciones serán soluciones parciales al \textit{goal} original y la composición de todas ellas será su MGU. Si no sucede esto, entonces la secuencia será \textbf{fallida}.
 
 \subsubsection{Reglas de reducción}
 
@@ -101,7 +98,7 @@ Las secuencias que terminan en un \textit{goal} vacío son \textbf{exitosas}, el
 	$\{ Bool \equalDot Bool\}\cup G\mapsto G$
 	
 	$\{\text{s} \equalDot\text{s}\}\cup G\mapsto G$
-	\item \textbf{Swap} Si $\sigma$ no es una variable,
+	\item \textbf{Swap} Si $\sigma$ no es una variable de tipo,
 	
 	$\{\sigma \equalDot\text{s}\}\cup G\mapsto \{\text{s}\equalDot\sigma\}\cup G$
 	
@@ -109,9 +106,9 @@ Las secuencias que terminan en un \textit{goal} vacío son \textbf{exitosas}, el
 	
 	$\{\text{s}\equalDot\sigma\}\cup G\mapsto_{\sigma/s} G[\sigma/s]$
 	
-	\item \textbf{Falla}
+	\item \textbf{Falla} Sea $T =\{( Bool,Nat), (Nat, \sigma_1\to\sigma_2), ( Bool, \sigma_1\to\sigma_2)\}$ y $T^{-1}$ el conjunto con cada tupla de $T$ invertida. Si $(\sigma,\tau)\in T\cup T^{-1}$:
 	
-	$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$, con $(\sigma,\tau)\in T\cup T^{-1}$ y $T =\{( Bool,Nat), (Nat, \sigma_1\to\sigma_2), ( Bool, \sigma_1\to\sigma_2\}$. Acá, la notación $T^{-1}$ se refiere al conjunto con cada tupla de $T$ invertida.
+	$\{\sigma\equalDot\tau\}\cup G\mapsto \red{\texttt{falla}}$.
 	
 	\item \textbf{Occur Check} Si $s\neq\sigma$ y $s\in FV(\sigma)$
 	
@@ -143,23 +140,26 @@ Entonces, el MGU es
 $\{Nat\to(s\to s)/u\}\circ\{s\to s/r\}\circ\{Nat\to r/t\} = \{Nat\to(s\to s)/u,~s\to s/r,~Nat\to (s\to s)/t\}$
 
 \subsection{Función de inferencia \texorpdfstring{$\mathbb{W}$}{W}}
-Vamos a definir una función $\mathbb{W}$ que dada una expresión $U$ sin notación de tipos, nos devolverá un juicio de tipado con una expresión tipada $M$ que corresponde a $U$. Esta función, la ejecutaremos de manera recursiva sobre las sub-expresiones de $U$ y sustituirá, si es posible, los tipos de cada una de ellas para que tengan ``sentido'' en $U$.
+Dada una expresión $U$ sin notación de tipos, la función $\mathbb{W}$, devolverá un juicio de tipado con una expresión tipada $M$ que corresponde a $U$. Esta función será ejecutada de manera recursiva sobre las sub-expresiones de $U$ y sustituirá, si es posible, los tipos de cada una de ellas para que tengan ``sentido'' en $U$.
 
 
 
 
 \subsubsection{Propiedades deseables de \texorpdfstring{$\WFunc$}{W}}
-Dado un término $U$, $\WFunc(U)$ nos devolverá, si tiene éxito, una terna de tres elementos que serán un contexto de tipado $\Gamma$ una expresión $M$ y un $\sigma$ (notamos $\WFunc(U) = \judgeType{\Gamma}{M}{\sigma}$).
+Dado un término $U$, $\WFunc(U)$ nos devolverá, si tiene éxito, una terna de tres elementos que contendrá un contexto de tipado $\Gamma$ una expresión $M$ y un $\sigma$ (notamos $\WFunc(U) = \judgeType{\Gamma}{M}{\sigma}$).
 
 Queremos que $\WFunc$ sea \textbf{correcto} y \textbf{completo}.
 
-\paragraph{Correctitud} $\WFunc(U) = \judgeType{\Gamma}{M}{\sigma}$ implica que $\Erase(M) = U$ y $\judgeType{\Gamma}{M}{\sigma}$ es derivable. Osea que $M$ es una expresión de tipo $\sigma$ en un contexto $\Gamma$ tal que si le borramos las notaciones de tipo, se convierte en $U$.
+\paragraph{Correctitud} Si $\WFunc(U) = \judgeType{\Gamma}{M}{\sigma}$ entonces vale que:
+\begin{itemize}
+	\item $\Erase(M) = U$ y
+	\item $\judgeType{\Gamma}{M}{\sigma}$ es derivable.
+\end{itemize}
 
-\paragraph{Completitud} Si $\judgeType{\Gamma}{M}{\sigma}$ es derivable y $\Erase(M) = U$, entonces:
-$\WFunc(U)$ tiene éxito y produce un juicio $\judgeType{\Gamma'}{M'}{\sigma'}$ que es instancia del mismo. En otras palabras, si $U$ se puede obtener a partir de una expresión $M$, entonces $\WFunc$ deberá devolver el juicio de tipado que corresponde a $M$ o uno más general (esto es con variables de tipos, si resulta que $U$ podría ser de otros tipos).
+\paragraph{Completitud} Si $\judgeType{\Gamma}{M}{\sigma}$ es derivable y $\Erase(M) = U$ entonces $\WFunc(U)$ tiene éxito y produce un juicio $\judgeType{\Gamma'}{M'}{\sigma'}$ que es instancia de $\judgeType{\Gamma}{M}{\sigma}$. 
 
 \subsubsection{Algoritmo de inferencia}
-El objetivo es definir $\WFunc$ por recursión sobre la estructura de $U$, por lo que definirla, primero, para las construcciones más simples y luego para las expresiones compuetas. Además, el algoritmo se valdrá del algoritmo de unificación para combinar los resultados de los pasos recursivos y, así, obtener un tipado consistente.
+$\WFunc$ va a hacer recusión sobre la estructura de $U$. Primero la vamos a definir para las construcciones más simples y, luego, para las compuestas. Además, usaremos el algoritmo de unificación para combinar los resultados de los pasos recursivos y, así, obtener un tipado consistente.
 
 \subsubsection{Constantes y variables}
 \begin{equation*}
@@ -244,9 +244,14 @@ $\WFunc(\red{\lambdaFix{(U)}}) \equalDef \judgeType{S\Gamma}{S~\lambdaFix{(M)}}{
 Tanto la unificación como la inferencia para cálculo lambda se puede realizar en tiempo lineal. Sin embargo, el tipo principal asociado a un término sin anotaciones puede ser \red{exponencial} en el tamaño del término.
 
 \subsubsection{Extensión del algoritmo a nuevos tipos}
-Para extender el algoritmo a otros tipos debemos agregar los casos correspondientes al nuevo tipo teniendo en cuenta que los llamados recursivos devuelven un contexto, un término y un tipo sobre los que no podemos asumir nada.
-Si la nueva regla tiene tipos iguales o contextos repetidos, debemos unificarlos. Y si la regla liga alguna variable, entonces vamos a poder dividir en dos casos: 
-Si alguno de los contextos recursivos tiene información sobre esa variable, entonces sacamos su tipo del contexto que la contenga, sino le asignamos una variable fresca de tipo. Si la regla tiene restricciones adicionales, se incorporan como posibles fallas. Veamos un ejemplo para la extensión de listas (definida en el ejercicio 17 de la práctica 2).
+Para extender el algoritmo a otros tipos, debemos agregar los casos correspondientes teniendo en cuenta que los llamados recursivos devuelven un contexto, un término y un tipo sobre los que no podemos asumir nada.
+Si la nueva regla tiene tipos iguales o contextos repetidos, debemos unificarlos. Y si la regla liga alguna variable entonces vamos a poder dividir en dos casos: 
+\begin{itemize}
+	\item Si alguno de los contextos recursivos tiene información sobre esa variable, entonces sacamos su tipo del contexto que la contenga.
+	\item Sino, le asignamos una variable fresca de tipo.
+\end{itemize}
+
+Si la regla tiene restricciones adicionales, se incorporan como posibles fallas.
 
 \subsubsection{Extensión del algoritmo para listas}
 $\WFunc([]) = \judgeType{\emptyset}{\List{t}}{t}$ con $t$ variable fresca.
