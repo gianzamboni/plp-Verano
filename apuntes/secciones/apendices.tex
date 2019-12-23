@@ -249,6 +249,63 @@ $$V~::=~\dots~|~<V,V>$$
 	\frac{M\to M'}{\pi_2(M)\to\pi_2(M')}(\text{E-}\pi_2)\hspace*{1cm}\frac{}{\pi_2(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_2}}(\text{E-}\pi'_2)
 \end{equation*}
 
+\subsection{Listas}
+
+\paragraph{Tipos}
+$$\sigma::= \dots~|~[\sigma]$$
+
+\paragraph{Términos}
+$$M,~N~,O~::=~\dots~|~[]_{\sigma}~|~M::N~|~\texttt{case } M \texttt{ of } {[] \leadsto N | h::t \leadsto O}~|~\text{foldr } M \text{ base} \leadsto N; \text{rec}(h,r)\leadsto O$$	
+
+Los términos son:
+\begin{itemize}
+	\item $[]_{\sigma}$ es la lista vacía de tipo $\sigma$
+\end{itemize}
+\paragraph{Axiomas y reglas de tipado}
+\begin{multicols}{2}
+	$$\frac{}{\judgeType{\Gamma}{\List{\sigma}}{[\sigma]}}(\text{T-Vacio})$$
+	
+	\vspace*{5mm}
+	$$\frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{[\sigma]}}{\judgeType{\Gamma}{M::N}{[\sigma]}}(\text{T-}::)$$
+	
+	\vspace*{5mm}
+	$$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,t:[\sigma]}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListCase{M}{N}{O}}{\tau}}(T-Case)$$
+	
+	\vspace*{5mm}
+	$$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,r:\tau}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListFold{M}{N}{O}}{\tau}}(T-Fold)$$
+	
+\end{multicols}
+
+\paragraph{Valores}
+$V~::= ...~|~\List{\sigma}~|~V::V$
+
+\paragraph{Axiomas y reglas de evaluación}
+\begin{multicols}{2}
+	$$\frac{M_1\to M_1'}{M_1 :: M_2 \to M'_1::M_2}(\text{E-}::\text{1})$$
+	
+	\vspace*{5mm}
+	$$\frac{M_2\to M_2'}{V :: M_2 \to V::M'_2}(\text{E-}::\text{2})$$
+	
+	\vspace*{5mm}
+	$$\frac{}{\lambdaListCase{\List{\sigma}}{N}{O}\to N}(\text{E-Case}[~])$$
+	
+\end{multicols}
+	\vspace*{5mm}
+$$\frac{}{\lambdaListCase{V_1::V_2}{N}{O}\to\multiReplaceBy{O}{h\leftarrow V_1,~t\leftarrow V_2}}(\text{E-Case}::)$$
+
+\vspace*{5mm}
+$$\frac{M\to M'}{\lambdaListCase{M}{N}{O}\to\lambdaListCase{M'}{N}{O}}(\text{E-Case}\text{1})$$
+
+\vspace*{5mm}
+$$\frac{}{\lambdaListFold{\List{\sigma}}{N}{O}\to N}(\text{E-Fold}[~])$$
+
+\vspace*{5mm}
+$$\frac{}{\lambdaListFold{V_1::V_2}{N}{O}\to \multiReplaceBy{O}{h\leftarrow V_1,~r\leftarrow(\lambdaListFold{V_2}{N}{O})}}(\text{E-Fold}::)$$
+
+\vspace*{5mm}
+$$\frac{M\to M'}{\lambdaListFold{M}{N}{O}\to\lambdaListFold{M'}{N}{O}}(\text{E-Fold}\text{1})$$
+
+
 \subsection{Árboles binarios}
 
 \paragraph{Tipos}
