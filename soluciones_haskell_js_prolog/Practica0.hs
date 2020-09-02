@@ -56,7 +56,7 @@ difPromedio xs = map (\y -> y - promedio xs) xs
     where promedio xs = (sum xs) / (genericLength xs)
 
 todosIguales :: [Int] -> Bool
-todosIguales xs = foldr (\y  rec -> ((length xs == 1) || (y == (head xs))) && rec) True xs
+todosIguales xs = foldr (\y  rec -> (y == (head xs)) && rec) True xs
 
 
 
