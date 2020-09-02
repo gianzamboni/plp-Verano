@@ -132,7 +132,7 @@ difPromedio xs = map (\y -> y - promedio xs) xs
 -- c)
 todosIguales :: [Int] -> Bool
 todosIguales = 
-	foldr (\y  rec -> ((length xs == 1) || (y == (head xs))) 
+	foldr (\y  rec -> (y == (head xs)) 
 		&& rec) True
 \end{minted}
 \end{centrado}
