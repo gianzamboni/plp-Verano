@@ -363,7 +363,7 @@ El árbol de la segunda abstracción nos dice que $\sigma =  Bool\to  Nat$. Por 
     \begin{scprooftree}
    \def\extraVskip{5pt}
         
-            \AxiomC{\red{$\judgeType{\Gamma,x:\sigma}{x}{\sigma}\Rightarrow \judgeType{\Gamma,x:\sigma}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to  Bool}$}}
+            \AxiomC{\red{$\judgeType{\Gamma,x:\sigma}{x}{\sigma}\Rightarrow \judgeType{\Gamma,x:\sigma}{\lambdaAbs{x}{\sigma}{x}}{\sigma\to  \sigma}$}}
        \RightLabel{T-Abs}
         \UnaryInfC{$\judgeType{\Gamma}{\lambdaAbs{x}{\sigma}{x}}{ Bool}$}
         
