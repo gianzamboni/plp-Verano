@@ -120,23 +120,23 @@ g x ( foldr f z ( map ( foldRose g f z ) l ) )
 
 
 \newpage
-\section{Extensiones del lenguaje \texorpdfstring{$\lambda^b$}{lambda b}}
+\section{Extensiones del lenguaje \texorpdfstring{\(\lambda^b\)}{lambda b}}
 
 
 
-\subsection{Registros \texorpdfstring{$\lambda^{...r}$}{lambda ...r}}
+\subsection{Registros \texorpdfstring{\(\lambda^{...r}\)}{lambda ...r}}
 
 \paragraph{Tipos}
-$$\sigma, \tau ~::=~...~|~\{l_i : \sigma_i ~^{i\in 1..n}\}$$
+\[\sigma, \tau ~::=~...~|~\{l_i : \sigma_i ~^{i\in 1..n}\}\]
 
-El tipo $\{l_i : \sigma_i^{i\in 1..n}\}$ representan las estructuras con $n$ atributos tipados, por ejemplo: $\{nombre : String,edad:Nat\}$
+El tipo \(\{l_i : \sigma_i^{i\in 1..n}\}\) representan las estructuras con \(n\) atributos tipados, por ejemplo: \(\{nombre : String,edad:Nat\}\)
 \paragraph{Términos}
-$$ M~::=~ \dots~|~\{l_i = M_i ~^{i\in 1..n}\}~|~M.l $$
+\[ M~::=~ \dots~|~\{l_i = M_i ~^{i\in 1..n}\}~|~M.l \]
 
 Los términos significan:
 \begin{itemize}
-	\item El registro $\{l_i = M_i ~^{i\in 1..n}\}$ evalua $\{l_i = V_i ~^{i\in 1..n}\}$  donde $V_i$ es el s al que evalúa $M_i$ para $i\in 1..n$.
-	\item $M.l$: Proyecta el valor de la etiqueta $l$ del registro $M$
+	\item El registro \(\{l_i = M_i ~^{i\in 1..n}\}\) evalua \(\{l_i = V_i ~^{i\in 1..n}\}\)  donde \(V_i\) es el s al que evalúa \(M_i\) para \(i\in 1..n\).
+	\item \(M.l\): Proyecta el valor de la etiqueta \(l\) del registro \(M\)
 \end{itemize}
 
 \paragraph{Axiomas y reglas de tipado}
@@ -164,11 +164,11 @@ Los términos significan:
 \end{equation*}
 
 \vspace*{5mm}
-Esta regla nos dice que un registro $N$ es subtipo de otro registro $M$, si el conjunto de etiquetas de $M$ está contenido en el conjunto de etiquetas de $N$ y, además, si los tipos de cada una de esas etiquetas, en $M$, es más general que en $N$.
+Esta regla nos dice que un registro \(N\) es subtipo de otro registro \(M\), si el conjunto de etiquetas de \(M\) está contenido en el conjunto de etiquetas de \(N\) y, además, si los tipos de cada una de esas etiquetas, en \(M\), es más general que en \(N\).
 
-Una de las consecuancias de esta regla es que  $\sigma <\{\}$ para todo tipo registro $\sigma$. Esto es porque $\{\}$ no tiene etiquetas, osea que su conjunto de etiquetas es el conjunto $\emptyset$ que está contenido en todos los conjuntos.
+Una de las consecuancias de esta regla es que  \(\sigma <\{\}\) para todo tipo registro \(\sigma\). Esto es porque \(\{\}\) no tiene etiquetas, osea que su conjunto de etiquetas es el conjunto \(\emptyset\) que está contenido en todos los conjuntos.
 \paragraph{Valores}
-$$V~::=~\dots~|~\{l_i = V_i ~^{i\in 1..n}\}$$
+\[V~::=~\dots~|~\{l_i = V_i ~^{i\in 1..n}\}\]
 
 
 \paragraph{Axiomas y reglas de evaluación}
@@ -186,12 +186,12 @@ $$V~::=~\dots~|~\{l_i = V_i ~^{i\in 1..n}\}$$
 	\frac{M_j\to M_j'}{\{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M_j, l_i = M_i ~^{i\in j+1..n}\} \to \{l_i = \lambdaValue{V_i}~^{i\in 1..j-1}, l_j = M'_j, l_i = M_i ~^{i\in j+1..n}\}}(\text{E-RCD})
 \end{equation*}
 \vspace*{5mm}
-\subsection{Declaraciones Locales (\texorpdfstring{$\lambda^{...let}$}{lambda ...let})}\label{extension_lambda:let}
+\subsection{Declaraciones Locales (\texorpdfstring{\(\lambda^{...let}\)}{lambda ...let})}\label{extension_lambda:let}
 
-Con esta extensión, agregamos al lenguaje el término $\lambdaLet{x}{\sigma}{M}{N}$, que evalúa $M$ a un valor, liga $x$ a $V$ y, luego, evalúa $N$. Este término solo mejora la legibilidad de los programas que ya podemos definir con el lenguaje hasta ahora definido.
+Con esta extensión, agregamos al lenguaje el término \(\lambdaLet{x}{\sigma}{M}{N}\), que evalúa \(M\) a un valor, liga \(x\) a \(V\) y, luego, evalúa \(N\). Este término solo mejora la legibilidad de los programas que ya podemos definir con el lenguaje hasta ahora definido.
 
 \paragraph{Términos}
-$$ M~::=~ \dots~|~\lambdaLet{x}{\sigma}{M}{N} $$
+\[ M~::=~ \dots~|~\lambdaLet{x}{\sigma}{M}{N} \]
 
 
 \paragraph{Axiomas y reglas de tipado}
@@ -209,21 +209,21 @@ $$ M~::=~ \dots~|~\lambdaLet{x}{\sigma}{M}{N} $$
 	\frac{}{\lambdaLet{x}{\sigma}{\lambdaValue{V_1}}{M_2}\to \replaceBy{M_2}{x}{\lambdaValue{V_1}}}(\text{E-LetV})
 \end{equation*}
 
-\subsubsection{Construcción \textit{let} recursivo (Letrec)}
+\subsubsection{Construcción \texorpdfstring{\textit{let}}{let} recursivo (Letrec)}
 Una construcción alternativa para definir funciones recursivas es 
-$$letrec~f:\sigma\to\sigma = \lambdaAbs{x}{\sigma}{M~in~N}$$
+\[letrec~f:\sigma\to\sigma = \lambdaAbs{x}{\sigma}{M~in~N}\]
 
-Y $letRec$ se puede definir  en base a $let$ y $fix$ (definido en \ref{lambda_calculo:recursion}) de la siguiente forma:
+Y \(letRec\) se puede definir  en base a \(let\) y \(fix\) (definido en \ref{lambda_calculo:recursion}) de la siguiente forma:
 
-$$\lambdaLet{f}{\sigma\to\sigma}{(\lambdaFix{\lambdaAbs{f}{\sigma\to\sigma}{\lambdaAbs{x}{\sigma}{M}}})}{N}$$
+\[\lambdaLet{f}{\sigma\to\sigma}{(\lambdaFix{\lambdaAbs{f}{\sigma\to\sigma}{\lambdaAbs{x}{\sigma}{M}}})}{N}\]
 
 \subsection{Tuplas}
 
 \paragraph{Tipos}
-$$\sigma,\tau~::= \dots~|~\sigma\times\tau$$
+\[\sigma,\tau~::= \dots~|~\sigma\times\tau\]
 
 \paragraph{Términos}
-$$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
+\[M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)\]
 \paragraph{Axiomas y reglas de tipado}
 \begin{equation*}
 	\frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}}{\judgeType{\Gamma}{<M,N>}{\sigma\times\tau}}(\text{T-Tupla})
@@ -234,12 +234,12 @@ $$M,~N~::=~\dots~|~<M,N>~|~\pi_1(M)~|~\pi_2(M)$$
 \end{equation*}
 
 \paragraph{Valores}
-$$V~::=~\dots~|~<V,V>$$
+\[V~::=~\dots~|~<V,V>\]
 
 \paragraph{Axiomas y reglas de evaluación}
-\begin{equation*}
-	\frac{M\to M'}{<M,N>\to<M',N>}(\text{E-Tuplas})\hspace*{1cm}\frac{N\to N'}{<\lambdaValue{V},N>\to<\lambdaValue{V},N'>}(\text{E-Tuplas1})
-\end{equation*}
+\[
+  \frac{M\to M'}{<M,N>\to<M',N>}(\text{E-Tuplas})\hspace*{1cm}\frac{N\to N'}{<\lambdaValue{V},N>\to<\lambdaValue{V},N'>}(\text{E-Tuplas1})
+\]
 \vspace*{5mm}
 \begin{equation*}
 	\frac{M\to M'}{\pi_1(M)\to\pi_1(M')}(\text{E-}\pi_1)\hspace*{1cm}\frac{}{\pi_1(<\lambdaValue{V_1}, \lambdaValue{V_2}>)\to\lambdaValue{V_1}}(\text{E-}\pi'_1)
@@ -252,67 +252,67 @@ $$V~::=~\dots~|~<V,V>$$
 \subsection{Listas}
 
 \paragraph{Tipos}
-$$\sigma::= \dots~|~[\sigma]$$
+\[\sigma::= \dots~|~[\sigma]\]
 
 \paragraph{Términos}
-$$M,~N~,O~::=~\dots~|~[]_{\sigma}~|~M::N~|~\texttt{case } M \texttt{ of } {[] \leadsto N | h::t \leadsto O}~|~\text{foldr } M \text{ base} \leadsto N; \text{rec}(h,r)\leadsto O$$	
+\[M,~N~,O~::=~\dots~|~[]_{\sigma}~|~M::N~|~\texttt{case } M \texttt{ of } {[] \leadsto N | h::t \leadsto O}~|~\text{foldr } M \text{ base} \leadsto N; \text{rec}(h,r)\leadsto O\]
 
 Los términos son:
 \begin{itemize}
-	\item $[]_{\sigma}$ es la lista vacía de tipo $\sigma$
+	\item \([]_{\sigma}\) es la lista vacía de tipo \(\sigma\)
 \end{itemize}
 \paragraph{Axiomas y reglas de tipado}
 \begin{multicols}{2}
-	$$\frac{}{\judgeType{\Gamma}{\List{\sigma}}{[\sigma]}}(\text{T-Vacio})$$
+	\[\frac{}{\judgeType{\Gamma}{\List{\sigma}}{[\sigma]}}(\text{T-Vacio})\]
 	
 	\vspace*{5mm}
-	$$\frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{[\sigma]}}{\judgeType{\Gamma}{M::N}{[\sigma]}}(\text{T-}::)$$
+	\[\frac{\judgeType{\Gamma}{M}{\sigma}\hspace*{5mm}\judgeType{\Gamma}{N}{[\sigma]}}{\judgeType{\Gamma}{M::N}{[\sigma]}}(\text{T-}::)\]
 	
 	\vspace*{5mm}
-	$$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,t:[\sigma]}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListCase{M}{N}{O}}{\tau}}(T-Case)$$
+	\[\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,t:[\sigma]}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListCase{M}{N}{O}}{\tau}}(T-Case)\]
 	
 	\vspace*{5mm}
-	$$\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,r:\tau}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListFold{M}{N}{O}}{\tau}}(T-Fold)$$
+	\[\frac{\judgeType{\Gamma}{M}{[\sigma]}\hspace*{5mm}\judgeType{\Gamma}{N}{\tau}~\hspace*{5mm}\judgeType{\Gamma,h:\sigma,r:\tau}{O}{\tau}}{\judgeType{\Gamma}{\lambdaListFold{M}{N}{O}}{\tau}}(T-Fold)\]
 	
 \end{multicols}
 
 \paragraph{Valores}
-$V~::= ...~|~\List{\sigma}~|~V::V$
+\(V~::= ...~|~\List{\sigma}~|~V::V\)
 
 \paragraph{Axiomas y reglas de evaluación}
 \begin{multicols}{2}
-	$$\frac{M_1\to M_1'}{M_1 :: M_2 \to M'_1::M_2}(\text{E-}::\text{1})$$
+	\[\frac{M_1\to M_1'}{M_1 :: M_2 \to M'_1::M_2}(\text{E-}::\text{1})\]
 	
 	\vspace*{5mm}
-	$$\frac{M_2\to M_2'}{V :: M_2 \to V::M'_2}(\text{E-}::\text{2})$$
+	\[\frac{M_2\to M_2'}{V :: M_2 \to V::M'_2}(\text{E-}::\text{2})\]
 	
 	\vspace*{5mm}
-	$$\frac{}{\lambdaListCase{\List{\sigma}}{N}{O}\to N}(\text{E-Case}[~])$$
+	\[\frac{}{\lambdaListCase{\List{\sigma}}{N}{O}\to N}(\text{E-Case}[~])\]
 	
 \end{multicols}
 	\vspace*{5mm}
-$$\frac{}{\lambdaListCase{V_1::V_2}{N}{O}\to\multiReplaceBy{O}{h\leftarrow V_1,~t\leftarrow V_2}}(\text{E-Case}::)$$
+\[\frac{}{\lambdaListCase{V_1::V_2}{N}{O}\to\multiReplaceBy{O}{h\leftarrow V_1,~t\leftarrow V_2}}(\text{E-Case}::)\]
 
 \vspace*{5mm}
-$$\frac{M\to M'}{\lambdaListCase{M}{N}{O}\to\lambdaListCase{M'}{N}{O}}(\text{E-Case}\text{1})$$
+\[\frac{M\to M'}{\lambdaListCase{M}{N}{O}\to\lambdaListCase{M'}{N}{O}}(\text{E-Case}\text{1})\]
 
 \vspace*{5mm}
-$$\frac{}{\lambdaListFold{\List{\sigma}}{N}{O}\to N}(\text{E-Fold}[~])$$
+\[\frac{}{\lambdaListFold{\List{\sigma}}{N}{O}\to N}(\text{E-Fold}[~])\]
 
 \vspace*{5mm}
-$$\frac{}{\lambdaListFold{V_1::V_2}{N}{O}\to \multiReplaceBy{O}{h\leftarrow V_1,~r\leftarrow(\lambdaListFold{V_2}{N}{O})}}(\text{E-Fold}::)$$
+\[\frac{}{\lambdaListFold{V_1::V_2}{N}{O}\to \multiReplaceBy{O}{h\leftarrow V_1,~r\leftarrow(\lambdaListFold{V_2}{N}{O})}}(\text{E-Fold}::)\]
 
 \vspace*{5mm}
-$$\frac{M\to M'}{\lambdaListFold{M}{N}{O}\to\lambdaListFold{M'}{N}{O}}(\text{E-Fold}\text{1})$$
+\[\frac{M\to M'}{\lambdaListFold{M}{N}{O}\to\lambdaListFold{M'}{N}{O}}(\text{E-Fold}\text{1})\]
 
 
 \subsection{Árboles binarios}
 
 \paragraph{Tipos}
-$$\sigma,\tau~::= \dots~|~AB_\sigma$$
+\[\sigma,\tau~::= \dots~|~AB_\sigma\]
 
 \paragraph{Términos}
-$$M,~N~::=~\dots~|~\text{Nil}_\sigma~|~\text{Bin}(M, N, O)~|~\text{raiz}(M)~|~\text{der}(M)~|~\text{izq}(M)~|~\text{esNil}(M)$$
+\[M,~N~::=~\dots~|~\text{Nil}_\sigma~|~\text{Bin}(M, N, O)~|~\text{raiz}(M)~|~\text{der}(M)~|~\text{izq}(M)~|~\text{esNil}(M)\]
 \paragraph{Axiomas y reglas de tipado}
 \begin{equation*}
 	\begin{gathered}
@@ -329,7 +329,7 @@ $$M,~N~::=~\dots~|~\text{Nil}_\sigma~|~\text{Bin}(M, N, O)~|~\text{raiz}(M)~|~\t
 \end{equation*}
 
 \paragraph{Valores}
-$$V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)$$
+\[V~::=~\dots~|~\text{Nil}~|~\text{Bin}(V,V,V)\]
 
 \paragraph{Axiomas y reglas de evaluación}
 \begin{equation*}

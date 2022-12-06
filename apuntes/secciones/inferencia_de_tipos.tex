@@ -171,7 +171,7 @@ $\WFunc$ va a hacer recusión sobre la estructura de $U$. Primero la vamos a def
 	\end{split}
 \end{equation*}
 
-\subsubsection{Caso \textit{succ}}
+\subsubsection{Caso \texorpdfstring{\textit{succ}}{succ}}
 $\WFunc(\red{succ(U)}) \equalDef \judgeType{S\Gamma}{S~succ(M)}{Nat}$
 \begin{centrado}
 	\begin{itemize}
@@ -180,7 +180,7 @@ $\WFunc(\red{succ(U)}) \equalDef \judgeType{S\Gamma}{S~succ(M)}{Nat}$
 	\end{itemize}
 \end{centrado}
 
-\subsubsection{Caso \textit{pred}}
+\subsubsection{Caso \texorpdfstring{\textit{pred}}{pred}}
 $\WFunc(\red{pred(U)}) \equalDef \judgeType{S\Gamma}{S~pred(M)}{Nat}$
 \begin{centrado}
 	\begin{itemize}
@@ -189,7 +189,7 @@ $\WFunc(\red{pred(U)}) \equalDef \judgeType{S\Gamma}{S~pred(M)}{Nat}$
 	\end{itemize}
 \end{centrado}
 
-\subsubsection{Caso \textit{isZero}}
+\subsubsection{Caso \texorpdfstring{\textit{isZero}}{isZero}}
 $\WFunc(\red{isZero(U)}) \equalDef \judgeType{S\Gamma}{S~isZero(M)}{Bool}$
 \begin{centrado}
 	\begin{itemize}
@@ -198,7 +198,7 @@ $\WFunc(\red{isZero(U)}) \equalDef \judgeType{S\Gamma}{S~isZero(M)}{Bool}$
 	\end{itemize}
 \end{centrado}
 
-\subsubsection{Caso \textit{ifThenElse}}
+\subsubsection{Caso \texorpdfstring{\textit{ifThenElse}}{ifThenElse}}
 $\WFunc(\red{\lambdaIf{U}{V}{W}}) \equalDef \judgeType{S\Gamma_1\cup S\Gamma_2\cup S\Gamma_3}{S~(\lambdaIf{M}{P}{Q})}{S\sigma}$
 \begin{centrado}
 	\begin{itemize}
@@ -231,7 +231,7 @@ Si $\Gamma$ no tiene información de tipos para $x$ ($x\notin \text{Dom}(\Gamma)
 
 $$\WFunc(\red{\lambdaAbsI{x}{U}}) \equalDef \judgeType{\Gamma}{\lambdaAbs{x}{s}{M}}{s\to\rho}$$
 
-\subsubsection{Caso \textit{fix}}
+\subsubsection{Caso \texorpdfstring{\textit{fix}}{fix}}
 $\WFunc(\red{\lambdaFix{(U)}}) \equalDef \judgeType{S\Gamma}{S~\lambdaFix{(M)}}{St}$
 \begin{centrado}
 	\begin{itemize}

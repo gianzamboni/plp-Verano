@@ -10,10 +10,6 @@ divisores x = [ y | y <- [1..x], x `mod` y == 0 ];
 esPrimo :: Int -> Bool
 esPrimo x = length (divisores x) == 2
 
-
-
-
-
 -- Ejercicio 2 --
 valorAbsoluto :: Float -> Float
 valorAbsoluto x | x < 0     = -x
@@ -28,10 +24,6 @@ factorial x = x * factorial (x-1)
 
 cantDivisoresPrimos :: Int -> Int
 cantDivisoresPrimos x = length (filter esPrimo (divisores x))
-   
-
-
-
 
 -- Ejercicio 3 --
 inverso :: Float -> Maybe Float
@@ -43,10 +35,6 @@ aEntero (Left x) = x
 aEntero (Right x) | x == True = 1
                   | otherwise = 0
 
-
-
-
-
 -- Ejercicio 4 --
 limpiar :: String -> String -> String
 limpiar xs ys = [ y | y <- ys, not(elem y xs) ]
@@ -57,10 +45,6 @@ difPromedio xs = map (\y -> y - promedio xs) xs
 
 todosIguales :: [Int] -> Bool
 todosIguales xs = foldr (\y  rec -> (y == (head xs)) && rec) True xs
-
-
-
-
 
 -- Ejercicio 5 --
 data AB a = Nil | Bin (AB a) a (AB a) deriving Show

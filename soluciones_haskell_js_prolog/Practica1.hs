@@ -76,20 +76,11 @@ partir xs = [ ( take i xs, drop i xs ) | i <- [ 0.. ( length xs ) ] ]
 -- Ejercicio 6 -- Repite listas
 listasQueSuman :: Int -> [[Int]]
 listasQueSuman 1 = [[1]]
-listasQueSuman n = [n]: ( concat
-    [ map ( (n-i): ) ( listasQueSuman i ) | i <- [ 1..n-1 ] ] ) 
-
-
-
-
+listasQueSuman x = [x] : [ (x-i) : ls | i <- [1.. x-1], ls <- listasQueSuman(i) ]
 
 --  Ejercicio 7 --
 listasFinitas :: [[Int]]
-listasFinitas = concat [ listasQueSuman i | i <- [1..] ]
-
-
-
-
+listasFinitas = [ ls | i <- [1..], ls <- listasQueSuman i ]
 
 -- Ejercicio 8 --
 curry1 :: ((a,b) -> c) -> a -> b -> c
@@ -158,7 +149,7 @@ elemFold :: Eq a => a -> [a] -> Bool
 elemFold x = foldr (\y rec -> (y==x) || rec) False
 
 masMasFold :: [a] -> [a] -> [a]
-masMasFold = flip (foldr (\x rec-> x:rec) )
+masMasFold = flip (foldr (:))
 -- -- masmas xs ys = foldr (\x rec-> x:rec) ys xs)
 
 mapFold :: (a->b) -> [a] -> [b]
@@ -189,9 +180,7 @@ sumaAlt2 =  sumaAlt.reverse
 -- V
 permutaciones :: [a] -> [[a]]
 permutaciones = foldr (\x -> concatMap (agregarEnTodasLasPosiciones x) ) [[]] 
-     where agregarEnTodasLasPosiciones j js = [ (fst h)++[j]++(snd h)| h <- (partir js)]
-
-
+     where agregarEnTodasLasPosiciones x xs = foldr (\i rec -> ((take i xs) ++ [x] ++ (drop i xs)) : rec) [] [0..(length xs)]
 
 
 
@@ -200,15 +189,14 @@ partes :: [a] -> [[a]]
 partes = foldr (\x res -> res ++ (map (x:) res)) [[]]
 
 prefijos :: [a] -> [[a]]
-prefijos xs = [take i xs | i <- [0..(length xs)]]
+prefijos = foldl (\rec x -> rec ++ [last rec ++ [x]]) [[]]
+
+sufijos :: [a] -> [[a]]
+sufijos = foldr (\x rec -> (x: head rec) : rec) [[]]
 
 sublistas :: [a] -> [[a]]
-sublistas xs = [[]] ++ [ take j (drop i xs)  | i<-[0..(length xs)] , j<-[1..(length xs)-i]]
--- --sublistas xs = [ drop i (take j xs)  | i<-[0..(length xs)] , j<-[i..(length xs)]]
-
-
-
-
+sublistas xs = [] : filter (not.null) (subWithNull xs)
+  where subWithNull = \ys -> concatMap prefijos (sufijos ys)
 
 -- Ejercicio 12 --
 recr::(a->[a]->b->b)->b->[a]->b

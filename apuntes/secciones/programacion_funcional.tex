@@ -1,4 +1,3 @@
-
 \section{Programación Funcional}
 
 \paragraph{Valor} Entidad matemática abstracta con ciertas propiedades.
@@ -6,7 +5,7 @@
 \paragraph{Expresión} 
 Secuencia de símbolos utilizada para denotar un valor. Hay dos tipos de expresiones:
 \begin{itemize}
-	\item \textbf{Atómicas ó formas formales}: Son expresiones que representan a un valor. Por ejemplo: $2$, \textit{false}, $(3, True)$.
+	\item \textbf{Atómicas ó formas formales}: Son expresiones que representan a un valor. Por ejemplo: \(2\), \textit{false}, \((3, True)\).
 	\item \textbf{Compuestas}: Se construyen combinando otras expresiones. Los valores que denotan estas expresiones pueden ser inferidos a partir de esta combinación.
 \end{itemize}
 
@@ -31,7 +30,7 @@ En otros paradigmas, como imperativo, en donde los programas tienen efectos cola
 	\end{minted}
 \end{centrado}
 
-Si llamamos dos veces a la función suma de la siguiente manera: \mintinline{C++}{suma(1)}, la primera vez, el resultado será siete, la segunda vez será ocho. El resultado cambia porque depende del valor de $x$ que es modificado por la función cada vez que es llamada.
+Si llamamos dos veces a la función suma de la siguiente manera: \mintinline{C++}{suma(1)}, la primera vez, el resultado será siete, la segunda vez será ocho. El resultado cambia porque depende del valor de \(x\) que es modificado por la función cada vez que es llamada.
 
 \subsection{Tipos}
 Son una forma de particionar el universo de valores de acuerdo a ciertas propiedades. Se clasifican en dos categorias:
@@ -74,7 +73,7 @@ Hay funciones que, a pesar de poseer polimorfismo paramétrico, no aceptan cualq
 		esMenor x y = x < y
 	\end{minted}
 \end{centrado} 
-La función es menor toma cualquier tipo $a$ que tenga definido una relación de orden.
+La función es menor toma cualquier tipo \(a\) que tenga definido una relación de orden.
 
 \subsubsection{Evaluación}
 Cuando se computa el valor de una expresión, decimos que la estamos \textit{evaluando}. Dependiendo del orden en el que el lenguaje lo haga, el tipo de evaluación se  clasifica en:
@@ -125,22 +124,20 @@ Podemos usarla crear una función \haskell{sumarUno :: Int -> Int} instanciando 
 \end{centrado} 
 
 
-\subsection{Inducción/Recursion}
+\subsection{Inducción/Recursión}
 
 La inducción es un mecanismo que nos permite definir conjuntos infinitos, probar propiedades sobre sus elementos y definir funciones recursivas sobre ellos con garantía de terminación.
 
 \paragraph{Principio de extensionalidad:} Dadas dos expresiones A y B, si ambas denotan el mismo valor entonces A puede ser remplazada por B y B por A sin que esto afecte al resultado de una ecuación.
 
 \subsubsection{Inducción estructural}
-Una definición inductiva de un conjunto $\rel$ consiste en dar condiciones de dos tipos:
+Una definición inductiva de un conjunto \(\rel\) consiste en dar condiciones de dos tipos:
 \begin{itemize}
-	\item reglas base ($z\in\rel$) que afirman que algún elemento simple $x$ pertenece a $\rel$
-	\item reglas inductivas ($x_1\in\rel,\dots,x_n\in\rel\Rightarrow x\in\rel$) que afirman que un elemento compuesto $x$ pertenece a
-	$\rel$ siempre que sus partes $x_1,\dots,x_n$ pertenezcan a $\rel$
-	(y $x$ no satisface ninguna de las otras regla dadas)
+	\item reglas base (\(z\in\rel\)) que afirman que algún elemento simple \(x\) pertenece a \(\rel\)
+	\item reglas inductivas (\(x_1\in\rel,\dots,x_n\in\rel\Rightarrow x\in\rel\)) que afirman que un elemento compuesto \(x\) pertenece a \(\rel\) siempre que sus partes \(x_1,\dots,x_n\) pertenezcan a \(\rel\) (y \(x\) no satisface ninguna de las otras regla dadas)
 \end{itemize}
 
-$\rel$ debe ser el menor conjunto que satisfaga todas las reglas dadas.
+\(\rel\) debe ser el menor conjunto que satisfaga todas las reglas dadas.
 
 \subsubsection{Funciones recursivas}
 Sea \haskell{S} un conjunto inductivo, y \haskell{T} uno cualquiera. Una definición recursiva estructural de una función \haskell{f :: S -> T} es una definición de la siguiente forma:
@@ -150,14 +147,14 @@ Sea \haskell{S} un conjunto inductivo, y \haskell{T} uno cualquiera. Una definic
 \end{itemize}
 
 \subsubsection{Principio de inducción}
-Sea $S$ un conjunto inductivo, y sea $P$ una propiedad sobre los elementos de S. Si se cumple que:
+Sea \(S\) un conjunto inductivo, y sea \(P\) una propiedad sobre los elementos de S. Si se cumple que:
 \begin{itemize}
-	\item para cada elemento $z\in S$ tal que $z$ cumple con una regla base, $P(z)$ es verdadero, y
-	\item para cada elemento $y\in S$ construido en una regla inductiva utilizando los elementos \\ $y_1, ..., y_n$, si $P(y_1 ), ..., P(y_n)$ son verdaderos entonces $P(y)$ lo es
+	\item para cada elemento \(z\in S\) tal que \(z\) cumple con una regla base, \(P(z)\) es verdadero, y
+	\item para cada elemento \(y\in S\) construido en una regla inductiva utilizando los elementos \\ \(y_1, ..., y_n\), si \(P(y_1 ), ..., P(y_n)\) son verdaderos entonces \(P(y)\) lo es
 	
 \end{itemize}
 
-entonces $P(x)$ se cumple para todo $x\in S$.
+entonces \(P(x)\) se cumple para todo \(x\in S\).
 
 \subsection{Parametrización}
 Dado un conjunto de funciones que se comportan de la misma manera buscamos encontrar alguna forma de crear una función que las genere automáticamente. 
@@ -227,14 +224,14 @@ Por ejemplo:
 	\end{minted}
 \end{centrado}
 
-En esta función, la expresión \haskell{value (Just 2)} tiene valor $1$. Haskell, analiza las reglas de pattern matching provistas una a una y cuando encuentra que la expresión coincide con la segunda, evalúa al valor indicado.
+En esta función, la expresión \haskell{value (Just 2)} tiene valor \(1\). Haskell, analiza las reglas de pattern matching provistas una a una y cuando encuentra que la expresión coincide con la segunda, evalúa al valor indicado.
 
 
 
 \subsubsection{Tipos especiales}
 \paragraph{Tupla} Este es un tipo algebraico con sintaxis especial. Una tupla es un estructura que posee varios elementos de distintos tipos. Por ejemplo: \haskell{(Float,Int)} es una tupla cuyo primer elemento es un \haskell{Float} y su segundo elemento es un \haskell{Int}.
 
-\paragraph{Maybe} El tipo \haskell{Maybe}, definido en el último ejemplo, nos permite expresar la posibilidad de que el resultado sea erróneo sin necesidad de usar casos especiales. De esta forma, logramos evitar el uso de $\bot$ (indefinido) hasta que el programador lo decida lo que permite controlar errores.
+\paragraph{Maybe} El tipo \haskell{Maybe}, definido en el último ejemplo, nos permite expresar la posibilidad de que el resultado sea erróneo sin necesidad de usar casos especiales. De esta forma, logramos evitar el uso de \(\bot\) (indefinido) hasta que el programador lo decida lo que permite controlar errores.
 
 \paragraph{Either} El tipo \haskell{Either} representa la unión disjunta de dos conjuntos (los elementos de uno se identifican con \haskell{Left} y los del otro con \haskell{Right}). Sirve para mantener el tipado fuerte y poder devolver elementos de distintos tipos o para representar el origen de un valor.
 \begin{centrado}
@@ -363,7 +360,7 @@ sumatoria :: [Int] -> Int
 sumatoria = foldr (\x rec -> x + rec ) 0
 	\end{minted}
 \end{centrado}
-Para la sumatoria, la primer función que pasamos como parámetro toma el primer elemento de la lista y lo suma al resultado de la recursión. $0$ es el valor de la sumatoria cuando la lista pasada como parámetro es la lista vacía.
+Para la sumatoria, la primer función que pasamos como parámetro toma el primer elemento de la lista y lo suma al resultado de la recursión. \(0\) es el valor de la sumatoria cuando la lista pasada como parámetro es la lista vacía.
 
 Map y Filter pueden ser implementados usando recursión estructural:
 \begin{centrado}
@@ -409,7 +406,7 @@ insert x = recr [x] (\y ys rec -> if x<y then (x:y:ys) else (y:rec))
 	\end{minted}
 \end{centrado}
 
-\subsubsection{Divide \& Conquer}
+\subsubsection{Divide \texorpdfstring{\&}{and} Conquer}
 La técnica de Divide \& Conquer consiste en dividir un problema en problemas más fáciles de resolver y, luego, combinando los resultados parciales, obtener un resultado general. En este caso, \haskell{DivideConquer} es un tipo de función, osea que define una familia de funciones que toman como parámetro 4 funciones y un elemento de tipo \texttt{a} y devuelve un valor de tipo \texttt{b}:
 \begin{centrado}
 	\begin{minted}[breaklines]{haskell}
